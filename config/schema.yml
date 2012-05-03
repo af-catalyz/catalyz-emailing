@@ -1,0 +1,136 @@
+propel:
+  contact:
+    id:
+    first_name:         {type: varchar(255) }
+    last_name:          {type: varchar(255) }
+    company:            {type: varchar(255) }
+    email:              {type: varchar(255), required: true, index: unique }
+    status:             {type: integer }
+    external_reference: {type: integer }
+    custom1:            {type: varchar(255) }
+    custom2:            {type: varchar(255) }
+    custom3:            {type: varchar(255) }
+    custom4:            {type: varchar(255) }
+    custom5:            {type: varchar(255) }
+    custom6:            {type: varchar(255) }
+    custom7:            {type: varchar(255) }
+    custom8:            {type: varchar(255) }
+    custom9:            {type: varchar(255) }
+    custom10:           {type: varchar(255) }
+    created_at:
+    updated_at:
+
+  contact_group:
+    id:
+    name:               {type: varchar(255) }
+    is_test_group:      {type: boolean, default: false }
+    legend:             { type: CLOB}
+    created_at:
+    updated_at:
+
+  contact_contact_group:
+    contact_id:         { type: integer, primaryKey: true, foreignTable: contact, foreignReference: id, onDelete: cascade }
+    contact_group_id:   { type: integer, primaryKey: true, foreignTable: contact_group, foreignReference: id, onDelete: cascade }
+    created_at:
+    updated_at:
+
+  campaign:
+    id:
+    name:                     { type: varchar(255) }
+    commentaire:              { type: CLOB }
+    subject:                  { type: varchar(255) }
+    template_id:              { type: integer, foreignTable: campaign_template, foreignReference: id, onDelete: cascade }
+    content:                  { type: CLOB }
+    prepared_content:         { type: CLOB }
+    text_content:             { type: CLOB }
+    prepared_text_content:    { type: CLOB }
+    status:                   { type: integer }
+    from_name:                { type: varchar(255) }
+    from_email:               { type: varchar(255) }
+    scheduled_at:             { type: timestamp  }
+    schedule_type:            { type: integer }
+    test_type:                { type: integer }
+    test_user_list:           { type: longvarchar }
+    target:                   { type: CLOB }
+    reply_to_email:           { type: varchar(255) }
+    return_path_email:        { type: varchar(255) }
+    return_path_server:       { type: varchar(255) }
+    return_path_login:        { type: varchar(255) }
+    return_path_password:     { type: varchar(255) }
+    is_archived:              { type: integer, default: 0 }
+    google_analytics_enabled:   {type: boolean, default: 0 }
+    google_analytics_source:    { type: varchar(255) }
+    google_analytics_medium:    { type: varchar(255) }
+    google_analytics_campaign_type:  { type: integer }
+    google_analytics_campaign_content:  { type: varchar(255) }
+    google_analytics_content:   { type: varchar(255) }
+    litmus_test_id:             { type: varchar(255) }
+    created_at:
+    created_by:               { type: integer, foreignTable: sf_guard_user_profile, foreignReference: id, onDelete: cascade }
+    updated_at:
+
+  campaign_contact_group:
+    campaign_id:        { type: integer, primaryKey: true, foreignTable: campaign, foreignReference: id, onDelete: cascade }
+    contact_group_id:   { type: integer, primaryKey: true, foreignTable: contact_group, foreignReference: id, onDelete: cascade }
+
+  campaign_contact:
+    id:
+    campaign_id:        { type: integer, primaryKey: true, foreignTable: campaign, foreignReference: id, onDelete: cascade }
+    contact_id:         { type: integer, primaryKey: true, foreignTable: contact, foreignReference: id, onDelete: cascade }
+    sent_at:            { type: timestamp }
+    failed_sent_at:     { type: timestamp }
+    view_at:            { type: timestamp }
+    view_user_agent:    { type: varchar(255) }
+    clicked_at:         { type: timestamp }
+    unsubscribed_at:    { type: timestamp }
+    raison:             { type: CLOB }
+    unsubscribed_lists: { type: CLOB }
+    bounce_type:        { type: integer, default: <?php echo catalyzemailingHandlebouncesTask::BOUNCE_NONE; ?> }
+
+  campaign_contact_element:
+    id:
+    campaign_id:        { type: integer, primaryKey: true, foreignTable: campaign, foreignReference: id, onDelete: cascade }
+    contact_id:         { type: integer, primaryKey: true, foreignTable: contact,  foreignReference: id, onDelete: cascade }
+
+  campaign_contact_bounce:
+    id:
+    campaign_contact_id: { type: integer, foreignTable: campaign_contact, foreignReference: id, onDelete: cascade }
+    error_code:          { type: varchar(5) }
+    address:             { type: varchar(255) }
+    bounce_type:         { type: integer }
+    arrived_at:          { type: timestamp }
+    message:             { type: longvarchar }
+
+  campaign_template:
+    id:
+    name:                { type: varchar(255)}
+    preview_filename:    { type: varchar(255)}
+    class_name:          { type: varchar(255)}
+    template:            { type: CLOB}
+    external_id:         { type: integer }
+    initializer:         { type: varchar(255)}
+    is_archived:         { type: boolean, default: 0}
+    created_at:
+    updated_at:
+
+  campaign_link:
+    id:
+    campaign_id:            { type: integer, foreignTable: campaign, foreignReference: id, onDelete: cascade }
+    url:                    { type: longvarchar}
+    google_analytics_term:  { type: varchar(255)}
+    created_at:
+
+  campaign_click:
+    id:
+    campaign_link_id:    { type: integer, foreignTable: campaign_link, foreignReference: id, onDelete: cascade }
+    campaign_contact_id: { type: integer, foreignTable: campaign_contact, foreignReference: id, onDelete: cascade }
+    position:            { type: integer}
+    created_at:
+
+  sf_guard_user_profile:
+    _attributes: { phpName: sfGuardUserProfile }
+    id:
+    user_id:     { type: integer, foreignTable: sf_guard_user, foreignReference: id, required: true, onDelete: cascade }
+    first_name:  varchar(20)
+    last_name:   varchar(20)
+    email:    varchar(64)

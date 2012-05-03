@@ -44,20 +44,29 @@
 			    	</ul></li>
 
             </ul>
-		    <ul class="nav pull-right">
+		    <?php
+		    if ($sf_user->isAuthenticated()):
+					$profile = /*(sfGuardUserProfile)*/ $sf_user->getGuardUser()->getProfile();
+
+
+
+
+				 ?>
+				<ul class="nav pull-right">
 		    	<li class="dropdown">
 		    		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		    			<i class="icon-user  icon-white"></i>
-		    			S&eacute;bastien Hordeaux
+		    			<?php printf('%s %s', $profile->getFirstName(), $profile->getLastName()); ?>
 		    			<b class="caret"></b>
 		    		</a>
 			    	<ul class="dropdown-menu">
 			    		<li><a href="#"><i class="icon-cog"></i> Préférences</a></li>
 			    		<li class="divider"></li>
-			    		<li><a href="<?php echo url_for('@logout') ?>"><i class="icon-off"></i> Se d&eacute;connecter</a></li>
+			    		<li><a href="<?php echo url_for('@sf_guard_signout') ?>"><i class="icon-off"></i> Se d&eacute;connecter</a></li>
 			    	</ul>
 		    	</li>
 		    </ul>
+		    <?php endif ?>
             </div><!--/.nav-collapse -->
 
         </div>
