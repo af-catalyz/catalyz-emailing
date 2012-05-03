@@ -25,18 +25,13 @@
     <ul class="nav nav-tabs">
     <li class="active"><a href="#1" data-toggle="tab"><i class="icon-ok"></i> Enveloppe</a></li>
     <li><a href="#2" data-toggle="tab"><i class="icon-ok"></i> Message</a></li>
+    <li><a href="#6" data-toggle="tab"><i class="icon-remove"></i> Liens</a></li>
+    <li><a href="#7" data-toggle="tab"><i class="icon-remove"></i> Google Analytics</a></li>
+    <li><a href="#4" data-toggle="tab"><i class="icon-remove"></i> Anti-spam</a></li>
+    <li><a href="#4" data-toggle="tab"><i class="icon-remove"></i> Contrôle visuel</a></li>
     <li><a href="#3" data-toggle="tab"><i class="icon-remove"></i> Destinataires</a></li>
-    <li><a href="#4" data-toggle="tab"><i class="icon-remove"></i> Validation</a></li>
+    <li><a href="#8" data-toggle="tab"><i class="icon-remove"></i> Gestion des erreurs</a></li>
     <li><a href="#5" data-toggle="tab"><i class="icon-remove"></i> Envoi</a></li>
-    <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Configuration avanc&eacute;e <b class="caret"></b></a>
-              <ul class="dropdown-menu">
-                <li><a href="#dropdown1" data-toggle="tab">Liens</a></li>
-                <li><a href="#dropdown2" data-toggle="tab">Google Analytics</a></li>
-                <li class="divider"></li>
-                <li><a href="#dropdown2" data-toggle="tab">Return-Path</a></li>
-              </ul>
-            </li>
     </ul>
     <div class="tab-content">
     <div class="tab-pane active" id="1">
@@ -44,14 +39,14 @@
     <form class="form-horizontal">
 
 	    <fieldset>
-	    <legend>Sujet du message</legend>
+	    <legend>Objet du message</legend>
 	    <div class="control-group">
 	    <div class="controls">
 	    <input type="text" class="span6" id="input01">
 <span class="help-inline">
 	        <div class="btn-group">
     <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">
-    Insérer un champ dynamique
+    Insérer une valeur dynamique
     <span class="caret"></span>
     </a>
     <ul class="dropdown-menu">
@@ -63,7 +58,15 @@
 </span>
 
 
-	    <p class="help-block">Il est recommandé de ne pas dépasser 50 caractères en utilisant 4 à 5 mots.</p>
+	    <!--
+		<p class="help-block">Il est recommandé de ne pas dépasser 50 caractères en utilisant 4 à 5 mots.</p>
+		-->
+		<p class="help-block">Vous avez utilisé les objets suivants dans vos campagnes précédentes:</p>
+		<ul>
+			<li>Objet 1 <a href="" class="btn btn-mini">Réutiliser</a></li>
+			<li>Objet 2 <a href="" class="btn btn-mini">Réutiliser</a></li>
+			<li>Objet 3 <a href="" class="btn btn-mini">Réutiliser</a></li>
+		</ul>
 	    </div>
 
 	    </div>
@@ -87,6 +90,17 @@
 	    </div>
 	    </div>
 	    </fieldset>
+
+	    <div class="control-group">
+	    <div class="controls">
+		<p class="help-block">Vous avez utilisé les objets suivants dans vos campagnes précédentes:</p>
+		<ul>
+			<li>Nom &lt;email@domain.net&gt; <a href="" class="btn btn-mini">Réutiliser</a></li>
+			<li>Nom &lt;email@domain.net&gt; <a href="" class="btn btn-mini">Réutiliser</a></li>
+			<li>Nom &lt;email@domain.net&gt; <a href="" class="btn btn-mini">Réutiliser</a></li>
+		</ul>
+</div>
+</div>
 
 	    <div class="form-actions">
 		<input type="submit" value="Enregistrer" class="btn btn-primary" />

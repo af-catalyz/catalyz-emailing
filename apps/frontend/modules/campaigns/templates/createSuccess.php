@@ -22,49 +22,46 @@
     </div>
     </div>
 
+    <div class="control-group">
+    <label class="control-label" for="input01">Modèle</label>
+    <div class="controls">
 
-    <div class="tabbable tabs-left">
 
-    <ul class="nav nav-tabs ">
-    <li class="active"><a href="#1" data-toggle="tab">Modèles prédéfinis</a></li>
-    <li><a href="#2" data-toggle="tab">Modèle externe</a></li>
-    </ul>
-    <div class="tab-content span9">
-    <div class="tab-pane active" id="1">
 
 		    <ul class="thumbnails">
 			    <li class="span3">
 			    <div class="thumbnail">
 			    <a href="" class="thumbnail"><img src="http://placehold.it/260x180" alt=""></a>
-			    <h5>Newsletter Agence Mai 2011 <span class="label label-success">Mode Assisté</span></h5>
+			    <h5><input type="radio" checked="checked" /> Newsletter Agence Mai 2011 <span class="label label-success pull-right">Mode Assisté</span></h5>
+			    <div style="clear:both"></div>
 			    </div>
 			    </li>
 			    <li class="span3">
 			    <div class="thumbnail">
 			    <a href="" class="thumbnail"><img src="http://placehold.it/260x180" alt=""></a>
-			    <h5>Newsletter Agence Mai 2011</h5>
+			    <h5><input type="radio" /> Newsletter Agence Mai 2011</h5>
 			    </div>
 			    </li>
 			    <li class="span3">
 			    <div class="thumbnail">
 			    <a href="" class="thumbnail"><img src="http://placehold.it/260x180" alt=""></a>
-			    <h5>Newsletter Agence 2010</h5>
+			    <h5><input type="radio" /> Newsletter Agence 2010</h5>
 			    </div>
 			    </li>
+</ul>
 
+		    <ul class="thumbnails">
 			    <li class="span3">
 			    <div class="thumbnail">
 			    <a href="" class="thumbnail"><img src="http://placehold.it/260x180" alt=""></a>
-			    <h5>Newsletter Agence 2009</h5>
+			    <h5><input type="radio" /> Newsletter Agence 2009</h5>
 			    </div>
 			    </li>
 
 
-    		</ul>
-    </div>
-    <div class="tab-pane active" id="2">
 
-    </div>
+</ul>
+			    <p>Si votre modèle n'apparait pas dans la liste ci-dessus, vous pouvez l'<a href="">importer à partir d'une archive</a> ou <a href="">depuis une adresse internet</a>.</p>
     </div>
     </div>
 

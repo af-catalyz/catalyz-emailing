@@ -35,7 +35,7 @@
 		    <h4>
 				Invitation PtiDej de la com 13 avril - RELANCE NO
 			</h4>
-		    <p><small>Créée le 04/04/2012 10:07 par Emmanuelle Tandonnet</small></p>
+		    <p><small>Créée le 04/04/2012 par Emmanuelle Tandonnet</small></p>
 		    <div class="btn-group">
 		    	<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
 			    	Action
@@ -57,7 +57,7 @@
 				Invitation PtiDej de la com 13 avril
 			</h4>
 
-			<p><small>Créée le 04/04/2012 10:07 par Emmanuelle Tandonnet</small></p>
+			<p><small>Créée le 04/04/2012 par Emmanuelle Tandonnet</small></p>
 			<p>bla biaon fdsqn dsqiun dusiqn disqun dsiu ndjqsn iudsqn uidnqs idsq</p>
 		    <div class="btn-group">
 		    	<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
@@ -79,7 +79,7 @@
 		    <h4>
 				Invitation PtiDej de la com 13 avril
 			</h4>
-		    <p><small>Créée le 04/04/2012 10:07 par Emmanuelle Tandonnet</small></p>
+		    <p><small>Créée le 04/04/2012 par Emmanuelle Tandonnet</small></p>
 		    <div class="btn-group">
 		    	<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
 			    	Action
@@ -137,7 +137,7 @@
 		    <h4>
 				Invitation PtiDej de la com 13 avril
 			</h4>
-		    <p><small>Créée le 04/04/2012 10:07 par Emmanuelle Tandonnet</small></p>
+		    <p><small>Créée le 04/04/2012 par Emmanuelle Tandonnet</small></p>
 		          <div class="progress">
     <div class="bar"
     style="width: 60%;"></div>
@@ -161,7 +161,7 @@
 		    <h4>
 				Invitation PtiDej de la com 13 avril
 			</h4>
-		    <p><small>Créée le 04/04/2012 10:07 par Emmanuelle Tandonnet</small></p>
+		    <p><small>Créée le 04/04/2012 par Emmanuelle Tandonnet</small></p>
 		    <div class="btn-group">
 		    	<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
 			    	Action
@@ -215,7 +215,7 @@
 		    <h4>
 				Invitation PtiDej de la com 13 avril - RELANCE NO
 			</h4>
-		    <p><small>Créée le 04/04/2012 10:07 par Emmanuelle Tandonnet</small></p>
+		    <p><small>Créée le 04/04/2012 par Emmanuelle Tandonnet</small></p>
 		    <div class="btn-group">
 		    	<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
 			    	Action
@@ -235,7 +235,7 @@
 		    <h4>
 				Invitation PtiDej de la com 13 avril
 			</h4>
-		    <p><small>Créée le 04/04/2012 10:07 par Emmanuelle Tandonnet</small></p>
+		    <p><small>Créée le 04/04/2012 par Emmanuelle Tandonnet</small></p>
 		    <div class="btn-group">
 		    	<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
 			    	Action
@@ -255,7 +255,7 @@
 		    <h4>
 				Invitation PtiDej de la com 13 avril
 			</h4>
-		    <p><small>Créée le 04/04/2012 10:07 par Emmanuelle Tandonnet</small></p>
+		    <p><small>Créée le 04/04/2012 par Emmanuelle Tandonnet</small></p>
 		    <div class="btn-group">
 		    	<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
 			    	Action
