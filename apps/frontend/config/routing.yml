@@ -40,14 +40,17 @@ campaigns:
   url:   /campaigns
   param: { module: campaigns, action: index }
 
-campaigns_create:
+campaigns_do_create:
   url:   /campaigns/create
   param: { module: campaigns, action: create }
+
+campaigns_handle_create:
+  url:   /campaigns/handle/create
+  param: { module: campaigns, action: handleCreate }
 
 campaigns_archived:
   url:   /campaigns/archived
   param: { module: campaigns, action: archived }
-
 
 settings:
   url:   /settings
@@ -82,6 +85,8 @@ campaign_do_copy:
 campaign_handle_copy:
   url:   /campaign/handle/copy
   param: { module: campaign, action: handleCopy }
+
+
 
 # generic rules
 # please, remove them by adding more specific rules

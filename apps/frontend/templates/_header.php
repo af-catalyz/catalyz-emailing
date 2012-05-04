@@ -18,7 +18,7 @@
 		    			Campagnes<b class="caret"></b>
 		    		</a>
 			    	<ul class="dropdown-menu">
-			    		<li><a href="<?php echo url_for('@campaigns_create'); ?>">Créer une campagne</a></li>
+			    		<li><a href="<?php echo url_for('@campaigns_do_create'); ?>">Créer une campagne</a></li>
 				    	<li><a href="<?php echo url_for('@campaigns'); ?>" class="nav-header">Campagnes en préparation</a></li>
 			    		<li><a href="<?php echo url_for('@campaign_index?slug=campaign-1'); ?>">Campagne 1</a></li>
 			    		<li><a href="#">Campagne 2</a></li>

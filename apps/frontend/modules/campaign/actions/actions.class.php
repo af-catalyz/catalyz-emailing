@@ -103,7 +103,4 @@ class campaignActions extends sfActions
 
 		$this->setTemplate('copy');
 	}
-
-
-
 }

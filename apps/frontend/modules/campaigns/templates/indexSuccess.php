@@ -1,5 +1,5 @@
 <div class="tabbable">
-  <?php printf('<div class="pull-right"><a href="%s" class="btn btn-primary">%s</a></div>', url_for('@campaigns_create'), __('Créer une campagne')) ?>
+  <?php printf('<div class="pull-right"><a href="%s" class="btn btn-primary">%s</a></div>', url_for('@campaigns_do_create'), __('Créer une campagne')) ?>
 
 	<ul class="nav nav-tabs">
 		<?php
