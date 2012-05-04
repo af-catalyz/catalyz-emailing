@@ -3,8 +3,11 @@ class campaignsComponents extends sfComponents
 {
 	public function executeArchivedCampaigns()
 	{
-    $this->filters = array();
     $this->campaigns = array();
+
+		$this->filters = array();
+		$this->filters['models'] = array();
+		$this->filters['years'] = array();
 
     $criteria = new Criteria();
     $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
@@ -20,8 +23,11 @@ class campaignsComponents extends sfComponents
 
 	public function executeSendCampaigns()
 	{
-    $this->filters = array();
     $this->campaigns = array();
+
+		$this->filters = array();
+    $this->filters['models'] = array();
+    $this->filters['years'] = array();
 
     $criteria = new Criteria();
     $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
@@ -43,6 +49,7 @@ class campaignsComponents extends sfComponents
     $criteria = new Criteria();
     $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
     $criteria->add(CampaignTemplatePeer::IS_ARCHIVED,0);
+		$criteria->add(CampaignPeer::IS_ARCHIVED, 0);
     $criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::LESS_THAN);
 
     foreach(CampaignPeer::doSelectJoinAll($criteria) as /*(Campaign)*/$campaign) {

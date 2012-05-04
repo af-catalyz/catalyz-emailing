@@ -14,7 +14,16 @@ if (count($campaigns)>0) {
             printf('<p>%s</p>', nl2br($campaign->getCommentaire()));
         }
         echo '<div class="btn-group">';
-        printf('<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">Action<span class="caret"></span></a><ul class="dropdown-menu"><li><a href="#">Dupliquer</a></li><li><a href="#">Supprimer</a></li></ul>');
+        printf('<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">Action<span class="caret"></span></a><ul class="dropdown-menu"><li>
+<a href="%s">Restaurer</a></li>
+<li><a href="%s">Dupliquer</a></li>
+<li>%s</li>
+</ul>',
+url_for('@campaign_do_unarchive?slug='.$campaign->getId()),
+url_for('@campaign_do_copy?slug='.$campaign->getId()),
+link_to('Supprimer', '@campaign_do_delete?slug='.$campaign->getId(), array('post' => true, 'confirm' => sprintf('Vous êtes sur le point de supprimer la campagne "%s" et toutes les statistiques associées.\nCette action est définitive et ne peut pas être annulée.\n\nCliquez sur OK pour confirmer la suppression définitive de cette campagne.\nCliquez sur Annuler pour conserver cette campagne.', $campaign->getName())))
+
+				);
         echo '</div></div></li>';
     }
 

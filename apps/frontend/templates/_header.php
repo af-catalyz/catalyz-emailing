@@ -56,7 +56,7 @@
 		    	<li class="dropdown">
 		    		<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		    			<i class="icon-user  icon-white"></i>
-		    			<?php printf('%s %s', $profile->getFirstName(), $profile->getLastName()); ?>
+		    			<?php printf('%s', $profile->getFullName()); ?>
 		    			<b class="caret"></b>
 		    		</a>
 			    	<ul class="dropdown-menu">

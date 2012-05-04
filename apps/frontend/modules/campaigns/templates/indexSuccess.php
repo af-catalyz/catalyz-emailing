@@ -18,29 +18,56 @@
 	</ul>
 
 	<div class="tab-content">
+
+	<?php if ($sf_user->hasFlash('notice_success')) {
+		renderSuccessFlash($sf_user->getFlash('notice_success'));
+	} ?>
+
 		<?php printf('<div class="tab-pane%s" id="pane_1">', $selectedTab==1?' active':'') ?>
-
-				<div class="alert alert-success">
-					<a class="close" data-dismiss="alert">×</a>
-					<?php
-					printf('<h4 class="alert-heading">%s</h4>', __('Campagne archivée'));
-					 ?>
-					La campagne <a href="">Copie de Invitation PtiDej de la com 13 avril </a> a été archivée. <a class="btn btn-mini">annuler</a>
-				</div>
-
-				<?php include_component('campaigns', 'preparedCampaigns') ?>
-
+			<?php include_component('campaigns', 'preparedCampaigns') ?>
 		</div>
 
 		<?php printf('<div class="tab-pane%s" id="pane_2">', $selectedTab==2?' active':'') ?>
-
 			<?php include_component('campaigns', 'sendCampaigns') ?>
 		</div>
 
 		<?php printf('<div class="tab-pane%s" id="pane_3">', $selectedTab==3?' active':'') ?>
-
 			<?php include_component('campaigns', 'archivedCampaigns') ?>
     </div>
   </div>
 </div>
 
+<script type="text/javascript">
+/* <![CDATA[ */
+
+$(document).ready(function() {
+	adaptHeight();
+
+	$('a[data-toggle="tab"]').on('shown', function (e) {
+		element = e.target // activated tab
+		related = e.relatedTarget // previous tab
+
+//		alert(element);
+//		alert(related);
+
+		adaptHeight();
+	})
+});
+
+
+//change li height to avoid floating problems
+function adaptHeight(){
+	var max = 0;
+
+	//on ne prend que ceux qui sont visible(ceux du tab en cours)
+	$('.top_li:visible div.thumbnail').each(function(index) {
+		max = Math.max($(this).height(), max);
+	});
+
+	$('.top_li:visible div.thumbnail').height(max);
+}
+
+
+
+/* ]]> */
+</script>

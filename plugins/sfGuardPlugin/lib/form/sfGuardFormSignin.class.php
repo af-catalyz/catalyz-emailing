@@ -5,8 +5,8 @@ class sfGuardFormSignin extends BasesfGuardFormSignin
   public function configure()
   {
     $this->setWidgets(array(
-      'username' => new sfWidgetFormInput(),
-      'password' => new sfWidgetFormInput(array('type' => 'password')),
+      'username' => new sfWidgetFormInput(array(),array('class'=>'input-large')),
+      'password' => new sfWidgetFormInput(array('type' => 'password'),array('class'=>'input-large')),
       'remember' => new sfWidgetFormInputCheckbox(),
     ));
 

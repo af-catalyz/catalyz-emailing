@@ -58,11 +58,30 @@ campaign_statistics_summary:
   param: { module: statistics, action: index }
 
 
+#CAMPAIGN
 campaign_index:
   url:   /campaign/:slug
   param: { module: campaign, action: index }
 
+campaign_do_archive:
+  url:   /campaign/archive/:slug
+  param: { module: campaign, action: archive }
 
+campaign_do_unarchive:
+  url:   /campaign/unarchive/:slug
+  param: { module: campaign, action: unarchive }
+
+campaign_do_delete:
+  url:   /campaign/delete/:slug
+  param: { module: campaign, action: delete }
+
+campaign_do_copy:
+  url:   /campaign/copy/:slug
+  param: { module: campaign, action: copy }
+
+campaign_handle_copy:
+  url:   /campaign/handle/copy
+  param: { module: campaign, action: handleCopy }
 
 # generic rules
 # please, remove them by adding more specific rules
