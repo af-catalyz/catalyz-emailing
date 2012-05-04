@@ -12,9 +12,12 @@ abstract class BaseContactGroupFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
+      'slug'                        => new sfWidgetFormFilterInput(),
       'name'                        => new sfWidgetFormFilterInput(),
       'is_test_group'               => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
       'legend'                      => new sfWidgetFormFilterInput(),
+      'is_archived'                 => new sfWidgetFormChoice(array('choices' => array('' => 'yes or no', 1 => 'yes', 0 => 'no'))),
+      'color'                       => new sfWidgetFormFilterInput(),
       'created_at'                  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'updated_at'                  => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'campaign_contact_group_list' => new sfWidgetFormPropelChoice(array('model' => 'Campaign', 'add_empty' => true)),
@@ -22,9 +25,12 @@ abstract class BaseContactGroupFormFilter extends BaseFormFilterPropel
     ));
 
     $this->setValidators(array(
+      'slug'                        => new sfValidatorPass(array('required' => false)),
       'name'                        => new sfValidatorPass(array('required' => false)),
       'is_test_group'               => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
       'legend'                      => new sfValidatorPass(array('required' => false)),
+      'is_archived'                 => new sfValidatorChoice(array('required' => false, 'choices' => array('', 1, 0))),
+      'color'                       => new sfValidatorPass(array('required' => false)),
       'created_at'                  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'updated_at'                  => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'campaign_contact_group_list' => new sfValidatorPropelChoice(array('model' => 'Campaign', 'required' => false)),
@@ -97,9 +103,12 @@ abstract class BaseContactGroupFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'                          => 'Number',
+      'slug'                        => 'Text',
       'name'                        => 'Text',
       'is_test_group'               => 'Boolean',
       'legend'                      => 'Text',
+      'is_archived'                 => 'Boolean',
+      'color'                       => 'Text',
       'created_at'                  => 'Date',
       'updated_at'                  => 'Date',
       'campaign_contact_group_list' => 'ManyKey',

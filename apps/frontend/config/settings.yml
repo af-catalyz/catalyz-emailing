@@ -44,7 +44,7 @@ all:
     enabled_modules:      [default, sfGuardGroup, sfGuardUser, sfGuardPermission, sfGuardAuth]
 
     i18n:                   true
-    standard_helpers:       [Partial, Cache, I18N]
+    standard_helpers:       [Partial, Cache, I18N, cz]
     default_culture:        fr
 
     login_module:           sfGuardAuth

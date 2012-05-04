@@ -13,6 +13,7 @@ DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255),
 	`first_name` VARCHAR(255),
 	`last_name` VARCHAR(255),
 	`company` VARCHAR(255),
@@ -45,9 +46,12 @@ DROP TABLE IF EXISTS `contact_group`;
 CREATE TABLE `contact_group`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255),
 	`name` VARCHAR(255),
 	`is_test_group` TINYINT default 0,
 	`legend` LONGTEXT,
+	`is_archived` TINYINT default 0,
+	`color` VARCHAR(255),
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
@@ -88,6 +92,7 @@ DROP TABLE IF EXISTS `campaign`;
 CREATE TABLE `campaign`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255),
 	`name` VARCHAR(255),
 	`commentaire` LONGTEXT,
 	`subject` VARCHAR(255),
@@ -249,6 +254,7 @@ DROP TABLE IF EXISTS `campaign_template`;
 CREATE TABLE `campaign_template`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`slug` VARCHAR(255),
 	`name` VARCHAR(255),
 	`preview_filename` VARCHAR(255),
 	`class_name` VARCHAR(255),

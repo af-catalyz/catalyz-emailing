@@ -12,6 +12,7 @@ abstract class BaseContactFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
+      'slug'                          => new sfWidgetFormFilterInput(),
       'first_name'                    => new sfWidgetFormFilterInput(),
       'last_name'                     => new sfWidgetFormFilterInput(),
       'company'                       => new sfWidgetFormFilterInput(),
@@ -36,6 +37,7 @@ abstract class BaseContactFormFilter extends BaseFormFilterPropel
     ));
 
     $this->setValidators(array(
+      'slug'                          => new sfValidatorPass(array('required' => false)),
       'first_name'                    => new sfValidatorPass(array('required' => false)),
       'last_name'                     => new sfValidatorPass(array('required' => false)),
       'company'                       => new sfValidatorPass(array('required' => false)),
@@ -150,6 +152,7 @@ abstract class BaseContactFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'                            => 'Number',
+      'slug'                          => 'Text',
       'first_name'                    => 'Text',
       'last_name'                     => 'Text',
       'company'                       => 'Text',

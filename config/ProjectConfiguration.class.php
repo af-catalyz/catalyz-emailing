@@ -18,5 +18,6 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfThumbnailPlugin');
     $this->enablePlugins('sfPhpExcelPlugin');
     $this->enablePlugins('sfFormExtraPlugin');
+    $this->enablePlugins('sfPropelActAsSluggableBehaviorPlugin');
   }
 }

@@ -24,9 +24,9 @@
 			    		<li><a href="#">Campagne 2</a></li>
 			    		<li><a href="#">Campagne 3</a></li>
 			    		<li><a href="<?php echo url_for('@campaign_index?slug=campaign-1'); ?>">Copie de Copie de Invitation PtiDej de la com 13 avril - RELANCE NO</a></li>
-				    	<li><a href="#" class="nav-header">Campagnes envoyées</a></li>
+				    	<li><a href="<?php echo url_for('@campaigns?type=2'); ?>" class="nav-header">Campagnes envoyées</a></li>
 			    		<li><a href="<?php echo url_for('@campaign_index?slug=campaign-1'); ?>">Campagne 1</a></li>
-			    		<li><a href="<?php echo url_for('@campaigns_archived'); ?>" class="nav-header">Campagnes archivées</a></li>
+			    		<li><a href="<?php echo url_for('@campaigns?type=3'); ?>" class="nav-header">Campagnes archivées</a></li>
 				    	<li class="divider"></li>
 			    		<li><a href="#">Gestion des modèles de campagnes</a></li>
 			    	</ul>

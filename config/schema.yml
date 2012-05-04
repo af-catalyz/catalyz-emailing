@@ -1,6 +1,7 @@
 propel:
   contact:
     id:
+    slug:               {type: varchar(255) }
     first_name:         {type: varchar(255) }
     last_name:          {type: varchar(255) }
     company:            {type: varchar(255) }
@@ -22,9 +23,12 @@ propel:
 
   contact_group:
     id:
-    name:               {type: varchar(255) }
-    is_test_group:      {type: boolean, default: false }
-    legend:             { type: CLOB}
+    slug:                { type: varchar(255) }
+    name:                {type: varchar(255) }
+    is_test_group:       {type: boolean, default: false }
+    legend:              { type: CLOB}
+    is_archived:         { type: boolean, default: 0}
+    color:               {type: varchar(255) }
     created_at:
     updated_at:
 
@@ -36,6 +40,7 @@ propel:
 
   campaign:
     id:
+    slug:                     { type: varchar(255) }
     name:                     { type: varchar(255) }
     commentaire:              { type: CLOB }
     subject:                  { type: varchar(255) }
@@ -103,6 +108,7 @@ propel:
 
   campaign_template:
     id:
+    slug:                     { type: varchar(255) }
     name:                { type: varchar(255)}
     preview_filename:    { type: varchar(255)}
     class_name:          { type: varchar(255)}

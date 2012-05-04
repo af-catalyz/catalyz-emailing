@@ -12,6 +12,7 @@ abstract class BaseCampaignTemplateFormFilter extends BaseFormFilterPropel
   public function setup()
   {
     $this->setWidgets(array(
+      'slug'             => new sfWidgetFormFilterInput(),
       'name'             => new sfWidgetFormFilterInput(),
       'preview_filename' => new sfWidgetFormFilterInput(),
       'class_name'       => new sfWidgetFormFilterInput(),
@@ -24,6 +25,7 @@ abstract class BaseCampaignTemplateFormFilter extends BaseFormFilterPropel
     ));
 
     $this->setValidators(array(
+      'slug'             => new sfValidatorPass(array('required' => false)),
       'name'             => new sfValidatorPass(array('required' => false)),
       'preview_filename' => new sfValidatorPass(array('required' => false)),
       'class_name'       => new sfValidatorPass(array('required' => false)),
@@ -51,6 +53,7 @@ abstract class BaseCampaignTemplateFormFilter extends BaseFormFilterPropel
   {
     return array(
       'id'               => 'Number',
+      'slug'             => 'Text',
       'name'             => 'Text',
       'preview_filename' => 'Text',
       'class_name'       => 'Text',

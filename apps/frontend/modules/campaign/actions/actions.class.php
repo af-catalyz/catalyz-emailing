@@ -17,6 +17,8 @@ class campaignActions extends sfActions
   */
   public function executeIndex(sfWebRequest $request)
   {
+  	$this->forward404Unless($this->campaign = CampaignPeer::retrieveByPk($request->getParameter('slug')));
+
     return sfView::SUCCESS;
   }
 }

@@ -15,6 +15,7 @@ abstract class BaseCampaignForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'                                => new sfWidgetFormInputHidden(),
+      'slug'                              => new sfWidgetFormInputText(),
       'name'                              => new sfWidgetFormInputText(),
       'commentaire'                       => new sfWidgetFormTextarea(),
       'subject'                           => new sfWidgetFormInputText(),
@@ -54,6 +55,7 @@ abstract class BaseCampaignForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'                                => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
+      'slug'                              => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'name'                              => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'commentaire'                       => new sfValidatorString(array('required' => false)),
       'subject'                           => new sfValidatorString(array('max_length' => 255, 'required' => false)),

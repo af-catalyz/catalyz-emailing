@@ -15,6 +15,7 @@ abstract class BaseContactForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'                            => new sfWidgetFormInputHidden(),
+      'slug'                          => new sfWidgetFormInputText(),
       'first_name'                    => new sfWidgetFormInputText(),
       'last_name'                     => new sfWidgetFormInputText(),
       'company'                       => new sfWidgetFormInputText(),
@@ -40,6 +41,7 @@ abstract class BaseContactForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'                            => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
+      'slug'                          => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'first_name'                    => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'last_name'                     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'company'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),

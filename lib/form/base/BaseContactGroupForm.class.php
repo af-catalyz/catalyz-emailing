@@ -15,9 +15,12 @@ abstract class BaseContactGroupForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'                          => new sfWidgetFormInputHidden(),
+      'slug'                        => new sfWidgetFormInputText(),
       'name'                        => new sfWidgetFormInputText(),
       'is_test_group'               => new sfWidgetFormInputCheckbox(),
       'legend'                      => new sfWidgetFormTextarea(),
+      'is_archived'                 => new sfWidgetFormInputCheckbox(),
+      'color'                       => new sfWidgetFormInputText(),
       'created_at'                  => new sfWidgetFormDateTime(),
       'updated_at'                  => new sfWidgetFormDateTime(),
       'campaign_contact_group_list' => new sfWidgetFormPropelChoice(array('multiple' => true, 'model' => 'Campaign')),
@@ -26,9 +29,12 @@ abstract class BaseContactGroupForm extends BaseFormPropel
 
     $this->setValidators(array(
       'id'                          => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
+      'slug'                        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'name'                        => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'is_test_group'               => new sfValidatorBoolean(array('required' => false)),
       'legend'                      => new sfValidatorString(array('required' => false)),
+      'is_archived'                 => new sfValidatorBoolean(array('required' => false)),
+      'color'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'created_at'                  => new sfValidatorDateTime(array('required' => false)),
       'updated_at'                  => new sfValidatorDateTime(array('required' => false)),
       'campaign_contact_group_list' => new sfValidatorPropelChoice(array('multiple' => true, 'model' => 'Campaign', 'required' => false)),

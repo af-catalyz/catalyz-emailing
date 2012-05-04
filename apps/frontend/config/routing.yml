@@ -45,8 +45,9 @@ campaigns_create:
   param: { module: campaigns, action: create }
 
 campaigns_archived:
-  url:   /campaigns
+  url:   /campaigns/archived
   param: { module: campaigns, action: archived }
+
 
 settings:
   url:   /settings
