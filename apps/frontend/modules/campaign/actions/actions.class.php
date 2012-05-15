@@ -87,7 +87,8 @@ class campaignActions extends sfActions
 			$newCampaign->setScheduleType(Campaign::SCHEDULING_NONE);
 			$newCampaign->setScheduledAt(null);
 			$newCampaign->setStatus(Campaign::STATUS_DRAFT);
-			$newCampaign->setCreatedAt(mktime());
+			$newCampaign->setCreatedAt(time());
+			$newCampaign->setUpdatedAt(time());
 			$newCampaign->setCreatedBy($this->getUser()->getGuardUser()->getProfile()->getId());
 			$newCampaign->setIsArchived(false);
 			$newCampaign->save();
@@ -97,10 +98,16 @@ class campaignActions extends sfActions
 			);
 
 			$this->getUser()->setFlash('notice_success', $message);
-			$this->redirect('@campaigns');
+			$this->redirect('@campaign_index?slug='.$newCampaign->getId());
 			exit;
 		}
 
 		$this->setTemplate('copy');
+	}
+
+	public function executeEdit($request)
+	{
+		$this->forward404Unless($this->campaign = CampaignPeer::retrieveByPk($request->getParameter('slug')));
+
 	}
 }

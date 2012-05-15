@@ -2,6 +2,12 @@
 
 class campaignsActions extends sfActions
 {
+	public function preExecute()
+	{
+		parent::preExecute();
+		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url' );
+	}
+
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->selectedTab = $request->getParameter('type', 1);
@@ -20,7 +26,6 @@ class campaignsActions extends sfActions
 
 	public function executeHandleCreate($request)
 	{
-		die('dans le post');
 		$this->forward404Unless($request->isMethod('post'));
 
 		$this->form = new CampaignForm($campaign = CampaignPeer::retrieveByPk($request->getParameter('id')));
@@ -37,7 +42,7 @@ class campaignsActions extends sfActions
 			} else {
 				$campaign = $this->form->save();
 				sfContext::getInstance()->getUser()->setFlash('info', 'La campagne a été créée, vous pouvez désormais la configurer.');
-				$this->redirect('campaign/edit?id=' . $campaign->getId());
+				$this->redirect('@campaign_index?slug='.$campaign->getId());
 				exit;
 			}
 		}

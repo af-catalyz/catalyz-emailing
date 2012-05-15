@@ -19,9 +19,7 @@
 
 	<div class="tab-content">
 
-	<?php if ($sf_user->hasFlash('notice_success')) {
-		renderSuccessFlash($sf_user->getFlash('notice_success'));
-	} ?>
+	<?php include_partial('global/flashMessage') ?>
 
 		<?php printf('<div class="tab-pane%s" id="pane_1">', $selectedTab==1?' active':'') ?>
 			<?php include_component('campaigns', 'preparedCampaigns') ?>
@@ -40,15 +38,14 @@
 <script type="text/javascript">
 /* <![CDATA[ */
 
-$(document).ready(function() {
+$(window).load(function(){
 	adaptHeight();
+});
 
+$(document).ready(function() {
 	$('a[data-toggle="tab"]').on('shown', function (e) {
 		element = e.target // activated tab
 		related = e.relatedTarget // previous tab
-
-//		alert(element);
-//		alert(related);
 
 		adaptHeight();
 	})

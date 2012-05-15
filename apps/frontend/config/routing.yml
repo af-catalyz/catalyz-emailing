@@ -86,7 +86,9 @@ campaign_handle_copy:
   url:   /campaign/handle/copy
   param: { module: campaign, action: handleCopy }
 
-
+campaign_do_edit:
+  url:   /campaign/edit/:slug
+  param: { module: campaign, action: edit }
 
 # generic rules
 # please, remove them by adding more specific rules

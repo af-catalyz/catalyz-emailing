@@ -43,6 +43,6 @@
 	      <p class="pull-right"><small>Copyright &copy; 2010 - <?php echo date('Y'); ?> <a href="http://www.catalyz.fr/" target="_blank">Catalyz EURL</a> - Tous droits réservés</small></p>
 	    </footer>
 	</div> <!-- /container -->
-
+			<?php include_partial('global/js') ?>
   </body>
 </html>
