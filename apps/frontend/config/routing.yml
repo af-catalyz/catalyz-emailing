@@ -32,10 +32,6 @@ homepage:
   url:   /home
   param: { module: homepage, action: index }
 
-contacts:
-  url:   /contacts
-  param: { module: contacts, action: index }
-
 campaigns:
   url:   /campaigns
   param: { module: campaigns, action: index }
@@ -89,6 +85,23 @@ campaign_handle_copy:
 campaign_do_edit:
   url:   /campaign/edit/:slug
   param: { module: campaign, action: edit }
+
+#CONTACTS
+contacts:
+  url:   /contacts
+  param: { module: contacts, action: index }
+
+contact_do_delete:
+  url:   /contact/delete/:slug
+  param: { module: contacts, action: delete }
+
+contact_show:
+  url:   /contact/show/:slug
+  param: { module: contacts, action: show }
+
+contact_edit:
+  url:   /contact/edit/:slug
+  param: { module: contacts, action: edit }
 
 # generic rules
 # please, remove them by adding more specific rules

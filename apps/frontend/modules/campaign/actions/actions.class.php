@@ -18,20 +18,21 @@ class campaignActions extends sfActions
 
   public function executeIndex(sfWebRequest $request)
   {
-  	$this->forward404Unless($this->campaign = CampaignPeer::retrieveByPk($request->getParameter('slug')));
+  	$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
     return sfView::SUCCESS;
   }
 
 	public function executeArchive($request)
 	{
-		$this->forward404Unless($this->campaign = CampaignPeer::retrieveByPk($request->getParameter('slug')));
+		$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 		$this->campaign->setIsArchived(true);
 		$this->campaign->save();
 
-		$message = sprintf('<h4 class="alert-heading">Campagne archivée</h4><p>La campagne "<a href="javascript://">%s</a>" a été archivée. <a href="%s" class="btn btn-mini">annuler</a></p>',
+		$message = sprintf('<h4 class="alert-heading">Campagne archivée</h4><p>La campagne "<a href="%s">%s</a>" a été archivée. <a href="%s" class="btn btn-mini">annuler</a></p>',
+			url_for('@campaign_index?slug='.$this->campaign->getSlug()),
 			$this->campaign->getName(),
-			url_for('@campaign_do_unarchive?slug='.$this->campaign->getId())
+			url_for('@campaign_do_unarchive?slug='.$this->campaign->getSlug())
 			);
 
 		$this->getUser()->setFlash('notice_success', $message);
@@ -40,13 +41,14 @@ class campaignActions extends sfActions
 
 	public function executeUnarchive($request)
 	{
-		$this->forward404Unless($this->campaign = CampaignPeer::retrieveByPk($request->getParameter('slug')));
+		$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 		$this->campaign->setIsArchived(false);
 		$this->campaign->save();
 
-		$message = sprintf('<h4 class="alert-heading">Campagne réstaurée</h4><p>La campagne "<a href="javascript://">%s</a>" a été restaurée. <a href="%s" class="btn btn-mini">annuler</a></p>',
+		$message = sprintf('<h4 class="alert-heading">Campagne réstaurée</h4><p>La campagne "<a href="%s">%s</a>" a été restaurée. <a href="%s" class="btn btn-mini">annuler</a></p>',
+			url_for('@campaign_index?slug='.$this->campaign->getSlug()),
 			$this->campaign->getName(),
-			url_for('@campaign_do_archive?slug='.$this->campaign->getId())
+			url_for('@campaign_do_archive?slug='.$this->campaign->getSlug())
 			);
 
 		$this->getUser()->setFlash('notice_success', $message);
@@ -55,7 +57,7 @@ class campaignActions extends sfActions
 
 	public function executeDelete($request)
 	{
-		$this->forward404Unless($campaign = CampaignPeer::retrieveByPk($request->getParameter('slug')));
+		$this->forward404Unless($campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 		$message = sprintf('<h4 class="alert-heading">Campagne supprimée</h4><p>La campagne "%s" a été supprimée.</p>',$campaign->getName());
 		$this->getUser()->setFlash('notice_success', $message);
 		$campaign->delete();
@@ -65,7 +67,7 @@ class campaignActions extends sfActions
 
   public function executeCopy($request)
   {
-    $this->forward404Unless($originalCampaign = CampaignPeer::retrieveByPK($request->getParameter('slug')));
+    $this->forward404Unless($originalCampaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
     $this->form = new CampaignCopyForm($originalCampaign);
     return sfView::SUCCESS;
   }
@@ -75,7 +77,7 @@ class campaignActions extends sfActions
 		$this->forward404Unless($request->isMethod('post'));
 
 		$formValues = $request->getParameter('campaign_copy', array());
-		$originalCampaign = CampaignPeer::retrieveByPK($formValues['copy_from']);
+		$originalCampaign = CampaignPeer::retrieveBySlug($formValues['copy_from']);
 		$this->forward404Unless($originalCampaign);
 
 		$this->form = new CampaignCopyForm($originalCampaign);
@@ -107,7 +109,7 @@ class campaignActions extends sfActions
 
 	public function executeEdit($request)
 	{
-		$this->forward404Unless($this->campaign = CampaignPeer::retrieveByPk($request->getParameter('slug')));
+		$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
 	}
 }

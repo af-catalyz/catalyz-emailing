@@ -69,6 +69,10 @@ class Campaign extends BaseCampaign {
 		return FALSE;
 	}
 
+	public function __toString(){
+		return $this->name;
+	}
+
 	function __construct()
 	{
 		$this->setStatus(self::STATUS_DRAFT);

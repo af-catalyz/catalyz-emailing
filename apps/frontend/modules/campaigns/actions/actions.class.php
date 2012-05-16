@@ -28,7 +28,7 @@ class campaignsActions extends sfActions
 	{
 		$this->forward404Unless($request->isMethod('post'));
 
-		$this->form = new CampaignForm($campaign = CampaignPeer::retrieveByPk($request->getParameter('id')));
+		$this->form = new CampaignForm($campaign = CampaignPeer::retrieveBySlug($request->getParameter('id')));
 
 		$this->form->bind($request->getParameter('campaign'), $request->getFiles('campaign'));
 		if ($this->form->isValid()) {
