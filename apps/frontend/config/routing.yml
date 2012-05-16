@@ -86,6 +86,12 @@ campaign_do_edit:
   url:   /campaign/edit/:slug
   param: { module: campaign, action: edit }
 
+campaign_do_resend:
+  url:   /campaign/resend/:slug
+  param:
+    module: campaign
+    action: resend
+
 #CONTACTS
 contacts:
   url:   /contacts
@@ -102,6 +108,24 @@ contact_show:
 contact_edit:
   url:   /contact/edit/:slug
   param: { module: contacts, action: edit }
+
+contact_reintroduce:
+  url: /contact/reintroduce/slug/:slug
+  param:
+    module: contacts
+    action: reintroduce
+
+contact_display_clicks:
+  url: /contact/displayClicks/id/:id/campaignId/:campaignId
+  param:
+    module: contacts
+    action: displayClicks
+
+contact_do_unsubscribe:
+  url: /contact/unsubscribe/slug/:id/campaignId/:campaignId
+  param:
+    module: contacts
+    action: unsubscribe
 
 # generic rules
 # please, remove them by adding more specific rules

@@ -33,6 +33,23 @@ class ContactGroup extends BaseContactGroup {
 		return $this->name;
 	}
 
+	public function getCommentPopup(){
+		if (trim($this->getLegend()) != '') {
+			return sprintf('<a rel="tooltip-campaign-comment" href="#" data-original-title="%s"><i class="icon-question-sign"></i></a>', nl2br($this->getLegend()));
+		}
+
+		return FALSE;
+	}
+
+	public function getColoredName($floating = false){
+		$style = '';
+		if ($this->getColor()) {
+			$style = $this->getColor();
+		}
+
+		return sprintf('<span%s class="label %s">%s</span>',$floating?' style="float: left; margin: 0 2px;"':'',$style, $this->getName());
+	}
+
 } // ContactGroup
 
 

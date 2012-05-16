@@ -40,8 +40,15 @@ class czValidatorPropelUniqueContact extends sfValidatorPropelUnique
 			return $values;
 		}
 
-		sfLoader::loadHelpers('Url');
-		sfContext::getInstance()->getUser()->setFlash('error', sprintf('Un contact existe déjà avec l\'adresse email %s, <a href="%s">cliquer ici pour modifier les informations de cet utilisateur</a>.', $object->getEmail(),  url_for('contact/edit?id='.$object->getId())) ,false);
+		$error_message = sprintf('<h4 class="alert-heading">Un contact existe déjà avec l\'email %s</h4>
+<p>Votre base de données ne peut pas contenir deux contacts différents avec la même adresse email.</p>
+<a href="%s" class="btn btn-danger">Modifier le contact existant</a>', $object->getEmail(),  url_for('@contact_edit?slug='.$object->getSlug()));
+
+		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url' );
+		sfContext::getInstance()->getUser()->setFlash('notice_error', $error_message ,false);
+
+
+
 
 		$error = new sfValidatorError($this, 'invalid', array('column' => implode(', ', $this->getOption('column'))));
 

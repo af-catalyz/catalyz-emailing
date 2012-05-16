@@ -10,6 +10,12 @@
  */
 class contactsActions extends sfActions
 {
+	public function preExecute()
+	{
+		parent::preExecute();
+		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url' );
+	}
+
  /**
   * Executes index action
   *
@@ -100,13 +106,25 @@ class contactsActions extends sfActions
 
 	public function executeShow(sfWebRequest $request)
 	{
-		$this->forward404Unless($this->contact = ContactPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$this->contact = ContactPeer::retrieveBySlug($request->getParameter('slug'));
+		$this->forward404Unless($this->contact);
+
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CONTACT_ID, $this->contact->getId());
+		$criteria->addJoin(CampaignContactPeer::CAMPAIGN_ID, CampaignPeer::ID);
+		$criteria->addJoin(CampaignContactPeer::CAMPAIGN_ID, CampaignPeer::ID);
+		$criteria->addDescendingOrderByColumn(CampaignContactPeer::SENT_AT);
+		$this->CampaignContacts = CampaignContactPeer::doSelect($criteria);
+
+
 
 		return sfView::SUCCESS;
 	}
 
 	public function executeAdd(sfWebRequest $request)
 	{
+		$this->form = new ContactForm();
 		return sfView::SUCCESS;
 	}
 
@@ -137,7 +155,15 @@ class contactsActions extends sfActions
 			}
 			$contact = $this->form->save();
 
-			$this->redirect('contact/index');
+			if ($request->hasParameter('slug')) {
+				$message = sprintf('<h4 class="alert-heading">Contact modifié</h4><p>Le contact "<a href="%s">%s</a>" a été modifié.</p>',url_for('@contact_show?slug='.$contact->getSlug()),$contact->getFullName());
+			}else{
+				$message = sprintf('<h4 class="alert-heading">Contact créé</h4><p>Le contact "<a href="%s">%s</a>" a été créé.</p>',url_for('@contact_show?slug='.$contact->getSlug()),$contact->getFullName());
+			}
+
+			$this->getUser()->setFlash('notice_success', $message);
+
+			$this->redirect('@contacts');
 			return false;
 		}
 
@@ -161,6 +187,58 @@ class contactsActions extends sfActions
 
 		$this->redirect('@contacts');
 	}
+
+	public function executeReintroduce($request)
+	{
+		$this->forward404Unless($contact = ContactPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$contact->setStatus(Contact::STATUS_NEW);
+		$contact->save();
+
+		$message = sprintf('<h4 class="alert-heading">Contact réactivé</h4><p>Le contact a été réactivé.</p>');
+		$this->getUser()->setFlash('notice_success', $message);
+
+		$this->redirect('@contact_show?slug=' . $contact->getSlug());
+	}
+
+	public function executeDisplayClicks($request)
+	{
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::ID, $request->getParameter('id'));
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $request->getParameter('campaignId'));
+		$this->CampaignContacts =/*(CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
+
+		$crit = new Criteria();
+		$crit->addDescendingOrderByColumn(CampaignClickPeer::CREATED_AT);
+		$this->clicks = $this->CampaignContacts->getCampaignClicks($crit);
+
+		$this->setLayout('public');
+	}
+
+	public function executeUnsubscribe($request)
+    {
+				$contact = ContactPeer::retrieveByPK($request->getParameter('id'));
+				$this->forward404Unless($contact);
+
+
+        $criteria = new Criteria();
+        $criteria->add(CampaignContactPeer::CONTACT_ID, $request->getParameter('id'));
+        $criteria->add(CampaignContactPeer::CAMPAIGN_ID, $request->getParameter('campaignId'));
+        $CampaignContact =/*(CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
+
+				$this->forward404Unless($CampaignContact);
+
+        $CampaignContact->setUnsubscribedAt(time());
+        $CampaignContact->save();
+
+        $contact->setStatus(Contact::STATUS_UNSUBSCRIBED);
+        $contact->save();
+
+				$message = sprintf('<h4 class="alert-heading">Contact désinscrit</h4><p>Le contact "%s" a été désinscrit.</p>',$contact->getFullName());
+				$this->getUser()->setFlash('notice_success', $message);
+
+        $this->redirect('@contact_show?slug=' . $contact->getSlug());
+    }
 
 	protected function getDefaultColumns()
 	{

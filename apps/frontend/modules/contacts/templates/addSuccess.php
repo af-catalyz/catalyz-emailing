@@ -1,96 +1,21 @@
-    <div class="tabbable">
-    <ul class="nav nav-tabs">
+<div class="tabbable">
+    <!--ul class="nav nav-tabs">
     <li class="active"><a href="#1" data-toggle="tab">Ajouter un contact</a></li>
     <li><a href="#2" data-toggle="tab">Importer des contacts</a></li>
     <li><a href="#3" data-toggle="tab">processus d'importation</a></li>
-    </ul>
+    </ul-->
     <div class="tab-content">
     <div class="tab-pane active" id="1">
 
-        <div class="alert alert-danger">
-    <a class="close" data-dismiss="alert">×</a>
-    <h4 class="alert-heading">Un contact existe déjà avec l'email sh@catalyz.fr</h4>
-    <p>Votre base de données ne peut pas contenir deux contacts différents avec la même adresse email.</p>
-    <a href="" class="btn btn-danger">Modifier le contact existant</a>
 
-    </div>
-
-
-    	<form class="form-horizontal">
-    <fieldset>
-    	<legend>Informations principales</legend>
-
-	<div class="span5">
-	<div class="control-group">
-		<label class="control-label">Prénom</label>
-		<div class="controls">
-			<input class="input-xlarge" />
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label">Nom</label>
-		<div class="controls">
-			<input class="input-xlarge" />
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label">Email</label>
-		<div class="controls">
-			<input class="input-xlarge" />
-		</div>
-	</div>
-	<div class="control-group">
-		<label class="control-label">Société</label>
-		<div class="controls">
-			<input class="input-xlarge" />
-		</div>
-	</div>
-	</div>
-
-	<div class="span5">
-	<div class="control-group">
-		<label class="control-label">Groupes</label>
-		<div class="controls">
-			<label class="checkbox"><input type="checkbox"> <span class="label label-success">Salariés (d'entreprises clientes)</span> <a href="" class="" rel="popover" title="description du groupe"><i class="icon-question-sign"></i></a></label>
-			<label class="checkbox"><input type="checkbox"> <span class="label label-success">P'tit Dej de Janvier - Relance</span></label>
-			<label class="checkbox"><input type="checkbox"> <span class="label">Fournisseurs (potentiels)</span></label>
-			<label class="checkbox"><input type="checkbox"> <span class="label">Réseau</span></label>
-			<label class="checkbox"><input type="checkbox"> <span class="label">Etude marché</span></label>
-
-		</div>
-	</div>
-	</div>
-
-	</fieldset>
-
-	    <fieldset>
-    	<legend>Informations complémentaires</legend>
-	<?php for ($i = 0; $i < 10; $i++) : ?>
-
-	<div class="span5">
-	<div class="control-group">
-		<label class="control-label">Champ n°<?php echo $i+1; ?></label>
-		<div class="controls">
-			<input class="input-xlarge" />
-		</div>
-	</div>
-	</div>
-	<?php endfor; ?>
-
-
-
-	</fieldset>
-
-    <div class="form-actions">
-    	<a href="" class="btn btn-primary">Ajouter le contact</a>
-    	<a href="" class="btn">Annuler</a>
-	</div>
-
-
+   	<form class="form-horizontal" action="<?php echo url_for('contacts/update') ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+    <?php
+    include_partial('contacts/form', array('form' => $form));
+    printf('<div class="form-actions"><input type="submit" class="btn btn-primary" value="%s"/>&nbsp;<a href="%s" class="btn">Annuler</a></div>', __('Ajouter le contact'), url_for('@contacts')); ?>
     </form>
 
     </div>
-    <div class="tab-pane" id="2">
+    <!--div class="tab-pane" id="2">
 
     <form class="form-horizontal">
 
@@ -175,6 +100,6 @@
     	</div>
 
 
-	</div>
+	</div-->
     </div>
     </div>

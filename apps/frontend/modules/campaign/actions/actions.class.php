@@ -112,4 +112,27 @@ class campaignActions extends sfActions
 		$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
 	}
+
+	public function executeResend(sfWebRequest $request)
+	{
+		$criteria = new Criteria();
+		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID);
+		$criteria->add(ContactPeer::SLUG, $request->getParameter('slug'));
+		$CampaignContact =/*($CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
+		$this->forward404Unless($CampaignContact);
+
+		$Campaign =/*(Campaign)*/ $CampaignContact->getCampaign();
+		$this->forward404Unless($Campaign);
+
+		$CampaignDeliveryManager = new CampaignDeliveryManager($Campaign);
+		if ($CampaignDeliveryManager->sendToCampaignContact($CampaignContact)) {
+			$message = sprintf('<h4 class="alert-heading">Campagne renvoyée</h4><p>La campagne a été renvoyée à %s</p>',$CampaignContact->getContact()->getFullName());
+			$this->getUser()->setFlash('notice_success', $message);
+		} else {
+			$message = sprintf('<h4 class="alert-heading">Erreur lors de l\'envoi de la campagne</h4><p>Une erreur est survenue lors de la tentative d\'envoi de la campagne à %s</p>',$CampaignContact->getContact()->getFullName());
+			$this->getUser()->setFlash('notice_error', $message);
+		}
+
+		$this->redirect('@contact_show?slug=' . $CampaignContact->getContact()->getSlug());
+	}
 }

@@ -465,7 +465,7 @@ function createDateStr($date){
 function displaySortIcon($sens,$colonne,$parameter_sort,$parameter_column){
 	if ($sens=='A') {
 		if ($colonne==$parameter_column && $parameter_sort=="A") {
-			return '<br/><i class="icon-chevron-up icon-green"></i>';
+			return '<br/><i class="icon-chevron-up icon-grey"></i>';
 		}
 		else{
 			return link_to('<br/><i class="icon-chevron-up"></i>','contacts/index?sort=A&column='.$colonne);
@@ -473,7 +473,7 @@ function displaySortIcon($sens,$colonne,$parameter_sort,$parameter_column){
 	}
 	else{
 		if ($colonne==$parameter_column && $parameter_sort=="De") {
-			return '<i class="icon-chevron-down icon-green"></i>';
+			return '<i class="icon-chevron-down icon-grey"></i>';
 		}
 		else{
 			return link_to('<i class="icon-chevron-down"></i>','contacts/index?sort=De&column='.$colonne);

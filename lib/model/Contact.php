@@ -68,6 +68,43 @@ class Contact extends BaseContact {
 		} // switch
 	}
 
+	public function getGroups()
+	{
+		$criteria = new Criteria();
+		$criteria->addJoin(ContactContactGroupPeer::CONTACT_GROUP_ID, ContactGroupPeer::ID);
+		$criteria->add(ContactContactGroupPeer::CONTACT_ID, $this->getId());
+		return ContactGroupPeer::doSelect($criteria);
+	}
+
+	public function getGroupsName()
+	{
+		$criteria = new Criteria();
+		$criteria->addSelectColumn(ContactGroupPeer::NAME);
+		$criteria->addSelectColumn(ContactGroupPeer::ID);
+		$criteria->addJoin(ContactContactGroupPeer::CONTACT_GROUP_ID, ContactGroupPeer::ID);
+		$criteria->add(ContactContactGroupPeer::CONTACT_ID, $this->getId());
+
+		$groups = ContactGroupPeer::doSelectRS($criteria);
+
+		$result = array();
+		foreach($groups as $groupArray) {
+			$result[$groupArray[1]] = $groupArray[0];
+		}
+
+		return $result;
+	}
+
+	public function getLatestClicks($id){
+		$criteria = new Criteria();
+		$criteria->add(CampaignClickPeer::CAMPAIGN_LINK_ID,$id);
+		$criteria->add(CampaignContactPeer::CONTACT_ID,$this->getId());
+		$criteria->addJoin(CampaignClickPeer::CAMPAIGN_CONTACT_ID,CampaignContactPeer::ID,Criteria::LEFT_JOIN);
+		$criteria->addDescendingOrderByColumn(CampaignClickPeer::CREATED_AT);
+		$return = CampaignClickPeer::doSelectOne($criteria);
+
+		return CatalyzDate::formatShortWithTime($return->getCreatedAt(null));
+	}
+
 	public function getFieldValue($field, $groupTab = array()){
 		switch($field){
 			case 'FULL_NAME':

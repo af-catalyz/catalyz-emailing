@@ -11,6 +11,8 @@ class ContactForm extends BaseContactForm
 {
   public function configure()
   {
+
+
   	parent::configure();
 
   	unset(
@@ -27,24 +29,30 @@ class ContactForm extends BaseContactForm
   	$this->widgetSchema['slug'] =  new sfWidgetFormInputHidden();
   	$this->widgetSchema['status'] =  new sfWidgetFormInputHidden();
   	$this->widgetSchema['external_reference'] =  new sfWidgetFormInputHidden();
-  	$this->widgetSchema['contact_contact_group_list'] =  new sfWidgetFormPropelChoice(array('multiple' => true, 'expanded'=> true , 'model' => 'ContactGroup'));
+
+
+
+  	$choices = $this->getActiveGroups();
+
+
+  	$this->widgetSchema['contact_contact_group_list'] =  new sfWidgetFormSelectCheckbox(array('choices' => $choices, 'formatter' => array($this, 'formatChoices')));
 
 
   	//region $customFields
   	//first create hidden fields
-  	for ($i=2;$i<= sfConfig::get('app_fields_count', 10);$i++){
+  	for ($i=1;$i<= sfConfig::get('app_fields_count', 10);$i++){
   		$field = 'custom'.$i;
   		$this->widgetSchema[$field] =  new sfWidgetFormInputHidden();
   	}
 
   	//then display enabled
   	$customFields = CatalyzEmailing::getCustomFields();
-  	foreach ($customFields as $key => $caption) {
-  		$this->widgetSchema[$key] =  new sfWidgetFormInput(array(),array('class'=> 'input-xlarge'));
-  	}
+ 		foreach ($customFields as $key => $caption) {
+ 			$this->widgetSchema[$key] =  new sfWidgetFormInput(array(),array('class'=> 'input-xlarge'));
+ 		}
+
+
   	//endregion
-
-
 
 		foreach ($customFields as $key => $caption) {
 			$this->validatorSchema[$key] = new sfValidatorString(array('max_length' => 255, 'required' => false));
@@ -54,8 +62,6 @@ class ContactForm extends BaseContactForm
   	            'required' => 'L\'adresse email est requise',
   	            'invalid' => 'L\'adresse email n\'est pas valide')
   	);
-
-
 
 		$this->validatorSchema->setPostValidator(new czValidatorPropelUniqueContact());
 
@@ -73,8 +79,6 @@ class ContactForm extends BaseContactForm
 
   	$this->widgetSchema->setLabels($labels);
 
-
-
 		$this->widgetSchema->setNameFormat('contact[%s]');
 	}
 
@@ -88,7 +92,7 @@ class ContactForm extends BaseContactForm
 			ContactContactGroupPeer::doDelete($criteria, $con);
 		}
 
-		foreach($this->getValue('contact_group') as $groupId) {
+		foreach($this->getValue('contact_contact_group_list') as $groupId) {
 			$item = new ContactContactGroup();
 			$item->setContactGroupId($groupId);
 			$item->setContactId($this->getObject()->getId());
@@ -96,5 +100,33 @@ class ContactForm extends BaseContactForm
 		}
 
 		return $return;
+	}
+
+	public function formatChoices($widget, $choices)
+	{
+		foreach($choices as $choice) {
+			$result .= sprintf('<label class="checkbox">%s</label>', str_replace('#INPUT#', $choice['input'], html_entity_decode($choice['label'])));
+		}
+
+		return $result;
+	}
+
+	protected function getActiveGroups()
+	{
+		sfContext::getInstance()->getConfiguration()->loadHelpers(array('Tag','Asset','cz'));
+
+		$choices = array();
+		$choices = array();
+
+		$criteria = new Criteria();
+		$criteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
+		$criteria->add(ContactGroupPeer::IS_ARCHIVED,0);
+		$groups = ContactGroupPeer::doSelect($criteria);
+
+		foreach($groups as/*(ContactGroup)*/ $group) {
+			$choices[$group->getId()] = sprintf('#INPUT#%s%s', $group->getColoredName(), $group->getCommentPopup());
+		}
+
+		return $choices;
 	}
 }
