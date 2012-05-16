@@ -240,6 +240,51 @@ class contactsActions extends sfActions
         $this->redirect('@contact_show?slug=' . $contact->getSlug());
     }
 
+	public function executeExport($request)
+	{
+		$fieldIndex = 0;
+		$fields = array();
+		$fields['FirstName'] = $fieldIndex++;
+		$fields['LastName'] = $fieldIndex++;
+		$fields['Company'] = $fieldIndex++;
+		$fields['Email'] = $fieldIndex++;
+		$fields['StatusString'] = $fieldIndex++;
+		for ($i = 1; $i <= sfConfig::get('app_fields_count'); $i++) {
+			$fields['custom' . $i] = $fieldIndex++;
+		}
+		$exporter =/*(ContactExporter)*/ new ContactExporter($fields);
+		$exporter->start();
+		$User = sfContext::getInstance()->getUser();
+		$c =/*(Criteria)*/ new Criteria();
+		$c->addJoin(ContactPeer::ID, ContactContactGroupPeer::CONTACT_ID, Criteria::LEFT_JOIN);
+		$c->addJoin(ContactPeer::ID, CampaignContactPeer::CONTACT_ID, Criteria::LEFT_JOIN);
+
+		if ($User->hasAttribute('criteria')) {
+			$c = $User->getAttribute('criteria');
+		}
+
+		$c->setLimit(null);
+		$c->setOffset(0);
+
+		$c->setDistinct();
+		foreach(ContactPeer::doSelect($c) as $contact) {
+			$exporter->addContact($contact);
+		}
+
+
+		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
+		$exporter->saveAsExcel2007($tempFilename);
+
+		$response = $this->getResponse();
+		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->setHttpHeader('Content-Disposition', 'attachment; filename=contacts.xlsx');
+		$response->setHttpHeader('Content-Length', filesize($tempFilename));
+		$response->sendHttpHeaders();
+		readfile($tempFilename);
+		unlink($tempFilename);
+		return sfView::NONE;
+	}
+
 	protected function getDefaultColumns()
 	{
 		$default = array();

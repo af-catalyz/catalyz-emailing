@@ -105,7 +105,7 @@
 		<?php
 			//region bottom buttons
 			printf('<div class="pull-left"><a href="%s" class="btn btn-primary"><i class="icon-plus icon-white"></i> %s</a>&nbsp;<a href="%s" class="btn"><i class="icon-download"></i> %s</a></div>',
-				url_for('contacts/add'), __('Ajouter des contacts'), 'javascript://', __('Télécharger les contacts'));
+				url_for('contacts/add'), __('Ajouter des contacts'), url_for('@contact_export'), __('Télécharger les contacts'));
 			//endregion
 
 			include_partial('global/pager', array('pager' => $pager, 'route_prefix' => url_for('@contacts'), 'sort' => $sort, 'column' => $column));

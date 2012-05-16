@@ -52,15 +52,6 @@ campaign_statistics_summary:
   url:   /:slug/summary
   param: { module: statistics, action: index }
 
-#SETTINGS
-settings:
-  url:   /settings
-  param: { module: settings, action: index }
-
-settings_change_list_limit:
-  url:   /settings/contactListLimit
-  param: { module: settings, action: changeContactListLimit }
-
 #CAMPAIGN
 campaign_index:
   url:   /campaign/:slug
@@ -130,6 +121,19 @@ contact_do_unsubscribe:
   param:
     module: contacts
     action: unsubscribe
+
+contact_export:
+  url:   /contact/export
+  param: { module: contacts, action: export }
+
+#SETTINGS
+settings:
+  url:   /settings
+  param: { module: settings, action: index }
+
+settings_change_list_limit:
+  url:   /settings/contactListLimit
+  param: { module: settings, action: changeContactListLimit }
 
 # generic rules
 # please, remove them by adding more specific rules
