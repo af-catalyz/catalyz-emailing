@@ -28,7 +28,7 @@ class contactsActions extends sfActions
 		$this->menu = empty($usersViews[$User->getProfile()->getid()])?$this->getDefaultColumns():$usersViews[$User->getProfile()->getid()];
 
 		$usersLimits = CatalyzSettings::instance()->get(CatalyzSettings::CUSTOM_LIMIT);
-		$limit = empty($usersLimits[$User->getProfile()->getid()])?sfConfig::get('app_settings_default_limit'):$usersLimits[$User->getProfile()->getid()];
+		$this->limit = empty($usersLimits[$User->getProfile()->getid()])?sfConfig::get('app_settings_default_limit'):$usersLimits[$User->getProfile()->getid()];
 
 		$c = new Criteria();
 		$c->addJoin(ContactPeer::ID, ContactContactGroupPeer::CONTACT_ID, Criteria::LEFT_JOIN);
@@ -95,7 +95,7 @@ class contactsActions extends sfActions
 			$c->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
 		}
 		$c->setDistinct();
-		$pager = new sfPropelPager('Contact', $limit);
+		$pager = new sfPropelPager('Contact', $this->limit);
 		$pager->setCriteria($c);
 		$pager->setPage($this->getRequestParameter('page', 1));
 		$pager->init();

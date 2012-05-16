@@ -48,14 +48,18 @@ campaigns_archived:
   url:   /campaigns/archived
   param: { module: campaigns, action: archived }
 
-settings:
-  url:   /settings
-  param: { module: settings, action: index }
-
 campaign_statistics_summary:
   url:   /:slug/summary
   param: { module: statistics, action: index }
 
+#SETTINGS
+settings:
+  url:   /settings
+  param: { module: settings, action: index }
+
+settings_change_list_limit:
+  url:   /settings/contactListLimit
+  param: { module: settings, action: changeContactListLimit }
 
 #CAMPAIGN
 campaign_index:

@@ -111,17 +111,18 @@
 			include_partial('global/pager', array('pager' => $pager, 'route_prefix' => url_for('@contacts'), 'sort' => $sort, 'column' => $column));
 		 ?>
 
-
-
-
-		<p>Les contacts <?php echo $pager->getFirstIndice() ?> à <?php echo $pager->getLastIndice() ?> (sur <?php echo $pager->getNbResults() ?> au total) sont affichés ci-dessus.
-
-		<select class="input-mini">
-			<option>15</option>
-			<option>30</option>
-			<option>50</option>
-			<option>100</option>
-		</select> contacts par page.</p>
+		<?php
+		printf('<form class="form-inline" action="%s">', url_for('@settings_change_list_limit'));
+		printf('<div class="controls">Les contacts %s à %s (sur %s au total) sont affichés ci-dessus.',
+		$pager->getFirstIndice(),
+		$pager->getLastIndice(),
+		$pager->getNbResults()
+		);
+		$widget = new sfWidgetFormChoice(array('choices' => array(15=>'15',30=>'30',50=>'50',100=>'100')) , array('class' => 'input-mini', 'onchange' => 'submit();'));
+		echo $widget->render('list_limit', $limit);
+		echo '<label class="checkbox">contacts par page.</label></div>';
+		echo '</form>';
+		 ?>
 
 		</div>
 	</div>
