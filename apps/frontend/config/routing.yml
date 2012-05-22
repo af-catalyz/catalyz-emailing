@@ -53,6 +53,30 @@ campaign_statistics_summary:
   param: { module: statistics, action: index }
 
 #CAMPAIGN
+unsubscribe:
+  url:   /campaign/unsubscribe/key/:key
+  param: { module: campaign, action: unsubscribe }
+
+view-online:
+  url:   /campaign/view/key/:key
+  param: { module: campaign, action: view }
+
+view-online-api:
+  url:   /campaign/view/:id
+  param: { module: campaign, action: viewFromApi }
+
+campaign-print:
+  url:   /campaign/print/key/:key
+  param: { module: campaign, action: print }
+
+spy:
+  url:  /images/catalyz-emailing/key/:key
+  param: { module: images, action: catalyzemailing }
+
+spy_from_images:
+  url:  /images/t/*
+  param: { module: images, action: forward }
+
 campaign_index:
   url:   /campaign/:slug
   param: { module: campaign, action: index }
@@ -82,7 +106,7 @@ campaign_do_edit:
   param: { module: campaign, action: edit }
 
 campaign_do_resend:
-  url:   /campaign/resend/:slug
+  url:   /campaign/resend/:id
   param:
     module: campaign
     action: resend

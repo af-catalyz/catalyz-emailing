@@ -55,6 +55,9 @@
 								foreach ($menu as $field=>$bool){
 									if ($bool) {
 										switch($field){
+											case 'COMPANY':
+												printf('<td>%s</td>',$contact->getFieldValue($field));
+												break;
 											case 'EMAIL':
 												printf('<td nowrap="nowrap"><a href="mailto:%1$s">%2$s</a></td>',$contact->getFieldValue($field),highlight_text($contact->getFieldValue($field), $sf_user->getAttribute('Keywords')));
 												break;
@@ -66,6 +69,7 @@
 												break;
 											case 'GROUPS':
 												printf('<td nowrap="nowrap">%s</td>', html_entity_decode($contact->getFieldValue($field, $ContactsGroupListOverview)));
+
 												break;
 											default:
 												if(preg_match('/^CUSTOM([1-9][0-9]?)$/', $field, $tokens)){
@@ -76,7 +80,6 @@
 												}else{
 													printf('<td nowrap="nowrap">%s</td>',highlight_text(html_entity_decode($contact->getFieldValue($field)), $sf_user->getAttribute('Keywords')));
 												}
-
 										} // switch
 									}
 								}

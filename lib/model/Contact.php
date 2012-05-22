@@ -138,9 +138,9 @@ class Contact extends BaseContact {
 					$temp=array();
 					$Contactgroups = $groupTab[$this->getId()];
 					foreach ($Contactgroups as $groupId=>$groupName){
-						$temp[]=sprintf('<a href="%1$s" title="Afficher uniquement les contacts du groupe %2$s">%2$s</a>',url_for('contact/list?group='.$groupId),$groupName);
+						$temp[]=sprintf('<a href="%1$s" title="Afficher uniquement les contacts du groupe">%2$s</a>',url_for('contact/list?group='.$groupId), html_entity_decode($groupName));
 					}
-					return implode(', ', $temp);
+					return implode('', $temp);
 				}else {
 					return '-';
 				}

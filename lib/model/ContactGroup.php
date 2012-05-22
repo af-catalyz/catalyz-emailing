@@ -47,7 +47,7 @@ class ContactGroup extends BaseContactGroup {
 			$style = $this->getColor();
 		}
 
-		return sprintf('<span%s class="label %s">%s</span>',$floating?' style="float: left; margin: 0 2px;"':'',$style, $this->getName());
+		return sprintf('<span%s class="label %s">%s</span>',$floating?' style="float: left; margin: 0 2px 2px 2px;"':'',$style, $this->getName());
 	}
 
 } // ContactGroup

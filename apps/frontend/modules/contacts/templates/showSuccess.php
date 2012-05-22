@@ -67,11 +67,20 @@ $customFields = CatalyzEmailing::getCustomFields();
 		<?php
 		foreach($CampaignContacts as/*(CampaignContact)*/ $CampaignContact):
 			$Campaign = $CampaignContact->getCampaign();
+
 		?>
 		<tr>
 			<td>
-				<?php printf('<a href="%s">%s</a>', 'javascript://', $Campaign->getName())?>
-				<a class="btn btn-mini" data-toggle="modal" href="#myModal2" >renvoyer</a>
+
+
+				<?php
+
+				echo '<div class="declenche-resend-modal">';
+				printf('<a target="_blank" href="%s">%s</a>', url_for('@view-online?key='.sprintf('%s-%d-%s', $contact->GetEmail(), $Campaign->getId(), md5($contact->GetEmail() . sfConfig::get('app_seed')))), $Campaign->getName());
+				printf('&nbsp;<a class="btn btn-mini listen_modal" data-toggle="modal" name="%s" rel="%s" href="#" >renvoyer</a>', $Campaign->getName(), $CampaignContact->getId());
+				echo '</div>';
+			?>
+
 			</td>
 			<td><?php echo CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())) ?></td>
 			<td><?php echo CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())) ?></td>
@@ -79,8 +88,10 @@ $customFields = CatalyzEmailing::getCustomFields();
 				<?php
 					if ($CampaignContact->getClickedAt(null)) {
 						if (count($CampaignContact->getCampaignClicks()) > 0) {
+							echo '<div class="declenche-click-modal">';
 							printf('<span class="badge">%s</span>', count($CampaignContact->getCampaignClicks()));
-							echo '&nbsp;<a class="btn btn-mini" data-toggle="modal" href="#myModal" class="withajaxpopover" >détails</a>';
+							printf('&nbsp;<a class="btn btn-mini" data-toggle="modal" href="%s">détails</a>', url_for(sprintf('@contact_display_clicks?id=%s&campaignId=%s',$CampaignContact->getContactId() , $CampaignContact->getCampaignId())) );
+							echo '</div>';
 						}
 					}
 				?>
@@ -102,7 +113,6 @@ $customFields = CatalyzEmailing::getCustomFields();
 	</tbody>
 </table>
 
-
 		<?php endif ?>
 
 
@@ -112,7 +122,6 @@ $customFields = CatalyzEmailing::getCustomFields();
     <?php if (!empty($customFields)):?>
 		<div class="tab-pane" id="2"> <!-- custom fields-->
 			<form action="javascript://" class="form-horizontal">
-
 			<?php
 
 			$firstSlice = array_slice($customFields, 0, floor(sfConfig::get('app_fields_count', 10)/2), true);
@@ -131,7 +140,6 @@ $customFields = CatalyzEmailing::getCustomFields();
     	}
 			 ?>
 
-
 			</form>
     </div><!-- end custom fields-->
     <?php endif ?>
@@ -139,69 +147,71 @@ $customFields = CatalyzEmailing::getCustomFields();
   </div>
 
 
+<?php
+//region clicks modal
+	printf('<div class="modal fade" id="clickModal" style="display: none"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"></div><div class="modal-footer"><a href="#" class="btn btn-primary close_tag">%s</a></div></div>', __('Détail des clicks'), __('Fermer'));
+//endregion
 
-<div class="modal fade" id="myModal" style="display: none"><!-- modal 1-->
-	<div class="modal-header">
-		<a class="close" data-dismiss="modal">×</a>
-		<h3>Détail des clicks</h3>
-	</div>
-	<div class="modal-body">
-		<p><strong>Sébastien Hordeaux</strong> a clické sur les liens suivants de la campagne <a href="">Campagne 1</a>:</p>
-		<table class="table table-condensed">
-			<thead>
-				<tr>
-					<th>Lien</th>
-					<th>Click le</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td><a href="" target="_blank">Lien 1</a></td>
-					<td>02/04/2012 à 12:37</td>
-				</tr>
-				<tr>
-					<td><a href="" target="_blank">Lien 2</a></td>
-					<td>02/04/2012 à 12:37</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-	<div class="modal-footer">
-		<a href="#" class="btn btn-primary">Fermer</a>
-	</div>
-</div><!-- end modal 1-->
+?>
 
 
-<div class="modal fade" id="myModal2" style="display: none"><!-- modal 2-->
+<div class="modal fade" id="resendModal" style="display: none"><!-- modal 2-->
 	<div class="modal-header">
 		<a class="close" data-dismiss="modal">×</a>
 		<h3>Renvoi de campagne</h3>
 	</div>
 	<div class="modal-body">
-		<p>Souhaitez-vous renvoyer la campagne <strong>Campagne 1</strong> à <strong>Sébastien Hordeaux</strong>?</p>
+		<?php printf('<p>Souhaitez-vous renvoyer la campagne <strong id="campaign_name">Campagne 1</strong> à <strong>%s</strong>?</p>', $contact->getFullName()) ?>
 		<p class="muted">Vous pouvez également transmettre le lien suivant à votre campagne pour consulter la campagne en ligne avec ses informations de personnalisations spécifiques:</p>
-		<pre class="muted">http://kreactiv.catalyz-emailing.com/foo/bar/dsdnfqjdqsiojdsqo</pre>
+		<pre class="muted" id="campaign_short_url">http://kreactiv.catalyz-emailing.com/foo/bar/dsdnfqjdqsiojdsqo</pre>
 	</div>
 	<div class="modal-footer">
-		<a href="#" class="btn">Non, ne pas renvoyer la campagne</a>
-		<a href="#" class="btn btn-primary">Oui, renvoyer la campagne</a>
+		<a href="#" class="btn close_tag">Non, ne pas renvoyer la campagne</a>
+		<a href="#" id="resend_button" class="btn btn-primary">Oui, renvoyer la campagne</a>
 	</div>
 </div><!-- end modal 2-->
+
 
 
 <script type="text/javascript">
 /* <![CDATA[ */
 
-
 $(document).ready(function() {
-	$('.withajaxpopover').bind('hover',function(){
-		var el=$(this);
-		$.get(el.attr('data-load'),function(d){
-			el.unbind('hover').popover({content: d}).popover('show');
-		});
-	});
-});
+	$('div.declenche-click-modal').on('click','a',function(){
+		var url = $(this).attr('href');
 
+		$('#clickModal .modal-body').load(url,function(){
+			$(this).modal({
+				keyboard:true,
+				backdrop:true
+			});
+		});
+
+		$('#clickModal').modal('show');
+	});
+
+
+	$('.modal-footer a.close_tag, .modal-header a').live('click',function(){
+		$('.modal').modal('hide');
+		$('.modal-backdrop').hide();
+		return false;
+	});
+
+
+
+	$('div.declenche-resend-modal ').on('click','a.listen_modal',function(){
+		var title = $(this).attr('name');
+		var url = "<?php echo url_for('@campaign_do_resend?id=') ?>" ;
+
+		url += $(this).attr('rel');
+
+		$('#campaign_name').empty().append(title);
+		$('#resend_button').attr('href',url);
+
+		$('#resendModal').modal('show');
+	});
+
+});
 
 
 /* ]]> */

@@ -117,7 +117,7 @@ class campaignActions extends sfActions
 	{
 		$criteria = new Criteria();
 		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID);
-		$criteria->add(ContactPeer::SLUG, $request->getParameter('slug'));
+		$criteria->add(CampaignContactPeer::ID, $request->getParameter('id'));
 		$CampaignContact =/*($CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
 		$this->forward404Unless($CampaignContact);
 
@@ -134,5 +134,33 @@ class campaignActions extends sfActions
 		}
 
 		$this->redirect('@contact_show?slug=' . $CampaignContact->getContact()->getSlug());
+	}
+
+	public function executeView($request)
+	{
+		sfConfig::set('sf_web_debug', false);
+
+		list($email, $campaignId) = Campaign::extractKeyInformation($request->getParameter('key'));
+		$campaign =/*(Campaign)*/ CampaignPeer::retrieveByPK($campaignId);
+		$this->forward404Unless($campaign);
+
+		Campaign::LogView($campaignId, $email, $request->getHttpHeader('User-Agent'));
+
+		$criteria = new Criteria();
+		$criteria->add(ContactPeer::EMAIL, $email);
+		$contact =/*(Contact)*/ ContactPeer::doSelectOne($criteria);
+
+		if (!$contact) {
+			// create a temporary user
+			$contact = new Contact();
+			$contact->setEmail($email);
+		}
+
+		$CampaignDeliveryManager = $campaign->getCampaignDeliveryManager();
+		$macros = $CampaignDeliveryManager->getMacrosForContact($contact);
+
+		$this->getResponse()->setContent($CampaignDeliveryManager->prepareContentForEmail($email, $macros, true));
+		$this->setLayout(false);
+		return sfView::NONE;
 	}
 }

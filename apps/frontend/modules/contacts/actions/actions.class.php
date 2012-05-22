@@ -23,6 +23,9 @@ class contactsActions extends sfActions
   */
 	public function executeIndex(sfWebRequest $request)
 	{
+
+		$this->ContactsGroupListOverview = ContactPeer::getContactsGroupList();
+
 		$User = $this->getUser();
 		$usersViews = CatalyzSettings::instance()->get(CatalyzSettings::COLUMN_CONFIGURATION_KEY);
 		$this->menu = empty($usersViews[$User->getProfile()->getid()])?$this->getDefaultColumns():$usersViews[$User->getProfile()->getid()];
@@ -204,15 +207,15 @@ class contactsActions extends sfActions
 	public function executeDisplayClicks($request)
 	{
 		$criteria = new Criteria();
-		$criteria->add(CampaignContactPeer::ID, $request->getParameter('id'));
+		$criteria->add(CampaignContactPeer::CONTACT_ID, $request->getParameter('id'));
 		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $request->getParameter('campaignId'));
-		$this->CampaignContacts =/*(CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
+		$CampaignContact =/*(CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
 
 		$crit = new Criteria();
 		$crit->addDescendingOrderByColumn(CampaignClickPeer::CREATED_AT);
-		$this->clicks = $this->CampaignContacts->getCampaignClicks($crit);
+		$clicks = $CampaignContact->getCampaignClicks($crit);
 
-		$this->setLayout('public');
+		return $this->renderPartial('contacts/modalClicks', array('clicks' => $clicks, 'CampaignContact' => $CampaignContact));
 	}
 
 	public function executeUnsubscribe($request)

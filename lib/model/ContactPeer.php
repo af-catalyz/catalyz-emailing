@@ -67,4 +67,20 @@ class ContactPeer extends BaseContactPeer {
 		return $v;
 	}
 
+	static function getContactsGroupList()
+	{
+		$criteria = new Criteria();
+		$criteria->addJoin(ContactGroupPeer::ID, ContactContactGroupPeer::CONTACT_GROUP_ID);
+		$elements = ContactContactGroupPeer::doSelectJoinContactGroup($criteria);
+
+		foreach ($elements as  /*(ContactContactGroup)*/ $ContactContactGroup){
+			$group = /*(ContactGroup)*/$ContactContactGroup->getContactGroup();
+			$return[$ContactContactGroup->getContactId()][$group->getId()]= html_entity_decode($group->getColoredName(true));
+		}
+
+		ksort($return);
+		return $return;
+	}
+
+
 } // ContactPeer
