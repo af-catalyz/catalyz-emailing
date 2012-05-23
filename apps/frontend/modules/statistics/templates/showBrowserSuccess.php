@@ -1,8 +1,3 @@
-<?php
-
-showBrowserSuccess.php
-
-?>
 <?php include_partial('statistics/header', array('campaign' => $campaign)); ?>
 
 <div class="tabbable">
@@ -25,8 +20,10 @@ printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_messag
 		<div class="tab-pane active" id="1">
 			<?php
 if (!$browscap):
-	echo '<div class="ui-widget"><div class="ui-state-error ui-corner-all" style="padding: 0pt 0.7em; margin-top: 20px;height:100%;"><p><span class="ui-icon ui-icon-alert" style="float: left; margin-right: 0.3em;"></span>La directive de configuration browscap dans le fichier php.ini doit pointer vers le fichier browscap.ini de votre système.</p></div></div>';
+	echo '<div class="alert alert-error"><p>La directive de configuration browscap dans le fichier php.ini doit pointer vers le fichier browscap.ini de votre système.</p></div>';
 else:
+
+
 	foreach (array(array('title1' => 'Répartition par type de client de messagerie', 'title2' => 'Client de messagerie', 'element' => $parents), array('title1' => 'Répartition par plateforme', 'title2' => 'Plateforme', 'element' => $platforms)) as $Elementgroup) {
 		$parentsCountTotal = $Elementgroup['element']['total'];
 		$parentsTab = $Elementgroup['element']['details'];

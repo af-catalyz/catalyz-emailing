@@ -31,6 +31,9 @@ class statisticsActions extends sfActions
 
 		$this->reactivite = $this->view_count != 0?($this->click_count * 100) / $this->view_count:0;
 
+		$this->taux_ouverture = $this->prepared_target_count != 0?($this->view_count * 100) / $this->prepared_target_count-$this->failed_count:0;
+		$this->taux_clicks = $this->prepared_target_count != 0?($this->click_count * 100) / $this->prepared_target_count-$this->failed_count:0;
+
 		$this->unsubscribe_count = $this->campaign->getUnsubscribeCount();
 		//endregion now
 
@@ -42,7 +45,13 @@ class statisticsActions extends sfActions
 		return sfView::SUCCESS;
 	}
 
-	public function executeMessage(sfWebRequest $request)
+	public function executeTargets(sfWebRequest $request)
+	{
+		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+		return sfView::SUCCESS;
+	}
+
+	public function executeViews(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 		return sfView::SUCCESS;
@@ -113,6 +122,37 @@ class statisticsActions extends sfActions
 		return sfView::NONE;
 	}
 
+	/*to display iframe in message tab*/
+	public function executeDisplayCampaignContentIframe($request)
+	{
+		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		sfConfig::set('sf_web_debug', false);
+
+		$campaignContent = $campaign->getPreparedContent();
+
+		if (empty($campaignContent)) {
+			$campaignContent = czWidgetFormWizard::asArray((string)$campaign->getContent());
+		}
+
+		$campaignTemplate = $campaign->getCampaignTemplate();
+		$this->forward404Unless($campaignTemplate);
+
+		$templateHandlerClassName = $campaignTemplate->getClassName();
+		if (!empty($templateHandlerClassName)) {
+			$templateHandler = new $templateHandlerClassName($campaign);
+
+			$campaignContent = czWidgetFormWizard::asArray((string)$campaign->getContent());
+			$campaignContent = $templateHandler->compute($campaignContent);
+			// $campaignContent = preg_replace('/href="([^"]*)"/', 'href="javascript:void();" onclick="alert(\'Lien vers &quot;\1&quot;\'); return false;"', $campaignContent);
+		} else {
+			$campaignContent = $campaign->getContent();
+		}
+		$this->getResponse()->setContent($campaignContent);
+
+		return sfView::NONE;
+	}
+
 	public function executeShowClicks($request)
 	{
 		$this->forward404Unless($this->url =/*(Campaignlink)*/ CampaignLinkPeer::retrieveByPk($request->getParameter('id')));
@@ -134,14 +174,7 @@ class statisticsActions extends sfActions
 		return sfView::SUCCESS;
 	}
 
-
-	public function executeViews(sfWebRequest $request)
-	{
-		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
-		return sfView::SUCCESS;
-	}
-
-	public function executeTargets(sfWebRequest $request)
+	public function executeMessage(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 		return sfView::SUCCESS;

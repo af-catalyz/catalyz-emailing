@@ -36,4 +36,4 @@ echo '</ul></div>';
 
 <?php endif ?>
 
-<p>	<?php echo link_to('&laquo; Retour aux statistiques de la campagne','statistics/showLinks?id='.$url->getCampaignId()) ?></p>
+<p>	<?php echo link_to('Retour aux statistiques de la campagne','@campaign_statistics_show_links?slug='.$url->getCampaign()->getSlug(), array('class' => 'btn')) ?></p>

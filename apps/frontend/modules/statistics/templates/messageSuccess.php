@@ -1,8 +1,3 @@
-<?php
-
-messageSuccess.php
-
-?>
 <?php include_partial('statistics/header', array('campaign' => $campaign)); ?>
 
 <div class="tabbable">
@@ -22,6 +17,38 @@ messageSuccess.php
 
 		<div class="tab-content">
 
-    	<div class="tab-pane active" id="1"></div>
+    	<div class="tab-pane active" id="1">
+    		<form class="form form-horizontal">
+           <div class="control-group">
+	            <label class="control-label"><?php echo __('De') ?></label>
+	            <div class="controls">
+	              <?php printf('<span class="uneditable-input" style="width: 100%%">%s &lt;%s&gt;</span>', $campaign->getFromName(), $campaign->getFromEmail()) ?>
+	            </div>
+            </div>
+
+           <div class="control-group">
+	            <label class="control-label"><?php echo __('Répondre à') ?></label>
+	            <div class="controls">
+	              <span class="uneditable-input" style="width: 100%"><?php echo $campaign->getReplyToEmail() ?></span>
+	            </div>
+            </div>
+
+						<div class="control-group">
+	            <label class="control-label"><?php echo __('Sujet') ?></label>
+	            <div class="controls">
+	              <span class="uneditable-input" style="width: 100%"><?php echo $campaign->getSubject() ?></span>
+	            </div>
+            </div>
+
+           	<div class="control-group">
+	            <label class="control-label"><?php echo __('Corps') ?></label>
+	            <div class="controls">
+	              <span class="uneditable-input" style="height: 720px; ;width: 100%">
+	              	<iframe style="border: none;" name="frame_Liks" src="<?php echo url_for('@campaign_statistics_display_message_iframe?slug='.$campaign->getSlug()) ?>" scrolling="auto" height="720" width="1020" frameborder="1"></iframe>
+								</span>
+	            </div>
+            </div>
+				</form>
+			</div>
     </div>
 </div>

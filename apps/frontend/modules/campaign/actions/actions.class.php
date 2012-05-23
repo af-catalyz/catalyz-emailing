@@ -25,12 +25,12 @@ class campaignActions extends sfActions
 
 	public function executeArchive($request)
 	{
-		$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+		$this->forward404Unless($this->campaign = /*(Campaign)*/CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 		$this->campaign->setIsArchived(true);
 		$this->campaign->save();
 
 		$message = sprintf('<h4 class="alert-heading">Campagne archivée</h4><p>La campagne "<a href="%s">%s</a>" a été archivée. <a href="%s" class="btn btn-mini">annuler</a></p>',
-			url_for('@campaign_index?slug='.$this->campaign->getSlug()),
+			$this->campaign->getCatalyzUrl(),
 			$this->campaign->getName(),
 			url_for('@campaign_do_unarchive?slug='.$this->campaign->getSlug())
 			);
@@ -46,7 +46,7 @@ class campaignActions extends sfActions
 		$this->campaign->save();
 
 		$message = sprintf('<h4 class="alert-heading">Campagne réstaurée</h4><p>La campagne "<a href="%s">%s</a>" a été restaurée. <a href="%s" class="btn btn-mini">annuler</a></p>',
-			url_for('@campaign_index?slug='.$this->campaign->getSlug()),
+			$this->campaign->getCatalyzUrl(),
 			$this->campaign->getName(),
 			url_for('@campaign_do_archive?slug='.$this->campaign->getSlug())
 			);
@@ -100,7 +100,7 @@ class campaignActions extends sfActions
 			);
 
 			$this->getUser()->setFlash('notice_success', $message);
-			$this->redirect('@campaign_index?slug='.$newCampaign->getId());
+			$this->redirect('@campaign_index?slug='.$newCampaign->getSlug());
 			exit;
 		}
 

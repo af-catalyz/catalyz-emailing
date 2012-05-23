@@ -134,10 +134,13 @@ campaign_statistics_display_iframe:
   url: /statistics/displayIframe/slug/:slug
   param: { module: statistics, action: displayIframe }
 
+campaign_statistics_display_message_iframe:
+  url: /statistics/displayContentIframe/slug/:slug
+  param: { module: statistics, action: displayCampaignContentIframe }
 
 campaign_statistics_show_clicks:
   url:   /statistics/showCLicks/:id
-  param: { module: statistics, action: showCLicks }
+  param: { module: statistics, action: showClicks }
 
 #CONTACTS
 contacts:

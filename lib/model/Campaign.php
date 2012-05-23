@@ -43,6 +43,14 @@ class Campaign extends BaseCampaign {
 
 	protected $providerSettings = null;
 
+	public function getCatalyzUrl(){
+		if ($this->getStatus() >= self::STATUS_SENDING) {
+			return url_for('@campaign_statistics_summary?slug='.$this->getSlug());
+		}
+
+		return url_for('@campaign_index?slug='.$this->getSlug());
+	}
+
 	public function getStatusBadge(){
 		$badge = '';
 

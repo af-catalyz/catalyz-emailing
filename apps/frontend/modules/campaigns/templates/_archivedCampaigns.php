@@ -8,7 +8,7 @@ if (count($campaigns)>0) {
 
     foreach ($campaigns->getRawValue() as/*(Campaign)*/ $campaign) {
         printf('<li class="top_li span3 year_%s type_%s"><div class="thumbnail">', $campaign->getCreatedAt('Y'), $campaign->getCampaignTemplate()->getId());
-        printf('<a href="%s" class="thumbnail">%s</a><h4>%s</h4>', url_for('@campaign_index?slug=' . $campaign->getSlug()), is_file(sfConfig::get('sf_web_dir') . $campaign->getCampaignTemplate()->getPreviewFilename())?thumbnail_tag($campaign->getCampaignTemplate()->getPreviewFilename(), 260, 180):'<img src="http://placehold.it/260x180" alt="">', $campaign->getName());
+        printf('<a href="%s" class="thumbnail">%s</a><h4>%s</h4>', $campaign->getCatalyzUrl() , is_file(sfConfig::get('sf_web_dir') . $campaign->getCampaignTemplate()->getPreviewFilename())?thumbnail_tag($campaign->getCampaignTemplate()->getPreviewFilename(), 260, 180):'<img src="http://placehold.it/260x180" alt="">', $campaign->getName());
         printf('<p><small>Créée le %s %s</small></p>', CatalyzDate::formatShort(strtotime($campaign->getCreatedAt())), $campaign->getsfGuardUserProfile()?sprintf('par %s', $campaign->getsfGuardUserProfile()->getFullName()):'');
         if (trim($campaign->getCommentaire())) {
             printf('<p>%s</p>', nl2br($campaign->getCommentaire()));

@@ -42,7 +42,7 @@ foreach($links as $url => $details): ?>
 		<tr>
 			<td><a href="<?php echo $url ?>" target="_blank"><?php echo $details['label']!=NULL?$details['label']:$url ?></a></td>
 			<td><?php echo shortNumberFormat($details['count']) ?></td>
-			<td><?php echo link_to('details &raquo;',sprintf('@campaign_statistics_show_clicks?id=%s',$details['id'] )) ?></td>
+			<td><?php echo link_to('details',sprintf('@campaign_statistics_show_clicks?id=%s',$details['id'] ), array('class' => 'btn btn-mini')) ?></td>
 		</tr>
 		<?php endforeach; ?>
 		</table>
