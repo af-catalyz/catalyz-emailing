@@ -184,7 +184,7 @@ class contactsActions extends sfActions
 	public function executeDelete($request)
 	{
 		$this->forward404Unless($contact = ContactPeer::retrieveBySlug($request->getParameter('slug')));
-		$message = sprintf('<h4 class="alert-heading">Campagne supprimée</h4><p>Le contact "%s" a été supprimé.</p>',$contact->getFullName());
+		$message = sprintf('<h4 class="alert-heading">Contact supprimé</h4><p>Le contact "%s" a été supprimé.</p>',$contact->getFullName());
 		$this->getUser()->setFlash('notice_success', $message);
 		$contact->delete();
 

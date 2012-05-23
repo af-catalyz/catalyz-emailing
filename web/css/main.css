@@ -1,3 +1,9 @@
-.icon-grey {
-	background-image: url("../images/glyphicons-halflings-grey.png");
+.icon-grey { background-image: url("../images/glyphicons-halflings-grey.png"); }
+.no_resize { resize: none }
+.clear { clear: both }
+
+.archived_elements{
+	background-color: #EEEEEE;
+	border-color: #DDDDDD;
+	color: #999999;
 }

@@ -1,138 +1,90 @@
-<?php
-
-//use_javascript('http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js', 'first');
-
-use_javascript('http://code.highcharts.com/highcharts.js');
-use_javascript('http://code.highcharts.com/modules/exporting.js');
+<?php include_partial('statistics/header', array('campaign' => $campaign)); ?>
 
 
-?>
-    <div class="page-header">
-    	<img src="http://placehold.it/80x60" alt="" class="pull-left" style="margin-right: 10px;" />
-	    <h1>
-		    Copie de Copie de Invitation PtiDej de la com 13 avril - RELANCE NO
-	    	<i class="icon-question-sign"></i>
-		</h1>
-		<h3>
-			<small>Cr&eacute;&eacute; par Emmanuelle Tandonnet,
-				le 05 avril 2012 &agrave; 10:03,
-				envoy&eacute;e le 06 avril 2012 &agrave; 10:03
-			</small>
-
-		</h3>
-
-	</div>
-	<!--
-<div class="btn-group">
-<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">
-    s&eacute;lectionner une autre campagne
-    <span class="caret"></span>
-    </a>
-    <ul class="dropdown-menu">
-    <li><a href="">Campagne 1</a></li>
-    <li><a href="">Campagne 2</a></li>
-    <li><a href="">Campagne 3</a></li>
-    <li><a href="">Campagne 4</a></li>
-    </ul>
-    </div>
-    <br />
-    <br />
-    <br />
-    -->
     <div class="tabbable">
-
         <a class="btn pull-right" data-toggle="modal" href="#dialog-campaign-test">Créer une relance</a>
 
-
-    <ul class="nav nav-tabs">
-    <li class="active"><a href="#1" data-toggle="tab">Vue d'ensemble </a></li>
-    <li><a href="#8" data-toggle="tab">Cibles</a></li>
-    <li><a href="#2" data-toggle="tab">Ouvertures</a></li>
-    <li><a href="#3" data-toggle="tab">Clics</a></li>
-    <li><a href="#4" data-toggle="tab">D&eacute;sinscriptions</a></li>
-    <li><a href="#5" data-toggle="tab">Erreurs</a></li>
-    <li><a href="#6" data-toggle="tab">Configuration des destinataires</a></li>
-    <li><a href="#7" data-toggle="tab">Message</a></li>
-</ul>
+		<ul class="nav nav-tabs">
+	    <?php
+	    	echo '<li class="active"><a href="#1" data-toggle="tab">Vue d\'ensemble </a></li>';
+	    	printf('<li><a href="%s">Cibles</a></li>', url_for('@campaign_statistics_targets?slug='.$campaign->getSlug()));
+	    	printf('<li><a href="%s">Ouvertures</a></li>', url_for('@campaign_statistics_views?slug='.$campaign->getSlug()));
+	    	printf('<li><a href="%s">Clicks</a></li>', url_for('@campaign_statistics_show_links?slug='.$campaign->getSlug()));
+				echo '<li><a href="#2" data-toggle="tab">D&eacute;sinscriptions</a></li><li><a href="#3" data-toggle="tab">Erreurs</a></li>';
+				printf('<li><a href="%s">Configuration des destinataires</a></li>', url_for('@campaign_statistics_show_browser?slug='.$campaign->getSlug()));
+				printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_message?slug='.$campaign->getSlug()));
+			?>
+		</ul>
     <div class="tab-content">
+
     <div class="tab-pane active" id="1">
 
-<div class="span2 well">
-	    <center>
-	    	<h1><a href="">388</a></h1>
-	    	contacts cibl&eacute;s
+	    <?php
 
-	    	<br />
-	    	<br />
-    	</center>
-	</div>
+			//region cibles
+			printf('<div class="span2 well"><center><h1><a href="">%1$s</a></h1>contact%2$s cibl&eacute;%2$s<br /><br /></center></div>',$prepared_target_count,$prepared_target_count>1?'s':'');
+			//endregion
 
-    <div class="span2 well alert-info">
-	    <center>
-	    	<h1><a href="">57</a></h1>
-	    	ouvertures
-	    	<br />(52.3%)
-    	</center>
-	</div>
+			//region ouverture
+			printf('<div class="span2 well alert-info"><center><h1><a href="">%s</a></h1>ouverture%s', $view_count, $view_count>1?'s':'');
+			if ($sent_count) {
+				printf('<br />(%0.1f%%)', $sent_count?(100 * $view_count / $sent_count):0);
+			}else{
+				echo '<br /><br />';
+			}
+			echo '</center></div>';
+			//endregion
 
-    <div class="span2 well alert-success">
-	    <center>
-	    	<h1><a href="">0</a></h1>
-	    	clics
-	    	<br />(0.0%)
-    	</center>
-	</div>
+			//region clic
+			printf('<div class="span2 well alert-success"><center><h1><a href="">%s</a></h1>clic%s', $click_count, $click_count>1?'s':'');
+			if ($click_count) {
+				printf('<br />(%0.1f%%)', $sent_count?(100 * $click_count / $sent_count):0);
+			}else{
+				echo '<br /><br />';
+			}
+			echo '</center></div>';
+			//endregion
 
-    <div class="span1 well alert-danger">
-	    <center>
-	    	<h1><a href="">1</a></h1>
-	    	désinscription
-	    	<br />(0.3%)
-    	</center>
-	</div>
+			//region désinscription
+			printf('<div class="span1 well alert-danger"><center><h1><a href="">%s</a></h1>désinscription%s',$unsubscribe_count,$unsubscribe_count>1?'s':'');
+			if ($unsubscribe_count) {
+				printf('<br />(%0.1f%%)', $sent_count?(100 * $unsubscribe_count / $sent_count):0);
+			}else{
+				echo '<br /><br />';
+			}
+			echo '</center></div>';
+			//endregion
 
-	<div class="span1 well alert-danger">
-	    <center>
-	    	<h1><a href="">9999</a> </h1>
-	    	erreur
-	    	<br />(0.3%)
-    	</center>
-	</div>
+			//region erreur
+			printf('<div class="span1 well alert-danger"><center><h1><a href="">%s</a></h1>erreur%s',$failed_count,$failed_count>1?'s':'');
+			if ($failed_count) {
+				printf('<br />(%0.1f%%)', $sent_count?(100 * $failed_count / $sent_count):0);
+			}else{
+				echo '<br /><br />';
+			}
+			echo '</center></div>';
+			//endregion
 
+			echo '<div class="clear"></div>';
 
-<div style="clear: both;"></div>
+			//region taux d'ouverture
+			printf('<div class="span2 well"><center><h2>%s%%</h2>taux d\'ouverture <u class="icon-question-sign"></u></center></div>', '15.1');
+			//endregion
 
+			//region taux de clicks
+			printf('<div class="span2 well"><center><h2>%s%%</h2>taux de clics <u class="icon-question-sign"></u></center></div>','2');
+			//endregion
 
-<div class="span2 well">
-	    <center>
-	    	<h2>15.1%</h2>
-	    	taux d'ouverture <u class="icon-question-sign"></u>
-    	</center>
-	</div>
+			//region taux de réactivité
+			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux de réactivité <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clicks / Nb ouvertures."><i class="icon-question-sign"></i></a></center></div>', $reactivite);
+			//endregion
 
-<div class="span2 well">
-	    <center>
-	    	<h2>1.2%</h2>
-	    	taux de clics <u class="icon-question-sign"></u>
-    	</center>
-	</div>
-
-<div class="span2 well">
-	    <center>
-	    	<h2>3.8%</h2>
-	    	taux de réactivité <u class="icon-question-sign"></u>
-    	</center>
-	</div>
-
-<div style="clear: both;"></div>
-    <p>Vous pouvez <a href="<?php echo url_for('statistics/compare'); ?>">comparer les performances de cette campagne avec vos campagnes précédentes</a>.</p>
-
+			echo '<div class="clear"></div>';
+			 ?>
 
     </div>
     <div class="tab-pane" id="2">
-	<div id="graph" style="width: 940px; height: 400px;"></div>
-
-
+			<div id="graph" style="width: 940px; height: 400px;"></div>
     </div>
     <div class="tab-pane" id="3">contenu clics</div>
     <div class="tab-pane" id="4">contenu désinscriptions</div>

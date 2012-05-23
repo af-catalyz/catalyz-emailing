@@ -60,7 +60,7 @@ $customFields = CatalyzEmailing::getCustomFields();
 			<th>Ouverte le</th>
 			<th>Clics</th>
 			<th>Bounce</th>
-			<th>Désinscrit le</th>
+			<th>Options</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -76,8 +76,8 @@ $customFields = CatalyzEmailing::getCustomFields();
 				<?php
 
 				echo '<div class="declenche-resend-modal">';
-				printf('<a target="_blank" href="%s">%s</a>', url_for('@view-online?key='.sprintf('%s-%d-%s', $contact->GetEmail(), $Campaign->getId(), md5($contact->GetEmail() . sfConfig::get('app_seed')))), $Campaign->getName());
-				printf('&nbsp;<a class="btn btn-mini listen_modal" data-toggle="modal" name="%s" rel="%s" href="#" >renvoyer</a>', $Campaign->getName(), $CampaignContact->getId());
+				printf('%s', $Campaign->getName());
+				printf('&nbsp;<a class="btn btn-mini listen_modal" data-toggle="modal" name="%s" rel="%s" href="%s" >renvoyer</a>', $Campaign->getName(), $CampaignContact->getId(), $Campaign->getId());
 				echo '</div>';
 			?>
 
@@ -97,16 +97,19 @@ $customFields = CatalyzEmailing::getCustomFields();
 				?>
 			</td>
 			<td><?php echo html_entity_decode($CampaignContact->getBounceLabel()); ?></td>
-			<td>
+
 			<?php
-			if ($CampaignContact->getUnsubscribedAt()) {
-				echo CatalyzDate::formatShort(strtotime($CampaignContact->getUnsubscribedAt()))."&nbsp;";
-			}
-			if ($contact->getStatus()!=Contact::STATUS_UNSUBSCRIBED) {
-				echo link_to(__('désinscrire'), sprintf('@contact_do_unsubscribe?id=%s&campaignId=%s', $contact->getId(),$Campaign->getId()),array('class' => 'btn btn-danger btn-mini','title' => 'Désinscrire ce contact', 'post' => true, 'confirm' => sprintf('Souhaitez vous désinscrire le contact "%s" de façon définitive?', $contact->getFullName())));
-			}
+			printf('<td nowrap="nowrap"><div class="btn-group"><a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s&nbsp;<span class="caret"></span></a>
+													    	<ul class="dropdown-menu">
+														    	<li>%s</li>
+														    </ul>
+													    </div>
+													</td>',
+			__('Action'),
+			link_to(sprintf('<i class="icon-eye-open"></i> %s</a>', __('Voir les statistiques')), '@campaign_statistics_summary?slug='.$CampaignContact->getCampaign()->getSlug(), array('title' => __('Voir les statistiques')))
+			);
 			?>
-			</td>
+
 		</tr>
 
 		<?php endforeach ?>
@@ -142,7 +145,12 @@ $customFields = CatalyzEmailing::getCustomFields();
 
 			</form>
     </div><!-- end custom fields-->
-    <?php endif ?>
+    <?php endif ;
+
+		printf('<br/><a class="btn btn-small btn-mini" href="%s">%s</a>', url_for('@contacts'), __('Revenir à la liste des contacts'));
+		?>
+
+
     </div>
   </div>
 
@@ -163,7 +171,7 @@ $customFields = CatalyzEmailing::getCustomFields();
 	<div class="modal-body">
 		<?php printf('<p>Souhaitez-vous renvoyer la campagne <strong id="campaign_name">Campagne 1</strong> à <strong>%s</strong>?</p>', $contact->getFullName()) ?>
 		<p class="muted">Vous pouvez également transmettre le lien suivant à votre campagne pour consulter la campagne en ligne avec ses informations de personnalisations spécifiques:</p>
-		<pre class="muted" id="campaign_short_url">http://kreactiv.catalyz-emailing.com/foo/bar/dsdnfqjdqsiojdsqo</pre>
+		<?php printf('<pre class="muted" id="campaign_short_url"></pre>') ?>
 	</div>
 	<div class="modal-footer">
 		<a href="#" class="btn close_tag">Non, ne pas renvoyer la campagne</a>
@@ -208,6 +216,13 @@ $(document).ready(function() {
 		$('#campaign_name').empty().append(title);
 		$('#resend_button').attr('href',url);
 
+		var friendly_url = "<?php echo url_for1('@view-online?key='.$contact->getEmail(), true) ?>-"
+		var friendly_url_end = "-<?php echo md5($contact->GetEmail() . sfConfig::get('app_seed')) ?>"
+
+		friendly_url += $(this).attr('href');
+		friendly_url += friendly_url_end;
+
+		$('#campaign_short_url').empty().append(friendly_url);
 		$('#resendModal').modal('show');
 	});
 

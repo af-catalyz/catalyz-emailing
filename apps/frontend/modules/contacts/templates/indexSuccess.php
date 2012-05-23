@@ -4,7 +4,7 @@
 <div class="tabbable">
 	<ul class="nav nav-tabs">
 		<li class="active"><a href="#1" data-toggle="tab">Contacts</a></li>
-		<li><a href="#2" data-toggle="tab">Groupes</a></li>
+		<?php printf('<li><a href="%s">%s</a></li>', url_for('@groups'), __('Groupes')) ?>
 	</ul>
 
 	<div class="tab-content">
@@ -84,7 +84,7 @@
 									}
 								}
 
-								printf('<td nowrap="nowrap"><div class="btn-group"><a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s<span class="caret"></span></a>
+								printf('<td nowrap="nowrap"><div class="btn-group"><a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s&nbsp;<span class="caret"></span></a>
 												    	<ul class="dropdown-menu">
 													    	<li>%s</li>
 													    	<li>%s</li>
@@ -129,9 +129,5 @@
 
 		</div>
 	</div>
-
-	 <div class="tab-pane" id="2">
-	 		<div class="span2"></div>
-	 </div>
 	</div>
 </div>

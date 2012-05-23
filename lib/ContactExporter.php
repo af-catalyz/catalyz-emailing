@@ -57,6 +57,7 @@ class ContactExporter{
 		$groupCriteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
 		$groups = ContactGroupPeer::doSelect($groupCriteria);
 		$ContactGroups=array();
+
 		foreach ($contact->getGroups() as $value){
 			$ContactGroups[$value->getId()]=$value->getId();
 		}

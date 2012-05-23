@@ -176,12 +176,17 @@ class Campaign extends BaseCampaign {
 		$result = array();
 		$isNull = true;
 		foreach(CatalyzEmailing::getContactProviders() as $provider) {
+
+
 			$isNull = $isNull && $provider->isNull($this);
 			$items = $provider->getContactIds($this);
 			if (null != $items) {
 				$result = array_merge($result, $items);
 			}
 		}
+
+
+
 		$count = count($result);
 		if ((0 == $count) && $isNull) {
 			$m_criteria = new Criteria();
@@ -189,8 +194,11 @@ class Campaign extends BaseCampaign {
 			$m_criteria->addSelectColumn(ContactPeer::ID);
 			$m_criteria->add(ContactPeer::STATUS, Contact::STATUS_NEW);
 			$rs = BasePeer::doSelect($m_criteria);
-			while ($rs->next()) {
-				$result[] = $rs->get(1);
+
+			$rs->execute();
+
+			while($row = $rs->fetch(PDO::FETCH_ASSOC)){
+				$result[] = $row['ID'];
 			}
 		} else {
 			$result = array_unique($result, SORT_NUMERIC);
@@ -378,18 +386,20 @@ class Campaign extends BaseCampaign {
 			AND ' . CampaignContactPeer::CLICKED_AT . ' IS NOT NULL
 		GROUP BY ' . CampaignLinkPeer::URL;
 
-		$con = Propel::getConnection('propel');
 
-		$stmt = $con->createStatement();
-		$rs = $stmt->executeQuery($sql, ResultSet::FETCHMODE_NUM);
-		$result = array();
-		while ($rs->next()) {
+
+		$connection = Propel::getConnection();
+		$statement = $connection->prepare($sql);
+		$statement->execute();
+
+		while($rs = $statement->fetch(PDO::FETCH_NUM)){
 			if ($displayId) {
-				$result[$rs->getString(1)] = array('label' => $rs->getString(2), 'count' => $rs->getInt(3), 'id' => $rs->getInt(4));
+				$result[$rs[0]] = array('label' => $rs[1], 'count' => $rs[2], 'id' => $rs[3]);
 			} else {
-				$result[$rs->getString(1)] = $rs->getInt(3);
+				$result[$rs[0]] = $rs[2];
 			}
 		}
+
 		return $result;
 	}
 
@@ -404,13 +414,14 @@ class Campaign extends BaseCampaign {
 		WHERE ' . CampaignLinkPeer::CAMPAIGN_ID . ' = ' . $this->getId() . '
 		GROUP BY ' . CampaignLinkPeer::URL;
 
-		$con = Propel::getConnection('propel');
 
-		$stmt = $con->createStatement();
-		$rs = $stmt->executeQuery($sql, ResultSet::FETCHMODE_NUM);
 		$result = array();
-		while ($rs->next()) {
-			$result[$rs->getString(1)] = $rs->getInt(2);
+		$connection = Propel::getConnection();
+		$statement = $connection->prepare($sql);
+		$statement->execute();
+
+		while($rs = $statement->fetch(PDO::FETCH_NUM)){
+			$result[$rs[0]] = $rs[1];
 		}
 		return $result;
 	}
@@ -425,16 +436,16 @@ class Campaign extends BaseCampaign {
 			ON ' . CampaignContactPeer::ID . ' = ' . CampaignClickPeer::CAMPAIGN_CONTACT_ID . '
 		WHERE ' . CampaignLinkPeer::CAMPAIGN_ID . ' = ' . $this->getId();
 
-		$con = Propel::getConnection('propel');
-
-		$stmt = $con->createStatement();
-		$rs = $stmt->executeQuery($sql, ResultSet::FETCHMODE_NUM);
 		$result = array();
-		while ($rs->next()) {
-			if (empty($result[$rs->getString(1)][$rs->getInt(2)])) {
-				$result[$rs->getString(1)][$rs->getInt(2)] = 1;
+		$connection = Propel::getConnection();
+		$statement = $connection->prepare($sql);
+		$statement->execute();
+
+		while($rs = $statement->fetch(PDO::FETCH_NUM)){
+			if (empty($result[$rs[0]][$rs[1]])) {
+				$result[$rs[0]][$rs[1]] = 1;
 			} else {
-				$result[$rs->getString(1)][$rs->getInt(2)] ++;
+				$result[$rs[0]][$rs[1]] ++;
 			}
 		}
 

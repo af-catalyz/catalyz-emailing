@@ -50,6 +50,53 @@ class ContactGroup extends BaseContactGroup {
 		return sprintf('<span%s class="label %s">%s</span>',$floating?' style="float: left; margin: 0 2px 2px 2px;"':'',$style, $this->getName());
 	}
 
+	public function getOverviewAcrossTimeDatas()
+	{
+		$contacts = $this->getContactContactGroups();
+		$return = array();
+
+		foreach ($contacts as/*(ContactContactGroup)*/ $contact) {
+			$time = mktime(0, 0, 0, $contact->getCreatedAt('m'), $contact->getCreatedAt('d'), $contact->getCreatedAt('Y'));
+			if (isset($return[$time])) {
+				$return[$time] ++ ;
+			} else {
+				$return[$time] = 1;
+			}
+		}
+
+		ksort($return);
+
+		$total = 0;
+		foreach ($return as $date => $count) {
+			$return[$date] += $total;
+			$total += $count;
+		}
+
+		return $return;
+	}
+
+	public function getActiveContactIds()
+	{
+		$criteria = new Criteria();
+		$criteria->addSelectColumn(ContactContactGroupPeer::CONTACT_ID);
+		$criteria->setDistinct();
+		$criteria->addJoin(CampaignContactGroupPeer::CONTACT_GROUP_ID, ContactGroupPeer::ID);
+		$criteria->addJoin(ContactGroupPeer::ID, ContactContactGroupPeer::CONTACT_GROUP_ID);
+		$criteria->addJoin(ContactContactGroupPeer::CONTACT_ID, ContactPeer::ID);
+		$criteria->add(ContactPeer::STATUS, Contact::STATUS_NEW);
+		$criteria->add(ContactContactGroupPeer::CONTACT_GROUP_ID, $this->getId());
+		$result = array();
+
+		$rs = BasePeer::doSelect($criteria);
+
+		$rs->execute();
+
+		while($row = $rs->fetch(PDO::FETCH_ASSOC)){
+			$result[] = (int)$row['CONTACT_ID'];
+		}
+
+		return $result;
+	}
 } // ContactGroup
 
 

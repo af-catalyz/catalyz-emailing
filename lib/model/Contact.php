@@ -102,7 +102,7 @@ class Contact extends BaseContact {
 		$criteria->addDescendingOrderByColumn(CampaignClickPeer::CREATED_AT);
 		$return = CampaignClickPeer::doSelectOne($criteria);
 
-		return CatalyzDate::formatShortWithTime($return->getCreatedAt(null));
+		return CatalyzDate::formatShortWithTime(strtotime($return->getCreatedAt()));
 	}
 
 	public function getFieldValue($field, $groupTab = array()){
