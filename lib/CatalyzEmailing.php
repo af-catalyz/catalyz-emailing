@@ -579,7 +579,7 @@ class CatalyzEmailing {
 
 			$last3_send = CampaignPeer::doSelect($criteria);
 			foreach ($last3_send as /*(Campaign)*/ $campaign){
-				$return .= sprintf('<li><a href="%s">&nbsp;%s</a></li>', url_for('@campaign_index?slug='. $campaign->getSlug()), $campaign->getName());
+				$return .= sprintf('<li><a href="%s">&nbsp;%s</a></li>', $campaign->getCatalyzUrl(), $campaign->getName());
 			}
 
 			//endregion
