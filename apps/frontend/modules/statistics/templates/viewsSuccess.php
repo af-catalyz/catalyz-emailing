@@ -21,6 +21,52 @@ printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_messag
 
 		<div class="tab-content">
 
-    	<div class="tab-pane active" id="1"></div>
+    	<div class="tab-pane active" id="1">
+
+				<p>La liste ci-dessous présente l'ensemble des contacts ayant ouvert votre campagne. Seul les premières ouverture sont comptabilisées.</p>
+
+				<p>Les contacts <?php echo $pager->getFirstIndice() ?> à <?php echo $pager->getLastIndice() ?> (sur <?php echo shortNumberFormat($pager->getNbResults()) ?> au total) sont affichés ci-dessous.</p>
+
+
+				<table class="table table-striped table-condensed">
+				<tr>
+					<th class="span3">Date d'ouverture</th>
+					<th class="span1">&nbsp;</th>
+					<th>Contact</th>
+				</tr>
+				<?php foreach($pager->getResults() as $contact):
+					$contactObject = /*(Contact)*/$contact->getContact();
+					?>
+				<tr>
+					<td><?php echo CatalyzDate::formatShortWithTime(strtotime($contact->getViewAt())); ?></td>
+					<td><?php echo html_entity_decode($contactObject->getStatusIcon()); ?></td>
+					<td><?php echo html_entity_decode($contactObject->getFieldValue('FULL_NAME')); ?></td>
+				</tr>
+					<?php endforeach; ?>
+				</table>
+
+
+				<?php if ($pager->haveToPaginate()): ?>
+
+					<?php
+					$route_prefix = "@campaign_statistics_views?slug=".$campaign->getSlug();
+
+					echo '<div class="pagination pagination-right"><ul>';
+					printf('<li%s>%s</li>', $pager->getPage() != 1?'':' class="active"',link_to('&laquo;', $route_prefix.'&page='.$pager->getFirstPage()));
+
+
+foreach ($pager->getLinks() as $page){
+	printf('<li%s>%s</li>', $page == $pager->getPage()?' class="active"':'', link_to($page, $route_prefix.'&page='.$page));
+}
+
+					printf('<li%s>%s</li>', $pager->getPage() != $pager->getLastPage()?'':' class="active"',link_to('&raquo;', $route_prefix.'&page='.$pager->getLastPage()));
+					echo '</ul></div>';
+
+					?>
+
+
+
+					<?php endif ?>
+			</div>
     </div>
 </div>

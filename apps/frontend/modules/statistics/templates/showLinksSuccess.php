@@ -1,8 +1,3 @@
-<?php
-
-showLinksSuccess.php
-
-?>
 <?php include_partial('statistics/header', array('campaign' => $campaign)); ?>
 
 <div class="tabbable">

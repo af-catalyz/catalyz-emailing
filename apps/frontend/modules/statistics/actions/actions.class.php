@@ -19,7 +19,6 @@ class statisticsActions extends sfActions
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
-		//region now
 		$this->prepared_target_count = $this->campaign->getPreparedTargetCount();
 		$this->target_count = $this->campaign->getTargetCount();
 		$this->sent_count = $this->campaign->getSentCount();
@@ -35,9 +34,6 @@ class statisticsActions extends sfActions
 		$this->taux_clicks = $this->prepared_target_count != 0?($this->click_count * 100) / $this->prepared_target_count-$this->failed_count:0;
 
 		$this->unsubscribe_count = $this->campaign->getUnsubscribeCount();
-		//endregion now
-
-
 
 		$title = sprintf('%s - Statistiques / Vue d\'ensemble %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
@@ -48,12 +44,46 @@ class statisticsActions extends sfActions
 	public function executeTargets(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$criteria = new Criteria();
+		$criteria->setDistinct();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->campaign->getId());
+		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID, Criteria::LEFT_JOIN);
+		$criteria->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
+
+		$pager = new sfPropelPager('CampaignContact', 15);
+		$pager->setCriteria($criteria);
+		$pager->setPage($this->getRequestParameter('page', 1));
+		$pager->setPeerMethod('doSelectJoinContact');
+		$pager->init();
+		$this->pager = $pager;
+
+		$title = sprintf('%s - Statistiques / Cibles %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
+
 		return sfView::SUCCESS;
 	}
 
 	public function executeViews(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$criteria = new Criteria();
+		$criteria->setDistinct();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->campaign->getId());
+		$criteria->add(CampaignContactPeer::VIEW_AT, null, Criteria::ISNOTNULL);
+		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID, Criteria::LEFT_JOIN);
+		$criteria->addDescendingOrderByColumn(CampaignContactPeer::VIEW_AT);
+
+		$pager = new sfPropelPager('CampaignContact', 15);
+		$pager->setCriteria($criteria);
+		$pager->setPage($this->getRequestParameter('page', 1));
+		$pager->init();
+		$this->pager = $pager;
+
+		$title = sprintf('%s - Statistiques / Ouvertures %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
+
 		return sfView::SUCCESS;
 	}
 
@@ -63,21 +93,23 @@ class statisticsActions extends sfActions
 
 		$this->links = $this->campaign->getClickStatistics(true);
 		$this->contacts = array();
-		foreach($this->links as $url => $details) {
-			$criteria = new Criteria();
-			$criteria->add(CampaignLinkPeer::URL, $url);
-			$criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->campaign->getId());
-			$criteria->addJoin(CampaignLinkPeer::ID, CampaignClickPeer::CAMPAIGN_LINK_ID);
-			$criteria->addDescendingOrderByColumn(CampaignClickPeer::CREATED_AT);
-			$result = CampaignClickPeer::doSelectJoinCampaignContact($criteria);
+		if (!empty($this->links)) {
+			foreach($this->links as $url => $details) {
+				$criteria = new Criteria();
+				$criteria->add(CampaignLinkPeer::URL, $url);
+				$criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->campaign->getId());
+				$criteria->addJoin(CampaignLinkPeer::ID, CampaignClickPeer::CAMPAIGN_LINK_ID);
+				$criteria->addDescendingOrderByColumn(CampaignClickPeer::CREATED_AT);
+				$result = CampaignClickPeer::doSelectJoinCampaignContact($criteria);
 
-			$this->contacts[$url] = array();
-			foreach($result as/*(CampaignClick)*/ $click) {
-				$this->contacts[$url][strtotime($click->getCreatedAt())] = $click->getCampaignContact();
+				$this->contacts[$url] = array();
+				foreach($result as/*(CampaignClick)*/ $click) {
+					$this->contacts[$url][strtotime($click->getCreatedAt())] = $click->getCampaignContact();
+				}
 			}
 		}
 
-		$this->total= array_sum($this->links);
+
 		$title = sprintf('%s - Statistiques / Clicks %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
 

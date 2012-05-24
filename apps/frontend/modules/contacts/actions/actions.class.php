@@ -23,12 +23,11 @@ class contactsActions extends sfActions
   */
 	public function executeIndex(sfWebRequest $request)
 	{
-
 		$this->ContactsGroupListOverview = ContactPeer::getContactsGroupList();
 
 		$User = $this->getUser();
 		$usersViews = CatalyzSettings::instance()->get(CatalyzSettings::COLUMN_CONFIGURATION_KEY);
-		$this->menu = empty($usersViews[$User->getProfile()->getid()])?$this->getDefaultColumns():$usersViews[$User->getProfile()->getid()];
+		$this->menu = empty($usersViews[$User->getProfile()->getid()])?CatalyzEmailing::getContactListDefaultColumns():$usersViews[$User->getProfile()->getid()];
 
 		$usersLimits = CatalyzSettings::instance()->get(CatalyzSettings::CUSTOM_LIMIT);
 		$this->limit = empty($usersLimits[$User->getProfile()->getid()])?sfConfig::get('app_settings_default_limit'):$usersLimits[$User->getProfile()->getid()];
@@ -286,21 +285,5 @@ class contactsActions extends sfActions
 		readfile($tempFilename);
 		unlink($tempFilename);
 		return sfView::NONE;
-	}
-
-	protected function getDefaultColumns()
-	{
-		$default = array();
-		$default['STATUS'] = true;
-		$default['FULL_NAME'] = true;
-		$default['COMPANY'] = true;
-		$default['CREATED_AT'] = true;
-		$default['GROUPS'] = true;
-
-		$customFields = CatalyzEmailing::getCustomFields();
-		foreach ($customFields as $key => $value) {
-			$default[mb_strtoupper($key)] = false;
-		}
-		return $default;
 	}
 }

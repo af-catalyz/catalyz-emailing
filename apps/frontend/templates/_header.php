@@ -39,8 +39,9 @@
 		    		</a>
 			    	<ul class="dropdown-menu">
 			    		<li><a href="<?php echo url_for('@settings'); ?>">Utilisateurs</a></li>
-			    		<li><a href="<?php echo url_for('@settings'); ?>">Champs personnalisés</a></li>
-			    		<li><a href="<?php echo url_for('@settings'); ?>">Processus de désabonnement</a></li>
+			    		<li><a href="<?php echo url_for('@settings_contact_list'); ?>">Liste des contacts</a></li>
+			    		<li><a href="<?php echo url_for('@settings_custom_fields'); ?>">Champs personnalisés</a></li>
+			    		<li><a href="<?php echo url_for('@settings_unsubscribe'); ?>">Processus de désabonnement</a></li>
 			    	</ul></li>
 
             </ul>

@@ -201,6 +201,30 @@ settings:
   url:   /settings
   param: { module: settings, action: index }
 
+settings_add_user:
+  url:   /settings/user/add
+  param: { module: settings, action: add }
+
+settings_edit_user:
+  url:   /settings/user/edit/:id
+  param: { module: settings, action: edit }
+
+settings_do_delete_user:
+  url:   /settings/user/delete/:id
+  param: { module: settings, action: delete }
+
+settings_contact_list:
+  url:   /settings/contactList
+  param: { module: settings, action: contactList }
+
+settings_custom_fields:
+  url:   /settings/customFields
+  param: { module: settings, action: customFields }
+
+settings_unsubscribe:
+  url:   /settings/unsubscribe
+  param: { module: settings, action: unsubscribe }
+
 settings_change_list_limit:
   url:   /settings/contactListLimit
   param: { module: settings, action: changeContactListLimit }

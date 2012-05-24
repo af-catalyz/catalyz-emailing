@@ -321,18 +321,19 @@ class Campaign extends BaseCampaign {
 		$start = $this->getSendStart();
 		$result = $this->initDays($start);
 
-		$before = 0;
 
-		$con = Propel::getConnection('propel');
-		$stmt = $con->createStatement();
-		$rs = $stmt->executeQuery($sql, ResultSet::FETCHMODE_NUM);
+		$before = 0;
 
 		$values = array();
 		$now = time();
-		while ($rs->next()) {
-			$key = $rs->getString(2);
+		$connection = Propel::getConnection();
+		$statement = $connection->prepare($sql);
+		$statement->execute();
+
+		while($rs = $statement->fetch(PDO::FETCH_NUM)){
+			$key = $rs[1];
 			if (isset($result[$key])) {
-				$result[$key] = $rs->getInt(3);
+				$result[$key] = $rs[2];
 			}
 		}
 
@@ -364,7 +365,7 @@ class Campaign extends BaseCampaign {
 		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->getId());
 		$CampaignContact = CampaignContactPeer::doSelectOne($criteria);
 		if ($CampaignContact) {
-			return $CampaignContact->getSentAt(null) + $CampaignContact->getFailedSentAt(null);
+			return strtotime($CampaignContact->getSentAt()) + strtotime($CampaignContact->getFailedSentAt());
 		}
 		return null;
 	}
@@ -761,6 +762,96 @@ class Campaign extends BaseCampaign {
 		} else {
 			return parent::copy(true);
 		}
+	}
+
+	public function getStatisticsOverviewScript($graphId = 'graph'){
+
+		//region campaign
+			$openHistory = $this->getOpenedHistory();
+			$categories = array_keys($openHistory);
+			$clickedHistory = $this->getClickedHistory();
+
+
+			$prev = 0;
+			foreach ($clickedHistory as $date => $count) {
+				$total = $count;
+				$clickedHistory[$date] = $total - $prev;
+				$prev = $count;
+			}
+
+			$prev = 0;
+			foreach ($openHistory as $date => $count) {
+				$total = $count;
+				$openHistory[$date] = $total - $prev;
+				$prev = $count;
+			}
+			//endregion campaign
+
+		//region $labels
+		$labels = array_keys($openHistory);
+
+		foreach ($labels as $key => $label){
+			$temp[]= sprintf('"J+%s"', $key);
+		}
+		$labels = implode(',', $temp);
+		//endregion
+
+		//region $opens
+		$opens = array_values($openHistory);
+		$opens = implode(',', $opens);
+		//endregion
+
+		//region $clicks
+		$clicks = array_values($clickedHistory);
+		$clicks = implode(',', $clicks);
+		//endregion
+
+		$script = sprintf('$(function () {
+	var chart;
+	$(document).ready(function() {
+		chart = new Highcharts.Chart({
+		chart: {
+			renderTo: "%s",
+			type: "column"
+		},
+		title: {
+			text: "Performance de votre campagne au cours du temps"
+		},
+		xAxis: {
+			categories: [%s]
+		},
+		yAxis: {
+			title: {
+				text: "Contacts"
+			}
+		},
+		tooltip: {
+			crosshairs: true,
+			shared: true
+		},
+		plotOptions: {
+			spline: {
+				marker: {
+					radius: 4,
+					lineColor: "#666666",
+					lineWidth: 1
+				}
+			}
+		},
+		series: [{
+			name: "Ouvertures",
+			data: [ %s]
+
+		}, {
+			name: "Clicks",
+			data: [ %s]
+		}]
+		});
+	});
+
+});', $graphId, $labels, $opens, $clicks);
+
+		return $script;
 	}
 
 } // Campaign

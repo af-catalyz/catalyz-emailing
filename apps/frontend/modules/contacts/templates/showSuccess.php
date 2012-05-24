@@ -119,8 +119,6 @@ $customFields = CatalyzEmailing::getCustomFields();
 		<?php endif ?>
 
 
-
-
     </div>
     <?php if (!empty($customFields)):?>
 		<div class="tab-pane" id="2"> <!-- custom fields-->
@@ -135,7 +133,7 @@ $customFields = CatalyzEmailing::getCustomFields();
     			foreach ($tab as $key => $caption){
     				printf('<div class="control-group"><label class="control-label">%s</label><div class="controls"><span class="input-xlarge uneditable-input">%s</span></div></div>',
     					$caption,
-    					$contact->getFieldValue($key)
+    					$contact->getFieldValue(strtoupper($key))
 						);
     			}
     			echo '</div>';
@@ -147,7 +145,7 @@ $customFields = CatalyzEmailing::getCustomFields();
     </div><!-- end custom fields-->
     <?php endif ;
 
-		printf('<br/><a class="btn btn-small btn-mini" href="%s">%s</a>', url_for('@contacts'), __('Revenir à la liste des contacts'));
+		printf('<div class="clear"></div><br/><a class="btn btn-small btn-mini" href="%s">%s</a>', url_for('@contacts'), __('Revenir à la liste des contacts'));
 		?>
 
 

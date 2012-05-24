@@ -19,8 +19,11 @@ printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_messag
 
 		<div class="tab-pane active" id="1">
 			<?php
+
 if (!$browscap):
 	echo '<div class="alert alert-error"><p>La directive de configuration browscap dans le fichier php.ini doit pointer vers le fichier browscap.ini de votre système.</p></div>';
+elseif($parents['total'] == 0 && $platforms['total'] == 0):
+	printf('<p>Aucune statistique pour cette campagne</p>');
 else:
 
 

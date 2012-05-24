@@ -31,9 +31,8 @@ else{
 			echo '<tr>';
 
 			$campaign=unserialize($campaign);
-
 			//					printf('<th align="left">%s</th>',link_to($campaign['Name'],'statistics/index?id='.$campaign['Id']));
-			printf('<th align="left">%s</th>',$campaign['Name']);
+			printf('<th align="left"><a href="%s">%s</a></th>',url_for('@campaign_statistics_summary?slug='.$campaign['Slug']),$campaign['Name']);
 			foreach ($MonthLabels as $nb=>$label){
 				if (!isset($totalMonth[$nb])) {
 					$totalMonth[$nb]=0;

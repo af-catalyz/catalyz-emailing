@@ -1,5 +1,5 @@
 <?php use_helper('Text') ?>
-
+<?php $customFields_dispos = CatalyzEmailing::getCustomFields(); ?>
 
 <div class="tabbable">
 	<ul class="nav nav-tabs">
@@ -28,11 +28,14 @@
 				    <tr>
 				    	<?php
 				    	foreach ($menu->getRawValue() as $field=>$bool){
+
+
 				    		if ($bool) {
 				    			if ($field == 'GROUPS') {
 				    				printf('<th>%s<br/><br/></th>',ContactPeer::getfieldLabel($field));
 				    			}elseif(preg_match('/^CUSTOM([1-9][0-9]?)$/', $field, $tokens)){
 				    				$tokens[1] = (int)$tokens[1];
+
 				    				if (!empty($customFields_dispos['custom'.$tokens[1]])) {
 				    					printf('<th>%s %s%s</th>',ContactPeer::getfieldLabel($field) ,displaySortIcon('A',$field,$sort,$column),displaySortIcon('De',$field,$sort,$column));
 				    				}

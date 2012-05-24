@@ -51,11 +51,11 @@
 			//endregion
 
 			//region désinscription
-			printf('<div class="span1 well alert-danger"><center><h1><a href="">%s</a></h1>désinscription%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Nombre de contacts ayant clické sur le lien de désinscription de cette campagne."><i class="icon-question-sign"></i></a>',$unsubscribe_count,$unsubscribe_count>1?'s':'');
+			printf('<div class="span2 well alert-danger"><center><h1><a href="">%s</a></h1>désinscription%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Nombre de contacts ayant clické sur le lien de désinscription de cette campagne."><i class="icon-question-sign"></i></a>',$unsubscribe_count,$unsubscribe_count>1?'s':'');
 			if ($unsubscribe_count) {
 				printf('<br />(%0.1f%%)', $sent_count?(100 * $unsubscribe_count / $sent_count):0);
 			}else{
-				echo '<br />';
+				echo '<br /><br />';
 			}
 			echo '</center></div>';
 			//endregion
@@ -85,62 +85,9 @@
 			//endregion
 
 			echo '<div class="clear"></div>';
+
+			printf('<div id="graph" style="height: 400px;"></div><script type="text/javascript">/* <![CDATA[ */ %s /* ]]> */</script>', html_entity_decode($campaign->getStatisticsOverviewScript()) )
 			 ?>
-
-			 <div id="graph" style="width: 1200px; height: 400px;"></div>
-
-			 <script type="text/javascript">
-			 /* <![CDATA[ */
-
-$(function () {
-	var chart;
-	$(document).ready(function() {
-		chart = new Highcharts.Chart({
-			chart: {
-				renderTo: 'graph',
-				type: 'column'
-			},
-			title: {
-				text: 'Performance de votre campagne au cours du temps'
-			},
-			xAxis: {
-				categories: ['h+6', 'h+12', 'h+18', 'h+24', 'h+30', 'h+36', 'h+42']
-			},
-			yAxis: {
-				title: {
-					text: 'Contacts'
-				}
-			},
-			tooltip: {
-				crosshairs: true,
-				shared: true
-			},
-			plotOptions: {
-				spline: {
-					marker: {
-						radius: 4,
-						lineColor: '#666666',
-						lineWidth: 1
-					}
-				}
-			},
-			series: [{
-				name: 'Ouvertures',
-				data: [ 100, 150, 80, 60, 20, 5, 0]
-
-			}, {
-				name: 'Clicks',
-				data: [ 10, 20, 10, 5, 1, 0, 0]
-			}]
-		});
-	});
-
-});
-
-			 /* ]]> */
-			 </script>
-
-
     </div>
 	</div>
 </div>

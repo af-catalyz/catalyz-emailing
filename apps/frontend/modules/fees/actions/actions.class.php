@@ -25,7 +25,7 @@ class feesActions extends sfActions
   	$campaigns = CampaignPeer::doSelect(new Criteria());
   	$temp = array();
   	foreach ($campaigns as $campaign) {
-  		$temp[$campaign->getId()] = array('Name' => $campaign->getName(), 'Id' => $campaign->getId());
+  		$temp[$campaign->getId()] = array('Name' => $campaign->getName(), 'Id' => $campaign->getId(),'Slug' => $campaign->getSlug());
   	}
 
   	$campaigns = $temp;

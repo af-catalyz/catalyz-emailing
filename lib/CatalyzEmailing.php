@@ -507,6 +507,21 @@ class CatalyzEmailing {
         return $czSettings->get('contact.customsField', array());
     }
 
+	static function getContactListDefaultColumns(){
+		$default = array();
+		$default['STATUS'] = true;
+		$default['FULL_NAME'] = true;
+		$default['COMPANY'] = true;
+		$default['CREATED_AT'] = true;
+		$default['GROUPS'] = true;
+
+		$customFields = CatalyzEmailing::getCustomFields();
+		foreach ($customFields as $key => $value) {
+			$default[mb_strtoupper($key)] = false;
+		}
+		return $default;
+	}
+
     static function createContactImportErrorLogExcel($errorRows)
     {
         $spreadsheet = new sfPhpExcel();
