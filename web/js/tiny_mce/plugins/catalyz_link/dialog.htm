@@ -1,0 +1,105 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<title>{#catalyz_link_dlg.title}</title>
+	<script type="text/javascript" src="../../../jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="../../../jquery-ui-1.7.custom.min.js"></script>
+	<script type="text/javascript" src="../../tiny_mce_popup.js"></script>
+	<script type="text/javascript" src="../../utils/form_utils.js"></script>
+	<script type="text/javascript" src="js/linknode.php"></script>
+	<style type="text/css">
+	option.hidden{
+		color:#33BB33;
+		}
+	</style>
+</head>
+<body>
+
+<form onsubmit="insertAction();return false;" action="#">
+	<fieldset>
+	<legend>{#catalyz_link_dlg.link_type}</legend>
+	<table border="0" cellpadding="4" cellspacing="0">
+		<tr>
+		<td colspan="2"><label for="linkType1"><INPUT type=radio name="linkType" id="linkType1" value="1" />{#catalyz_link_dlg.to_page}</label></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td id="nodelistcontainer" onclick="document.getElementById('linkType1').checked = true;">&nbsp;</td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><small><i>{#catalyz_link_dlg.hint_hidden_nodes}</i></small></td>
+		</tr>
+		<tr id="lang">
+			<td>&nbsp;</td>
+			<td>
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td width="130"><label id="localelistlabel" for="localelist">{#catalyz_link_dlg.lang}</label></td>
+						<td id="localelistcontainer" >&nbsp;</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+
+
+		<tr>
+			<td colspan="2"><label for="linkType2"><INPUT type=radio name="linkType" id="linkType2" value="2"/>{#catalyz_link_dlg.to_file}</label></td>
+		</tr>
+		<tr>
+			<td class="nowrap">&nbsp;</td>
+			<td>
+			  <table border="0" cellspacing="0" cellpadding="0">
+				<tr>
+				  <td><input size="74" id="href" name="href" type="text" class="mceFocus" value="" onchange="selectByValue(this.form,'linklisthref',this.value);" onclick="document.getElementById('linkType2').checked = true;"/></td>
+				  <td id="hrefbrowsercontainer" onclick="document.getElementById('linkType2').checked = true;">&nbsp;</td>
+				</tr>
+			  </table>
+			</td>
+		</tr>
+
+
+
+		<tr>
+		<td colspan="2"><label for="linkType3"><INPUT type=radio name="linkType" id="linkType3" value="3"/>{#catalyz_link_dlg.to_external}</label></td>
+		</tr>
+		<tr>
+			<td>&nbsp;</td>
+			<td><input size="74" id="externaltarget" name="externaltarget" type="text" value="" onclick="document.getElementById('linkType3').checked = true"/></td>
+		</tr>
+	</table>
+	</fieldset>
+
+	<table border="0" cellpadding="4" cellspacing="0">
+	<tr>
+		<td><label id="targetlistlabel" for="targetlist">{#catalyz_link_dlg.target}</label></td>
+		<td id="targetlistcontainer"><select id="targetlist"><option value=""></option></select></td>
+	</tr>
+
+	<tr id="class">
+		<td><label id="classlabel" for="classlist">{#catalyz_link_dlg.css_class}</label></td>
+		<td>
+			 <select id="classlist" name="classlist" onchange="changeClass();">
+				<option value="" selected>{#not_set}</option>
+			 </select>
+		</td>
+	</tr>
+	<tr>
+		<td><label id="titlelabel" for="title">{#catalyz_link_dlg.caption}</label></td>
+		<td><input id="title" name="title" type="text" value="" size="74"/></td>
+	</tr>
+	</table>
+
+	<div class="mceActionPanel">
+		<div style="float: left">
+			<input type="submit" id="insert" name="insert" value="{#insert}" />
+		</div>
+
+		<div style="float: right">
+			<input type="button" id="cancel" name="cancel" value="{#cancel}" onclick="tinyMCEPopup.close();" />
+		</div>
+	</div>
+</form>
+
+</body>
+</html>

@@ -176,7 +176,49 @@ class settingsActions extends sfActions
 
 	public function executeUnsubscribe(sfWebRequest $request)
 	{
-		return sfView::SUCCESS;
+		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+		$this->form = new UnsubscribedConfigurationForm();
+
+		$groupCriteria = new Criteria();
+		$groupCriteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
+		$temp = ContactGroupPeer::doSelect($groupCriteria);
+
+		$this->groups = array();
+		foreach ($temp as /*(ContactGroup)*/$group){
+			$this->groups[$group->getId()] = $group;
+		}
+
+		if ($request->isMethod('post')) {
+
+			$this->form->bind($request->getParameter('unsubscribed'));
+			if ($this->form->isValid()) {
+				$values = $this->form->getValues();
+
+				$listes = $request->getParameter('unsubscrib', FALSE);
+				if (!empty($listes['qualif_list_publication'])) {
+					$listDetails = array();
+					foreach ($listes['qualif_list_publication'] as $list){
+						$listDetails[] = array('title' => $list['title'] , 'groups' => !empty($list['ids'])?$list['ids']:array());
+
+					}
+
+					$values['qualif_list_publication'] = serialize($listDetails);
+				}
+
+				$czSettings->set(CatalyzSettings::CUSTOM_UNSUBSCRIBED_CONFIGURATION, $values);
+				sfContext::getInstance()->getUser()->setFlash('info', 'La configuration a été sauvegardée.');
+			}else{
+				sfContext::getInstance()->getUser()->setFlash('error', 'La configuration comporte des erreurs.');
+			}
+		}
+
+		$this->defaults = $czSettings->get(CatalyzSettings::CUSTOM_UNSUBSCRIBED_CONFIGURATION, array());
+		if (!empty($this->defaults)) {
+			$this->form->setDefaults($this->defaults);
+		}
+
+		$title = sprintf('Gestion des désabonnement %s', sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
 	}
 
 	public function executeChangeContactListLimit($request)

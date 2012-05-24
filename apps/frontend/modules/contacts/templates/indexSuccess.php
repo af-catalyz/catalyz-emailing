@@ -17,7 +17,7 @@
 
 				<?php //include_partial('contacts/filter') ?>
 
-				<p>Vous pouvez <a href="">sélectionner les informations des contacts à afficher dans la liste</a> depuis vos préférences.</p>
+				<p>Vous pouvez <a href="<?php echo url_for('@settings_contact_list') ?>">sélectionner les informations des contacts à afficher dans la liste</a> depuis vos préférences.</p>
 			</div>
 
 

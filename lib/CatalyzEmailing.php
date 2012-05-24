@@ -507,20 +507,21 @@ class CatalyzEmailing {
         return $czSettings->get('contact.customsField', array());
     }
 
-	static function getContactListDefaultColumns(){
-		$default = array();
-		$default['STATUS'] = true;
-		$default['FULL_NAME'] = true;
-		$default['COMPANY'] = true;
-		$default['CREATED_AT'] = true;
-		$default['GROUPS'] = true;
+    static function getContactListDefaultColumns()
+    {
+        $default = array();
+        $default['STATUS'] = true;
+        $default['FULL_NAME'] = true;
+        $default['COMPANY'] = true;
+        $default['CREATED_AT'] = true;
+        $default['GROUPS'] = true;
 
-		$customFields = CatalyzEmailing::getCustomFields();
-		foreach ($customFields as $key => $value) {
-			$default[mb_strtoupper($key)] = false;
-		}
-		return $default;
-	}
+        $customFields = CatalyzEmailing::getCustomFields();
+        foreach ($customFields as $key => $value) {
+            $default[mb_strtoupper($key)] = false;
+        }
+        return $default;
+    }
 
     static function createContactImportErrorLogExcel($errorRows)
     {
@@ -559,6 +560,54 @@ class CatalyzEmailing {
 
         return $filename;
     }
+
+		static function getCampaignsMenu(){
+			$return = sprintf('<ul class="dropdown-menu"><li><a href="%s">%s</a></li>',url_for('@campaigns_do_create'),__('Créer une campagne'));
+
+			//region $last3_prepared
+			$return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>',url_for('@campaigns'),__('Campagnes en préparation') );
+			$criteria = new Criteria();
+			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+			$criteria->add(CampaignTemplatePeer::IS_ARCHIVED,0);
+			$criteria->add(CampaignPeer::IS_ARCHIVED, 0);
+			$criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::LESS_THAN);
+			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+			$criteria->setLimit(3);
+			$criteria->setDistinct();
+
+			$last3_prepared = CampaignPeer::doSelect($criteria);
+
+			$last3_send = CampaignPeer::doSelect($criteria);
+			foreach ($last3_send as /*(Campaign)*/ $campaign){
+				$return .= sprintf('<li><a href="%s">&nbsp;%s</a></li>', url_for('@campaign_index?slug='. $campaign->getSlug()), $campaign->getName());
+			}
+
+			//endregion
+
+			//region $last3_send
+			$return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>', url_for('@campaigns?type=2'),__('Campagnes envoyées'));
+
+			$criteria = new Criteria();
+			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+			$criteria->add(CampaignTemplatePeer::IS_ARCHIVED,0);
+			$criteria->add(CampaignPeer::IS_ARCHIVED, 0);
+			$criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::GREATER_EQUAL);
+			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+			$criteria->setLimit(3);
+			$criteria->setDistinct();
+
+			$last3_send = CampaignPeer::doSelect($criteria);
+			foreach ($last3_send as /*(Campaign)*/ $campaign){
+				$return .= sprintf('<li><a href="%s">&nbsp;%s</a></li>', $campaign->getCatalyzUrl(), $campaign->getName());
+			}
+
+			//endregion
+
+			$return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>', url_for('@campaigns?type=3'),__('Campagnes archivées'));
+			$return .= '<li class="divider"></li><li><a href="#">Gestion des modèles de campagnes</a></li></ul>';
+
+			return $return;
+		}
 }
 
 ?>
