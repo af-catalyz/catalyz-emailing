@@ -17,14 +17,11 @@ if (
 		}
 	}
 	if (!empty($filters['models'])&& count($filters['years'])>1) {
-		sort($filters['models']);
 		printf('<li class="nav-header">%s</li>', __('Filtrer par modèle'));
 		foreach ($filters['models'] as $modelId => $modelName){
 			printf('<li><a rel="type_%s" href="javascript://">%s</a></li>', $modelId, $modelName);
 		}
 	}
-
-
 	echo '</ul></div></div>';
 } ?>
 

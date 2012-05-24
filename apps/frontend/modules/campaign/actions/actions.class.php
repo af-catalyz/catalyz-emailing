@@ -163,4 +163,8 @@ class campaignActions extends sfActions
 		$this->setLayout(false);
 		return sfView::NONE;
 	}
+
+	public function executeSaveGoogleAnalytics($request){
+
+	}
 }
