@@ -206,9 +206,14 @@ class settingsActions extends sfActions
 				}
 
 				$czSettings->set(CatalyzSettings::CUSTOM_UNSUBSCRIBED_CONFIGURATION, $values);
-				sfContext::getInstance()->getUser()->setFlash('info', 'La configuration a été sauvegardée.');
+
+				$message = sprintf('<h4 class="alert-heading">Configuration modifée</h4><p>La configuration a été sauvegardée.</p>');
+				$this->getUser()->setFlash('notice_success', $message);
+
 			}else{
-				sfContext::getInstance()->getUser()->setFlash('error', 'La configuration comporte des erreurs.');
+
+				$message = sprintf('<h4 class="alert-heading">La configuration comporte des erreurs.</h4><p>Veuillez vérifier les données saisies.</p>');
+				$this->getUser()->setFlash('notice_error', $message);
 			}
 		}
 

@@ -11,11 +11,11 @@ class UnsubscribedConfigurationForm extends sfForm {
 		$defaults['conf_type'] = 1;
 
 		$widgets['conf_content'] = new czWidgetFormTextareaTinyMCE();
-		$validators['conf_content'] = new sfValidatorString(array('required' => FALSE), array('required' => 'Le message de validation ne peut être vide'));
+		$validators['conf_content'] = new sfValidatorString(array('required' => FALSE), array('required' => '<span class="help-block">Le message de validation ne peut être vide</span>'));
 		$defaults['conf_content'] = 'Vous avez été désinscrit de la lettre d\'information.';
 
-		$widgets['conf_url'] = new sfWidgetFormInput(array(), array('size' => 67));
-		$validators['conf_url'] = new sfValidatorUrl(array('required' => FALSE) ,array('invalid' => 'l\'adresse n\'est pas valide', 'required' => 'Vous devez fournir l\'adresse sur laquelle l\'utilisateur sera dirigé'));
+		$widgets['conf_url'] = new sfWidgetFormInput(array(), array('class' => 'input-xlarge'));
+		$validators['conf_url'] = new sfValidatorUrl(array('required' => FALSE) ,array('invalid' => '<span class="help-block">l\'adresse n\'est pas valide</span>', 'required' => '<span class="help-block">Vous devez fournir l\'adresse sur laquelle l\'utilisateur sera dirigé</span>'));
 		//endregion
 
 		//region Qualification
@@ -34,8 +34,8 @@ class UnsubscribedConfigurationForm extends sfForm {
 		$widgets['qualif_motif_introduction'] = new czWidgetFormTextareaTinyMCE();
 		$validators['qualif_motif_introduction'] = new sfValidatorString(array('required' => FALSE));
 
-		$widgets['qualif_motif_raisons'] = new sfWidgetFormTextarea(array(),array('cols' => 65));
-		$validators['qualif_motif_raisons'] = new sfValidatorString(array('required' => FALSE), array('required' => 'Vous devez définir au moins une raison'));
+		$widgets['qualif_motif_raisons'] = new sfWidgetFormTextarea(array(),array('style' => 'width: 616px; resize: none;'));
+		$validators['qualif_motif_raisons'] = new sfValidatorString(array('required' => FALSE), array('required' => '<span class="help-block">Vous devez définir au moins une raison</span>'));
 
 		$widgets['qualif_footer'] = new czWidgetFormTextareaTinyMCE();
 		$validators['qualif_footer'] = new sfValidatorString(array('required' => FALSE));
@@ -45,11 +45,11 @@ class UnsubscribedConfigurationForm extends sfForm {
 		$widgets['notif_enabled'] = new sfWidgetFormInputCheckbox(array(),array('class' => 'notif_listen'));
 		$validators['notif_enabled'] = new sfValidatorBoolean(array('required' => FALSE));
 
-		$widgets['notif_recipient'] = new sfWidgetFormInput(array(), array('size' => 67));
-		$validators['notif_recipient'] = new czValidatorEmailList(array('required' => FALSE), array('required' => 'Vous devez définir le destinataire des emails de notification', 'invalid' => 'L\'email est invalide'));
+		$widgets['notif_recipient'] = new sfWidgetFormInput(array(), array('class' => 'input-xlarge'));
+		$validators['notif_recipient'] = new czValidatorEmailList(array('required' => FALSE), array('required' => '<span class="help-block">Vous devez définir le destinataire des emails de notification</span>', 'invalid' => '<span class="help-block">L\'email est invalide</span>'));
 
-		$widgets['notif_subject'] = new sfWidgetFormInput(array(), array('size' => 67));
-		$validators['notif_subject'] = new sfValidatorString(array('max_length' => 255, 'required' => FALSE), array('required' => 'Vous devez définir le sujet du mail de notification'));
+		$widgets['notif_subject'] = new sfWidgetFormInput(array(), array('class' => 'input-xlarge'));
+		$validators['notif_subject'] = new sfValidatorString(array('max_length' => 255, 'required' => FALSE), array('required' => '<span class="help-block">Vous devez définir le sujet du mail de notification</span>'));
 		$defaults['notif_subject'] ='[Catalyz Emailing] #FIRSTNAME# #LASTNAME# s\'est désabonné';
 		//endregion
 
