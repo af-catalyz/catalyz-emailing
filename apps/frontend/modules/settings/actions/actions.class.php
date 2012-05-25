@@ -146,7 +146,7 @@ class settingsActions extends sfActions
 
 
 			$message = sprintf('<h4 class="alert-heading">Configuration modifée</h4><p>Les modifications ont été enregistrée.</p>');
-			$this->getUser()->setFlash('notice_success', $message);
+			$this->getUser()->setFlash('notice_success', $message, FALSE);
 
 		}
 

@@ -27,7 +27,6 @@
 		    		</a>
 			    	<ul class="dropdown-menu">
 			    		<li><a href="<?php echo url_for('@settings'); ?>">Utilisateurs</a></li>
-			    		<li><a href="<?php echo url_for('@settings_contact_list'); ?>">Liste des contacts</a></li>
 			    		<li><a href="<?php echo url_for('@settings_custom_fields'); ?>">Champs personnalisés</a></li>
 			    		<li><a href="<?php echo url_for('@settings_unsubscribe'); ?>">Processus de désabonnement</a></li>
 			    	</ul></li>
@@ -49,7 +48,7 @@
 		    			<b class="caret"></b>
 		    		</a>
 			    	<ul class="dropdown-menu">
-			    		<li><a href="#"><i class="icon-cog"></i> Préférences</a></li>
+			    		<li><a href="<?php echo url_for('@settings_contact_list'); ?>"><i class="icon-cog"></i> Préférences</a></li>
 			    		<li class="divider"></li>
 			    		<li><a href="<?php echo url_for('@sf_guard_signout') ?>"><i class="icon-off"></i> Se d&eacute;connecter</a></li>
 			    	</ul>

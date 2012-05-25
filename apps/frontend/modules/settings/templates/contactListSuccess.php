@@ -1,22 +1,9 @@
 <div class="page-header">
-	<h1>Configuration</h1>
+	<h1>Personnalisation de l'affichage de la liste des contacts</h1>
 </div>
 
 <?php use_javascript('/js/jquery-ui-1.8.20.custom.min.js') ?>
 <?php use_stylesheet('/css/ui-lightness/jquery-ui-1.8.20.custom.css') ?>
-
-<div class="tabbable tabs-left">
-	<ul class="nav nav-tabs">
-		<li><a href="<?php echo url_for('@settings') ?>">Utilisateurs</a></li>
-		<li class="active"><a href="#1" data-toggle="tab">Liste des contacts</a></li>
-		<li><a href="<?php echo url_for('@settings_custom_fields') ?>">Champs personnalisés</a></li>
-		<li><a href="<?php echo url_for('@settings_unsubscribe') ?>">Désabonnement</a></li>
-	</ul>
-
-	<div class="tab-content span9">
-		<div class="tab-pane active" id="1">
-
-
 
 
 			<?php use_helper('Text') ?>
@@ -51,6 +38,10 @@
 </form>
 
 <script type="text/javascript">
+$(document).ready(function() {
+	updateSortable();
+});
+
 function updateSortable(){
 	$(".sortable").sortable({
 		revert: true,
@@ -71,10 +62,6 @@ function updateHidden(){
 	$('#hidden').val(serialize(tab));
 	return true;
 }
-
-$(document).ready(function() {
-	updateSortable();
-});
 
 function serialize (mixed_value) {
 	var _utf8Size = function (str) {
@@ -157,7 +144,3 @@ function serialize (mixed_value) {
 	}    return val;
 }
 </script>
-
-		</div>
-	</div>
-</div>
