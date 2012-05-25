@@ -170,7 +170,7 @@ class campaignActions extends sfActions
 		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
 
 		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
-			$this->getUser()->setFlash('notice_error', $message);
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage);
 		}
 
 		$this->form = new CampaignAnalyticsForm($this->campaign);
@@ -188,7 +188,7 @@ class campaignActions extends sfActions
 
 		if ($request->isMethod('post')) {
 			if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
-				$this->getUser()->setFlash('notice_error', $message);
+				$this->getUser()->setFlash('notice_error', $sendErrorMessage);
 			} else {
 				$this->form->bind($request->getParameter('campaign'));
 				if ($this->form->isValid()) {
@@ -202,6 +202,45 @@ class campaignActions extends sfActions
 					$message = sprintf('<h4 class="alert-heading">Campagne sauvegardée</h4><p>La configuration de la campagne a été sauvegardée.</p>');
 					$this->getUser()->setFlash('notice_success', $message);
 				}
+			}
+		}
+
+		$title = sprintf('%s - Intégration Google Analytics %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
+		return sfView::SUCCESS;
+	}
+
+	public function executeLinks($request){
+		$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
+
+		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+		}
+
+		if ($request->isMethod('post')) {
+			if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
+				$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+			} else {
+
+					//region links
+					$links = $request->getParameter('link');
+					foreach ($links as $id => $value) {
+						$conn = Propel::getConnection(CampaignLinkPeer::DATABASE_NAME);
+						$selectCriteria = new Criteria();
+						$selectCriteria->add(CampaignLinkPeer::ID, $id);
+						$updateCriteria = new Criteria();
+						$updateCriteria->add(CampaignLinkPeer::GOOGLE_ANALYTICS_TERM, $value);
+
+						BasePeer::doUpdate($selectCriteria, $updateCriteria, $conn);
+					}
+					//endregion links
+
+
+					$message = sprintf('<h4 class="alert-heading">Campagne sauvegardée</h4><p>La configuration de la campagne a été sauvegardée.</p>');
+					$this->getUser()->setFlash('notice_success', $message);
+
 			}
 		}
 

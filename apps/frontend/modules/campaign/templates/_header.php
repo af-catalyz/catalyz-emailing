@@ -32,7 +32,7 @@ echo '</div>';
     <ul class="nav nav-tabs">
 	    <li <?php echo $sf_context->getActionName() == 'index'?'class="active"':'' ?>><a href="<?php echo url_for('@campaign_index?slug='.$campaign->getSlug()) ?>"><i class="icon-ok"></i> Enveloppe</a></li>
 	    <li><a href="#2" data-toggle="tab"><i class="icon-ok"></i> Message</a></li>
-	    <li><a href="#3" data-toggle="tab"><i class="icon-remove"></i> Liens</a></li>
+	    <li <?php echo $sf_context->getActionName() == 'links'?'class="active"':'' ?>><a href="<?php echo url_for('@campaign_edit_links?slug='.$campaign->getSlug()) ?>"><i class="icon-remove"></i> Liens</a></li>
 	    <li <?php echo $sf_context->getActionName() == 'googleAnalytics'?'class="active"':'' ?>><a href="<?php echo url_for('@campaign_edit_analytics?slug='.$campaign->getSlug()) ?>" ><i class="icon-remove"></i> Google Analytics</a></li>
 	    <li><a href="#5" data-toggle="tab"><i class="icon-remove"></i> Anti-spam</a></li>
 	    <li><a href="#6" data-toggle="tab"><i class="icon-remove"></i> Contrôle visuel</a></li>

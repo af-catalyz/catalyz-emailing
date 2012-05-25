@@ -7,10 +7,6 @@
 	    <div class="tab-pane" id="2">
 				<?php include_component('campaign', 'message',array('campaign' => $campaign)) ?>
 	    </div>
-	    <div class="tab-pane" id="3">
-	    	<?php include_component('campaign', 'links',array('campaign' => $campaign)) ?>
-			</div>
-
 			<div class="tab-pane" id="5">
 				<?php include_component('campaign', 'antiSpam',array('campaign' => $campaign)) ?>
 			</div>

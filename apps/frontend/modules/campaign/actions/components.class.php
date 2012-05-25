@@ -11,11 +11,6 @@ class campaignComponents extends sfComponents
 
 	}
 
-	public function executeLinks(sfWebRequest $request)
-	{
-
-	}
-
 	public function executeAntiSpam(sfWebRequest $request)
 	{
 
