@@ -1,3 +1,5 @@
+<?php include_partial('campaign/header',array('campaign' => $campaign)) ?>
+
 
 <?php
 $campaign = $campaign->getRawValue();
@@ -12,23 +14,32 @@ foreach($form->getWidgetSchema()->getFields() as $name => $widget){
 foreach($form->getErrorSchema() as $error){
 	print_r((string)$error);
 }
+
+$errors = $form->getErrorSchema();
+
 ?>
 
-<form  action="<?php echo '#'/*url_for('@campaign-edit-analytics?id='.$campaign->getId())*/ ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form  class="form-horizontal" action="<?php echo url_for('@campaign_edit_analytics?slug='.$campaign->getSlug()) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 <?php  $form= /*(CampaignAnalyticsForm)*/ $form; ?>
-
-
 
 <label class="checkbox">
 	<?php echo (string)$form['google_analytics_enabled'] ?> Activer l'intégration avec Google Analytics
 </label>
 <span class="help-block">En activant cette option, si vous utilisez Google Analytics sur votre site, vous pourrez mesurer précisément les retours de votre campagne en faisant le lien avec les actions effectuées sur votre site suite à cette campagne.</span>
 
-
 <div id="google_analytics_options"<?php if(null == $form['google_analytics_enabled']->getValue()){echo ' style="display:none_"';} ?>>
-	<span class="help-block">Vous pouvez ajuster les paramètres ci-dessous:</span>
+	<br />
+	<p>Vous pouvez ajuster les paramètres ci-dessous:</p>
+	<br />
 
-	<div class="control-group">
+					<?php
+		$class = '';
+if (!empty($errors['google_analytics_source'])) {
+	$class = ' error';
+}
+
+printf('<div class="control-group%s">', $class);
+?>
 		<label class="control-label">Source *</label>
 		<div class="controls">
 			<?php echo (string)$form['google_analytics_source'] ?>
@@ -37,7 +48,14 @@ foreach($form->getErrorSchema() as $error){
 		</div>
 	</div>
 
-	<div class="control-group">
+					<?php
+$class = '';
+if (!empty($errors['google_analytics_medium'])) {
+	$class = ' error';
+}
+
+printf('<div class="control-group%s">', $class);
+?>
 		<label class="control-label">Médium *</label>
 		<div class="controls">
 			<?php echo (string)$form['google_analytics_medium'] ?>
@@ -55,7 +73,14 @@ foreach($form->getErrorSchema() as $error){
 		</div>
 	</div>
 
-	<div class="control-group">
+					<?php
+$class = '';
+if (!empty($errors['google_analytics_campaign_type'])) {
+	$class = ' error';
+}
+
+printf('<div class="control-group%s">', $class);
+?>
 		<label class="control-label">Campagne *</label>
 		<div class="controls">
 			<?php echo (string)$form['google_analytics_campaign_type'] ?>
@@ -65,21 +90,27 @@ foreach($form->getErrorSchema() as $error){
 	</div>
 </div>
 
-<?php echo (string)$form['id']; ?>
+<?php echo $form->renderHiddenFields(); ?>
 
 
 	<br />
 	<div class="form-actions">
 	<?php
-		if ($campaign->getStatus()< Campaign::STATUS_SENDING) {
-			echo '<input type="submit" name="Save" value="Enregistrer" class="btn btn-primary" />';
-		} ?>
+if ($campaign->getStatus()< Campaign::STATUS_SENDING) {
+	echo '<input type="submit" name="Save" value="Enregistrer" class="btn btn-primary" />';
+} ?>
 	</div>
 
 </form>
 
 <script type="text/javascript">
 $(document).ready(function() {
+
+	if($("#campaign_google_analytics_enabled").is(':checked')){
+		$('#google_analytics_options').show();
+	}else{
+		$('#google_analytics_options').hide();
+	}
 
 	$("#campaign_google_analytics_enabled").change(function(){
 		if($(this).is(':checked')){
@@ -88,5 +119,5 @@ $(document).ready(function() {
 			$('#google_analytics_options').hide();
 		}
 	});
- });
+});
 </script>

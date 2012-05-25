@@ -101,6 +101,10 @@ campaign_edit:
   url:   /campaign/edit/:slug
   param: { module: campaign, action: edit }
 
+campaign_edit_analytics:
+  url:   /campaign/edit/googleAnalytics/:slug
+  param: { module: campaign, action: googleAnalytics }
+
 campaign_do_resend:
   url:   /campaign/resend/:id
   param: { module: campaign, action: resend }

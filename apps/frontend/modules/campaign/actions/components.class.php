@@ -16,11 +16,6 @@ class campaignComponents extends sfComponents
 
 	}
 
-	public function executeGoogleAnalytics(sfWebRequest $request)
-	{
-    $this->form = new CampaignAnalyticsForm($this->campaign);
-	}
-
 	public function executeAntiSpam(sfWebRequest $request)
 	{
 

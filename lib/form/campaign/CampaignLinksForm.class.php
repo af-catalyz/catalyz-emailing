@@ -1,6 +1,6 @@
 <?php
 
-class CampaignAnalyticsForm extends BaseCampaignForm {
+class CampaignlinksForm extends BaseCampaignForm {
 	public function setup()
 	{
 		parent::setup();
