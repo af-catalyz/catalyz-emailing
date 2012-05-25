@@ -48,7 +48,10 @@ class CatalyzEmailing {
 
     static function addStatisticsToLinks($content, $CampaignUrls, $clickedLinksPos)
     {
-        $content = preg_replace('|(</body>)|i', '\1<div id="overDiv" style="position:absolute; visibility:hidden; z-index:1000;"></div>', $content);
+       	//$content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
+       	$content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
+    	 	$content = preg_replace('|(</body>)|i', '<script type="text/javascript">$(".add_popover").popover({trigger: "hover", delay: { show: 10, hide: 500 }}); </script>\1', $content);
+
         $content = str_replace('<a ', sprintf('<a style="position:relative;" '), $content);
         $content = self::addStats($content, $CampaignUrls, $clickedLinksPos);
         return $content;
@@ -105,13 +108,16 @@ class CatalyzEmailing {
                     if (empty($clickedLinksPos[$target]) || count($clickedLinksPos[$target]) <= 1) {
                         $statisticPrint = sprintf('
 								<font face="Verdana, Geneva, sans-serif" style="font-size: 12px;font-weight:normal; " size="1" color="#000000">
-								<a style="position:absolute;" href="%s" target="_blank" onmouseover="return overlib(\'<b>Nombre de clics :</b><br /><b>&nbsp;&nbsp;&nbsp;&nbsp;sur ce lien : </b>%d /%d (%d%%)<br />\',CAPTION, \'%s\');" onmouseout="return nd();">
+
+
+
+								<a class="add_popover" rel="popover" style="position:absolute;" href="%s" target="_blank" data-content="<b>Nombre de clics :</b><br /><b>sur ce lien : </b>%d /%d (%d%%)<br />" data-original-title="%s">
 										<span style="z-index:10;position:absolute;bottom:-35px;left:0;height:15px;width:50px;border:1px solid blue;background: white;">
 
 										<span style="z-index:10;position:relative;height:15px;width:50px;float:left;">
 												<span style="z-index:10;position:absolute;left:0;height:15px;width:
 												%dpx;background: red;">&nbsp;</span>
-												<span style="z-index:10;position:absolute;left:0;height:10px;width:20px;">
+												<span style="z-index:10;position:absolute;top: 7px;left:0;height:10px;width:20px;font-size: 10px">
 												%d%%</span>
 										</span>
 									</span>
@@ -121,13 +127,13 @@ class CatalyzEmailing {
                     } else {
                         $statisticPrint = sprintf('
 								<font face="Verdana, Geneva, sans-serif" style="font-size: 12px;font-weight:normal; " size="1" color="#000000">
-								<a style="position:absolute;" href="%s" target="_blank" onmouseover="return overlib(\'<b>Nombre de clics :</b><br /><b>&nbsp;&nbsp;&nbsp;&nbsp;sur ce lien : </b>%d /%d (%d%%)<br /><b>&nbsp;&nbsp;&nbsp;&nbsp;pour cette url : </b>%d /%d (%d%%)<br />\',CAPTION, \'%s\');" onmouseout="return nd();">
+								<a class="add_popover" rel="popover" style="position:absolute;" href="%s" target="_blank" data-content="<b>Nombre de clics :</b><br /><b>sur ce lien : </b>%d /%d (%d%%)<br /><b>&nbsp;&nbsp;&nbsp;&nbsp;pour cette url : </b>%d /%d (%d%%)<br />" data-original-title="%s">
 										<span style="z-index:10;position:absolute;bottom:-35px;left:0;height:15px;width:50px;border:1px solid blue;background: white;">
 
 										<span style="z-index:10;position:relative;height:15px;width:50px;float:left;">
 												<span style="z-index:10;position:absolute;left:0;height:15px;width:
 												%dpx;background: red;">&nbsp;</span>
-												<span style="z-index:10;position:absolute;left:0;height:10px;width:20px;">
+												<span style="z-index:10;position:absolute;top: 7px;left:0;height:10px;width:20px;font-size: 10px">
 												%d%%</span>
 										</span>
 									</span>

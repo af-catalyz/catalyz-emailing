@@ -122,8 +122,6 @@ class statisticsActions extends sfActions
 
 	public function executeDisplayIframe($request)
 	{
-		$this->getResponse()->addJavaScript('/js/jquery.js');
-		$this->getResponse()->addJavaScript('/js/overlib/overlib_mini.js', 'last');
 		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
 		sfConfig::set('sf_web_debug', false);
