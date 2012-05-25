@@ -12,6 +12,9 @@
 use_helper('Escaping');
 $listes = array();
 
+
+$defaults = $defaults->getRawValue();
+
 if (!empty($defaults['qualif_list_publication'])) {
 	if (is_array($defaults['qualif_list_publication'])) { //remove older version
 		$listes = array();
@@ -57,9 +60,9 @@ if (!empty($defaults['qualif_list_publication'])) {
 							</div>
 						</div>
 
-						<fieldset>
-							<legend>Gestion multi-liste</legend>
-
+						<div class="well">
+							<h3>Gestion multi-liste</h3>
+							<br />
 							<label class="checkbox">
 									<?php
 										echo $form['qualif_list_enabled'];
@@ -77,17 +80,18 @@ if (!empty($defaults['qualif_list_publication'])) {
 								<br />
 
 								<div class="control-group">
-									Liste des types de publications à proposer:
+									<p>Liste des types de publications à proposer:</p>
 									<?php
 									printf('<div id="publications_holder"></div><br/>');
 									printf('<a class="add_list_element btn btn-success" href="javascript://"><i class="icon-plus-sign icon-white"></i> Ajouter une liste</a>');
 									 ?>
 								</div>
 							</div>
-						</fieldset>
+						</div>
 
-						<fieldset>
-							<legend>Motif</legend>
+						<div class="well">
+							<h3>Motif</h3>
+							<br />
 
 							<div class="control-group">
 								<?php printf('<label class="control-label">%s</label>', $form['qualif_motif_introduction']->renderLabel()) ?>
@@ -114,7 +118,7 @@ printf('<div class="control-group%s">', $class);
 								</div>
 							</div>
 							<br />
-						</fieldset>
+						</div>
 
 							<div class="control-group">
 								<?php printf('<label class="control-label">%s</label>', $form['qualif_footer']->renderLabel()) ?>
@@ -187,7 +191,6 @@ printf('<div class="control-group%s">', $class);
 	<br />
 </form>
 
-
 <script type="text/javascript">
 /* <![CDATA[ */
 
@@ -243,23 +246,24 @@ function addListElement(title, ids){
 	var random_ = new String(random);
 	random_ = random_.replace(/\./g, '_');
 
-	var text = '<div class="list_element"><table width="100%" class="handle" cellpadding="3" cellspacing="0" border="0"><tr valign="middle"><td width="130">Nom de la liste</td><td>'
+
+	var text = '<div class="list_element" style="width: 615px;background-color: #FFFFFF;margin-bottom: 10px; border: 1px solid #CACACA;"><table style="background-color: #EEEEEE" class="table handle"><tr><td  style="vertical-align: middle;" width="130">Nom de la liste</td><td>'
 							+ '<input type="text" class="text" name="unsubscrib[qualif_list_publication]['+random+'][title]" id="unsubscrib_qualif_list_publication_'+random+'_title" value="'+title+'"/>'
 							+ '</td><td align="right" width="50">'
-							+ '<a id="delete_'+random_+'" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer cette liste? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'delete_'+random_+'\');}">'
-							+ '<img src="/images/icons/bullet_cross.png" width="16" height="16" alt="" border="0" /></a></td></tr></table><p>Sélectionnez les groupes dont vous souhaitez désabonnez l\'utilisateur ayant sélectionné cette liste:</p>'
-							+ '<div class="group_list_holder"><table width="550" cellpadding="3" cellspacing="0" border="0">';
+							+ '<a class="close" id="delete_'+random_+'" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer cette liste? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'delete_'+random_+'\');}">'
+							+ '&times;</a></td></tr></table><div style="padding:0 5px;"><p>Sélectionnez les groupes dont vous souhaitez désabonnez l\'utilisateur ayant sélectionné cette liste:</p>'
+							+ '<div style="margin: 5px 0;border: 1px solid #CACACA;	height: 190px;	overflow: auto;"><table width="550" >';
 
 	for (i in Groups){
-  	text += '<tr><td><input name="unsubscrib[qualif_list_publication]['+random+'][ids]['+i+']" id="unsubscrib_qualif_list_publication_'+random+'_ids_'+i+'" type="checkbox"';
+  	text += '<tr><td><label class="checkbox"><input name="unsubscrib[qualif_list_publication]['+random+'][ids]['+i+']" id="unsubscrib_qualif_list_publication_'+random+'_ids_'+i+'" type="checkbox"';
   	if (ids[i] != undefined) {
   		text += 'checked="checked"';
   	}
-		text += '>&nbsp;<label for="unsubscrib_qualif_list_publication_'+random+'_ids_'+i+'">'+Groups[i]+'</label></td></tr>';
+		text += '><label for="unsubscrib_qualif_list_publication_'+random+'_ids_'+i+'">'+Groups[i]+'</label></label></td></tr>';
   }
 
 
-		text+= '</table></div></div>';
+		text+= '</table></div></div></div>';
 
 
 	$("#publications_holder").append(text);
