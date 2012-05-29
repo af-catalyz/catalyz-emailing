@@ -44,7 +44,7 @@ printf('<div class="control-group%s">', $class);
 		<div class="controls">
 			<?php echo (string)$form['google_analytics_source'] ?>
 			<?php echo $form['google_analytics_source']->renderError(); ?>
-			<p class="help-block">Ce texte sera utilisé pour le paramètre utm_source</p>
+			<?php echo $form['google_analytics_source']->renderhelp(); ?>
 		</div>
 	</div>
 
@@ -60,7 +60,7 @@ printf('<div class="control-group%s">', $class);
 		<div class="controls">
 			<?php echo (string)$form['google_analytics_medium'] ?>
 			<?php echo $form['google_analytics_medium']->renderError(); ?>
-			<p class="help-block">Ce texte sera utilisé pour le paramètre utm_medium</p>
+			<?php echo $form['google_analytics_medium']->renderhelp(); ?>
 		</div>
 	</div>
 
@@ -69,7 +69,7 @@ printf('<div class="control-group%s">', $class);
 		<div class="controls">
 			<?php echo (string)$form['google_analytics_content'] ?>
 			<?php echo $form['google_analytics_content']->renderError(); ?>
-			<p class="help-block">Ce texte sera utilisé pour le paramètre utm_content. Si vous n'effectuez pas de campagne de type A/B, laisser ce paramètre vide.</p>
+			<?php echo $form['google_analytics_content']->renderhelp(); ?>
 		</div>
 	</div>
 
@@ -85,7 +85,7 @@ printf('<div class="control-group%s">', $class);
 		<div class="controls">
 			<?php echo (string)$form['google_analytics_campaign_type'] ?>
 			<?php echo $form['google_analytics_campaign_type']->renderError(); ?>
-			<p class="help-block">Ce texte sera utilisé pour le paramètre utm_campaign</p>
+			<?php echo $form['google_analytics_campaign_type']->renderhelp(); ?>
 		</div>
 	</div>
 </div>

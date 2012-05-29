@@ -81,11 +81,11 @@ class CampaignReturnErrorsForm extends BaseCampaignForm {
 
 
 		$this->getWidgetSchema()->setHelps(array(
-			'return_path_server' => '<span class="help-block">Exemple: pop.catalyz.fr</span>',
-			'return_path_login' => '<span class="help-block">Exemple: noreply@catalyz.fr</span>',
-			'return_path_password' => '<span class="help-block">Exemple: s3s4me</span>',
-			'reply_to_email' => '<span class="help-block">Exemple: bdurant@catalyz.fr</span>',
-			'reply_to_email' => '<span class="help-block">Exemple: bdurant@catalyz.fr</span>'
+			'return_path_server' => '<span class="help-block hint">Exemple: pop.catalyz.fr</span>',
+			'return_path_login' => '<span class="help-block hint">Exemple: noreply@catalyz.fr</span>',
+			'return_path_password' => '<span class="help-block hint">Exemple: s3s4me</span>',
+			'reply_to_email' => '<span class="help-block hint">Exemple: bdurant@catalyz.fr</span>',
+			'reply_to_email' => '<span class="help-block hint">Exemple: bdurant@catalyz.fr</span>'
 		));
 
 

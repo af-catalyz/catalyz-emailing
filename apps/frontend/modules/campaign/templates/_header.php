@@ -50,4 +50,4 @@ echo '</div>';
 
     <?php include_partial('global/flashMessage') ?>
     <?php include_partial('campaign/testModal') ?>
-    <?php var_dump($sf_context->getActionName()); ?>
+    <?php //var_dump($sf_context->getActionName()); ?>

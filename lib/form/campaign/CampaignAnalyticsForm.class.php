@@ -54,9 +54,17 @@ class CampaignAnalyticsForm extends BaseCampaignForm {
 		$validators['google_analytics_campaign_content'] = new sfValidatorString(array('required' => FALSE));
 		//endregion
 
+
 		$this->setWidgets($widgets);
 		$this->setValidators($validators);
 		$this->getWidgetSchema()->setDefaults($defaults);
+
+		$this->getWidgetSchema()->setHelps(array(
+		'google_analytics_source' => '<p class="help-block hint">Ce texte sera utilisé pour le paramètre utm_source</p>',
+		'google_analytics_medium' => '<p class="help-block hint">Ce texte sera utilisé pour le paramètre utm_medium</p>',
+		'google_analytics_content' => '<p class="help-block hint">Ce texte sera utilisé pour le paramètre utm_content. Si vous n\'effectuez pas de campagne de type A/B, laisser ce paramètre vide.</p>',
+		'google_analytics_campaign_type' => '<p class="help-block hint">Ce texte sera utilisé pour le paramètre utm_campaign</p>'
+	));
 
 		$this->widgetSchema->setNameFormat('campaign[%s]');
 		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
