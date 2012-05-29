@@ -13,7 +13,7 @@ if ($campaign->getCampaignTemplate()->getPreviewFilename() && is_file(sfConfig::
 printf('<img src="%s" alt="" class="pull-left" style="margin-right: 10px;" />', $picture_src);
 printf('<h1>%s%s</h1>', $campaign->getName(), html_entity_decode($campaign->getCommentPopup()));
 
-printf('<h3><small>Cr&eacute;&eacute; %s le %s</small>&nbsp;<a href="javascript://" class="btn btn-mini">modifier</a></h3>',
+printf('<h3><small>Cr&eacute;&eacute; %s le %s</small>&nbsp;<a data-toggle="modal" href="#dialog-edit-header" class="btn btn-mini">modifier</a></h3>',
 	$campaign->getsfGuardUserProfile()?sprintf('par %s',$campaign->getsfGuardUserProfile()->getFullName()):'',
 	CatalyzDate::formatShortWithTime(strtotime($campaign->getCreatedAt()))
 	);
@@ -50,4 +50,5 @@ echo '</div>';
 
     <?php include_partial('global/flashMessage') ?>
     <?php include_partial('campaign/testModal') ?>
+    <?php include_partial('campaign/editHeaderModal', array('campaign' => $campaign)) ?>
     <?php //var_dump($sf_context->getActionName()); ?>

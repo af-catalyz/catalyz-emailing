@@ -121,6 +121,9 @@ campaign_edit_scheduling:
   url:   /campaign/edit/scheduling/:slug
   param: { module: campaign, action: scheduling }
 
+campaign_do_edit_header:
+  url:   /campaign/edit/header/:slug
+  param: { module: campaign, action: editHeader }
 
 #STATISTICS
 campaign_statistics_summary:
