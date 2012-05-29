@@ -1,11 +1,6 @@
 <?php
 class campaignComponents extends sfComponents
 {
-	public function executeEnveloppe(sfWebRequest $request)
-	{
-
-	}
-
 	public function executeMessage(sfWebRequest $request)
 	{
 

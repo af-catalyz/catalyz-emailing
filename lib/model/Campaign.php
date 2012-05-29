@@ -854,6 +854,57 @@ class Campaign extends BaseCampaign {
 		return $script;
 	}
 
+	public function getTabsIcon(){
+		$icon_false = '<i class="icon-remove"></i>';
+		$icon_true = '<i class="icon-ok"></i>';
+
+		$tab = array();
+		$tab['enveloppe'] = $icon_false;
+		$tab['message'] = $icon_false;
+		$tab['liens'] = $icon_false;
+		$tab['google_analytic'] = $icon_false;
+		$tab['anti_spam'] = $icon_false;
+		$tab['controle'] = $icon_false;
+		$tab['destinataire'] = $icon_false;
+		$tab['erreurs'] = $icon_false;
+		$tab['envoi'] = $icon_false;
+
+
+		//region liens
+		//on considere que c'est valide si au moins 1 liens de la campagne posséde un nom personalisé
+
+		$count_total = count($this->getCampaignLinks());
+
+		if ($count_total > 0) {
+
+			$c = new Criteria();
+			$c->add(CampaignLinkPeer::CAMPAIGN_ID, $this->getId());
+			$c->add(CampaignLinkPeer::GOOGLE_ANALYTICS_TERM, null, Criteria::ISNOTNULL);
+			$count = CampaignLinkPeer::doCount($c);
+
+			if ($count > 0) {
+				$tab['liens'] = $icon_true;
+			}
+		}else{
+			$tab['liens'] = $icon_true;
+		}
+		//endregion
+
+		//region google_analytic
+		if ($this->getGoogleAnalyticsEnabled()	&& $this->getGoogleAnalyticsSource() != NULL && $this->getGoogleAnalyticsMedium() != NULL ) {
+			$tab['google_analytic'] = $icon_true;
+		}
+		//endregion
+
+		//region enveloppe
+		if ($this->getSubject() != null	&& $this->getFromName() != NULL && $this->getFromEmail() != NULL ) {
+			$tab['enveloppe'] = $icon_true;
+		}
+		//endregion
+
+		return $tab;
+	}
+
 } // Campaign
 
 $columns_map = array('from'   => CampaignPeer::NAME,'to'     => CampaignPeer::SLUG);

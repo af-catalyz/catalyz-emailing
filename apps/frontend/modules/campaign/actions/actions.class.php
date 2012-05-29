@@ -19,6 +19,18 @@ class campaignActions extends sfActions
   public function executeIndex(sfWebRequest $request)
   {
   	$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+  	$this->form = new CampaignEnveloppeForm($this->campaign);
+
+  	if ($request->isMethod('post')) {
+  		$this->form->bind($request->getParameter('campaign'));
+  		if ($this->form->isValid()) {
+
+				$this->form->save();
+
+  			$message = sprintf('<h4 class="alert-heading">Campagne sauvegardée</h4><p>La configuration de la campagne a été sauvegardée.</p>');
+  			$this->getUser()->setFlash('notice_success', $message);
+  		}
+  	}
 
     return sfView::SUCCESS;
   }
