@@ -1,6 +1,7 @@
 .icon-grey { background-image: url("../images/glyphicons-halflings-grey.png"); }
 .no_resize { resize: none }
 .clear { clear: both }
+.hint { color: #999999; font-size: 11px; line-height: 15px;}
 
 .archived_elements{
 	background-color: #EEEEEE;

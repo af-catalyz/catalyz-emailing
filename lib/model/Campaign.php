@@ -861,23 +861,23 @@ class Campaign extends BaseCampaign {
 		$tab = array();
 		$tab['enveloppe'] = $icon_false;
 		$tab['message'] = $icon_false;
-		$tab['liens'] = $icon_false;
-		$tab['google_analytic'] = $icon_false;
+		$tab['links'] = $icon_false;
+		$tab['googleAnalytics'] = $icon_false;
 		$tab['anti_spam'] = $icon_false;
 		$tab['controle'] = $icon_false;
 		$tab['destinataire'] = $icon_false;
-		$tab['erreurs'] = $icon_false;
-		$tab['envoi'] = $icon_false;
+		$tab['returnErrors'] = $icon_false;
+		$tab['scheduling'] = $icon_false;
 
-		//region erreurs
+		//region returnErrors
 		// todo -> utiliser un formulaire et verifier la validité du form avec les données de la campagne
 	  if (sfConfig::get('app_settings_display_campaign_parameters', true)){
 	  	if ($this->getReplyToEmail() != null	&& $this->getReturnPathEmail() != NULL && $this->getReturnPathLogin() != NULL && $this->getReturnPathPassword() != NULL && $this->getReturnPathServer() != NULL) {
-	  		$tab['erreurs'] = $icon_true;
+	  		$tab['returnErrors'] = $icon_true;
 	  	}
 	  }else{
 	  	if ($this->getReplyToEmail() != null	&& $this->getReturnPathEmail() != NULL) {
-	  		$tab['erreurs'] = $icon_true;
+	  		$tab['returnErrors'] = $icon_true;
 	  	}
 	  }
 		//endregion
@@ -895,16 +895,16 @@ class Campaign extends BaseCampaign {
 			$count = CampaignLinkPeer::doCount($c);
 
 			if ($count > 0) {
-				$tab['liens'] = $icon_true;
+				$tab['links'] = $icon_true;
 			}
 		}else{
-			$tab['liens'] = $icon_true;
+			$tab['links'] = $icon_true;
 		}
 		//endregion
 
-		//region google_analytic
+		//region googleAnalytics
 		if ($this->getGoogleAnalyticsEnabled()	&& $this->getGoogleAnalyticsSource() != NULL && $this->getGoogleAnalyticsMedium() != NULL ) {
-			$tab['google_analytic'] = $icon_true;
+			$tab['googleAnalytics'] = $icon_true;
 		}
 		//endregion
 
@@ -913,6 +913,13 @@ class Campaign extends BaseCampaign {
 			$tab['enveloppe'] = $icon_true;
 		}
 		//endregion
+
+		//region scheduling
+		if ($this->getScheduleType() > Campaign::SCHEDULING_NONE) {
+			$tab['scheduling'] = $icon_true;
+		}
+		//endregion
+
 
 		return $tab;
 	}

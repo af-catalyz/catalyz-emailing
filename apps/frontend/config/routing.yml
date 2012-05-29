@@ -116,6 +116,12 @@ campaign_do_resend:
 campaign_edit_return_errors:
   url:   /campaign/edit/returnErrors/:slug
   param: { module: campaign, action: returnErrors }
+
+campaign_edit_scheduling:
+  url:   /campaign/edit/scheduling/:slug
+  param: { module: campaign, action: scheduling }
+
+
 #STATISTICS
 campaign_statistics_summary:
   url:   /:slug/summary

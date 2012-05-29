@@ -34,16 +34,17 @@ echo '</div>';
     	<?php
     	printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'index'?'class="active"':'', url_for('@campaign_index?slug='.$campaign->getSlug()), $tabsIcons['enveloppe'],__('Enveloppe'));
 			echo '<li><a href="#2" data-toggle="tab"><i class="icon-remove"></i> Message</a></li>';
-			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'links'?'class="active"':'', url_for('@campaign_edit_links?slug='.$campaign->getSlug()), $tabsIcons['liens'], __('Liens'));
-			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'googleAnalytics'?'class="active"':'', url_for('@campaign_edit_analytics?slug='.$campaign->getSlug()), $tabsIcons['google_analytic'], __('Google Analytics'));
+			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'links'?'class="active"':'', url_for('@campaign_edit_links?slug='.$campaign->getSlug()), $tabsIcons['links'], __('Liens'));
+			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'googleAnalytics'?'class="active"':'', url_for('@campaign_edit_analytics?slug='.$campaign->getSlug()), $tabsIcons['googleAnalytics'], __('Google Analytics'));
 			echo '<li><a href="#5" data-toggle="tab"><i class="icon-remove"></i> Anti-spam</a></li>';
 			echo '<li><a href="#6" data-toggle="tab"><i class="icon-remove"></i> Contrôle visuel</a></li>';
 			echo '<li><a href="#7" data-toggle="tab"><i class="icon-remove"></i> Destinataires</a></li>';
 
-			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'returnErrors'?'class="active"':'', url_for('@campaign_edit_return_errors?slug='.$campaign->getSlug()), $tabsIcons['erreurs'], __('Gestion des erreurs'));
+			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'returnErrors'?'class="active"':'', url_for('@campaign_edit_return_errors?slug='.$campaign->getSlug()), $tabsIcons['returnErrors'], __('Gestion des erreurs'));
+			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'scheduling'?'class="active"':'', url_for('@campaign_edit_scheduling?slug='.$campaign->getSlug()), $tabsIcons['scheduling'], __('Envoi'));
 
 
-			echo '<li><a href="#9" data-toggle="tab"><i class="icon-remove"></i> Envoi</a></li>';
+
 			 ?>
     </ul>
 
