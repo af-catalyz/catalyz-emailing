@@ -113,4 +113,28 @@ class groupsActions extends sfActions
 		$title = sprintf('%s - Groupes de contacts / Evolution du nombre de contact associé au groupe %s', $this->ContactGroup->getName(), sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
 	}
+
+	public function executeArchive($request) {
+		$this->forward404Unless($contact_group = /*(ContactGroup)*/ContactGroupPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$message = sprintf('<h4 class="alert-heading">Groupe archivé</h4><p>Le groupe "%s" a été archivé. <a href="%s" class="btn btn-mini">annuler</a></p>'
+			,$contact_group->getName(), url_for('@group_do_unarchive?slug='.$contact_group->getSlug()));
+		$this->getUser()->setFlash('notice_success', $message);
+		$contact_group->setIsArchived(TRUE);
+		$contact_group->save();
+
+		$this->redirect('@groups');
+	}
+
+	public function executeUnArchive($request) {
+		$this->forward404Unless($contact_group = /*(ContactGroup)*/ContactGroupPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$message = sprintf('<h4 class="alert-heading">Groupe réstauré</h4><p>Le groupe "%s" a été réstauré. <a href="%s" class="btn btn-mini">annuler</a></p>'
+			,$contact_group->getName(), url_for('@group_do_archive?slug='.$contact_group->getSlug()));
+		$this->getUser()->setFlash('notice_success', $message);
+		$contact_group->setIsArchived(FALSE);
+		$contact_group->save();
+
+		$this->redirect('@groups');
+	}
 }

@@ -204,6 +204,14 @@ group_do_export:
   url:   /groups/export/:slug
   param: { module: groups, action: exportGroup }
 
+group_do_archive:
+  url:   /groups/archive/:slug
+  param: { module: groups, action: archive }
+
+group_do_unarchive:
+  url:   /groups/unarchive/:slug
+  param: { module: groups, action: unArchive }
+
 #SETTINGS
 settings:
   url:   /settings

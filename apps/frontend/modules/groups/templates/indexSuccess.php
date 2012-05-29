@@ -58,16 +58,21 @@
 														    	<li>%s</li>
 														    	<li>%s</li>
 														    	<li>%s</li>
-														    	<li>%s</li>
-														    </ul>
-													    </div>
-													</td>',
+														    	',
 	    	__('Action'),
 	    	link_to(sprintf('<i class="icon-download"></i> %s</a>', __('Exporter')), '@group_do_export?slug=' . $contact_group->getSlug(), array('title' => __('Exporter'))),
 	    	link_to(sprintf('<i class="icon-signal"></i> %s</a>', __("Voir la courbe d'évolution")), '@group_view?slug=' . $contact_group->getSlug(), array('title' => __("Voir la courbe d'évolution"))),
-	    	link_to(sprintf('<i class="icon-edit"></i> %s</a>', __("Modifier le groupe")), '@group_edit?slug=' . $contact_group->getSlug(), array('title' => __('Modifier le groupe'))),
-	    	link_to(sprintf('<i class="icon-remove-circle"></i> %s</a>', __('Supprimer le groupe')), '@group_do_delete?slug=' . $contact_group->getSlug(),array('title' => __('Supprimer le groupe'), 'post' => true, 'confirm' => sprintf(__("Vous êtes sur le point de supprimer le groupe de contacts \"%s\".\nCette action est définitive et ne peut pas être annulée.\nLes contacts associés à ce groupe ne seront pas supprimés, ils seront visibles comme ne faisant plus parti de ce groupe dans la liste des contacts.\n\nCliquez sur OK pour confirmer la suppression définitive de ce groupe.\nCliquez sur Annuler pour conserver ce groupe."), $contact_group->getName())))
+	    	link_to(sprintf('<i class="icon-edit"></i> %s</a>', __("Modifier le groupe")), '@group_edit?slug=' . $contact_group->getSlug(), array('title' => __('Modifier le groupe')))
+
 	    	);
+
+				if ($contact_group->getIsArchived()) {
+					echo link_to(sprintf('<i class="icon-star"></i> %s</a>', __("Réstaurer le groupe")), '@group_do_unarchive?slug=' . $contact_group->getSlug(), array('title' => __('Réstaurer le groupe')));
+				}else{
+					echo link_to(sprintf('<i class="icon-star-empty"></i> %s</a>', __("Archiver le groupe")), '@group_do_archive?slug=' . $contact_group->getSlug(), array('title' => __('Archiver le groupe')));
+				}
+
+				printf('<li>%s</li></ul></div></td>', link_to(sprintf('<i class="icon-remove-circle"></i> %s</a>', __('Supprimer le groupe')), '@group_do_delete?slug=' . $contact_group->getSlug(),array('title' => __('Supprimer le groupe'), 'post' => true, 'confirm' => sprintf(__("Vous êtes sur le point de supprimer le groupe de contacts \"%s\".\nCette action est définitive et ne peut pas être annulée.\nLes contacts associés à ce groupe ne seront pas supprimés, ils seront visibles comme ne faisant plus parti de ce groupe dans la liste des contacts.\n\nCliquez sur OK pour confirmer la suppression définitive de ce groupe.\nCliquez sur Annuler pour conserver ce groupe."), $contact_group->getName()))));
 
 	    	echo '</tr>';
 			} ?>
