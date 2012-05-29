@@ -157,9 +157,6 @@ $(document).ready(function() {
 			<div class="tab-pane" id="7">
 				<?php include_component('campaign', 'targets',array('campaign' => $campaign)) ?>
 			</div>
-			<div class="tab-pane" id="8">
-				<?php include_component('campaign', 'returnErrors',array('campaign' => $campaign)) ?>
-			</div>
 			<div class="tab-pane" id="9">
 				<?php include_component('campaign', 'scheduling',array('campaign' => $campaign)) ?>
 			</div>

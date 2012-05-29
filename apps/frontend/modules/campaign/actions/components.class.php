@@ -21,8 +21,6 @@ class campaignComponents extends sfComponents
 
 	}
 
-
-
 	public function executeScheduling(sfWebRequest $request)
 	{
 

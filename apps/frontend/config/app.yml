@@ -54,7 +54,7 @@ all:
   settings:
     default_limit: 15
     default_suffix: '- Catalyz Emailing'
-    display_campaign_parameters: false
+#    display_campaign_parameters: false
 
   bounce:
     stop_count: 2

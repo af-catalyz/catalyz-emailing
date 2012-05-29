@@ -869,6 +869,18 @@ class Campaign extends BaseCampaign {
 		$tab['erreurs'] = $icon_false;
 		$tab['envoi'] = $icon_false;
 
+		//region erreurs
+		// todo -> utiliser un formulaire et verifier la validité du form avec les données de la campagne
+	  if (sfConfig::get('app_settings_display_campaign_parameters', true)){
+	  	if ($this->getReplyToEmail() != null	&& $this->getReturnPathEmail() != NULL && $this->getReturnPathLogin() != NULL && $this->getReturnPathPassword() != NULL && $this->getReturnPathServer() != NULL) {
+	  		$tab['erreurs'] = $icon_true;
+	  	}
+	  }else{
+	  	if ($this->getReplyToEmail() != null	&& $this->getReturnPathEmail() != NULL) {
+	  		$tab['erreurs'] = $icon_true;
+	  	}
+	  }
+		//endregion
 
 		//region liens
 		//on considere que c'est valide si au moins 1 liens de la campagne posséde un nom personalisé
