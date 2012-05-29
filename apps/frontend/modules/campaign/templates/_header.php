@@ -28,6 +28,7 @@ echo '</div>';
     <a class="btn btn-inverse pull-right" data-toggle="modal" href="#dialog-campaign-test" accesskey="t"><u>T</u>ester la campagne</a>
 
     <?php $tabsIcons = $campaign->getTabsIcon(); ?>
+    <?php //var_dump($tabsIcons); ?>
 
     <ul class="nav nav-tabs">
     	<?php
@@ -38,7 +39,10 @@ echo '</div>';
 			echo '<li><a href="#5" data-toggle="tab"><i class="icon-remove"></i> Anti-spam</a></li>';
 			echo '<li><a href="#6" data-toggle="tab"><i class="icon-remove"></i> Contrôle visuel</a></li>';
 			echo '<li><a href="#7" data-toggle="tab"><i class="icon-remove"></i> Destinataires</a></li>';
-			echo '<li><a href="#8" data-toggle="tab"><i class="icon-remove"></i> Gestion des erreurs</a></li>';
+
+			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'returnErrors'?'class="active"':'', url_for('@campaign_edit_return_errors?slug='.$campaign->getSlug()), $tabsIcons['erreurs'], __('Gestion des erreurs'));
+
+
 			echo '<li><a href="#9" data-toggle="tab"><i class="icon-remove"></i> Envoi</a></li>';
 			 ?>
     </ul>

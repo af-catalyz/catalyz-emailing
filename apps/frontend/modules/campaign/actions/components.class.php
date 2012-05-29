@@ -21,10 +21,7 @@ class campaignComponents extends sfComponents
 
 	}
 
-	public function executeReturnErrors(sfWebRequest $request)
-	{
 
-	}
 
 	public function executeScheduling(sfWebRequest $request)
 	{

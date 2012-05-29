@@ -43,7 +43,7 @@
 	<div class="form-actions">
 		<?php
 			printf('<input class="btn btn-primary" type="submit" value="%s"/>', __('Créer la campagne'));
-			printf('<a href="%s" class="btn">%s</a>',  url_for('@campaigns'), __('Annuler'));
+			printf('&nbsp;<a href="%s" class="btn">%s</a>',  url_for('@campaigns'), __('Annuler'));
 		 ?>
 	</div>
 </form>

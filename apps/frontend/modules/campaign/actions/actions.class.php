@@ -260,4 +260,36 @@ class campaignActions extends sfActions
 		$this->getResponse()->setTitle($title);
 		return sfView::SUCCESS;
 	}
+
+	public function executeReturnErrors(sfWebRequest $request)
+	{
+		$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
+
+		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+		}
+
+		$this->form = new CampaignReturnErrorsForm($this->campaign);
+
+		if ($request->isMethod('post')) {
+			if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
+				$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+			} else {
+				$this->form->bind($request->getParameter('campaign'));
+				if ($this->form->isValid()) {
+					$values = $request->getParameter('campaign');
+					$this->form->save();
+
+					$message = sprintf('<h4 class="alert-heading">Campagne sauvegardée</h4><p>La configuration de la campagne a été sauvegardée.</p>');
+					$this->getUser()->setFlash('notice_success', $message);
+				}
+			}
+		}
+
+		$title = sprintf('%s - Gestion de la configuration %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
+		return sfView::SUCCESS;
+	}
 }

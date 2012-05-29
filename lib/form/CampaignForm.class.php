@@ -55,7 +55,7 @@ class CampaignForm extends BaseCampaignForm
 		$validators['name'] = new sfValidatorString(array('max_length' => 255, 'required' => true), array('required' => 'Vous devez donner un nom à votre campagne'));
 		$defaults['name'] = 'Ma campagne';
 
-		$widgets['commentaire'] = new sfWidgetFormTextarea(array(), array('class' => 'input-xlarge'));
+		$widgets['commentaire'] = new sfWidgetFormTextarea(array(), array('class' => 'input-xlarge no_resize'));
 		$validators['commentaire'] = new sfValidatorString(array('required' => FALSE));
 
 //		$widgets['archive'] = new sfWidgetFormInputFile(array(),array('style'=>'margin:10px;','size' => 42, 'onchange'=>'document.getElementById(\'campaign_template_id_archive\').checked = true;return false;'));

@@ -113,6 +113,9 @@ campaign_do_resend:
   url:   /campaign/resend/:id
   param: { module: campaign, action: resend }
 
+campaign_edit_return_errors:
+  url:   /campaign/edit/returnErrors/:slug
+  param: { module: campaign, action: returnErrors }
 #STATISTICS
 campaign_statistics_summary:
   url:   /:slug/summary
