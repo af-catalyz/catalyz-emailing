@@ -624,7 +624,7 @@ class CatalyzEmailing {
 			}
 			//endregion
 
-			$return .= '<li class="divider"></li><li><a href="#">Gestion des modèles de campagnes</a></li></ul>';
+			$return .= sprintf('<li class="divider"></li><li><a href="%s">%s</a></li></ul>', url_for('@campaigns_templates'),__('Gestion des modèles de campagnes'));;
 
 			return $return;
 		}

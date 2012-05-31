@@ -14,11 +14,15 @@ class campaignsActions extends sfActions
 		return sfView::SUCCESS;
 	}
 
-	public function executeCreate()
+	public function executeCreate(sfWebRequest $request)
 	{
 		$this->dispatcher->notify(new sfEvent($this, 'czEmailing.before_create'));
 
 		$this->form = new CampaignForm();
+		if ($request->hasParameter('slug')) {
+			$this->forward404Unless($template = /*(ContactGroup)*/CampaignTemplatePeer::retrieveBySlug($request->getParameter('slug')));
+			$this->form->setDefault('template_id', $template->getId());
+		}
 
 		$title = sprintf('Campagnes / Création  %s', sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
@@ -55,5 +59,40 @@ class campaignsActions extends sfActions
 		}
 
 		$this->getResponse()->setTitle($title);
+	}
+
+	public function executeTemplates()
+	{
+
+		$criteria = new Criteria();
+		$criteria->addAscendingOrderByColumn(CampaignTemplatePeer::NAME);
+		$this->templates = CampaignTemplatePeer::doSelect($criteria);
+
+		$title = sprintf('Campagnes / Gestion des modèles de campagnes  %s', sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
+	}
+
+	public function executeTemplateArchive($request) {
+		$this->forward404Unless($template = /*(ContactGroup)*/CampaignTemplatePeer::retrieveBySlug($request->getParameter('slug')));
+
+		$message = sprintf('<h4 class="alert-heading">Groupe archivé</h4><p>Le modèle "%s" a été archivé. <a href="%s" class="btn btn-mini">annuler</a></p>'
+			,$template->getName(), url_for('@template_do_unarchive?slug='.$template->getSlug()));
+		$this->getUser()->setFlash('notice_success', $message);
+		$template->setIsArchived(TRUE);
+		$template->save();
+
+		$this->redirect('@campaigns_templates');
+	}
+
+	public function executeTemplateUnarchive($request) {
+		$this->forward404Unless($template = /*(ContactGroup)*/CampaignTemplatePeer::retrieveBySlug($request->getParameter('slug')));
+
+		$message = sprintf('<h4 class="alert-heading">Groupe restauré</h4><p>Le modèle "%s" a été restauré. <a href="%s" class="btn btn-mini">annuler</a></p>'
+			,$template->getName(), url_for('@template_do_archive?slug='.$template->getSlug()));
+		$this->getUser()->setFlash('notice_success', $message);
+		$template->setIsArchived(FALSE);
+		$template->save();
+
+		$this->redirect('@campaigns_templates');
 	}
 }

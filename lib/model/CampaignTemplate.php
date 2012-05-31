@@ -29,11 +29,11 @@ class CampaignTemplate extends BaseCampaignTemplate {
 		parent::__construct();
 	}
 
-	public function getStatusBadge(){
+	public function getStatusBadge($floatRight = true){
 		$badge = '';
 
 		if ($this->getClassName()) {
-			$badge = sprintf('<span class="label label-success pull-right">%s</span>', sfContext::getInstance()->getI18N()->__('Mode Assisté'));
+			$badge = sprintf('<span class="label label-success%s">%s</span>', $floatRight?' pull-right':'',sfContext::getInstance()->getI18N()->__('Mode Assisté'));
 		}
 
 		return $badge;

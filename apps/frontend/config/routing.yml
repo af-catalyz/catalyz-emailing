@@ -48,6 +48,18 @@ campaigns_archived:
   url:   /campaigns/archived
   param: { module: campaigns, action: archived }
 
+campaigns_templates:
+  url:   /campaigns/templates
+  param: { module: campaigns, action: templates }
+
+template_do_archive:
+  url:   /campaigns/template/archive/:slug
+  param: { module: campaigns, action: templateArchive }
+
+template_do_unarchive:
+  url:   /campaigns/template/unarchive/:slug
+  param: { module: campaigns, action: templateUnarchive }
+
 #CAMPAIGN
 unsubscribe:
   url:   /campaign/unsubscribe/key/:key
