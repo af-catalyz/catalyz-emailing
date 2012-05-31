@@ -57,10 +57,6 @@ class CampaignContentForm extends BaseCampaignForm {
 
 		$CampaignTemplateHandler = new CampaignTemplateHandler($campaign);
 
-		var_dump($CampaignTemplateHandler->compute());
-		die();
-
-
 		if ($CampaignTemplateHandler->displayTextTab()) { // mode normal
 			$this->widgetSchema['text_content'] = new sfWidgetFormTextarea(array(), array('cols' => 40 ,'style' => 'width: 100%; height: 720px;'));;
 			$this->validatorSchema['text_content'] = new sfValidatorString(array('required' => false));

@@ -45,7 +45,11 @@ printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_messag
 					<?php endforeach; ?>
 				</table>
 
+<?php
+printf('<div class="pull-left"><a href="%s" class="btn"><i class="icon-download"></i> %s</a></div>',
+url_for('@campaign_statistics_do_export_views?slug='.$campaign->getSlug()), __('Télécharger la liste'));
 
+?>
 				<?php if ($pager->haveToPaginate()): ?>
 
 					<?php

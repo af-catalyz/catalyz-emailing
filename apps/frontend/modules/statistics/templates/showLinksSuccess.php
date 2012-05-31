@@ -3,6 +3,8 @@
 <div class="tabbable">
   <a class="btn pull-right" data-toggle="modal" href="#dialog-campaign-test">Créer une relance</a>
 
+
+
 <ul class="nav nav-tabs">
 	    <?php
 printf('<li><a href="%s">Vue d\'ensemble</a></li>', url_for('@campaign_statistics_summary?slug='.$campaign->getSlug()));
@@ -41,7 +43,7 @@ foreach($links as $url => $details): ?>
 		</tr>
 		<?php endforeach; ?>
 		</table>
-
+<?php printf('<a class="btn" href="%s"><i class="icon-download"></i> %s</a>', url_for('@campaign_statistics_do_export_clicks?slug='.$campaign->getSlug()), __('Télécharger la liste')) ?>
 	</div>
 	<?php endif ?>
 

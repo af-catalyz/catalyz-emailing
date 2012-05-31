@@ -46,11 +46,10 @@ else:
 				printf('<tr id="tr_%s">', $cpt);
 				echo '<td>';
 				if (count($values['details']) > 1) {
-					printf('<a class="details" href="javascript://"><i class="icon-plus-sign"></i></a>&nbsp;');
+					printf('<a class="details" href="javascript://" style="color: black;"><i class="icon-plus-sign"></i>&nbsp;%s</a>', $familly);
+				}else{
+					printf('%s', $familly);
 				}
-
-				printf('%s', $familly);
-
 
 				echo '</td>';
 				printf('<td>%s</td>', shortNumberFormat($values['count']));

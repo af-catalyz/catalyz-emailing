@@ -228,4 +228,175 @@ class statisticsActions extends sfActions
 
 		return sfView::SUCCESS;
 	}
+
+	public function executeExportClicks(sfWebRequest $request)
+	{
+
+		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$criteria = new Criteria();
+		$criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $campaign->getId());
+		$criteria->addJoin(CampaignLinkPeer::ID, CampaignClickPeer::CAMPAIGN_LINK_ID);
+		$criteria->addJoin(CampaignClickPeer::CAMPAIGN_CONTACT_ID, CampaignContactPeer::ID);
+		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID);
+
+		$criteria->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
+		$results = CampaignClickPeer::doSelectJoinAll($criteria);
+
+
+		$returns = array();
+		foreach ($results as /*(CampaignClick)*/$result){
+			$CampaignLink = /*(CampaignLink)*/$result->getCampaignLink();
+			$contact = $result->getCampaignContact()->getContact();
+			if (empty($returns[$result->getCampaignContact()->getContact()->getId()])) {
+				$returns[$contact->getId()] = array('name'=>$contact->getFullName(), 'clicks' => array());
+			}
+
+			$returns[$contact->getId()]['clicks'][] = array('name' => $CampaignLink->getGoogleAnalyticsTerm(), 'url' => $CampaignLink->getUrl(), 'date' => CatalyzDate::formatShortWithTime(strtotime($result->getCreatedAt())));
+		}
+
+		$sheetTitle = sprintf('Details des clicks');
+
+		$this->spreadsheet = new sfPhpExcel();
+		$this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
+
+		$this->spreadsheet->setActiveSheetIndex(0);
+		$this->activeSheet = $this->spreadsheet->getActiveSheet();
+		$this->activeSheet->setTitle($sheetTitle);
+
+		$this->activeSheet->setCellValue('A1', 'Nom');
+		$this->activeSheet->setCellValue('B1', 'Nom de l\'url');
+		$this->activeSheet->setCellValue('C1', 'url');
+		$this->activeSheet->setCellValue('D1', 'date');
+
+		$row = 2;
+		foreach ($returns as $return){
+					$contactName = $return['name'];
+			foreach ($return['clicks'] as $clicks){
+				$url_name = $clicks['name'];
+				$url_path = $clicks['url'];
+				$date = $clicks['date'];
+
+				$this->activeSheet->setCellValue('A'.$row, $contactName);
+				$this->activeSheet->setCellValue('B'.$row, $url_name);
+				$this->activeSheet->setCellValue('C'.$row, $url_path);
+				$this->activeSheet->setCellValue('D'.$row, $date);
+				$row++;
+			}
+		}
+
+		$objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
+		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
+		$objWriter->save($tempFilename);
+
+		$response = $this->getResponse();
+		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s',sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()),CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+		$response->setHttpHeader('Content-Length', filesize($tempFilename));
+		$response->sendHttpHeaders();
+		readfile($tempFilename);
+		unlink($tempFilename);
+		return sfView::NONE;
+	}
+
+	public function executeExportTargets(sfWebRequest $request)
+	{
+
+		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$criteria = new Criteria();
+		$criteria->setDistinct();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getId());
+		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID, Criteria::LEFT_JOIN);
+		$criteria->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
+		$results = CampaignContactPeer::doSelectJoinAll($criteria);
+
+		$sheetTitle = sprintf('Details de l\'envoi');
+
+		$this->spreadsheet = new sfPhpExcel();
+		$this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
+
+		$this->spreadsheet->setActiveSheetIndex(0);
+		$this->activeSheet = $this->spreadsheet->getActiveSheet();
+		$this->activeSheet->setTitle($sheetTitle);
+
+		$this->activeSheet->setCellValue('A1', 'Nom');
+		$this->activeSheet->setCellValue('B1', 'Envoyé le');
+		$this->activeSheet->setCellValue('C1', 'Ouvert le');
+		$this->activeSheet->setCellValue('D1', 'Click le');
+		$this->activeSheet->setCellValue('E1', 'Bounce');
+
+		$row = 2;
+		foreach ($results as /*(CampaignContact)*/$CampaignContact){
+			$contact = $CampaignContact->getContact();
+				$this->activeSheet->setCellValue('A'.$row, $contact->getFullName());
+				$this->activeSheet->setCellValue('B'.$row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
+				$this->activeSheet->setCellValue('C'.$row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
+				$this->activeSheet->setCellValue('D'.$row, $CampaignContact->getClickedAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getClickedAt())):'');
+				$this->activeSheet->setCellValue('E'.$row, $CampaignContact->getBounceType()!=1?$CampaignContact->getBounceTypeFmt():'');
+				$row++;
+		}
+
+		$objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
+		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
+		$objWriter->save($tempFilename);
+
+		$response = $this->getResponse();
+		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s',sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()),CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+		$response->setHttpHeader('Content-Length', filesize($tempFilename));
+		$response->sendHttpHeaders();
+		readfile($tempFilename);
+		unlink($tempFilename);
+		return sfView::NONE;
+	}
+
+	public function executeExportViews(sfWebRequest $request)
+	{
+
+		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$criteria = new Criteria();
+		$criteria->setDistinct();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getId());
+		$criteria->add(CampaignContactPeer::VIEW_AT, null, Criteria::ISNOTNULL);
+		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID, Criteria::LEFT_JOIN);
+		$criteria->addDescendingOrderByColumn(CampaignContactPeer::VIEW_AT);
+		$results = CampaignContactPeer::doSelectJoinAll($criteria);
+
+		$sheetTitle = sprintf('Details des ouvertures');
+
+		$this->spreadsheet = new sfPhpExcel();
+		$this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
+
+		$this->spreadsheet->setActiveSheetIndex(0);
+		$this->activeSheet = $this->spreadsheet->getActiveSheet();
+		$this->activeSheet->setTitle($sheetTitle);
+
+		$this->activeSheet->setCellValue('A1', 'Nom');
+		$this->activeSheet->setCellValue('B1', 'Envoyé le');
+		$this->activeSheet->setCellValue('C1', 'Ouvert le');
+
+		$row = 2;
+		foreach ($results as /*(CampaignContact)*/$CampaignContact){
+			$contact = $CampaignContact->getContact();
+			$this->activeSheet->setCellValue('A'.$row, $contact->getFullName());
+			$this->activeSheet->setCellValue('B'.$row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
+			$this->activeSheet->setCellValue('C'.$row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
+			$row++;
+		}
+
+		$objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
+		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
+		$objWriter->save($tempFilename);
+
+		$response = $this->getResponse();
+		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s',sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()),CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+		$response->setHttpHeader('Content-Length', filesize($tempFilename));
+		$response->sendHttpHeaders();
+		readfile($tempFilename);
+		unlink($tempFilename);
+		return sfView::NONE;
+	}
 }

@@ -27,9 +27,15 @@
 			//endregion
 
 			//region ouverture
-			printf('<div class="span2 well alert-info"><center><h1><a href="%s">%s</a></h1>ouverture%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Cette valeur est une valeur estimative, les logiciels de messagerie récents bloquent l\'affichage par défaut des images empéchant de savoir si l\'email a été consulté ou non."><i class="icon-question-sign"></i></a>',
-				url_for('@campaign_statistics_views?slug='.$campaign->getSlug()),
-				 $view_count, $view_count>1?'s':'');
+			echo '<div class="span2 well alert-info"><center><h1>';
+			if ($view_count == 0) {
+				echo '0';
+			}else{
+				printf('<a href="%s">%s</a>', url_for('@campaign_statistics_views?slug='.$campaign->getSlug()), $view_count);
+			}
+
+			printf('</h1>ouverture%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Cette valeur est une valeur estimative, les logiciels de messagerie récents bloquent l\'affichage par défaut des images empéchant de savoir si l\'email a été consulté ou non."><i class="icon-question-sign"></i></a>',
+				 $view_count>1?'s':'');
 			if ($sent_count) {
 				printf('<br />(%0.1f%%)', $sent_count?(100 * $view_count / $sent_count):0);
 			}else{
@@ -39,9 +45,15 @@
 			//endregion
 
 			//region clic
-			printf('<div class="span2 well alert-success"><center><h1><a href="%s">%s</a></h1>clic%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Nombre de contacts ayant clické sur au moins un lien de la campagne."><i class="icon-question-sign"></i></a>',
-				url_for('@campaign_statistics_show_links?slug='.$campaign->getSlug()),
-				$click_count, $click_count>1?'s':'');
+			echo '<div class="span2 well alert-success"><center><h1>';
+			if ($click_count == 0) {
+				echo '0';
+			}else{
+				printf('<a href="%s">%s</a>',url_for('@campaign_statistics_show_links?slug='.$campaign->getSlug()),	$click_count);
+			}
+
+			printf('</h1>clic%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Nombre de contacts ayant clické sur au moins un lien de la campagne."><i class="icon-question-sign"></i></a>',
+				 $click_count>1?'s':'');
 			if ($click_count) {
 				printf('<br />(%0.1f%%)', $sent_count?(100 * $click_count / $sent_count):0);
 			}else{
@@ -51,7 +63,14 @@
 			//endregion
 
 			//region désinscription
-			printf('<div class="span2 well alert-danger"><center><h1><a href="">%s</a></h1>désinscription%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Nombre de contacts ayant clické sur le lien de désinscription de cette campagne."><i class="icon-question-sign"></i></a>',$unsubscribe_count,$unsubscribe_count>1?'s':'');
+			echo '<div class="span2 well alert-danger"><center><h1>';
+			if ($unsubscribe_count == 0) {
+				echo '0';
+			}else{
+				printf('<a href="">%s</a>', $unsubscribe_count);
+			}
+			printf('</h1>désinscription%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Nombre de contacts ayant clické sur le lien de désinscription de cette campagne."><i class="icon-question-sign"></i></a>',
+				$unsubscribe_count>1?'s':'');
 			if ($unsubscribe_count) {
 				printf('<br />(%0.1f%%)', $sent_count?(100 * $unsubscribe_count / $sent_count):0);
 			}else{
@@ -61,7 +80,13 @@
 			//endregion
 
 			//region erreur
-			printf('<div class="span1 well alert-danger"><center><h1><a href="">%s</a></h1>erreur%s',$failed_count,$failed_count>1?'s':'');
+			echo '<div class="span1 well alert-danger"><center><h1>';
+			if ($failed_count == 0) {
+				echo '0';
+			}else{
+				printf('<a href="">%s</a>', $failed_count);
+			}
+			printf('</h1>erreur%s',$failed_count>1?'s':'');
 			if ($failed_count) {
 				printf('<br />(%0.1f%%)', $sent_count?(100 * $failed_count / $sent_count):0);
 			}else{

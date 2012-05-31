@@ -174,6 +174,17 @@ campaign_statistics_show_clicks:
   url:   /statistics/showCLicks/:id
   param: { module: statistics, action: showClicks }
 
+campaign_statistics_do_export_clicks:
+  url:   /statistics/export/clicks
+  param: { module: statistics, action: exportClicks }
+
+campaign_statistics_do_export_targets:
+  url:   /statistics/export/targets
+  param: { module: statistics, action: exportTargets }
+
+campaign_statistics_do_export_views:
+  url:   /statistics/export/views
+  param: { module: statistics, action: exportViews }
 #CONTACTS
 contacts:
   url:   /contacts
