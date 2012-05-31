@@ -97,8 +97,8 @@ campaign_handle_copy:
   url:   /campaign/handle/copy
   param: { module: campaign, action: handleCopy }
 
-campaign_edit:
-  url:   /campaign/edit/:slug
+campaign_edit_content:
+  url:   /campaign/edit/content/:slug
   param: { module: campaign, action: edit }
 
 campaign_edit_analytics:

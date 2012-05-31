@@ -13,10 +13,15 @@ if ($campaign->getCampaignTemplate()->getPreviewFilename() && is_file(sfConfig::
 printf('<img src="%s" alt="" class="pull-left" style="margin-right: 10px;" />', $picture_src);
 printf('<h1>%s%s</h1>', $campaign->getName(), html_entity_decode($campaign->getCommentPopup()));
 
-printf('<h3><small>Cr&eacute;&eacute; %s le %s</small>&nbsp;<a data-toggle="modal" href="#dialog-edit-header" class="btn btn-mini">modifier</a></h3>',
+printf('<h3><small>Cr&eacute;&eacute; %s le %s</small>&nbsp;',
 	$campaign->getsfGuardUserProfile()?sprintf('par %s',$campaign->getsfGuardUserProfile()->getFullName()):'',
 	CatalyzDate::formatShortWithTime(strtotime($campaign->getCreatedAt()))
 	);
+if ($campaign->getStatus() < Campaign::STATUS_SENDING){
+	printf('<a data-toggle="modal" href="#dialog-edit-header" class="btn btn-mini">%s</a>', __('modifier'));
+}
+
+echo '</h3>';
 
 echo '</div>';
 //endregion
@@ -33,11 +38,10 @@ echo '</div>';
     <ul class="nav nav-tabs">
     	<?php
     	printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'index'?'class="active"':'', url_for('@campaign_index?slug='.$campaign->getSlug()), $tabsIcons['enveloppe'],__('Enveloppe'));
-			echo '<li><a href="#2" data-toggle="tab"><i class="icon-remove"></i> Message</a></li>';
+    	printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'edit'?'class="active"':'', url_for('@campaign_edit_content?slug='.$campaign->getSlug()), $tabsIcons['message'],__('Message'));
 			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'links'?'class="active"':'', url_for('@campaign_edit_links?slug='.$campaign->getSlug()), $tabsIcons['links'], __('Liens'));
 			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'googleAnalytics'?'class="active"':'', url_for('@campaign_edit_analytics?slug='.$campaign->getSlug()), $tabsIcons['googleAnalytics'], __('Google Analytics'));
-			echo '<li><a href="#5" data-toggle="tab"><i class="icon-remove"></i> Anti-spam</a></li>';
-			echo '<li><a href="#6" data-toggle="tab"><i class="icon-remove"></i> Contrôle visuel</a></li>';
+			echo '<li><a href="#5" data-toggle="tab"><i class="icon-remove"></i> Anti-spam/Contrôle visuel</a></li>';
 			echo '<li><a href="#7" data-toggle="tab"><i class="icon-remove"></i> Destinataires</a></li>';
 
 			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'returnErrors'?'class="active"':'', url_for('@campaign_edit_return_errors?slug='.$campaign->getSlug()), $tabsIcons['returnErrors'], __('Gestion des erreurs'));

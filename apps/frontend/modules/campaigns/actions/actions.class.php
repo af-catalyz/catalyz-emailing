@@ -42,7 +42,7 @@ class campaignsActions extends sfActions
 			} else {
 				$campaign = $this->form->save();
 				sfContext::getInstance()->getUser()->setFlash('info', 'La campagne a été créée, vous pouvez désormais la configurer.');
-				$this->redirect('@campaign_index?slug='.$campaign->getId());
+				$this->redirect('@campaign_index?slug='.$campaign->getSlug());
 				exit;
 			}
 		}

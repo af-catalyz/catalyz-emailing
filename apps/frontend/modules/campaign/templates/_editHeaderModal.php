@@ -35,7 +35,7 @@ $header_form = new CampaignHeaderForm($campaign->getRawValue());
 
 		</div>
 		<div class="modal-footer">
-			<input type="submit" value="Sauvegarder" class="btn btn-primary"/>&nbsp;<a href="javascript://" class="btn close_tag">Annuler</a>
+			<a href="javascript://" class="btn close_tag">Annuler</a>&nbsp;<input type="submit" value="Sauvegarder" class="btn btn-primary"/>
 		</div>
 	</form>
 </div>

@@ -143,9 +143,10 @@ $customFields = CatalyzEmailing::getCustomFields();
 
 			</form>
     </div><!-- end custom fields-->
+    <div class="clear"></div>
     <?php endif ;
 
-		printf('<div class="clear"></div><br/><a class="btn btn-small btn-mini" href="%s">%s</a>', url_for('@contacts'), __('Revenir à la liste des contacts'));
+
 		?>
 
 

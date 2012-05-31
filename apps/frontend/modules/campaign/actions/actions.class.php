@@ -13,13 +13,19 @@ class campaignActions extends sfActions
 	public function preExecute()
 	{
 		parent::preExecute();
-		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url' );
+		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url');
 	}
 
   public function executeIndex(sfWebRequest $request)
   {
   	$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
   	$this->form = new CampaignEnveloppeForm($this->campaign);
+
+  	$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
+
+  	if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
+  		$this->getUser()->setFlash('notice_error', $sendErrorMessage, FALSE);
+  	}
 
   	if ($request->isMethod('post')) {
   		$this->form->bind($request->getParameter('campaign'));
@@ -123,6 +129,46 @@ class campaignActions extends sfActions
 	{
 		$this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
+		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
+
+		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage, FALSE);
+		}
+
+		$this->form = new CampaignContentForm($this->campaign);
+
+		if ($request->isMethod('post')) {
+
+			$this->form->bind($request->getParameter('campaign'));
+			$this->campaign->fromArray($this->form->getValues(), BasePeer::TYPE_FIELDNAME);
+
+			if (!$this->form->isValid()) {
+				$this->campaign->setStatus(Campaign::STATUS_ERROR);
+			} else {
+				$this->campaign->updateStatus();
+				$this->campaign->getCampaignDeliveryManager()->prepareCampaignDelivery();
+			}
+
+            $this->campaign->save();
+
+			if ($this->campaign->getStatus() == Campaign::STATUS_ERROR) {
+				$message = "La configuration de la campagne a été sauvegardée, mais des erreurs sont présentes.\nLa campagne ne pourra commencer qu\'une fois ces erreurs corrigées.\nVous pouvez consulter les erreurs dans chacune des sections ci-dessous.";
+				$this->getUser()->setFlash('notice_error', $message, FALSE);
+			} else {
+				$message = sprintf('<h4 class="alert-heading">Campagne sauvegardée</h4><p>La configuration de la campagne a été sauvegardée.</p>');
+				$this->getUser()->setFlash('notice_success', $message);
+
+				try {
+					if (!$this->campaign->canConnectToMailbox()) {
+						$this->getUser()->setFlash('notice_error', 'Les "Informations de connexion à la boite aux lettres" ne permettent pas de se connecter. Merci vérifier qu\'elles sont correctes pour vous permettre de bénéficier des statistiques d\'emails invalides.', FALSE);
+					}
+				}
+				catch(Exception $e) {
+					$this->getUser()->setFlash('notice_error', $e->getMessage(), FALSE);
+				}
+			}
+		}
+
 	}
 
 	public function executeResend(sfWebRequest $request)
@@ -182,7 +228,7 @@ class campaignActions extends sfActions
 		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
 
 		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
-			$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage, FALSE);
 		}
 
 		$this->form = new CampaignAnalyticsForm($this->campaign);
@@ -228,7 +274,7 @@ class campaignActions extends sfActions
 		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
 
 		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
-			$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage, FALSE);
 		}
 
 		if ($request->isMethod('post')) {
@@ -268,7 +314,7 @@ class campaignActions extends sfActions
 		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
 
 		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
-			$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage, FALSE);
 		}
 
 		$this->form = new CampaignReturnErrorsForm($this->campaign);
@@ -300,7 +346,7 @@ class campaignActions extends sfActions
 		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
 
 		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
-			$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage, FALSE);
 		}
 
 		$this->form = new CampaignEnvoiForm($this->campaign);
@@ -332,7 +378,7 @@ class campaignActions extends sfActions
 		$sendErrorMessage = sprintf('<h4 class="alert-heading">Campagne deja envoyée</h4><p>La configuration de la campagne "%s" ne peut plus être modifiée.</p>', $this->campaign->getName() );
 
 		if ($this->campaign->getStatus() >= Campaign::STATUS_SENDING) {
-			$this->getUser()->setFlash('notice_error', $sendErrorMessage);
+			$this->getUser()->setFlash('notice_error', $sendErrorMessage, FALSE);
 		}
 
 		$this->form = new CampaignHeaderForm($this->campaign);

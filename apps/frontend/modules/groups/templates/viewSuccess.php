@@ -20,6 +20,6 @@ if (!empty($datas)){
 }else{
 	printf('<p class="notice">%s</p>', __('Aucun contact dans ce groupe'));
 }
-	printf('<br/><a class="btn btn-small btn-mini" href="%s">%s</a>', url_for('@groups'), __('Revenir à la liste des groupes'));
+
 ?>
 

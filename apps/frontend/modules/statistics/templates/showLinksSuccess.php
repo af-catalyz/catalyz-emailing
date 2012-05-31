@@ -18,8 +18,8 @@ printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_messag
 		<div class="tab-content">
 
     	<div class="tab-pane active" id="1">
-    		<div class="span8" id="iframe">
-					<iframe name="frame_Liks" src="<?php echo url_for('@campaign_statistics_display_iframe?slug='.$campaign->getSlug()) ?>" scrolling="auto" height="720" width="<?php echo sfConfig::get('app_wysiwyg_width',750)?>" frameborder="1"></iframe>
+    		<div class="span8" id="iframe_holder">
+					<iframe id="iframe" name="frame_Liks" src="<?php echo url_for('@campaign_statistics_display_iframe?slug='.$campaign->getSlug()) ?>" scrolling="auto" height="720" width="<?php echo sfConfig::get('app_wysiwyg_width',750)?>" frameborder="1"></iframe>
 				</div>
 	<?php if (count($links)>0): ?>
 	<div id="details" class="span4" style="margin: 0;">
@@ -50,3 +50,16 @@ foreach($links as $url => $details): ?>
 			</div>
     </div>
 </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+
+$(window).load(function(){
+	// plus 24, valeur arbitraire pour tenir compte des marges autour du document
+	height = $("#iframe").contents().find("body").outerHeight() + 24;
+	$("iframe").css("height", height);
+	$("#iframe_holder").css("height", height + 24);
+});
+
+/* ]]> */
+</script>

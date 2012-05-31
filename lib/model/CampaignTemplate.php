@@ -39,6 +39,22 @@ class CampaignTemplate extends BaseCampaignTemplate {
 		return $badge;
 	}
 
+	public function createEditWidget(Campaign $campaign)
+	{
+		$result = array();
+
+		if ('' == $this->getClassName() || !class_exists($this->getClassName())) {
+			$className = 'CampaignTemplateHandler';
+		} else {
+			$className = $this->getClassName();
+		}
+
+		$object = new $className($campaign);
+		$result = $object->createEditWidget();
+
+		return $result;
+	}
+
 } // CampaignTemplate
 
 

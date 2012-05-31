@@ -31,7 +31,7 @@ printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_messag
 				<table class="table table-striped table-condensed">
 				<tr>
 					<th class="span3">Date d'ouverture</th>
-					<th class="span1">&nbsp;</th>
+					<th class="span1">Statut</th>
 					<th>Contact</th>
 				</tr>
 				<?php foreach($pager->getResults() as $contact):

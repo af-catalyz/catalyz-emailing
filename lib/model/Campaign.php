@@ -364,8 +364,11 @@ class Campaign extends BaseCampaign {
 		$criteria->addAscendingOrderByColumn(CampaignContactPeer::SENT_AT);
 		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->getId());
 		$CampaignContact = CampaignContactPeer::doSelectOne($criteria);
+
+
+
 		if ($CampaignContact) {
-			return strtotime($CampaignContact->getSentAt()) + strtotime($CampaignContact->getFailedSentAt());
+			return strtotime($CampaignContact->getFailedSentAt()) + strtotime($CampaignContact->getSentAt());
 		}
 		return null;
 	}
@@ -473,7 +476,7 @@ class Campaign extends BaseCampaign {
 	function canConnectToMailbox()
 	{
 		if (!function_exists('imap_open')) {
-			throw new Exception('L\'extension imap n\'est pas prÃ©sente sur le serveur, le contrÃ´le de validitÃ© de l\'accÃ¨s Ã  la boite aux lettres ne peut pas Ãªtre effectuÃ©.');
+			throw new Exception('L\'extension imap n\'est pas présente sur le serveur, le contrôle de validité de l\'accès à la boite aux lettres ne peut pas être effectué.');
 		}
 		$mailbox = imap_open("{" . $this->getReturnPathServer() . ":110/pop3}INBOX", $this->getReturnPathLogin(), $this->getReturnPathPassword());
 

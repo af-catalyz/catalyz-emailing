@@ -23,7 +23,7 @@
 <?php
 
 //region customFields
-printf('<span class="help-inline"><div class="btn-group"><a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">%s<span class="caret"></span></a><ul class="dropdown-menu">', __('Insérer une valeur dynamique'));
+printf('<span class="help-inline"><div class="btn-group"><a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">%s <span class="caret"></span></a><ul class="dropdown-menu">', __('Insérer une valeur dynamique'));
 $defaultFields = array();
 $defaultFields['FIRSTNAME'] = __('Prénom');
 $defaultFields['LASTNAME'] = __('Nom');
@@ -101,7 +101,11 @@ echo '</ul></div></span>';
 	  } ?>
 
 	    <div class="form-actions">
-		<input type="submit" value="Enregistrer" class="btn btn-primary" />
+	    <?php
+    if ($campaign->getStatus()< Campaign::STATUS_SENDING) {
+    	echo '<input type="submit" name="Save" value="Enregistrer" class="btn btn-primary" />';
+    } ?>
+
 		</div>
 
     </form>
@@ -150,9 +154,6 @@ $(document).ready(function() {
 	    </div>
 			<div class="tab-pane" id="5">
 				<?php include_component('campaign', 'antiSpam',array('campaign' => $campaign)) ?>
-			</div>
-			<div class="tab-pane" id="6">
-				<?php include_component('campaign', 'visualControls',array('campaign' => $campaign)) ?>
 			</div>
 			<div class="tab-pane" id="7">
 				<?php include_component('campaign', 'targets',array('campaign' => $campaign)) ?>

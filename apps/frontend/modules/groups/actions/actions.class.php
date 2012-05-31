@@ -129,7 +129,7 @@ class groupsActions extends sfActions
 	public function executeUnArchive($request) {
 		$this->forward404Unless($contact_group = /*(ContactGroup)*/ContactGroupPeer::retrieveBySlug($request->getParameter('slug')));
 
-		$message = sprintf('<h4 class="alert-heading">Groupe réstauré</h4><p>Le groupe "%s" a été réstauré. <a href="%s" class="btn btn-mini">annuler</a></p>'
+		$message = sprintf('<h4 class="alert-heading">Groupe restauré</h4><p>Le groupe "%s" a été restauré. <a href="%s" class="btn btn-mini">annuler</a></p>'
 			,$contact_group->getName(), url_for('@group_do_archive?slug='.$contact_group->getSlug()));
 		$this->getUser()->setFlash('notice_success', $message);
 		$contact_group->setIsArchived(FALSE);

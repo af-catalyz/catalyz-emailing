@@ -80,8 +80,8 @@ if (!empty($defaults['qualif_list_publication'])) {
 								<br />
 
 								<div class="control-group">
-									<p>Liste des types de publications à proposer:</p>
 									<?php
+									printf('<p>%s</p>', __('Liste des types de publications à proposer:'));
 									printf('<div id="publications_holder"></div><br/>');
 									printf('<a class="add_list_element btn btn-success" href="javascript://"><i class="icon-plus-sign icon-white"></i> Ajouter une liste</a>');
 									 ?>
@@ -113,8 +113,11 @@ printf('<div class="control-group%s">', $class);
 
 								<?php printf('<label class="control-label">%s</label>', $form['qualif_motif_raisons']->renderLabel()) ?>
 								<div class="controls">
-									<?php echo $form['qualif_motif_raisons']; echo $form['qualif_motif_raisons']->renderError();?>
-									<span class="help-block">Mettre une raison par ligne</span>
+									<?php
+										echo $form['qualif_motif_raisons']; echo $form['qualif_motif_raisons']->renderError();
+										printf('<span class="help-block">%s</span>', __('Mettre une raison par ligne'));
+									?>
+
 								</div>
 							</div>
 							<br />

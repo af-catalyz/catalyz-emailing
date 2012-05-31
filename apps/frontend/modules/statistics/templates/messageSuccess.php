@@ -43,8 +43,8 @@
            	<div class="control-group">
 	            <label class="control-label"><?php echo __('Corps') ?></label>
 	            <div class="controls">
-	              <span class="uneditable-input" style="height: 720px; ;width: 100%">
-	              	<iframe style="border: none;" name="frame_Liks" src="<?php echo url_for('@campaign_statistics_display_message_iframe?slug='.$campaign->getSlug()) ?>" scrolling="auto" height="720" width="1020" frameborder="1"></iframe>
+	              <span class="uneditable-input" id="iframe_holder" style="width: 100%">
+	              	<iframe id="iframe" style="border: none;" name="frame_Liks" src="<?php echo url_for('@campaign_statistics_display_message_iframe?slug='.$campaign->getSlug()) ?>" scrolling="auto" height="720" width="1020" frameborder="1"></iframe>
 								</span>
 	            </div>
             </div>
@@ -52,3 +52,16 @@
 			</div>
     </div>
 </div>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+
+	$(window).load(function(){
+		// plus 24, valeur arbitraire pour tenir compte des marges autour du document
+		height = $("#iframe").contents().find("body").outerHeight() + 24;
+		$("iframe").css("height", height);
+		$("#iframe_holder").css("height", height + 24);
+	});
+
+/* ]]> */
+</script>

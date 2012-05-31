@@ -9,7 +9,7 @@
 	<div id="holder"></div>
 	<div class="clear"></div>
 
-	<a id="add_element" href="javascript://" class="btn btn-success"><i class="icon-plus-sign icon-white"></i> Ajouter un nouveau champ personnalisé</a>
+	<a id="add_element" href="javascript://" class="btn btn-success"><i class="icon-plus-sign icon-white"></i> <?php echo __('Ajouter un nouveau champ personnalisé') ?></a>
 
 	<?php printf('<div class="form-actions"><input type="submit" class="btn btn-primary" value="%s"/>&nbsp;<a href="%s" class="btn">Annuler</a></div>', __('Enregistrer'), url_for('@settings_custom_fields')); ?>
 
@@ -20,8 +20,7 @@
 /* <![CDATA[ */
 
 function deleteFieldset(element){
-	var fieldset_parent = element.parents('.well');
-	fieldset_parent.remove();
+	$("#"+element).remove();
 	checkAddLink();
 
 	$(".well").each(function (index) {
@@ -50,7 +49,8 @@ function addFieldset(value){
 	}
 	var nb = Math.ceil(Math.random() * 100);
 
-	$('#holder').append('<div class="well span6" id="fieldset_'+ nb +'"><legend>Champ personnalisé n°<span class="nb_fieldset">'+ fieldsetCount +'</span> (<a class="delete_link" href="javascript://">supprimer</a>)</legend>'
+	$('#holder').append('<div class="well span6" id="fieldset_'+ nb +'"><legend>Champ personnalisé n°<span class="nb_fieldset">'+ fieldsetCount
+	+'</span> <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'fieldset_'+ nb +'\');}">&times;</a></legend>'
 	+'<div class="control-group">'
 	+'Intitulé du champ'
 	+'<div class="controls"><input type="text" class="span6 listen" value="'+ value +'" name="custom_contact[element'+ nb +']"/></div></div>'
@@ -60,12 +60,9 @@ function addFieldset(value){
 	return true;
 }
 
-
 function displayDefaults(){
-	$('#holder').append('<?php $cpt = 1; foreach ($customFields as $value){	$random = rand(0,100);
-		printf('<div class="well span6" id="fieldset_%s"><legend>Champ personnalisé n°<span class="nb_fieldset">%s</span> (<a class="delete_link" href="javascript://">supprimer</a>)</legend><div class="control-group">Intitulé du champ<div class="controls"><input type="text" class="span6 listen" value="%s" name="custom_contact[element%s]"/></div></div></div>',$random, $cpt,$value,$random); $cpt++;}	 	?>');
+	$('#holder').append('<?php $cpt = 1; foreach ($customFields as $value){	$random = rand(0,100); echo escape_javascript(sprintf('<div class="well span6" id="fieldset_%s"><legend>Champ personnalisé n°<span class="nb_fieldset">%s</span> <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'fieldset_%s\');}">&times;</a></legend><div class="control-group">Intitulé du champ<div class="controls"><input type="text" class="span6 listen" value="%s" name="custom_contact[element%s]"/></div></div></div>',$random, $cpt,$random,$value,$random)); $cpt++;}	?>');
 }
-
 
 $(document).ready(function() {
 	displayDefaults();
@@ -74,9 +71,6 @@ $(document).ready(function() {
 		addFieldset();
 	});
 
-	$(".delete_link").live("click", function(){
-		deleteFieldset($(this));
-	});
 });
 
 /* ]]> */

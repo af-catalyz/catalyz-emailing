@@ -6,7 +6,7 @@ use_javascript('http://code.highcharts.com/modules/exporting.js');
 
 
 
-$campaign = $campaign->getRawValue();
+$campaign = /*campaign*/$campaign->getRawValue();
 
 //region header
 echo '<div class="page-header">';
@@ -19,10 +19,11 @@ if ($campaign->getCampaignTemplate()->getPreviewFilename() && is_file(sfConfig::
 printf('<img src="%s" alt="" class="pull-left" style="margin-right: 10px;" />', $picture_src);
 printf('<h1>%s%s</h1>', $campaign->getName(), html_entity_decode($campaign->getCommentPopup()));
 
-printf('<h3><small>Cr&eacute;&eacute; %s le %s envoy&eacute;e le %s</small></h3>',
+printf('<h3><small>Cr&eacute;&eacute; %s le %s%s</small></h3>',
 	$campaign->getsfGuardUserProfile()?sprintf('par %s',$campaign->getsfGuardUserProfile()->getFullName()):'',
 	CatalyzDate::formatShortWithTime(strtotime($campaign->getCreatedAt())),
-	CatalyzDate::formatShortWithTime(strtotime($campaign->getSendStart()))
+	$campaign->getSendStart()!=null?sprintf(' envoy&eacute;e le %s', CatalyzDate::formatShortWithTime($campaign->getSendStart())):''
+
 	);
 
 echo '</div>';
