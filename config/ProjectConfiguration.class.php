@@ -21,5 +21,13 @@ class ProjectConfiguration extends sfProjectConfiguration
     $this->enablePlugins('sfPhpExcelPlugin');
     $this->enablePlugins('sfFormExtraPlugin');
     $this->enablePlugins('sfPropelActAsSluggableBehaviorPlugin');
+
+
+		//enable clients
+		$this->enablePlugins('KreactivFormationPlugin');
+
+
+
+
   }
 }

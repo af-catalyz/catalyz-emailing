@@ -22,6 +22,34 @@ sf_guard_password:
   url:   /request_password
   param: { module: sfGuardAuth, action: password }
 
+#APPLICATION
+catalyz-ajax-add-field:
+  url: /catalyz/add-field/:ContentObjectClass/:FormType/:FieldName/:formId/:selected
+  param: { module: wizard, action: ajaxAddForm }
+
+campaign-wizard-preview-post:
+  url:   /wizard/preview
+  param: { module: wizard, action: preview }
+
+campaign-wizard-preview:
+  url:   /wizard/preview/:campaign
+  param: { module: wizard, action: preview }
+
+campaign-wizard-preview-text:
+  url:   /wizard/preview-text/:campaign
+  param: { module: wizard, action: previewText }
+
+campaign-wizard-preview-text-post:
+  url:   /wizard/preview-text
+  param: { module: wizard, action: previewText }
+
+catalyz-ajax-add-link-form:
+  url: /wizard/add-field
+  param: { module: wizard, action: ajaxAddLinkForm }
+
+catalyz-ajax-create-thumbnail-path:
+  url: /catalyz/create_thumbnail_path
+  param: { module: wizard, action: createThumbnailPath }
 
 # default rules
 homepage2:

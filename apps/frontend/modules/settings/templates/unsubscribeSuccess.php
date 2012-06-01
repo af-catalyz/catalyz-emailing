@@ -62,7 +62,7 @@ if (!empty($defaults['qualif_list_publication'])) {
 
 						<div class="well">
 							<h3>Gestion multi-liste</h3>
-							<br />
+							<hr/>
 							<label class="checkbox">
 									<?php
 										echo $form['qualif_list_enabled'];
@@ -91,7 +91,7 @@ if (!empty($defaults['qualif_list_publication'])) {
 
 						<div class="well">
 							<h3>Motif</h3>
-							<br />
+							<hr/>
 
 							<div class="control-group">
 								<?php printf('<label class="control-label">%s</label>', $form['qualif_motif_introduction']->renderLabel()) ?>

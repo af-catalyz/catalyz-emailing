@@ -49,8 +49,8 @@ function addFieldset(value){
 	}
 	var nb = Math.ceil(Math.random() * 100);
 
-	$('#holder').append('<div class="well span6" id="fieldset_'+ nb +'"><legend>Champ personnalisé n°<span class="nb_fieldset">'+ fieldsetCount
-	+'</span> <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'fieldset_'+ nb +'\');}">&times;</a></legend>'
+	$('#holder').append('<div class="well span6" id="fieldset_'+ nb +'"><h3>Champ personnalisé n°<span class="nb_fieldset">'+ fieldsetCount
+	+'</span> <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'fieldset_'+ nb +'\');}">&times;</a></h3><hr/>'
 	+'<div class="control-group">'
 	+'Intitulé du champ'
 	+'<div class="controls"><input type="text" class="span6 listen" value="'+ value +'" name="custom_contact[element'+ nb +']"/></div></div>'
@@ -61,7 +61,7 @@ function addFieldset(value){
 }
 
 function displayDefaults(){
-	$('#holder').append('<?php $cpt = 1; foreach ($customFields as $value){	$random = rand(0,100); echo escape_javascript(sprintf('<div class="well span6" id="fieldset_%s"><legend>Champ personnalisé n°<span class="nb_fieldset">%s</span> <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'fieldset_%s\');}">&times;</a></legend><div class="control-group">Intitulé du champ<div class="controls"><input type="text" class="span6 listen" value="%s" name="custom_contact[element%s]"/></div></div></div>',$random, $cpt,$random,$value,$random)); $cpt++;}	?>');
+	$('#holder').append('<?php $cpt = 1; foreach ($customFields as $value){	$random = rand(0,100); echo escape_javascript(sprintf('<div class="well span6" id="fieldset_%s"><h3>Champ personnalisé n°<span class="nb_fieldset">%s</span> <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'fieldset_%s\');}">&times;</a></h3><hr/><div class="control-group">Intitulé du champ<div class="controls"><input type="text" class="span6 listen" value="%s" name="custom_contact[element%s]"/></div></div></div>',$random, $cpt,$random,$value,$random)); $cpt++;}	?>');
 }
 
 $(document).ready(function() {
