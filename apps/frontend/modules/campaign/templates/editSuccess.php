@@ -9,7 +9,7 @@
 
 ?>
 
-<form  class="form-horizontal" action="<?php echo url_for('@campaign_edit_content?slug='.$campaign->getSlug()) ?>" method="post" >
+<form  id="form-campaign-edit" class="form-horizontal" action="<?php echo url_for('@campaign_edit_content?slug='.$campaign->getSlug()) ?>" method="post" >
 
 	<?php
 echo $form->renderHiddenFields();

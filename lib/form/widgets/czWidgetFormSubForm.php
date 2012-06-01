@@ -195,6 +195,11 @@ class czWidgetFormSubForm extends sfWidgetForm {
 
     	</script>', $id);
         if ($sortable) {
+
+        	use_stylesheet('/css/ui-lightness/jquery-ui-1.8.20.custom.css');
+        	use_javascript('/js/jquery-ui-1.8.20.custom.min.js');
+
+
             $result .= sprintf('
     	<script type="text/javascript">
 			$(function() {
