@@ -181,15 +181,11 @@ $(document).ready(function() {
 
 
 	    </div>
-	    <div class="tab-pane" id="2">
-				<?php include_component('campaign', 'message',array('campaign' => $campaign)) ?>
-	    </div>
+
 			<div class="tab-pane" id="5">
 				<?php include_component('campaign', 'antiSpam',array('campaign' => $campaign)) ?>
 			</div>
-			<div class="tab-pane" id="7">
-				<?php include_component('campaign', 'targets',array('campaign' => $campaign)) ?>
-			</div>
+
     </div>
     </div>
 

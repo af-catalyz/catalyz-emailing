@@ -149,6 +149,58 @@ campaign_edit_links:
   url:   /campaign/edit/links/:slug
   param: { module: campaign, action: links }
 
+campaign_edit_targets:
+  url:   /campaign/edit/targets/:slug
+  param: { module: campaign, action: targets }
+
+
+
+campaign-target-add:
+  url: /campaign/edit/targets/:slug/add
+  param:
+    module: campaign
+    action: targetAdd
+
+campaign-target-add-provider:
+  url: /campaign/edit/targets/:slug/add/:provider
+  param:
+    module: campaign
+    action: targetAddProvider
+
+campaign-target-add-provider-with-params:
+  url: url: /campaign/edit/targets/:slug/add/:provider/*
+  param:
+    module: campaign
+    action: targetAddProvider
+
+campaign-target-cleanup-provider:
+  url: /campaign/edit/targets/:slug/cleanup/:provider
+  param:
+    module: campaign
+    action: targetCleanupProvider
+
+campaign-target-cleanup:
+  url: /campaign/edit/targets/:slug/cleanup
+  param:
+    module: campaign
+    action: targetCleanup
+
+campaign-contact-delete:
+  url: /campaign/contactDelete/id/:id/campaignId/:campaignId
+  param:
+    module: campaign
+    action: contactDelete
+
+campaign-group-delete:
+  url: /campaign/groupDelete/id/:id/campaignId/:campaignId
+  param:
+    module: campaign
+    action: groupDelete
+
+ajax:
+  url: /contact/ajax
+  param: { module: contacts, action: ajax }
+
 campaign_do_resend:
   url:   /campaign/resend/:id
   param: { module: campaign, action: resend }

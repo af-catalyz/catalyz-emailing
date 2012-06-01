@@ -82,5 +82,53 @@ class ContactPeer extends BaseContactPeer {
 		return $return;
 	}
 
+	static public function retrieveForSelect($q, $CampaignId , $selected = null)
+	{
+		$authors = array();
+		if ($q != '') {
+			$c = new Criteria();
+			$c->add(CampaignContactPeer::CAMPAIGN_ID, $CampaignId);
+			$contacts = CampaignContactPeer::doSelect($c);
 
+			$notInTab = array();
+
+			foreach ($contacts as $contact) {
+				$notInTab[] = $contact->getId();
+			}
+
+			if ($selected) {
+				foreach (explode(',', $selected) as $element) {
+					if ((int)$element > 0) {
+						$notInTab[] = (int)$element;
+					}
+				}
+			}
+
+			$criteria = new Criteria();
+
+			$criterion = $criteria->getNewCriterion(ContactPeer::LAST_NAME, '%' . $q . '%', Criteria::LIKE);
+			$criterion->addOr($criteria->getNewCriterion(ContactPeer::EMAIL, '%' . $q . '%', Criteria::LIKE));
+			$criteria->add($criterion);
+
+			$criterion->addOr($criteria->getNewCriterion(ContactPeer::FIRST_NAME, '%' . $q . '%', Criteria::LIKE));
+			$criteria->add($criterion);
+
+			//            $criterion->addOr($criteria->getNewCriterion(ContactPeer::EXTERNAL_REFERENCE, '%' . $q . '%', Criteria::LIKE));
+			$criteria->add($criterion);
+
+			for ($i = 1; $i <= sfConfig::get('app_fields_count'); $i++) {
+				$criterion->addOr($criteria->getNewCriterion(constant('ContactPeer::CUSTOM' . $i), '%' . $q . '%', Criteria::LIKE));
+				$criteria->add($criterion);
+			}
+
+			$criteria->add(ContactPeer::ID, $notInTab, Criteria::NOT_IN);
+			$criteria->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
+			$criteria->setLimit(15);
+
+			foreach (ContactPeer::doSelect($criteria) as $author) {
+				$authors[$author->getId()] = sprintf('%s (%s)', (string) $author->getLastName(), (string) $author->getEmail()) ;
+			}
+		}
+		return $authors;
+	}
 } // ContactPeer

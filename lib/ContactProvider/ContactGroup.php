@@ -30,19 +30,19 @@ class ContactProvider_ContactGroup extends ContactProvider {
 
         if (1 == count($selected)) {
             $group = array_shift($selected);
-            $result = sprintf('Les contacts du groupe <span class="tag">%s', $group->getName());
-            $result .= link_to(image_tag('icons/bullet_cross.png'), '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId());
+            $result = sprintf('Les contacts du groupe <span class="tag">%s&nbsp;', $group->getName());
+            $result .= link_to('<i class="icon-remove-sign"></i>', '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId());
             $result .= '</span>';
             return $result;
         }
         $group = array_pop($selected);
         // $selected = array_reverse($selected);
-        $result = sprintf(' et <span class="tag">%s</span>', $group->getName()
-             . link_to(image_tag('icons/bullet_cross.png'), '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId()));
+        $result = sprintf(' et <span class="tag">%s</span>&nbsp;', $group->getName()
+             . link_to('<i class="icon-remove-sign"></i>', '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId()));
 
         foreach($selected as $group) {
-            $items[] = sprintf('<span class="tag">%s', $group->getName())
-             . link_to(image_tag('icons/bullet_cross.png'), '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId())
+            $items[] = sprintf('<span class="tag">%s&nbsp;', $group->getName())
+             . link_to('<i class="icon-remove-sign"></i>', '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId())
              . '</span>';
         }
         $result = 'Les contacts appartenant aux groupes ' . implode(', ', $items) . $result;
@@ -94,12 +94,14 @@ class ContactProvider_ContactGroup extends ContactProvider {
             $campaign->save();
 
             if (1 == count($groups)) {
-                $sfUser->setFlash('info', 'Le groupe a été ajouté à la liste des critères.');
+            	$message = sprintf('<h4 class="alert-heading">Critères d\'envois modifiés</h4><p>Le groupe a été ajouté à la liste des critères.</p>');
             } else {
-                $sfUser->setFlash('info', 'Les groupes ont étés ajoutés à la liste des critères.');
+            	$message = sprintf('<h4 class="alert-heading">Critères d\'envois modifiés</h4><p>Les groupes ont étés ajoutés à la liste des critères.</p>');
             }
 
-            $sfContext->getController()->redirect('@campaign-target?id=' . $campaign->getId());
+
+	        	$sfContext->getUser()->setFlash('notice_success', $message);
+            $sfContext->getController()->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
             return false;
         }
 
@@ -113,12 +115,16 @@ class ContactProvider_ContactGroup extends ContactProvider {
         if (count($selectedGroupIds) > 0) {
             $c->add(ContactGroupPeer::ID, $selectedGroupIds, Criteria::NOT_IN);
         }
+    		$c->add(ContactGroupPeer::IS_ARCHIVED, false);
+
         $c->addAscendingOrderByColumn(ContactGroupPeer::NAME);
         $groups = ContactGroupPeer::doSelect($c);
 
         if (0 == count($groups)) {
-            $sfUser->setFlash('error', 'Aucun groupe n\'est sélectionnable.');
-            $sfContext->getController()->redirect('@campaign-target?id=' . $campaign->getId());
+        	$message = sprintf('<h4 class="alert-heading">Critères d\'envois non modifiés</h4><p>Aucun groupe n\'est sélectionnable.</p>');
+        	$sfContext->getUser()->setFlash('notice_error', $message);
+
+            $sfContext->getController()->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
             return false;
         }
         include_component('ContactProvider', $this->getProviderName(), array(

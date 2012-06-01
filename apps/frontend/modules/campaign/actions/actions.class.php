@@ -406,4 +406,122 @@ class campaignActions extends sfActions
 
 
 	}
+
+	public function executeTargets(sfWebRequest $request)
+	{
+		sfContext::getInstance()->getConfiguration()->loadHelpers(array('Url', 'Asset', 'Tag'));
+
+		$this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug'));
+
+		$targetCount = $this->campaign->getTargetContactItems();
+		$count = count($targetCount['items']);
+		if (1 == $count) {
+			$this->targetCountStr = sprintf('1 contact', $count);
+		} else {
+			$this->targetCountStr = sprintf('%d contacts', $count);
+		}
+		if (1 == $targetCount['duplicates']) {
+			$this->targetCountStr .= sprintf(' (1 redondant)');
+		} elseif ($targetCount['duplicates'] > 0) {
+			$this->targetCountStr .= sprintf(' (%d redondants)', $targetCount['duplicates']);
+		}
+		// $this->targetCountStr = print_r($this->campaign->getCountTarget(), true);
+		$providerStrings = array();
+		foreach(CatalyzEmailing::getContactProviders() as $providerName => $provider) {
+			if ($s = $provider->getDescription($this->campaign)) {
+				$providerStrings[$s] = $providerName;
+			}
+		}
+		ksort($providerStrings);
+		$this->providerStrings = $providerStrings;
+	}
+
+	public function executeTargetAdd(sfWebRequest $request)
+	{
+		$this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug'));
+
+		$this->providers = array();
+		foreach(CatalyzEmailing::getContactProviders() as $k =>/*(ContactProvider)*/ $provider) {
+			// var_dump($provider->getCaption());
+			// var_dump($provider->isAvailable($this->campaign));
+			if ($provider->isAvailable($this->campaign)) {
+				$this->providers[$provider->getCaption()] = $provider;
+			}
+		}
+
+		ksort($this->providers);
+
+		return sfView::SUCCESS;
+	}
+
+	public function executeTargetAddProvider(sfWebRequest $request)
+	{
+		$this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug'));
+		$providerName = $request->getParameter('provider');
+		$this->provider = CatalyzEmailing::getProviderInstance($providerName);
+		// $this->providerName = $providerName;
+		return sfView::SUCCESS;
+	}
+
+	public function executeTargetCleanupProvider(sfWebRequest $request)
+	{
+		$this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug'));
+		$provider = CatalyzEmailing::getProviderInstance($request->getParameter('provider'));
+		$provider->cleanup($this->campaign);
+		$this->campaign->save();
+
+		$message = sprintf('<h4 class="alert-heading">Restriction modifié</h4><p>Le critère a été supprimé.</p>');
+		$this->getUser()->setFlash('notice_success', $message);
+		$this->redirect('@campaign_edit_targets?slug=' . $this->campaign->getSlug());
+	}
+
+	public function executeTargetCleanup(sfWebRequest $request)
+	{
+		$this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug'));
+		foreach(CatalyzEmailing::getContactProviders() as $provider) {
+			$provider->cleanup($this->campaign);
+		}
+		$this->campaign->save();
+
+		$message = sprintf('<h4 class="alert-heading">Restriction modifié</h4><p>Toutes les restrictions d\'envoi de votre campagne ont étés supprimées.</p>');
+		$this->getUser()->setFlash('notice_success', $message);
+		$this->redirect('@campaign_edit_targets?slug=' . $this->campaign->getSlug());
+	}
+
+	public function executeContactDelete(sfWebRequest $request)
+	{
+		$this->forward404Unless($campaign = /*(Campaign)*/CampaignPeer::retrieveByPK($request->getParameter('campaignId')));
+
+		$c = new Criteria();
+		$c->add(CampaignContactElementPeer::CAMPAIGN_ID, $campaign->getId());
+		$c->add(CampaignContactElementPeer::CONTACT_ID, $request->getParameter('id'));
+		$Contact = CampaignContactElementPeer::doSelectOne($c);
+		$Contact->delete();
+
+		$message = sprintf('<h4 class="alert-heading">Contact retiré</h4><p>Le contact a été retiré de la liste des destinataires de cette campagne</p>');
+		$this->getUser()->setFlash('notice_success', $message);
+		$this->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
+	}
+
+	public function executeGroupDelete(sfWebRequest $request)
+	{
+
+		$this->forward404Unless($campaign = /*(Campaign)*/CampaignPeer::retrieveByPK($request->getParameter('campaignId')));
+
+		$c = new Criteria();
+		$c->add(CampaignContactGroupPeer::CAMPAIGN_ID, $request->getParameter('campaignId'));
+		$c->add(CampaignContactGroupPeer::CONTACT_GROUP_ID, $request->getParameter('id'));
+		$Contact = CampaignContactGroupPeer::doSelectOne($c);
+		$Contact->delete();
+
+		$CampaignGroup = ContactGroupPeer::retrieveByPK($request->getParameter('id'));
+
+		$message = sprintf('<h4 class="alert-heading">Groupe retiré</h4><p>Les contacts du groupe <b>%s</b> ont été supprimés de la liste des destinataires de la campagne <b>%s</b></p>',
+		$CampaignGroup->getName(), $campaign->getName());
+		$this->getUser()->setFlash('notice_success', $message);
+
+
+
+		$this->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
+	}
 }

@@ -51,12 +51,13 @@ class ContactProvider_FromEmail extends ContactProvider {
             $sfContext = sfContext::getInstance();
             $sfUser = $sfContext->getUser();
             if (1 == $count) {
-                $sfUser->setFlash('info', '1 contact a été ajouté.');
+            	$message = sprintf('<h4 class="alert-heading">Critères d\'envois modifiés</h4><p>1 contact a été ajouté.</p>', $count);
             } else {
-                $sfUser->setFlash('info', sprintf('%d contacts ont étés ajoutés.', $count));
+            	$message = sprintf('<h4 class="alert-heading">Critères d\'envois modifiés</h4><p>%d contacts ont étés ajoutés.</p>', $count);
             }
 
-            $sfContext->getController()->redirect('@campaign-target?id=' . $campaign->getId());
+        		$sfContext->getUser()->setFlash('notice_success', $message);
+            $sfContext->getController()->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
             return false;
             // $this->campaign->setTargetType(Campaign::TARGET_GROUPS);
             // $this->campaign->save();

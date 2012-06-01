@@ -286,4 +286,10 @@ class contactsActions extends sfActions
 		unlink($tempFilename);
 		return sfView::NONE;
 	}
+
+	public function executeAjax(sfWebRequest $request)
+	{
+		$this->campaignId = $request->getParameter('id');
+		$this->authors = ContactPeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('id'), $request->getParameter('selected'));
+	}
 }

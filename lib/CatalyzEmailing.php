@@ -487,6 +487,7 @@ class CatalyzEmailing {
         $availableProviders = array_keys($availableProviders);
 
         $result = array();
+
         foreach($availableProviders as $availableProvider) {
             $result[$availableProvider] = self::getProviderInstance($availableProvider);
         }

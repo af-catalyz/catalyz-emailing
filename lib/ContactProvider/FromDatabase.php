@@ -19,19 +19,19 @@ class ContactProvider_FromDatabase extends ContactProvider {
 
         if (1 == count($selected)) {
             $contact =/*(Contact)*/ array_shift($selected);
-            $result = sprintf('<span class="tag">%s', $contact->getFullName());
-            $result .= link_to(image_tag('icons/bullet_cross.png'), '@campaign-contact-delete?campaignId=' . $campaign->getId() . '&id=' . $contact->getId());
+            $result = sprintf('<span class="tag">%s&nbsp;', $contact->getFullName());
+            $result .= link_to('<i class="icon-remove-sign"></i>', '@campaign-contact-delete?campaignId=' . $campaign->getId() . '&id=' . $contact->getId());
             $result .= '</span>';
             return $result;
         }
         $contact = array_pop($selected);
         // $selected = array_reverse($selected);
-        $result = sprintf(' et <span class="tag">%s</span>', $contact->getFullName()
-             . link_to(image_tag('icons/bullet_cross.png'), '@campaign-contact-delete?campaignId=' . $campaign->getId() . '&id=' . $contact->getId()));
+        $result = sprintf(' et <span class="tag">%s&nbsp;</span>', $contact->getFullName()
+             . link_to('<i class="icon-remove-sign"></i>', '@campaign-contact-delete?campaignId=' . $campaign->getId() . '&id=' . $contact->getId()));
 
         foreach($selected as $contact) {
-            $items[] = sprintf('<span class="tag">%s', $contact->getFullName())
-             . link_to(image_tag('icons/bullet_cross.png'), '@campaign-contact-delete?campaignId=' . $campaign->getId() . '&id=' . $contact->getId())
+            $items[] = sprintf('<span class="tag">%s&nbsp;', $contact->getFullName())
+             . link_to('<i class="icon-remove-sign"></i>', '@campaign-contact-delete?campaignId=' . $campaign->getId() . '&id=' . $contact->getId())
              . '</span>';
         }
         $result = sprintf('Les %d contacts suivants: ', count($items) + 1) . implode(', ', $items) . $result;
@@ -72,12 +72,14 @@ class ContactProvider_FromDatabase extends ContactProvider {
 
             $sfContext = sfContext::getInstance();
             if (1 == $count) {
-                $sfContext->getUser()->setFlash('info', '1 contact a été ajouté.');
+            	$message = sprintf('<h4 class="alert-heading">Critères d\'envois modifiés</h4><p>1 contact a été ajouté.</p>');
             } else {
-                $sfContext->getUser()->setFlash('info', sprintf('%d contacts ont étés ajoutés.', $count));
+            	$message = sprintf('<h4 class="alert-heading">Critères d\'envois modifiés</h4><p>%d contacts ont étés ajoutés.</p>', $count);
             }
 
-            $sfContext->getController()->redirect('@campaign-target?id=' . $campaign->getId());
+
+						$sfContext->getUser()->setFlash('notice_success', $message);
+            $sfContext->getController()->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
             return false;
         }
         include_component('ContactProvider', $this->getProviderName(), array(

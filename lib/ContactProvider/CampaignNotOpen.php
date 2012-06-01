@@ -48,9 +48,9 @@ class ContactProvider_CampaignNotOpen extends ContactProvider {
 
         foreach ($campaigns as/*(Campaign)*/ $campaign) {
             if (!$campaign->getIsArchived()) {
-                $active[$campaign->getCreatedAt(null)] = $campaign;
+                $active[strtotime($campaign->getCreatedAt())] = $campaign;
             }else {
-                $archived[$campaign->getCreatedAt('Y-m')][] = $campaign;
+                $archived[date('Y-m' , strtotime($campaign->getCreatedAt())) ][] = $campaign;
             }
         }
 
@@ -111,8 +111,12 @@ class ContactProvider_CampaignNotOpen extends ContactProvider {
             $campaign->setProviderSettings('CampaignNotOpen', $target_campaigns);
             $campaign->save();
             $sfContext = sfContext::getInstance();
-            $sfContext->getUser()->setFlash('info', 'La règle a été enregistrée');
-            $sfContext->getController()->redirect('@campaign-target?id=' . $campaign->getId());
+
+	        	$message = sprintf('<h4 class="alert-heading">Critères d\'envois modifiés</h4><p>La règle a été enregistrée</p>');
+	        	$sfContext->getUser()->setFlash('notice_success', $message);
+
+
+            $sfContext->getController()->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
             return false;
         }
 
@@ -120,8 +124,13 @@ class ContactProvider_CampaignNotOpen extends ContactProvider {
         $selectedCampaigns = $provider->getSelectedCampaigns($campaign);
         $campaigns = $provider->getSelectableCampaigns($campaign);
         if (0 == count($campaigns)) {
-            $sfContext->getUser()->setFlash('error', 'Aucune autre campagne n\'a été envoyée et ne peut être sélectionnée.');
-            $sfContext->getController()->redirect('@campaign-target?id=' . $campaign->getId());
+
+	        	$message = sprintf('<h4 class="alert-heading">Critères d\'envois non modifiés</h4><p>Aucune autre campagne n\'a été envoyée et ne peut être sélectionnée.</p>');
+	        	$sfContext->getUser()->setFlash('notice_error', $message);
+
+
+
+            $sfContext->getController()->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
             return false;
         }
 
@@ -142,12 +151,16 @@ class ContactProvider_CampaignNotOpen extends ContactProvider {
 			WHERE ' . CampaignContactPeer::VIEW_AT . ' IS NULL
 			GROUP BY ' . CampaignContactPeer::CAMPAIGN_ID;
 
-    	$con = Propel::getConnection('propel');
-    	$stmt = $con->createStatement();
-    	$rs =/*(MySQLResultSet)*/ $stmt->executeQuery($sql);
+    	//$con = Propel::getConnection('propel');
+//    	$stmt = $con->createStatement();
+//    	$rs =/*(MySQLResultSet)*/ $stmt->executeQuery($sql);
 
-    	while ($rs->next()) {
-    		$result[$rs->getInt('campaign_id')] = $rs->getInt('total');
+    	$connection = Propel::getConnection();
+    	$statement = $connection->prepare($sql);
+    	$statement->execute();
+
+    	while($rs = $statement->fetch(PDO::FETCH_ASSOC)){
+    		$result[$rs['campaign_id']] = $rs['total'];
     	}
 
 
