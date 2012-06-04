@@ -336,13 +336,6 @@ class CampaignDeliveryManager {
 
     	$result = array('success' => array(), 'failed' => array());
 
-
-
-
-
-
-
-
     	$emailConfiguration = array();
     	$emailConfiguration['from'] =array($this->Campaign->getFromEmail() => $this->Campaign->getFromName());
     	$emailConfiguration['replyTo'] = $this->Campaign->getReplyToEmail();
@@ -363,8 +356,8 @@ class CampaignDeliveryManager {
                 		$messageObject->setReturnPath($emailConfiguration['returnPath']);
 										$messageObject->setTo($email);
 
-										if ($bcc) {
-                        $messageObject->addBcc($bcc);
+										if (sfConfig::get('app_mail_bcc', false)) {
+                        $messageObject->addBcc(sfConfig::get('app_mail_bcc', false));
                         $expectedCount++;
                     }
 
