@@ -417,7 +417,7 @@ class Campaign extends BaseCampaign {
 
 	public function getUrls()
 	{
-		$sql = 'SELECT ' . CampaignLinkPeer::URL . ', COUNT(' . CampaignContactPeer::ID . ') AS total
+		$sql = 'SELECT ' . CampaignLinkPeer::URL . ', COUNT(DISTINCT(' . CampaignContactPeer::ID . ')) AS total
 		FROM ' . CampaignLinkPeer::TABLE_NAME . '
 		LEFT OUTER JOIN	' . CampaignClickPeer::TABLE_NAME . '
 			ON ' . CampaignLinkPeer::ID . ' = ' . CampaignClickPeer::CAMPAIGN_LINK_ID . '
@@ -425,7 +425,6 @@ class Campaign extends BaseCampaign {
 			ON ' . CampaignContactPeer::ID . ' = ' . CampaignClickPeer::CAMPAIGN_CONTACT_ID . '
 		WHERE ' . CampaignLinkPeer::CAMPAIGN_ID . ' = ' . $this->getId() . '
 		GROUP BY ' . CampaignLinkPeer::URL;
-
 
 		$result = array();
 		$connection = Propel::getConnection();
@@ -440,7 +439,7 @@ class Campaign extends BaseCampaign {
 
 	public function getClickedUrlsWithPos()
 	{
-		$sql = 'SELECT ' . CampaignLinkPeer::URL . ', ' . CampaignClickPeer::POSITION . '
+		$sql = 'SELECT ' . CampaignLinkPeer::URL . ', ' . CampaignClickPeer::POSITION . ', ' . CampaignClickPeer::CAMPAIGN_CONTACT_ID . '
 		FROM ' . CampaignClickPeer::TABLE_NAME . '
 		LEFT OUTER JOIN	' . CampaignLinkPeer::TABLE_NAME . '
 			ON ' . CampaignClickPeer::CAMPAIGN_LINK_ID . ' = ' . CampaignLinkPeer::ID . '
@@ -453,11 +452,18 @@ class Campaign extends BaseCampaign {
 		$statement = $connection->prepare($sql);
 		$statement->execute();
 
+		$clicked = array();
 		while($rs = $statement->fetch(PDO::FETCH_NUM)){
-			if (empty($result[$rs[0]][$rs[1]])) {
-				$result[$rs[0]][$rs[1]] = 1;
-			} else {
-				$result[$rs[0]][$rs[1]] ++;
+
+			if (empty($clicked[$rs[2]][$rs[0]][$rs[1]])) { // seul 1 click par personne n'est comptabilisé
+
+				if (empty($result[$rs[0]][$rs[1]])) {
+					$result[$rs[0]][$rs[1]] = 1;
+				} else {
+					$result[$rs[0]][$rs[1]] ++;
+				}
+
+				$clicked[$rs[2]][$rs[0]][$rs[1]] = true;
 			}
 		}
 

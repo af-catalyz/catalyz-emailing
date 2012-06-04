@@ -337,73 +337,18 @@ class CampaignDeliveryManager {
     	$result = array('success' => array(), 'failed' => array());
 
 
-    	$expectedCount = count($emails);
-
-
-    	$messageObject = Swift_Message::newInstance();
-
-
-    	$headers = $messageObject->getHeaders();
-    	$headers->addTextHeader('X-Catalyz-Campaign', $this->Campaign->getId());
-    	$headers->addTextHeader('List-Unsubscribe', sprintf('<%s>', $this->getUnsubscribeLink($email)));
-
-
-
-    	$messageObject->setFrom(array($this->Campaign->getFromEmail() => $this->Campaign->getFromName()));
-    	$messageObject->setSubject($this->prepareSubjectForEmail($email, $additionalMacros));
-    	$messageObject->setReplyTo($this->Campaign->getReplyToEmail());
-    	if ($this->Campaign->getReturnPathEmail()) {
-    		$messageObject->setReturnPath($this->Campaign->getReturnPathEmail());
-    	} else {
-    		$messageObject->setReturnPath($this->Campaign->getReturnPathLogin());
-    	}
-    	if (sfConfig::get('app_mail_bcc', false)) {
-    		$messageObject->setBcc(sfConfig::get('app_mail_bcc', false));
-    		$expectedCount++;
-    	}
-    	$messageObject->setBody($this->prepareContentForEmail($email, $additionalMacros), 'text/plain', '8bit', 'UTF-8');
-    	$messageObject->addPart($this->prepareContentTextForEmail($email, $additionalMacros), 'text/plain', '8bit', 'UTF-8');
-
-
-
-   // 	dans la boucle ajouter faire le addTo
-    	$headers->addTextHeader('X-Catalyz-Email', $email);
-    	var_dump($messageObject->setTo('af@catalyz.fr'));
-
-    	die();
 
 
 
 
 
-//    	$messageAdmin->setTo($recipient);
-//    	if (count($recipients) > 0) {
-//    		$messageAdmin->setCc($recipients);
-//    	}
-//
-//    	$messageAdmin->setSubject(str_replace($macroKeywords, $macroValues, $this->ContentObject->Translation[$this->culture]->webmaster_notification_subject));
-//    	$messageAdmin->setBody($message, 'text/html');
-//    	// mettre en piece jointe le fichier
-//    	if (!empty($fichiers)) {
-//    		foreach ($fichiers as $fichier) {
-//    			$messageAdmin->attach(Swift_Attachment::fromPath($fichier['path'], $fichier['mime']));
-//    		}
-//    	}
-//
-//    	$field = czWidgetFormGenerator::getVisitorEmailField($xml);
-//    	$visitorEmail = '';
-//    	if ($field) {
-//    		$visitorEmail = $values[array_shift($field)];
-//    		if ($visitorEmail != 'Non renseignÃ© par le visiteur') {
-//    			$messageAdmin->setReplyTo($visitorEmail);
-//    		}
-//    	}
-//
-//    	$this->getMailer()->send($messageAdmin);
+
+    	$emailConfiguration = array();
+    	$emailConfiguration['from'] =array($this->Campaign->getFromEmail() => $this->Campaign->getFromName());
+    	$emailConfiguration['replyTo'] = $this->Campaign->getReplyToEmail();
+    	$emailConfiguration['returnPath'] = $this->Campaign->getReturnPathEmail()?$this->Campaign->getReturnPathEmail():$this->Campaign->getReturnPathLogin();
 
 
-
-        $bcc = sfConfig::get('app_mail_bcc', null);
         $this->prepareCampaignDelivery();
         try {
             foreach($emails as $k => $email) {
@@ -411,35 +356,30 @@ class CampaignDeliveryManager {
                     unset($emails[$k]);
                 } else {
                     $expectedCount = 1;
-                    $recipients = new Swift_RecipientList();
-                    $recipients->addTo($email);
 
-
+                		$messageObject = Swift_Message::newInstance();
+                		$messageObject->setFrom($emailConfiguration['from']);
+                		$messageObject->setReplyTo($emailConfiguration['replyTo']);
+                		$messageObject->setReturnPath($emailConfiguration['returnPath']);
+										$messageObject->setTo($email);
 
 										if ($bcc) {
-                        $recipients->addBcc($bcc);
+                        $messageObject->addBcc($bcc);
                         $expectedCount++;
                     }
-                    // $messageObject = new Swift_Message($this->prepareSubjectForEmail($email, $additionalMacros),
-                    // $this->prepareContentForEmail($email, $additionalMacros), 'text/html', '8bit', 'UTF-8');
-                    $messageAdmin->setSubject($this->prepareSubjectForEmail($email, $additionalMacros));
-        //            $messageObjec$messageAdmint->attach(new Swift_Message_Part($this->prepareContentForEmail($email, $additionalMacros), 'text/html', '8bit', 'UTF-8'));
+
+                    $messageObject->setSubject($this->prepareSubjectForEmail($email, $additionalMacros));
                     $messageObject->attach(new Swift_Message_Part($this->prepareContentTextForEmail($email, $additionalMacros), 'text/plain', '8bit', 'UTF-8'));
 
                     $messageObject->headers->set('X-Catalyz-Email', $email);
                     $messageObject->headers->set('X-Catalyz-Campaign', $this->Campaign->getId());
                     $messageObject->headers->set('List-Unsubscribe', sprintf('<%s>', $this->getUnsubscribeLink($email)));
 
-                    if ($this->Campaign->getReturnPathEmail()) {
-                        $messageObject->setReturnPath($this->Campaign->getReturnPathEmail());
-                    } else {
-                        $messageObject->setReturnPath($this->Campaign->getReturnPathLogin());
-                    }
+                	var_dump($messageObject);
+                	die();
 
+                	  $sent = $this->getMailer()->send($messageObject);
 
-                    $messageObject->setReplyTo($this->Campaign->getReplyToEmail());
-
-                    $sent = $mailer->send($messageObject, $recipients, $from);
                     if ($sent == $expectedCount) {
                         $result['success'][] = $email;
                     }

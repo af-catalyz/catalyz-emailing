@@ -530,7 +530,6 @@ class campaignActions extends sfActions
 		sfConfig::set('sf_web_debug', false);
 
 		$POST_campaign = $request->getPostParameter('campaign');
-		var_dump($campaign);
 		die('dans l\'action');
 		$campaign =/*(Campaign)*/ CampaignPeer::retrieveByPK($POST_campaign['id']);
 		$campaign->setSubject($request->getParameter('campaign[subject]'));
