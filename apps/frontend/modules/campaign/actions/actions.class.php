@@ -524,4 +524,232 @@ class campaignActions extends sfActions
 
 		$this->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
 	}
+
+	public function executeTest($request)
+	{
+		sfConfig::set('sf_web_debug', false);
+
+		$POST_campaign = $request->getPostParameter('campaign');
+		var_dump($campaign);
+		die('dans l\'action');
+		$campaign =/*(Campaign)*/ CampaignPeer::retrieveByPK($POST_campaign['id']);
+		$campaign->setSubject($request->getParameter('campaign[subject]'));
+
+		$campaign->setContent($request->getParameter('campaign[content]'));
+
+		$campaign->setFromEmail($request->getParameter('campaign[from_email]'));
+		$campaign->setFromName($request->getParameter('campaign[from_name]'));
+
+		switch ($request->getParameter('campaign[test_type]')) {
+			case Campaign::OPTION_TEST_USER:
+				$email = $this->getUser()->getProfile()->getEmail();
+				$campaign->sendTo($email);
+				$responseContent = 'La campagne vous a été envoyée à l\'adresse ' . $email;
+				break;
+			case Campaign::OPTION_TEST_LIST:
+				$result = $campaign->sendTo($request->getParameter('campaign[test_user_list]'));
+				$responseContent = $this->getTestSendMessage($result);
+				break;
+			case Campaign::OPTION_TEST_GROUP:
+				$result = $campaign->sendToTestGroups();
+				$responseContent = $this->getTestSendMessage($result);
+				break;
+			default:
+				throw new Exception('Unnkown test_type: ' . $request->getParameter('campaign[test_type]'));
+		} // switch
+		$this->setLayout(false);
+		$this->getResponse()->setContent(date('H:i:s') . ' ' . $responseContent);
+		return sfView::NONE;
+	}
+
+	protected function getTestSendMessage($result)
+	{
+		switch (count($result['success'])) {
+			case 0:
+				$responseContent = 'Aucune adresse n\'a été trouvé dans la liste fournie, aucun email n\'a été envoyé';
+				break;
+			case 1:
+				$responseContent = 'La campagne a été envoyée à l\'adresse ' . $result['success'][0];
+				break;
+			default:
+				$responseContent = sprintf('La campagne a été envoyée aux %d adresses fournies (%s) ', count($result['success']), implode(', ', $result['success']));
+		} // switch
+		return $responseContent;
+	}
+
+	public function executeUnsubscribe($request)
+	{
+		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+		$configuration = $czSettings->get(CatalyzSettings::CUSTOM_UNSUBSCRIBED_CONFIGURATION, array());
+
+		if (empty($configuration)) {
+			list($email, $campaignId) = Campaign::extractKeyInformation($request->getParameter('key'));
+			$this->executeUnsubscribeProcess($request, $email, $campaignId);
+		}else{
+			$this->executeUnsubscribeStep($request);
+		}
+	}
+
+	public function executeUnsubscribeProcess($request, $email, $campaignId, $formValues = array())
+	{
+		sfConfig::set('sf_web_debug', false);
+
+		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+		$configuration = $czSettings->get(CatalyzSettings::CUSTOM_UNSUBSCRIBED_CONFIGURATION, array());
+
+		$cantFindUser = '<p>Impossible de vous désinscrire de la lettre d\'informations parce que vous ne faites pas partie des destinataires de cette dernière. Merci de contacter son auteur pour corriger le problème.</p>';
+
+		$raison = NULL;
+		if (!empty($formValues['raison'])) {
+			$raison = $formValues['raison'];
+		}
+
+		$listes = array();
+		if (!empty($configuration['qualif_list_enabled'])) {
+			$listes = unserialize($configuration['qualif_list_publication']);
+		}
+
+		$selectedList = FALSE;
+		$changeContactStatus = TRUE;
+
+		$log = NULL;
+
+		if (isset($formValues['qualif_list_publication'])) {
+			$selectedList = $formValues['qualif_list_publication'];
+			if (count($selectedList) != count($listes)) {
+				$changeContactStatus = FALSE;
+			}
+
+			foreach ($selectedList as $list){
+				$log[$list]= $listes[$list]['title'];
+			}
+
+			$log = serialize($log);
+		}
+
+		$CampaignContact = Campaign::LogView($campaignId, $email, $request->getHttpHeader('User-Agent'), false, true, $raison, $changeContactStatus, $log);
+
+		//supprimer le lien entre le contact et les groupes de chaque liste
+		if ($CampaignContact && $selectedList) {
+			foreach ($selectedList as $listId){
+				foreach ($listes[$listId]['groups'] as $groupId => $bool){
+					$cCg = BaseContactContactGroupPeer::retrieveByPK($CampaignContact->getContactId(), $groupId);
+					if ($cCg) {
+						$cCg->delete();
+					}
+				}
+			}
+		}
+
+		//region envoi du mail si necessaire
+		if (!empty($configuration['notif_enabled']) && $configuration['notif_enabled']) {
+			$this->sendWebmasterMail($configuration['notif_recipient'], $configuration['notif_subject'], $email, $campaignId, $formValues, $listes);
+		}
+		//endregion
+
+		if (empty($configuration)) {
+			if (!$CampaignContact) {
+				$this->message = $cantFindUser;
+			} else {
+				$this->message = '<p>Vous avez été désinscrit de la lettre d\'information.</p>';
+			}
+		}else{
+			if ($configuration['conf_type'] == 2) {
+				header('Location: ' . $configuration['conf_url']);
+				exit();
+			}else{
+				if (!$CampaignContact) {
+					$this->message = $cantFindUser;
+				} else {
+					$this->message = $configuration['conf_content'];
+				}
+			}
+		}
+
+		$this->setTemplate('unsubscribe');
+		$this->setLayout('public');
+		return sfView::SUCCESS;
+	}
+
+	public function executeUnsubscribeStep($request)
+	{
+		$this->setTemplate('unsubscribeStep');
+		$this->setLayout('public');
+		$this->form = new UnsubscribedClientForm();
+		$defaults = $this->form->getDefaults();
+
+		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+		$configuration = $czSettings->get(CatalyzSettings::CUSTOM_UNSUBSCRIBED_CONFIGURATION, array());
+
+		if (empty($configuration['qualif_enabled']) ) { // on affiche direct le message dans le layout Success
+			list($email, $campaignId) = Campaign::extractKeyInformation($request->getParameter('key'));
+			$this->executeUnsubscribeProcess($request, $email, $campaignId);
+		}else{
+
+			if ($request->hasParameter('key')) {
+				list($email, $campaignId) = Campaign::extractKeyInformation($request->getParameter('key'));
+				$defaults['email'] = $email;
+				$defaults['campaignId'] = $campaignId;
+			}
+
+			$this->form->setDefaults($defaults);
+
+
+			if ($request->isMethod("post")) {
+				$this->form->bind($request->getParameter('unsubscribed'));
+				if ($this->form->isValid()) {
+					$values = $this->form->getValues();
+					$email =  $values['email'];
+					$campaignId =  $values['campaignId'];
+
+					$this->executeUnsubscribeProcess($request, $email, $campaignId, $values);
+				}
+			}
+			$this->configuration = $configuration;
+		}
+
+
+		return sfView::SUCCESS;
+	}
+
+	private function sendWebmasterMail($recipient, $subject, $contactEmail, $campaignId, $values = array(), $listes_disponibles= array())
+	{
+
+		$recipientList = czValidatorEmailList::getEmails($recipient);
+
+		$campaign = CampaignPeer::retrieveByPK($campaignId);
+
+		$criteria = new Criteria();
+		$criteria->add(ContactPeer::EMAIL, $contactEmail);
+		$Contact =/*(Contact)*/ ContactPeer::doSelectOne($criteria);
+
+		$macroList = array();
+		$macroList['#FIRSTNAME#'] = $Contact->getFirstName();
+		$macroList['#LASTNAME#'] = $Contact->getLastName();
+		$macroList['#EMAIL#'] = $Contact->getEmail();
+		$macroList['#SUBJECT#'] = $campaign->getName();
+		$macroList['#REASON#'] = !empty($values['raison'])?$values['raison']:'non prÃ©cisÃ©';
+
+		$macroKeys = array_keys($macroList);
+		$macroVals = array_values($macroList);
+
+		$subject = str_ireplace($macroKeys, $macroVals, $subject);
+
+		sfLoader::loadHelpers('Partial');
+		$messageContent =  get_partial('campaign/unsubscribeEmail', array('formValues' => $values ,'Contact' => $Contact, 'campaign' => $campaign, 'listes_disponibles' => $listes_disponibles));
+
+		$mailer = new Swift(new Swift_Connection_SMTP(sfConfig::get('app_mail_server', 'localhost'), sfConfig::get('app_mail_port', 25)), false, Swift::ENABLE_LOGGING);
+		$from = new Swift_Address('no-reply@catalyz-emailing.com', 'Catalyz Emailing');
+		$messageObject = new Swift_Message($subject);
+		$messageObject->attach(new Swift_Message_Part($messageContent, 'text/html', '8bit', 'UTF-8'));
+
+		$recipients = new Swift_RecipientList();
+		foreach ($recipientList as $recipient){
+			$recipients->addTo($recipient);
+		}
+
+		$sent = $mailer->send($messageObject, $recipients, $from);
+		$mailer->disconnect();
+		return TRUE;
+	}
 }

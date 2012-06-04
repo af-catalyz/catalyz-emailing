@@ -49,6 +49,6 @@ echo '</div>';
     </ul>
 
     <?php include_partial('global/flashMessage') ?>
-    <?php include_partial('campaign/testModal') ?>
+    <?php include_partial('campaign/testModal', array('campaign' => $campaign)) ?>
     <?php include_partial('campaign/editHeaderModal', array('campaign' => $campaign)) ?>
     <?php //var_dump($sf_context->getActionName()); ?>

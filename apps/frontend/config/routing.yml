@@ -153,8 +153,6 @@ campaign_edit_targets:
   url:   /campaign/edit/targets/:slug
   param: { module: campaign, action: targets }
 
-
-
 campaign-target-add:
   url: /campaign/edit/targets/:slug/add
   param:
@@ -216,6 +214,14 @@ campaign_edit_scheduling:
 campaign_do_edit_header:
   url:   /campaign/edit/header/:slug
   param: { module: campaign, action: editHeader }
+
+campaign_do_test:
+  url:   /campaigns/test/:slug
+  param: { module: campaign, action: test }
+
+unsubscribeStep:
+  url:   /campaigns/unsubscribeStep
+  param: { module: campaign, action: unsubscribeStep }
 
 #STATISTICS
 campaign_statistics_summary:
