@@ -15,7 +15,7 @@
 		<div class="tab-pane active" id="1">
 			<div class="span3" style="margin-left: 0px">
 
-				<?php //include_partial('contacts/filter') ?>
+				<?php include_partial('contacts/filter', array('groups' => $groups)) ?>
 
 				<p>Vous pouvez <a href="<?php echo url_for('@settings_contact_list') ?>">sélectionner les informations des contacts à afficher dans la liste</a> depuis vos préférences.</p>
 			</div>
@@ -28,14 +28,12 @@
 				    <tr>
 				    	<?php
 				    	foreach ($menu->getRawValue() as $field=>$bool){
-
-
 				    		if ($bool) {
 				    			if ($field == 'GROUPS') {
 				    				printf('<th>%s<br/><br/></th>',ContactPeer::getfieldLabel($field));
-				    			}elseif(preg_match('/^CUSTOM([1-9][0-9]?)$/', $field, $tokens)){
+				    			}
+									elseif(preg_match('/^CUSTOM([1-9][0-9]?)$/', $field, $tokens)){
 				    				$tokens[1] = (int)$tokens[1];
-
 				    				if (!empty($customFields_dispos['custom'.$tokens[1]])) {
 				    					printf('<th>%s %s%s</th>',ContactPeer::getfieldLabel($field) ,displaySortIcon('A',$field,$sort,$column),displaySortIcon('De',$field,$sort,$column));
 				    				}
@@ -72,7 +70,6 @@
 												break;
 											case 'GROUPS':
 												printf('<td nowrap="nowrap">%s</td>', html_entity_decode($contact->getFieldValue($field, $ContactsGroupListOverview)));
-
 												break;
 											default:
 												if(preg_match('/^CUSTOM([1-9][0-9]?)$/', $field, $tokens)){
@@ -119,14 +116,14 @@
 
 		<?php
 		printf('<form class="form-inline" action="%s">', url_for('@settings_change_list_limit'));
-		printf('<div class="controls">Les contacts %s à %s (sur %s au total) sont affichés ci-dessus.',
+		printf('<div class="controls">Les contacts %s à %s (sur %s au total) sont affichés ci-dessus.&nbsp;',
 		$pager->getFirstIndice(),
 		$pager->getLastIndice(),
 		$pager->getNbResults()
 		);
 		$widget = new sfWidgetFormChoice(array('choices' => array(15=>'15',30=>'30',50=>'50',100=>'100')) , array('class' => 'input-mini', 'onchange' => 'submit();'));
 		echo $widget->render('list_limit', $limit);
-		echo '<label class="checkbox">contacts par page.</label></div>';
+		echo '&nbsp;<label class="checkbox">contacts par page.</label></div>';
 		echo '</form>';
 		 ?>
 

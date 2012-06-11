@@ -131,4 +131,31 @@ class ContactPeer extends BaseContactPeer {
 		}
 		return $authors;
 	}
+
+	static function getFiltersData(){
+		$groupCriteria = new Criteria();
+		$groupCriteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
+		$groupCriteria->add(ContactGroupPeer::IS_ARCHIVED, FALSE);
+		$a_groups = ContactGroupPeer::doSelect($groupCriteria);
+
+		$groups = array();
+		foreach ($a_groups as /*(ContactGroup)*/$group){
+			$groups[$group->getId()] = sprintf('%s %s', $group->getColoredName(), $group->getCommentPopup());
+		}
+
+		$criteria = new Criteria();
+		$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+		$criteria->add(CampaignTemplatePeer::IS_ARCHIVED,0);
+//		$criteria->add(CampaignPeer::IS_ARCHIVED, 0);
+		$criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::GREATER_EQUAL);
+		$a_campaigns = CampaignPeer::doSelect($criteria);
+
+		$campaigns = array();
+		foreach ($a_campaigns as /*(Campaign)*/$campaign){
+			$campaigns[$campaign->getId()] = $campaign->getName();
+		}
+
+		return array('groups' => $groups ,'campaigns' => $campaigns);
+
+	}
 } // ContactPeer
