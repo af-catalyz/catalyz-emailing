@@ -26,6 +26,7 @@ class contactsActions extends sfActions
 		$this->ContactsGroupListOverview = ContactPeer::getContactsGroupList();
 
 		$User = $this->getUser();
+//		$User->getAttributeHolder()->remove('criteria');
 		$usersViews = CatalyzSettings::instance()->get(CatalyzSettings::COLUMN_CONFIGURATION_KEY);
 		$this->menu = empty($usersViews[$User->getProfile()->getid()])?CatalyzEmailing::getContactListDefaultColumns():$usersViews[$User->getProfile()->getid()];
 
@@ -291,5 +292,107 @@ class contactsActions extends sfActions
 	{
 		$this->campaignId = $request->getParameter('id');
 		$this->authors = ContactPeer::retrieveForSelect($request->getParameter('q'), $request->getParameter('id'), $request->getParameter('selected'));
+	}
+
+	public function executeAjaxSortContactList(sfWebRequest $request){
+		$User = $this->getUser();
+		$usersViews = CatalyzSettings::instance()->get(CatalyzSettings::COLUMN_CONFIGURATION_KEY);
+		$menu = empty($usersViews[$User->getProfile()->getid()])?CatalyzEmailing::getContactListDefaultColumns():$usersViews[$User->getProfile()->getid()];
+
+		$usersLimits = CatalyzSettings::instance()->get(CatalyzSettings::CUSTOM_LIMIT);
+		$limit = empty($usersLimits[$User->getProfile()->getid()])?sfConfig::get('app_settings_default_limit'):$usersLimits[$User->getProfile()->getid()];
+
+		$c = new Criteria();
+		$c->addJoin(ContactPeer::ID, ContactContactGroupPeer::CONTACT_ID, Criteria::LEFT_JOIN);
+		$c->addJoin(ContactPeer::ID, CampaignContactPeer::CONTACT_ID, Criteria::LEFT_JOIN);
+		if ($request->isMethod('post')) {
+			$values = $request->getPostParameters();
+			foreach (array('Keywords' => 'searchInput', 'Groups' => 'groupCheckbox', 'Statuts' => 'statutCheckbox') as $type => $filterElement) {
+				if (array_key_exists($filterElement, $values) && $values[$filterElement] != '') {
+					$function = 'addSearchWith' . $type;
+					$c = ContactPeer::$function($c, $values[$filterElement]);
+				} else {
+					$User->getAttributeHolder()->remove($type);
+				}
+			}
+
+			$User->setAttribute('criteria', $c);
+
+			//si on ne cherche que sur le champs recherche et qu'il s'agit d'une adresse email valide
+			if (!empty($values['searchInput']) && empty($values['groupCheckbox']) && $values['statutCheckbox']['campaignId'] == '') {
+				$query = $values['searchInput'];
+
+				if (preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $query)) {
+					$contact = ContactPeer::retreiveByEmail($query);
+					if ($contact) {
+						$this->cleanSession();
+						$this->redirect('contact/show?id='.$contact->getId());
+					}
+				}
+			}
+		} else {
+			if ($this->getRequestParameter('clean')) {
+				$this->cleanSession();
+			}
+			if ($User->hasAttribute('criteria')) {
+				$c = $User->getAttribute('criteria');
+			}
+			if ($this->getRequestParameter('group')) {
+				$c = ContactPeer::addSearchWithGroups($c, array($this->getRequestParameter('group')));
+			}
+			if ($User->hasAttribute('Statuts')) {
+				$c = ContactPeer::addSearchWithStatuts($c, $User->getAttribute('Statuts'));
+			}
+		}
+
+		$this->sort = $this->getRequestParameter('sort', 'De');
+		$this->column = $this->getRequestParameter('column', 'CREATED_AT');
+		if ($this->sort) {
+			foreach ($c->getOrderByColumns() as $orderBy) {
+				$c->clearOrderByColumns($orderBy);
+			}
+
+
+			$method = 'add' . $this->sort . 'scendingOrderByColumn';
+			if ($this->column == 'FULL_NAME') {
+				$c->$method(ContactPeer::LAST_NAME);
+				$c->$method(ContactPeer::FIRST_NAME);
+			}else{
+				$c->$method(ContactPeer::$this->column);
+			}
+
+
+			$User->setAttribute('criteria', $c);
+		} else {
+			$c->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
+		}
+		$c->setDistinct();
+
+
+
+
+		$pager = new sfPropelPager('Contact', $limit);
+		$pager->setCriteria($c);
+		$pager->setPage($this->getRequestParameter('page', 1));
+		$pager->init();
+
+		return $this->renderPartial('contacts/contactList', array(
+					'menu' => $menu,
+					'pager' => $pager,
+					'ContactsGroupListOverview' => ContactPeer::getContactsGroupList(),
+					'limit' => $limit
+					));
+	}
+
+	static public function cleanSession()
+	{
+		$User = sfContext::getInstance()->getUser();
+		$User->getAttributeHolder()->remove('criteria');
+
+		foreach (array('Keywords', 'Groups', 'Statuts', 'CampaignId') as $attributeName) {
+			if ($User->hasAttribute($attributeName)) {
+				$User->getAttributeHolder()->remove($attributeName);
+			}
+		}
 	}
 }

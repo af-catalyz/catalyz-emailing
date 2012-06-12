@@ -1,4 +1,8 @@
 <div class="tabbable">
+<?php
+printf('<a href="%s" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> %s</a>',
+url_for('groups/create'), __('Ajouter un groupe'));
+?>
 <ul class="nav nav-tabs">
 	<?php printf('<li><a href="%s">%s</a></li>', url_for('@contacts'), __('Contacts')) ?>
 	<li class="active"><a href="#1" data-toggle="tab">Groupes</a></li>
@@ -77,20 +81,5 @@
   </tbody>
 </table>
 				<?php endif; ?>
-
-				<?php
-
-	//region bottom buttons
-	printf('<div class="pull-left"><a href="%s" class="btn btn-primary"><i class="icon-plus icon-white"></i> %s</a></div>',
-		url_for('groups/create'), __('Ajouter un groupe'));
-	//endregion
-
-				 ?>
-
 	</div>
 </div>
-
-
-
-
-

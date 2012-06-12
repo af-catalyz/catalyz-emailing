@@ -304,6 +304,11 @@ contact_export:
   url:   /contact/export
   param: { module: contacts, action: export }
 
+contact_do_ajax_sort_contact_list:
+  url: /contact/ajax/sort
+  param: { module: contacts, action: ajaxSortContactList }
+
+
 #GROUPS
 groups:
   url:   /groups
