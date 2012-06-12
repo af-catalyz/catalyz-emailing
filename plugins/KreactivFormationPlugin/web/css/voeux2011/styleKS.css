@@ -1,0 +1,569 @@
+/****************************************************************************************************************************
+
+
+
+  KREACTIV'
+
+
+
+ ****************************************************************************************************************************
+
+
+
+ @fichier  : styleKS.css
+
+ @auteur   : Matthieu Pouchin
+
+ @creation : 11/12/2008
+
+ 
+
+ 
+
+ /* ------------------------------------------------------------------------------------------------------ corps des pages */
+
+
+
+html, body { 
+
+margin: 0;
+
+padding: 0;
+
+background-color:#f1ecd8;
+
+}
+
+
+
+#left {
+
+position: absolute;
+
+top: 0px;
+
+left: 0px;
+
+width: 50%;
+
+height : 140px;
+
+background-color: #f1ecd8;
+
+background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/backgr_left.png);
+
+background-repeat:repeat-x;
+
+}
+
+
+
+#right {
+
+position: absolute;
+
+top: 0px;
+
+right: 0px;
+
+width: 50%;
+
+height : 140px;
+
+background-color: #f1ecd8;
+
+background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/backgr_right.png);
+
+background-repeat:repeat-x;
+
+}
+
+
+
+#middle {
+
+margin: auto;
+
+padding: 0;
+
+position: relative;
+
+z-index: 20;
+
+top:2px;
+
+width: 960px;
+
+background-color: #f1ecd8;
+
+}
+
+
+
+#top {
+
+ margin: 0 auto;
+
+ padding:0;
+
+ height:140px;
+
+ background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/backgr_portail.png);
+
+ background-position:bottom;
+
+ background-repeat:no-repeat;
+
+}
+
+
+
+#logo {
+
+ margin: 0 auto;
+
+ padding-top:10px;
+
+ width:575px;
+
+ height:90px;
+
+ background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/logo_kreactiv.png);
+
+ background-position:bottom;
+
+ background-repeat:no-repeat;
+
+}
+
+
+
+#sites {
+
+ margin: 0 auto;
+
+ padding-left:112px;
+
+ height:285px;
+
+}
+
+
+
+#entree_conseil {
+
+ margin: 0 auto;
+
+ padding:0;
+
+ float:left;
+
+ height:275px;
+
+ width:239px;
+
+ background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/picto_conseil.jpg);
+
+ background-repeat:no-repeat;
+
+}
+
+
+
+#texte_conseil {
+
+ margin-top:180px;
+
+ margin-left:20px;
+
+ padding:0;
+
+ height:90px;
+
+ width:170px;
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #000;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+#entree_studio {
+
+ margin: 0 auto;
+
+ padding:0;
+
+ float:left;
+
+ height:275px;
+
+ width:239px;
+
+ background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/picto_studio.jpg);
+
+ background-repeat:no-repeat;
+
+}
+
+
+
+#texte_studio {
+
+ margin-top:180px;
+
+ margin-left:43px;
+
+ padding:0;
+
+ height:90px;
+
+ width:170px;
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #000;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+#entree_formation {
+
+ margin: 0 auto;
+
+ padding:0;
+
+ float:left;
+
+ height:275px;
+
+ width:239px;
+
+ background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/picto_formation.jpg);
+
+ background-repeat:no-repeat;
+
+}
+
+
+
+#texte_formation {
+
+ margin-top:180px;
+
+ margin-left:65px;
+
+ padding:0;
+
+ height:90px;
+
+ width:170px;
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #000;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+/* TELECHARGEMENTS */
+
+
+
+#download {
+
+ margin: 0 auto;
+
+ padding-left:112px;
+
+ height:80px;
+
+}
+
+
+
+#down_conseil {
+
+ margin: 0 auto;
+
+ padding:0;
+
+ float:left;
+
+ height:50px;
+
+ width:239px;
+
+}
+
+
+
+#down_texte_conseil {
+
+ margin-left:20px;
+
+ padding:0;
+
+ height:50px;
+
+ width:170px;
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #000;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+#down_texte_conseil a{
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #618C99;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+#down_texte_conseil a:hover{
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #618C99;
+
+ text-align: left;
+
+ text-decoration: underline;
+
+}
+
+
+
+#down_studio {
+
+ margin: 0 auto;
+
+ padding:0;
+
+ float:left;
+
+ height:50px;
+
+ width:239px;
+
+}
+
+
+
+#down_texte_studio {
+
+ margin-left:43px;
+
+ padding:0;
+
+ height:50px;
+
+ width:170px;
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #000;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+#down_texte_studio a{
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #CF8F23;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+#down_texte_studio a:hover{
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #CF8F23;
+
+ text-align: left;
+
+ text-decoration: underline;
+
+}
+
+
+
+#down_formation {
+
+ margin: 0 auto;
+
+ padding:0;
+
+ float:left;
+
+ height:50px;
+
+ width:239px;
+
+}
+
+
+
+#down_texte_formation {
+
+ margin-left:65px;
+
+ padding:0;
+
+ height:50px;
+
+ width:170px;
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #000;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+#down_texte_formation a{
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #839B2B;
+
+ text-align: left;
+
+ text-decoration: none;
+
+}
+
+
+
+#down_texte_formation a:hover{
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ color: #839B2B;
+
+ text-align: left;
+
+ text-decoration: underline;
+
+}
+
+
+
+/* FOOTER */
+
+
+
+#footer {
+
+ padding: 0;
+
+ margin: 0 auto;
+
+ width:940px;
+
+ height:15px;
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ font-weight: normal;
+
+ color: #858687;
+
+ text-align: center;
+
+ text-decoration: none;
+
+}
+
+
+
+#footer a{
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ font-weight: normal;
+
+ color: #858687;
+
+ text-align: center;
+
+ text-decoration: underline;
+
+}
+
+
+
+#footer a:hover{
+
+ font: 8pt "Arial, Verdana, sans-serif", Sans-Serif;
+
+ font-weight: normal;
+
+ color: #000;
+
+ text-align: center;
+
+ text-decoration: underline;
+
+}
+
+#mention P {
+	margin:0;
+	 font: 10pt "Arial, Verdana, sans-serif", Sans-Serif;
+	 text-align:center;
+	 color: #858687;
+}#mention A {
+	margin:0;
+	 font: 10pt "Arial, Verdana, sans-serif", Sans-Serif;
+	 text-align:center;
+	 color: #858687;
+	 float:left;
+	 width:100%;
+}

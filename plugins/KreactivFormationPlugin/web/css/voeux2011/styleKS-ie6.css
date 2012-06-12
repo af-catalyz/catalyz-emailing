@@ -1,0 +1,36 @@
+/****************************************************************************************************************************
+
+  KREACTIV'
+
+ ****************************************************************************************************************************
+
+ @fichier  : styleKS-ie6.css
+ @auteur   : Matthieu Pouchin
+ @creation : 11/12/2008
+ 
+ 
+ /* ------------------------------------------------------------------------------------------------------ corps des pages */
+
+div#background {
+	position: relative;
+}
+
+#left {
+width: 50%;
+height : 300px;
+background: transparent url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/backgr_left.gif) repeat-x;
+}
+
+#right {
+width: 50%;
+height : 300px;
+background: transparent url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/backgr_right.gif) repeat-x;
+}
+
+#top {
+ background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/backgr_portail.gif);
+}
+
+#logo {
+ background-image:url(http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/logo_kreactiv.gif);
+}
