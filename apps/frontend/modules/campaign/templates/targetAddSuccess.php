@@ -1,3 +1,9 @@
+<?php include_partial('campaign/header',array('campaign' => $campaign)) ?>
+
+
+	<?php
+	$campaign = $campaign->getRawValue();
+?>
 
 	<p>Quels contacts souhaitez-vous ajouter à la liste des destinataires de votre campagne?</p>
 
