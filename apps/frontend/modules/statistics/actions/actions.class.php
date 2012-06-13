@@ -401,4 +401,16 @@ class statisticsActions extends sfActions
 		unlink($tempFilename);
 		return sfView::NONE;
 	}
+
+	public function executeUnsubscribe(sfWebRequest $request)
+	{
+		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+		return sfView::SUCCESS;
+	}
+
+	public function executeReturnErrors(sfWebRequest $request)
+	{
+		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+		return sfView::SUCCESS;
+	}
 }

@@ -271,6 +271,14 @@ campaign_statistics_do_export_targets:
 campaign_statistics_do_export_views:
   url:   /statistics/export/views
   param: { module: statistics, action: exportViews }
+
+campaign_statistics_return_errors:
+  url:   /:slug/returnErrors
+  param: { module: statistics, action: returnErrors }
+
+campaign_statistics_unsubscribe:
+  url:   /:slug/unsubscribe
+  param: { module: statistics, action: unsubscribe }
 #CONTACTS
 contacts:
   url:   /contacts

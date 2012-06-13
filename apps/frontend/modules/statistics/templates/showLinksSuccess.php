@@ -11,7 +11,8 @@ printf('<li><a href="%s">Vue d\'ensemble</a></li>', url_for('@campaign_statistic
 printf('<li><a href="%s">Cibles</a></li>', url_for('@campaign_statistics_targets?slug='.$campaign->getSlug()));
 printf('<li><a href="%s">Ouvertures</a></li>', url_for('@campaign_statistics_views?slug='.$campaign->getSlug()));
 echo '<li class="active"><a href="#1" data-toggle="tab">Clicks </a></li>';
-echo '<li><a href="#2" data-toggle="tab">D&eacute;sinscriptions</a></li><li><a href="#3" data-toggle="tab">Erreurs</a></li>';
+printf('<li><a href="%s">D&eacute;sinscriptions</a></li>', url_for('@campaign_statistics_unsubscribe?slug='.$campaign->getSlug()));
+printf('<li><a href="%s">Erreurs</a></li>', url_for('@campaign_statistics_return_errors?slug='.$campaign->getSlug()));
 printf('<li><a href="%s">Configuration des destinataires</a></li>', url_for('@campaign_statistics_show_browser?slug='.$campaign->getSlug()));
 printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_message?slug='.$campaign->getSlug()));
 ?>
