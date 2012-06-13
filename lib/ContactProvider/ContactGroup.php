@@ -120,6 +120,9 @@ class ContactProvider_ContactGroup extends ContactProvider {
         $c->addAscendingOrderByColumn(ContactGroupPeer::NAME);
         $groups = ContactGroupPeer::doSelect($c);
 
+
+
+
         if (0 == count($groups)) {
         	$message = sprintf('<h4 class="alert-heading">Critères d\'envois non modifiés</h4><p>Aucun groupe n\'est sélectionnable.</p>');
         	$sfContext->getUser()->setFlash('notice_error', $message);
@@ -127,6 +130,22 @@ class ContactProvider_ContactGroup extends ContactProvider {
             $sfContext->getController()->redirect('@campaign_edit_targets?slug=' . $campaign->getSlug());
             return false;
         }
+
+	    	$temp = array();
+	    	foreach ($groups as /*(ContactGroup)*/$group){
+	    			$temp[$group->getColor()][] =$group;
+	    	}
+
+    	krsort($temp);
+
+    	$groups = array();
+    	foreach ($temp as $details){
+    		foreach ($details as $group){
+
+    		$groups[]=$group;
+    		}
+    	}
+
         include_component('ContactProvider', $this->getProviderName(), array(
                 'campaign' => $campaign,
                 'providerName' => $this->getProviderName(),
