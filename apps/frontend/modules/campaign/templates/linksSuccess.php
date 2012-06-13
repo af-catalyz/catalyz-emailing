@@ -3,6 +3,8 @@
 
 	<?php
 	$campaign = $campaign->getRawValue();
+	$links = $campaign->getCampaignLinks();
+	if (count($links)>0):
 	?>
 
 <form  class="form-horizontal" action="<?php echo url_for('@campaign_edit_links?slug='.$campaign->getSlug()) ?>" method="post" >
@@ -15,7 +17,7 @@
 			<th >Lien présent dans votre campagne</th>
 		</tr>
 
-				<?php foreach ($campaign->getCampaignLinks() as /*(CampaignLink)*/$link){
+				<?php foreach ($links as /*(CampaignLink)*/$link){
 					if ($link->displayInGoogleAnalyticsTracker()) {
 						echo '<tr valign="top">';
 						$widget= new sfWidgetFormInput();
@@ -34,3 +36,6 @@ if ($campaign->getStatus()< Campaign::STATUS_SENDING) {
 	</div>
 
 </form>
+<?php else: ?>
+<p>Votre campagne ne posséde aucun lien.</p>
+<?php endif ?>
