@@ -395,4 +395,14 @@ class contactsActions extends sfActions
 			}
 		}
 	}
+
+	public function executeImport(sfWebRequest $request)
+	{
+		return sfView::SUCCESS;
+	}
+
+	public function executeImportStep(sfWebRequest $request)
+	{
+		return sfView::SUCCESS;
+	}
 }

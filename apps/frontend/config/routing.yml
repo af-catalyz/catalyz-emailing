@@ -308,6 +308,9 @@ contact_do_ajax_sort_contact_list:
   url: /contact/ajax/sort
   param: { module: contacts, action: ajaxSortContactList }
 
+contact_import:
+  url:   /contact/import
+  param: { module: contacts, action: import }
 
 #GROUPS
 groups:

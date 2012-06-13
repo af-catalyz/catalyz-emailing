@@ -1,39 +1,14 @@
 <div class="tabbable">
     <ul class="nav nav-tabs">
-    <li class="active"><a href="#1" data-toggle="tab">Ajouter un contact</a></li>
-    <li><a href="<?php echo url_for('@contact_import') ?>">Importer des contacts</a></li>
-    <!--li><a href="#3" data-toggle="tab">processus d'importation</a></li-->
+    <li ><a href="<?php echo url_for('contacts/add') ?>">Ajouter un contact</a></li>
+    <li class="active"><a href="#1" data-toggle="tab">Importer des contacts</a></li>
     </ul>
     <div class="tab-content">
     <div class="tab-pane active" id="1">
 
 
-   	<form class="form-horizontal" action="<?php echo url_for('contacts/update') ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
-    <?php
-    include_partial('contacts/form', array('form' => $form));
-    printf('<div class="form-actions"><input type="submit" class="btn btn-primary" value="%s"/>&nbsp;<a href="%s" class="btn">Annuler</a></div>', __('Ajouter le contact'), url_for('@contacts')); ?>
-    </form>
 
-    </div>
-    <!--div class="tab-pane" id="2">
 
-    <form class="form-horizontal">
-
-    <div class="control-group">
-            <label class="control-label" for="fileInput">Fichier à importer</label>
-            <div class="controls">
-              <input class="input-file" id="fileInput" type="file">
-            </div>
-          </div>
-
-    <div class="form-actions">
-    	<a href="" class="btn btn-primary">Importer le fichier</a>
-    	<a href="" class="btn">Annuler</a>
-	</div>
-    </form>
-
-    </div>
-    <div class="tab-pane" id="3">
 
        	<ul class="unstyled">
     		<li><u class="icon-ok"></u> Validation du format du fichier</li>
@@ -94,12 +69,12 @@
 		<h4 class="alert-heading">Importation terminée.</h4>
 
 		<p>18 contacts ont étés ajoutés et 90 contacts ont étés mis à jour.</p>
-		<a href="" class="btn btn-success">Voir la liste des contacts</a>
-		<a href="" class="btn">Importer un autre fichier</a>
+	<a href="<?php echo url_for('@contacts') ?>" class="btn btn-success">Voir la liste des contacts</a>
+		<a href="<?php echo url_for('contacts/import') ?>" class="btn">Importer un autre fichier</a>
 
     	</div>
 
 
-	</div-->
+	</div>
     </div>
     </div>
