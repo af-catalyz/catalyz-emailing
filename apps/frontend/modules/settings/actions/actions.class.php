@@ -181,8 +181,8 @@ class settingsActions extends sfActions
 
 		$groupCriteria = new Criteria();
 		$groupCriteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
+		$groupCriteria->add(ContactGroupPeer::IS_ARCHIVED, false);
 		$groups = ContactGroupPeer::doSelect($groupCriteria);
-
 
 		$temp = array();
 		foreach ($groups as /*(ContactGroup)*/$group){

@@ -11,7 +11,7 @@
 					<tr>
 						<th class="span2">Visuel</th>
 						<th>Nom</th>
-						<th class="span1">Actions</th>
+						<th class="span6">Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -28,20 +28,14 @@
 
 			printf('<td><img src="%s" alt="" class="pull-left" style="margin-right: 10px;" /></td>',$picture_src);
 			printf('<td>%s<br/>%s</td>',$template->getName(), html_entity_decode($template->getStatusBadge(false)));
-			printf('<td nowrap="nowrap"><div class="btn-group"><a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s&nbsp;<span class="caret"></span></a>
-												    	<ul class="dropdown-menu">
-													    	%s
-													    	<li>%s</li>
-													    </ul>
-												    </div>
-												</td>',
-			__('Action'),
-			!$template->getIsArchived()?
-			link_to(sprintf('<li><i class="icon-share"></i> %s</a></li>', __("Créer une campagne avec ce modèle")), '@campaigns_do_create?slug=' . $template->getSlug(), array('title' => __('Créer une campagne avec ce modèle'))):'',
-			$template->getIsArchived()?
-			link_to(sprintf('<i class="icon-star"></i> %s</a>', __("Restaurer ce modèle")), '@template_do_unarchive?slug=' . $template->getSlug(), array('title' => __('Restaurer ce modèle'))):
-			link_to(sprintf('<i class="icon-star-empty"></i> %s</a>', __("Archiver ce modèle")), '@template_do_archive?slug=' . $template->getSlug(), array('title' => __('Archiver ce modèle')))
-			);
+			echo '<td nowrap="nowrap">';
+			if ($template->getIsArchived()) {
+				printf('<a class="btn " href="%s"><i class="icon-star"></i>&nbsp;%s</a>', url_for('@template_do_unarchive?slug=' . $template->getSlug()),__("Restaurer ce modèle"));
+			}else{
+				printf('<a class="btn " href="%s"><i class="icon-share"></i>&nbsp;%s</a>', url_for('@campaigns_do_create?slug=' . $template->getSlug()),__("Créer une campagne avec ce modèle"));
+				printf('&nbsp;<a class="btn " href="%s"><i class="icon-star-empty"></i>&nbsp;%s</a>', url_for('@template_do_archive?slug=' . $template->getSlug()),__("Archiver ce modèle"));
+			}
+			echo '</td>';
 			echo '</tr>';
 		}
 		?>

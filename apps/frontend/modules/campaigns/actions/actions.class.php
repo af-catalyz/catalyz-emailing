@@ -66,7 +66,26 @@ class campaignsActions extends sfActions
 
 		$criteria = new Criteria();
 		$criteria->addAscendingOrderByColumn(CampaignTemplatePeer::NAME);
-		$this->templates = CampaignTemplatePeer::doSelect($criteria);
+		$templates = CampaignTemplatePeer::doSelect($criteria);
+
+		$temp = array();
+		foreach ($templates as /*(CampaignTemplate)*/$template){
+			if ($template->getIsArchived()) {
+				$temp['archived'][] =$template;
+			}else{
+				$temp['active'][] =$template;
+			}
+		}
+
+		ksort($temp);
+
+		$this->templates = array();
+		foreach ($temp as $style => $tab){
+			foreach ($tab as $template){
+				$this->templates[]=$template;
+			}
+		}
+
 
 		$title = sprintf('Campagnes / Gestion des modèles de campagnes  %s', sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
