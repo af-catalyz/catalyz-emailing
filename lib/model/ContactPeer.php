@@ -140,8 +140,17 @@ class ContactPeer extends BaseContactPeer {
 		$a_groups = ContactGroupPeer::doSelect($groupCriteria);
 
 		$groups = array();
+		$temp = array();
 		foreach ($a_groups as /*(ContactGroup)*/$group){
-			$groups[$group->getId()] = sprintf('%s %s', $group->getColoredName(), $group->getCommentPopup());
+			$temp[$group->getColor()][]=$group;
+		}
+
+		krsort($temp);
+		$groups = array();
+		foreach ($temp as /*(ContactGroup)*/$elements){
+			foreach ($elements as /*(ContactGroup)*/$group){
+				$groups[$group->getId()] = sprintf('%s %s', $group->getColoredName(), $group->getCommentPopup());
+			}
 		}
 
 		$criteria = new Criteria();
@@ -181,10 +190,6 @@ class ContactPeer extends BaseContactPeer {
 
 	static public function addSearchWithGroups($criteria, $groups)
 	{
-		if (!is_array($groups)) { //on prend -1 car la chaine de caractere viens du js il y a un ',' en trop
-			$groups = explode(',', substr($groups,0, -1));
-		}
-
 		if (array_sum($groups) == 0) { //aucun groupe choisi
 			$criteria->add(ContactContactGroupPeer::CONTACT_GROUP_ID, null, Criteria::ISNULL);
 		}else{
@@ -193,7 +198,6 @@ class ContactPeer extends BaseContactPeer {
 		}
 
 		sfContext::getInstance()->getUser()->setAttribute('Groups', $groups);
-
 		return $criteria;
 	}
 
