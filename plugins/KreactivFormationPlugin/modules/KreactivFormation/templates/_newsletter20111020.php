@@ -5,6 +5,7 @@
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
 <body>
+<?php $parameters = $parameters->getRawValue() ?>
 	<table width="599" bgcolor="#FFFFFF" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr>
 			<td colspan="2" align="center">

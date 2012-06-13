@@ -376,6 +376,7 @@ class statisticsActions extends sfActions
 		$this->activeSheet->setCellValue('A1', 'Nom');
 		$this->activeSheet->setCellValue('B1', 'Envoyé le');
 		$this->activeSheet->setCellValue('C1', 'Ouvert le');
+		$this->activeSheet->setCellValue('D1', 'Click le');
 
 		$row = 2;
 		foreach ($results as /*(CampaignContact)*/$CampaignContact){
@@ -383,6 +384,7 @@ class statisticsActions extends sfActions
 			$this->activeSheet->setCellValue('A'.$row, $contact->getFullName());
 			$this->activeSheet->setCellValue('B'.$row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
 			$this->activeSheet->setCellValue('C'.$row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
+			$this->activeSheet->setCellValue('D'.$row, $CampaignContact->getClickedAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getClickedAt())):'');
 			$row++;
 		}
 

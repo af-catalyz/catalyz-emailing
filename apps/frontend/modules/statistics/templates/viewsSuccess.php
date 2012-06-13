@@ -29,19 +29,26 @@ printf('<li><a href="%s">Message</a></li>', url_for('@campaign_statistics_messag
 
 
 				<table class="table table-striped table-condensed">
-				<tr>
-					<th class="span3">Date d'ouverture</th>
+			<tr>
 					<th class="span1">Statut</th>
 					<th>Contact</th>
+					<th class="span2">Date d'envoi</th>
+					<th class="span2">Date d'ouverture</th>
+					<th class="span2">Clicks</th>
 				</tr>
-				<?php foreach($pager->getResults() as $contact):
-					$contactObject = /*(Contact)*/$contact->getContact();
-					?>
+				<?php foreach($pager->getResults() as /*(CampaignContact)*/$contact):
+$contactObject = /*(Contact)*/$contact->getContact();
+if ($contactObject != null):?>
 				<tr>
-					<td><?php echo CatalyzDate::formatShortWithTime(strtotime($contact->getViewAt())); ?></td>
 					<td><?php echo html_entity_decode($contactObject->getStatusIcon()); ?></td>
 					<td><?php echo html_entity_decode($contactObject->getFieldValue('FULL_NAME')); ?></td>
+					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getSentAt())); ?></td>
+					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getViewAt())); ?></td>
+					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getClickedAt())); ?></td>
 				</tr>
+
+
+					<?php endif; ?>
 					<?php endforeach; ?>
 				</table>
 

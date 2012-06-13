@@ -4,7 +4,7 @@
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
-
+<?php $parameters = $parameters->getRawValue() ?>
 <body alink="#FFFFFF" vlink="#FFFFFF" link="#FFFFFF">
 	<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
 		<tr>
