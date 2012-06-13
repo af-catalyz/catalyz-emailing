@@ -29,7 +29,7 @@ class Contact extends BaseContact {
 	public function getFullName()
 	{
 		if ($this->getFirstName() != '' || $this->getLastName() != '') {
-			return $this->getFirstName() . ' ' . strtoupper($this->getLastName());
+			return $this->getFirstName() . ' ' . mb_strtoupper($this->getLastName(), 'UTF-8');
 		}
 		if ($this->getCompany() != '') {
 			return $this->getCompany();

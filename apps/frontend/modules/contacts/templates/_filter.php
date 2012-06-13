@@ -43,7 +43,7 @@ if (!empty($filters['campaigns'])) {
     if (!$sf_user->hasAttribute('Statuts') || in_array(Contact::STATUS_BOUNCED, $sf_user->getAttribute('Statuts'))) {
         echo 'checked="checked"';
     }
-    printf('/><u class="icon-remove"></u> Inactif suite à une erreur sur</label>');
+    printf('/><u class="icon-remove"></u> En erreur suite à</label>');
 
     printf('<select><option value="null">n\'importe quelle campagne</option>');
     foreach ($filters['campaigns'] as $campaignId => $campaignLabel) {
@@ -55,7 +55,7 @@ if (!empty($filters['campaigns'])) {
     if (!$sf_user->hasAttribute('Statuts') || in_array(Contact::STATUS_UNSUBSCRIBED, $sf_user->getAttribute('Statuts'))) {
         echo 'checked="checked"';
     }
-    printf('/><u class="icon-off"></u> Désinscrit suite à</label>');
+    printf('/><u class="icon-off"></u> Désinscrits suite à</label>');
 
     printf('<select><option value="null">n\'importe quelle campagne</option>');
     foreach ($filters['campaigns'] as $campaignId => $campaignLabel) {

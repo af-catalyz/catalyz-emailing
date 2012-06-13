@@ -29,17 +29,18 @@ echo '</h3>';
 echo '</div>';
 
 $customFields = CatalyzEmailing::getCustomFields();
+
 ?>
 
 <?php include_partial('global/flashMessage') ?>
 
 <div class="tabbable">
-	<?php if (!empty($customFields)):?>
+
 	<ul class="nav nav-tabs">
     <li class="active"><a href="#1" data-toggle="tab">Historique</a></li>
     <li><a href="#2" data-toggle="tab">Informations détaillées</a></li>
    </ul>
-  <?php endif ?>
+
 
 	<div class="tab-content">
     <div class="tab-pane active" id="1">
@@ -120,34 +121,48 @@ $customFields = CatalyzEmailing::getCustomFields();
 
 
     </div>
-    <?php if (!empty($customFields)):?>
+
 		<div class="tab-pane" id="2"> <!-- custom fields-->
 			<form action="javascript://" class="form-horizontal">
 			<?php
 
-			$firstSlice = array_slice($customFields, 0, floor(sfConfig::get('app_fields_count', 10)/2), true);
-			$secondSlice = array_slice($customFields, ceil(sfConfig::get('app_fields_count', 10)/2), null,true);
-    	foreach (array($firstSlice, $secondSlice) as $tab){
-    		if (!empty($tab)) {
-    			echo '<div class="span5">';
-    			foreach ($tab as $key => $caption){
-    				printf('<div class="control-group"><label class="control-label">%s</label><div class="controls"><span class="input-xlarge uneditable-input">%s</span></div></div>',
-    					$caption,
-    					$contact->getFieldValue(strtoupper($key))
+
+
+			$allfields = array();
+			$allfields['firstName'] = ContactPeer::getFieldLabel('FIRST_NAME');
+			$allfields['lastName'] = ContactPeer::getFieldLabel('LAST_NAME');
+			$allfields['company'] = ContactPeer::getFieldLabel('COMPANY');
+			$allfields['email'] = ContactPeer::getFieldLabel('EMAIL');
+
+			if (!empty($customFields)) {
+				$allfields = array_merge($allfields, $customFields);
+			}
+
+
+
+		$firstSlice = array_slice($allfields, 0, floor(sfConfig::get('app_fields_count', 14)/2), true);
+		$secondSlice = array_slice($allfields, ceil(sfConfig::get('app_fields_count', 14)/2), null,true);
+		foreach (array($firstSlice, $secondSlice) as $tab){
+			if (!empty($tab)) {
+				echo '<div class="span5">';
+				foreach ($tab as $key => $caption){
+					printf('<div class="control-group"><label class="control-label">%s</label><div class="controls"><span class="input-xlarge uneditable-input">%s</span></div></div>',
+						$caption,
+						$contact->getFieldValue(strtoupper($key))
 						);
-    			}
-    			echo '</div>';
-    		}
-    	}
+				}
+				echo '</div>';
+			}
+		}
+
+
+
 			 ?>
 
 			</form>
     </div><!-- end custom fields-->
     <div class="clear"></div>
-    <?php endif ;
 
-
-		?>
 
 
     </div>

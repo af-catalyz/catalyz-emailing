@@ -1,6 +1,6 @@
 <?php echo $form->renderHiddenFields() ?>
-<fieldset>
-	<legend>Informations principales</legend>
+
+
 	<div class="span5">
 		<div class="control-group">
 			<?php printf('<label class="control-label">%s</label>', $form['first_name']->renderLabel()) ?>
@@ -41,7 +41,20 @@ echo $form['company']->renderError();
 ?>
 			</div>
 		</div>
+
+		<?php
+$customFields = CatalyzEmailing::getCustomFields();
+if (!empty($customFields)){
+	foreach ($customFields as $key => $caption){
+		printf('<div class="control-group"><label class="control-label">%s</label><div class="controls">%s%s</div></div>', $form[$key]->renderLabel(), $form[$key], $form[$key]->renderError());
+	}
+}
+
+
+?>
+
 	</div>
+
 
 	<div class="span5">
 		<div class="control-group">
@@ -54,18 +67,4 @@ echo $form['contact_contact_group_list']->renderError();
 			</div>
 		</div>
 	</div>
-
-</fieldset>
-
-<?php
-//region $customFields
-$customFields = CatalyzEmailing::getCustomFields();
-if (!empty($customFields)){
-	printf('<fieldset><legend>%s</legend>', __('Informations complémentaires'));
-	foreach ($customFields as $key => $caption){
-		printf('<div class="span5"><div class="control-group"><label class="control-label">%s</label><div class="controls">%s%s</div></div></div>', $form[$key]->renderLabel(), $form[$key], $form[$key]->renderError());
-	}
-	echo '</fieldset>';
-}
-//endregion
-
+	<div class="clear"></div>
