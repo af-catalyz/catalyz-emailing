@@ -30,18 +30,18 @@ class ContactProvider_ContactGroup extends ContactProvider {
 
         if (1 == count($selected)) {
             $group = array_shift($selected);
-            $result = sprintf('Les contacts du groupe <span class="tag">%s&nbsp;', $group->getName());
+            $result = sprintf('Les contacts du groupe <span class="tag">%s&nbsp;', $group->getColoredName());
             $result .= link_to('<i class="icon-remove-sign"></i>', '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId());
             $result .= '</span>';
             return $result;
         }
         $group = array_pop($selected);
         // $selected = array_reverse($selected);
-        $result = sprintf(' et <span class="tag">%s</span>&nbsp;', $group->getName()
+        $result = sprintf(' et <span class="tag">%s</span>&nbsp;', $group->getColoredName()
              . link_to('<i class="icon-remove-sign"></i>', '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId()));
 
-        foreach($selected as $group) {
-            $items[] = sprintf('<span class="tag">%s&nbsp;', $group->getName())
+        foreach($selected as /*ContactGroup*/$group) {
+            $items[] = sprintf('<span class="tag">%s&nbsp;', $group->getColoredName())
              . link_to('<i class="icon-remove-sign"></i>', '@campaign-group-delete?campaignId=' . $campaign->getId() . '&id=' . $group->getId())
              . '</span>';
         }

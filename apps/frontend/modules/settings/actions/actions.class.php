@@ -181,11 +181,22 @@ class settingsActions extends sfActions
 
 		$groupCriteria = new Criteria();
 		$groupCriteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
-		$temp = ContactGroupPeer::doSelect($groupCriteria);
+		$groups = ContactGroupPeer::doSelect($groupCriteria);
+
+
+		$temp = array();
+		foreach ($groups as /*(ContactGroup)*/$group){
+			$temp[$group->getColor()][$group->getId()] = $group;
+		}
+
+		krsort($temp);
+
 
 		$this->groups = array();
-		foreach ($temp as /*(ContactGroup)*/$group){
-			$this->groups[$group->getId()] = $group;
+		foreach ($temp as $color => $details){
+			foreach ($details as $groupId =>$group){
+				$this->groups[$groupId] = $group;
+			}
 		}
 
 		if ($request->isMethod('post')) {

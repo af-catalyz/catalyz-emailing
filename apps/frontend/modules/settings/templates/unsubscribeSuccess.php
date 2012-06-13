@@ -188,7 +188,6 @@ printf('<div class="control-group%s">', $class);
 	</div>
 	<br />
 
-
 	<?php printf('<div class="form-actions"><input type="submit" class="btn btn-primary" value="%s"/>&nbsp;<a href="%s" class="btn">Annuler</a></div>', __('Enregistrer'), url_for('@settings_unsubscribe')); ?>
 
 	<br />
@@ -210,7 +209,7 @@ $(document).ready(function() {
 	});
 
   Groups = new Array(); //create a global variable for groups
-	<?php foreach ($groups as $id => /*(ContactGroup)*/$group){ printf('Groups[%s] = "%s";', $id, str_ireplace('"', '\"', $group->getName()));}?>
+	<?php foreach ($groups as $id => /*(ContactGroup)*/$group){ printf('Groups[%s] = "%s";', $id, str_ireplace('"', '\"', html_entity_decode($group->getColoredName())));}?>
 
 	initListes();
 

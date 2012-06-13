@@ -71,6 +71,7 @@ class ContactPeer extends BaseContactPeer {
 	{
 		$criteria = new Criteria();
 		$criteria->addJoin(ContactGroupPeer::ID, ContactContactGroupPeer::CONTACT_GROUP_ID);
+		$criteria->add(ContactGroupPeer::IS_ARCHIVED, false);
 		$elements = ContactContactGroupPeer::doSelectJoinContactGroup($criteria);
 
 		foreach ($elements as  /*(ContactContactGroup)*/ $ContactContactGroup){

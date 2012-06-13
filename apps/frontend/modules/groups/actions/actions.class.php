@@ -11,9 +11,32 @@ class groupsActions extends sfActions
 	public function executeIndex(sfWebRequest $request)
 	{
 		$criteria = new Criteria();
-		$criteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
+		$criteria->addAscendingOrderByColumn(ContactGroupPeer::NAME, ContactGroupPeer::COLOR);
+		$criteria->addAscendingOrderByColumn(ContactGroupPeer::COLOR);
 //		$criteria->add(ContactGroupPeer::IS_ARCHIVED,0);
-		$this->contact_groupList = ContactGroupPeer::doSelect($criteria);
+		$contact_groupList = ContactGroupPeer::doSelect($criteria);
+
+
+		$this->contact_groupList = array();
+		foreach ($contact_groupList as /*(ContactGroup)*/$contact_group){
+			if ($contact_group->getIsArchived()) {
+				$this->contact_groupList['archived'][] = $contact_group;
+			}else{
+				$this->contact_groupList['active'][$contact_group->getColor()][] = $contact_group;
+			}
+		}
+
+		$temp = array();
+		krsort($this->contact_groupList['active']);
+
+		foreach ($this->contact_groupList['active'] as $color => $details){
+			foreach ($details as $group){
+				$temp[] = $group;
+			}
+		}
+		$this->contact_groupList['active'] = $temp;
+
+		ksort($this->contact_groupList);
 
 		$title = sprintf('Groupes de contacts %s', sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);

@@ -123,6 +123,21 @@ class ContactForm extends BaseContactForm
 		$criteria->add(ContactGroupPeer::IS_ARCHIVED,0);
 		$groups = ContactGroupPeer::doSelect($criteria);
 
+		$temp = array();
+		foreach ($groups as /*(ContactGroup)*/$group){
+			$temp[$group->getColor()][]=$group;
+		}
+
+		krsort($temp);
+
+		$groups = array();
+
+		foreach ($temp as $color => $details){
+			foreach ($details as $group){
+				$groups[] = $group;
+			}
+		}
+
 		foreach($groups as/*(ContactGroup)*/ $group) {
 			$choices[$group->getId()] = sprintf('#INPUT#%s%s', $group->getColoredName(), $group->getCommentPopup());
 		}
