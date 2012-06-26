@@ -203,71 +203,107 @@ class ContactPeer extends BaseContactPeer {
 
 	public static function addSearchWithStatuts(Criteria $criteria, $status)
 	{
-		if (isset($status['campaignId'])) {
-			$campaignId = $status['campaignId'];
-			unset($status['campaignId']);
-		} elseif (sfContext::getInstance()->getUser()->hasAttribute('CampaignId')) {
-			$campaignId = sfContext::getInstance()->getUser()->getAttribute('CampaignId');
-		}
+		$User = /*(sfUser)*/sfContext::getInstance()->getUser();
 
-		if (!empty($status)) {
-			sfContext::getInstance()->getUser()->setAttribute('Statuts', $status);
-
-			if (isset($campaignId) && $campaignId != '') {
-				sfContext::getInstance()->getUser()->setAttribute('CampaignId', $campaignId);
-
-				$criteria->addJoin(ContactPeer::ID, CampaignContactPeer::CONTACT_ID);
-				// $criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaignId, Criteria::EQUAL);
-				$c0 = $criteria->getNewCriterion(CampaignContactPeer::CAMPAIGN_ID, $campaignId, Criteria::EQUAL);
-
-				if (count($status) == 1) {
-					$criteria->addAnd(CampaignContactPeer::CAMPAIGN_ID, $campaignId, Criteria::EQUAL);
-					if (in_array(Contact::STATUS_UNSUBSCRIBED, $status)) {
-						$criteria->add(CampaignContactPeer::UNSUBSCRIBED_AT, null, Criteria::ISNOTNULL);
-					}
-					if (in_array(Contact::STATUS_NEW, $status)) {
-						$criteria->add(ContactPeer::STATUS, Contact::STATUS_NEW, Criteria::EQUAL);
-					}
-					if (in_array(Contact::STATUS_BOUNCED, $status)) {
-						$criteria->add(CampaignContactPeer::BOUNCE_TYPE, catalyzemailingHandlebouncesTask::BOUNCE_SOFT, Criteria::GREATER_EQUAL);
-					}
-				} else {
-					foreach ($status as $key => $statut) {
-						switch ($statut) {
-							case Contact::STATUS_UNSUBSCRIBED:
-								$crit = 'criterion' . $key;
-								$$crit = $criteria->getNewCriterion(CampaignContactPeer::UNSUBSCRIBED_AT, null, Criteria::ISNOTNULL);
-								break;
-							case Contact::STATUS_BOUNCED:
-								$crit = 'criterion' . $key;
-								$$crit = $criteria->getNewCriterion(CampaignContactPeer::BOUNCE_TYPE, catalyzemailingHandlebouncesTask::BOUNCE_SOFT, Criteria::GREATER_EQUAL);
-								break;
-							case Contact::STATUS_NEW:
-								$crit = 'criterion' . $key;
-								$$crit = $criteria->getNewCriterion(ContactPeer::STATUS, Contact::STATUS_NEW, Criteria::EQUAL);
-								break;
-							default:
-								'';
-						} // switch
-					}
-
-					foreach ($status as $key => $statut) {
-						if ($key > 0) {
-							$crit = 'criterion' . $key;
-							$criterion0->addOr($$crit);
-						}
-					}
-					$c0->addand($criterion0);
-					$criteria->add($c0);
-				}
-			} elseif (isset($campaignId) && $campaignId == '') {
-				sfContext::getInstance()->getUser()->getAttributeHolder()->remove('CampaignId');
-				$criteria->add(ContactPeer::STATUS, $status, Criteria::IN);
+		if (isset($status['campaignIdBounced'])) {
+			if ($status['campaignIdBounced'] != 'null') {
+				$campaignIdBounced = $status['campaignIdBounced'];
 			}
-		} elseif (isset($campaignId) && $campaignId == '' && sfContext::getInstance()->getUser()->hasAttribute('CampaignId')) {
-			sfContext::getInstance()->getUser()->getAttributeHolder()->remove('CampaignId');
+			unset($status['campaignIdBounced']);
+		} elseif ($User->hasAttribute('campaignIdBounced')) {
+			$campaignIdBounced = $User->getAttribute('campaignIdBounced');
 		}
-		// var_dump(sfContext::getInstance()->getUser()->getAttribute('CampaignId'));
+
+		if (isset($status['campaignIdUnsubscribed'])) {
+			if ($status['campaignIdUnsubscribed'] != 'null') {
+				$campaignIdUnsubscribed = $status['campaignIdUnsubscribed'];
+			}
+			unset($status['campaignIdUnsubscribed']);
+		} elseif ($User->hasAttribute('campaignIdUnsubscribed')) {
+			$campaignIdUnsubscribed = $User->getAttribute('campaignIdUnsubscribed');
+		}
+
+		sfContext::getInstance()->getUser()->setAttribute('Statuts', $status);
+
+		if (empty($status)) {
+			$criteria->add(ContactPeer::STATUS, 0, Criteria::EQUAL);
+		}
+		elseif(count($status) == 1){ // UN SEUL CHOIX
+			$statusId = array_shift($status);
+			$criteria->add(ContactPeer::STATUS, $statusId, Criteria::IN);
+			switch($statusId){
+				case Contact::STATUS_BOUNCED:
+					if ($campaignIdBounced != null) {
+						$criteria->addAnd(CampaignContactPeer::CAMPAIGN_ID, $campaignIdBounced, Criteria::EQUAL);
+					}
+					break;
+				case Contact::STATUS_UNSUBSCRIBED:
+					if ($campaignIdUnsubscribed != null) {
+						$criteria->addAnd(CampaignContactPeer::CAMPAIGN_ID, $campaignIdUnsubscribed, Criteria::EQUAL);
+					}
+					break;
+
+			} // switch
+		}else{ // PLUSIEURS CHOIX
+			$c0 = $criteria->getNewCriterion(ContactPeer::STATUS, 0, Criteria::GREATER_THAN); //obligatoire pour realiser les AND/OR
+
+			if (!empty($status[Contact::STATUS_NEW])) {
+				$crit = 'criterion' . Contact::STATUS_NEW;
+				$$crit = $criteria->getNewCriterion(ContactPeer::STATUS, Contact::STATUS_NEW, Criteria::EQUAL);
+			}
+
+			if (!empty($status[Contact::STATUS_BOUNCED])) {
+				$crit = 'criterion' . Contact::STATUS_BOUNCED;
+				$$crit = $criteria->getNewCriterion(CampaignContactPeer::BOUNCE_TYPE, catalyzemailingHandlebouncesTask::BOUNCE_SOFT, Criteria::GREATER_EQUAL);
+				if ($campaignIdBounced != null) {
+					$c99 = $criteria->getNewCriterion(CampaignContactPeer::CAMPAIGN_ID, $campaignIdBounced, Criteria::EQUAL);
+					$$crit->addand($c99);
+				}
+			}
+
+			if (!empty($status[Contact::STATUS_UNSUBSCRIBED])) {
+				$crit = 'criterion' . Contact::STATUS_UNSUBSCRIBED;
+				$$crit = $criteria->getNewCriterion(CampaignContactPeer::UNSUBSCRIBED_AT, null, Criteria::ISNOTNULL);
+				if ($campaignIdUnsubscribed != null) {
+					$c98 = $criteria->getNewCriterion(CampaignContactPeer::CAMPAIGN_ID, $campaignIdUnsubscribed, Criteria::EQUAL);
+					$$crit->addand($c98);
+				}
+			}
+
+
+			$first = true;
+			foreach ($status as $key => $statut) {
+				$crit = 'criterion' . $key;
+				if ($first) {
+					$criterion0 = $$crit;
+					$first = false;
+				}else{
+					$criterion0->addOr($$crit);
+				}
+			}
+			$c0->addand($criterion0);
+			$criteria->add($c0);
+
+		}
+
+
+
+
+
+		if ($campaignIdBounced == null) {
+			$User->getAttributeHolder()->remove('campaignIdBounced');
+		}else{
+			sfContext::getInstance()->getUser()->setAttribute('campaignIdBounced', $campaignIdBounced);
+		}
+
+		if ($campaignIdUnsubscribed == null) {
+			$User->getAttributeHolder()->remove('$campaignIdUnsubscribed');
+		}else{
+			sfContext::getInstance()->getUser()->setAttribute('campaignIdUnsubscribed', $campaignIdUnsubscribed);
+		}
+
+
+
 		return $criteria;
 	}
 

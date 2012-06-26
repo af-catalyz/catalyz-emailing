@@ -8,7 +8,7 @@
 	    <p>dans la nouvelle version de Catalyz Emailing</p>
 	    <a class="btn btn-primary btn-large" href="<?php echo url_for('@campaigns_do_create'); ?>">Créer une campagne</a>
 
-	    <a class="btn btn-large" href="<?php echo url_for('contact/create'); ?>">Ajouter des contacts</a>
+	    <a class="btn btn-large" href="<?php echo url_for('contacts/add'); ?>">Ajouter des contacts</a>
 	    </div>
     </div>
 

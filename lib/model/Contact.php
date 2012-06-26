@@ -42,13 +42,10 @@ class Contact extends BaseContact {
 		switch ($this->getStatus()) {
 			case self::STATUS_NEW:
 				return '<i class="icon-ok"></i>';
-				return image_tag('icons/tick',array('title'=>'Contact actif'));
 			case self::STATUS_UNSUBSCRIBED:
-				return '<i class="icon-remove"></i>';
-				return image_tag('icons/user_cross',array('title'=>'Contact inactif (suite à une désinscription)'));
-			case self::STATUS_BOUNCED:
 				return '<i class="icon-off"></i>';
-				return image_tag('icons/cross',array('title'=>'Contact inactif (suite à une erreur d\'envoi)'));
+			case self::STATUS_BOUNCED:
+				return '<i class="icon-remove"></i>';
 			default:
 				throw new Exception('Unknown contact status: ' . $this->getStatus());
 		} // switch

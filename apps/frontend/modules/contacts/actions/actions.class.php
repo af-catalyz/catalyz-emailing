@@ -302,7 +302,7 @@ class contactsActions extends sfActions
 		$usersLimits = CatalyzSettings::instance()->get(CatalyzSettings::CUSTOM_LIMIT);
 		$limit = empty($usersLimits[$User->getProfile()->getid()])?sfConfig::get('app_settings_default_limit'):$usersLimits[$User->getProfile()->getid()];
 
-		$c = new Criteria();
+		$c = /*(Criteria)*/new Criteria();
 		$c->addJoin(ContactPeer::ID, ContactContactGroupPeer::CONTACT_ID, Criteria::LEFT_JOIN);
 		$c->addJoin(ContactPeer::ID, CampaignContactPeer::CONTACT_ID, Criteria::LEFT_JOIN);
 		if ($request->isMethod('post')) {
@@ -330,19 +330,6 @@ class contactsActions extends sfActions
 					}
 				}
 			}
-		} else {
-			if ($this->getRequestParameter('clean')) {
-				$this->cleanSession();
-			}
-			if ($User->hasAttribute('criteria')) {
-				$c = $User->getAttribute('criteria');
-			}
-			if ($this->getRequestParameter('group')) {
-				$c = ContactPeer::addSearchWithGroups($c, array($this->getRequestParameter('group')));
-			}
-			if ($User->hasAttribute('Statuts')) {
-				$c = ContactPeer::addSearchWithStatuts($c, $User->getAttribute('Statuts'));
-			}
 		}
 
 		$this->sort = $this->getRequestParameter('sort', 'De');
@@ -369,7 +356,7 @@ class contactsActions extends sfActions
 		$c->setDistinct();
 
 
-
+		$contacts = ContactPeer::doSelect($c);
 
 		$pager = new sfPropelPager('Contact', $limit);
 		$pager->setCriteria($c);
