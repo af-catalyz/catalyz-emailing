@@ -1,6 +1,6 @@
 <?php $renderer = new CatalyzEmailTextRenderer();
 
-$parameters = $parameters->getRawValue();
+$parameters = unEscape($parameters);
 
 $title = 'INVITATION';
 if (isset($parameters['title']) && !empty($parameters['title'])) {

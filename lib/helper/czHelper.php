@@ -480,3 +480,13 @@ function displaySortIcon($sens,$colonne,$parameter_sort,$parameter_column){
 		}
 	}
 }
+
+
+
+function unEscape($element){
+	if ($element instanceof sfOutputEscaperArrayDecorator) {
+		$element = $element->getRawValue();
+	}
+
+	return $element;
+}

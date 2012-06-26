@@ -1,7 +1,7 @@
 <?php
 
 class CampaignDeliveryManager {
-    protected $Campaign;
+    protected /*(Campaign)*/$Campaign;
 
     function __construct($Campaign)
     {
@@ -289,7 +289,17 @@ class CampaignDeliveryManager {
     {
         $additionalMacros['#SUBJECT#'] = $this->prepareSubjectForEmail($email, $additionalMacros);
 
-        $content = $this->Campaign->getPreparedContent();
+	    	$campaignTemplate = $this->Campaign->getCampaignTemplate();
+	    	$templateHandlerClassName = $campaignTemplate->getClassName();
+	    	if ($templateHandlerClassName) {
+	    		$templateHandler = /*(KreactivNewsletter20110511CampaignTemplateHandler)*/new $templateHandlerClassName($this->Campaign);
+	    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
+					$content = (string) $templateHandler->computeTextVersion($campaignContent);
+	    	}else{
+	    		$content = $this->Campaign->getPreparedContent();
+	    	}
+
+
         // if ($onlineView) {
         // $content = preg_replace('|<p.+"#VIEW_ONLINE#".+</p>|im', '', $content) ;
         // $content = preg_replace('|<font.+"#VIEW_ONLINE#".+</font>|im', '', $content) ;
@@ -305,7 +315,16 @@ class CampaignDeliveryManager {
     {
         $additionalMacros['#SUBJECT#'] = $this->prepareSubjectForEmail($email, $additionalMacros);
 
-        $content = $this->Campaign->getPreparedTextContent();
+    	$campaignTemplate = $this->Campaign->getCampaignTemplate();
+    	$templateHandlerClassName = $campaignTemplate->getClassName();
+    	if ($templateHandlerClassName) {
+    		$templateHandler = new $templateHandlerClassName($this->Campaign);
+    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
+    		$content = (string) $templateHandler->computeTextVersion($campaignContent);
+    	}else{
+    		$content = $this->Campaign->getPreparedTextContent();
+    	}
+
 
         $result = $this->replaceMacrosForEmail($content, $email, $additionalMacros);
 
@@ -337,10 +356,9 @@ class CampaignDeliveryManager {
     	$result = array('success' => array(), 'failed' => array());
 
     	$emailConfiguration = array();
-    	$emailConfiguration['from'] =array($this->Campaign->getFromEmail() => $this->Campaign->getFromName());
-    	$emailConfiguration['replyTo'] = $this->Campaign->getReplyToEmail();
+    	$emailConfiguration['from'] =array($this->Campaign->getFromEmail()!=''?$this->Campaign->getFromEmail():sfConfig::get('app_mail_from_email') => $this->Campaign->getFromName()!=''?$this->Campaign->getFromName():sfConfig::get('app_mail_from_name'));
+    	$emailConfiguration['replyTo'] = $this->Campaign->getReplyToEmail()!=''?$this->Campaign->getReplyToEmail():sfConfig::get('app_mail_reply_email');
     	$emailConfiguration['returnPath'] = $this->Campaign->getReturnPathEmail()?$this->Campaign->getReturnPathEmail():$this->Campaign->getReturnPathLogin();
-
 
         $this->prepareCampaignDelivery();
         try {
@@ -350,7 +368,7 @@ class CampaignDeliveryManager {
                 } else {
                     $expectedCount = 1;
 
-                		$messageObject = Swift_Message::newInstance();
+                		$messageObject = /*(Swift_Message)*/Swift_Message::newInstance();
                 		$messageObject->setFrom($emailConfiguration['from']);
                 		$messageObject->setReplyTo($emailConfiguration['replyTo']);
                 		$messageObject->setReturnPath($emailConfiguration['returnPath']);
@@ -362,24 +380,22 @@ class CampaignDeliveryManager {
                     }
 
                     $messageObject->setSubject($this->prepareSubjectForEmail($email, $additionalMacros));
-                    $messageObject->attach(new Swift_Message_Part($this->prepareContentTextForEmail($email, $additionalMacros), 'text/plain', '8bit', 'UTF-8'));
+										$messageObject->setBody($this->prepareContentForEmail($email, $additionalMacros), 'text/html', '8bit', 'UTF-8') ;
+                		$messageObject->addPart($this->prepareContentTextForEmail($email, $additionalMacros), 'text/plain', '8bit', 'UTF-8');
 
-                    $messageObject->headers->set('X-Catalyz-Email', $email);
-                    $messageObject->headers->set('X-Catalyz-Campaign', $this->Campaign->getId());
-                    $messageObject->headers->set('List-Unsubscribe', sprintf('<%s>', $this->getUnsubscribeLink($email)));
+                    $messageObject->getHeaders()->addTextHeader('X-Catalyz-Email', $email);
+                    $messageObject->getHeaders()->addTextHeader('X-Catalyz-Campaign', $this->Campaign->getId());
+                    $messageObject->getHeaders()->addTextHeader('List-Unsubscribe', sprintf('<%s>', $this->getUnsubscribeLink($email)));
 
-                	var_dump($messageObject);
-                	die();
-
-                	  $sent = $this->getMailer()->send($messageObject);
+                	  $sent = sfContext::getInstance()->getMailer()->send($messageObject, $result['failed']);
 
                     if ($sent == $expectedCount) {
                         $result['success'][] = $email;
                     }
                 }
             }
-            $mailer->disconnect();
-            $result['failed'] = Swift_LogContainer::getLog()->getFailedRecipients();
+          //  $mailer->disconnect();
+            //$result['failed'] = Swift_LogContainer::getLog()->getFailedRecipients();
         }
         catch (Exception $e) {
             echo $e->getMessage();

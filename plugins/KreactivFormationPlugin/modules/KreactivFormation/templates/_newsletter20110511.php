@@ -6,7 +6,7 @@
 </head>
 <body link="#222221" alink="#222221" vlink="#222221">
 
-<?php $parameters = $parameters->getRawValue() ?>
+<?php $parameters = unEscape($parameters); ?>
 
 	<table width="600" bgcolor="#fffce2" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr>

@@ -52,3 +52,8 @@ echo '</div>';
     <?php include_partial('campaign/testModal', array('campaign' => $campaign)) ?>
     <?php include_partial('campaign/editHeaderModal', array('campaign' => $campaign)) ?>
     <?php //var_dump($sf_context->getActionName()); ?>
+
+		<div id="feedback" class="alert alert-info" style="display: none;">
+        <a class="close" data-dismiss="alert">×</a>
+        <div id="feedback_content"></div>
+    </div>

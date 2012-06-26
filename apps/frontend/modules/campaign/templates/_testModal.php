@@ -29,11 +29,15 @@ $test_form = new CampaignTestForm();
 					</label>
 					<label class="radio">
 						<input id="campaign_test_type_2" type="radio" value="2" name="campaign[test_type]">
+
 						Aux adresses emails suivantes:
+					</label>
+					<label class="radio">
 						<?php echo $test_form['test_user_list'] ?>
 						<span class="help-block hint">Vous pouvez séparer les adresses emails par des virgules ou des point-virgule.<br /><br />Exemple:<br />
 mickey@catalyz.fr, donald@catalyz.fr, pluto@catalyz.fr </span>
 					</label>
+
 				</div>
 			</div>
 
@@ -49,19 +53,18 @@ mickey@catalyz.fr, donald@catalyz.fr, pluto@catalyz.fr </span>
 <script type="text/javascript">
 /* <![CDATA[ */
 
-$("#test").live("click", function(){
-	$.post('<?php echo url_for('@campaign_do_test?slug='.$campaign->getSlug()) ?>', $('form').serialize(), function(data){
-		$('#feedback').html(data);
-	}, 'html');
+$('#campaign_test_user_list').focus(function() {
+	$('#dialog-campaign-test').find('input').removeAttr('checked','checked');
+	$("#campaign_test_type_2").attr('checked', 'checked');
 });
 
-
-
-
-
-
-
-
-
+$("#test").live("click", function(){
+	$.post('<?php echo url_for('@campaign_do_test?slug='.$campaign->getSlug()) ?>', $('form').serialize(), function(data){
+		$('#feedback').show();
+		$('#feedback_content').html(data);
+		$('.modal').modal('hide');
+	}, 'html');
+	return false;
+});
 /* ]]> */
 </script>

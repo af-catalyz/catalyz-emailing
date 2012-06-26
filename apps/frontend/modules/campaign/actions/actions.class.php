@@ -529,24 +529,27 @@ class campaignActions extends sfActions
 	{
 		sfConfig::set('sf_web_debug', false);
 
+
 		$POST_campaign = $request->getPostParameter('campaign');
-		die('dans l\'action');
+
 		$campaign =/*(Campaign)*/ CampaignPeer::retrieveByPK($POST_campaign['id']);
-		$campaign->setSubject($request->getParameter('campaign[subject]'));
 
-		$campaign->setContent($request->getParameter('campaign[content]'));
+		if (!empty($POST_campaign['content'])) {
+			if (is_array($POST_campaign['content'])) {
+				$campaign->setContent(czWidgetFormWizard::asXml($POST_campaign['content']));
+			}else{
+				$campaign->setContent($POST_campaign['content']);
+			}
+		}
 
-		$campaign->setFromEmail($request->getParameter('campaign[from_email]'));
-		$campaign->setFromName($request->getParameter('campaign[from_name]'));
-
-		switch ($request->getParameter('campaign[test_type]')) {
+		switch ($POST_campaign['test_type']) {
 			case Campaign::OPTION_TEST_USER:
 				$email = $this->getUser()->getProfile()->getEmail();
 				$campaign->sendTo($email);
 				$responseContent = 'La campagne vous a été envoyée à l\'adresse ' . $email;
 				break;
 			case Campaign::OPTION_TEST_LIST:
-				$result = $campaign->sendTo($request->getParameter('campaign[test_user_list]'));
+				$result = $campaign->sendTo($POST_campaign['test_user_list']);
 				$responseContent = $this->getTestSendMessage($result);
 				break;
 			case Campaign::OPTION_TEST_GROUP:
@@ -554,7 +557,7 @@ class campaignActions extends sfActions
 				$responseContent = $this->getTestSendMessage($result);
 				break;
 			default:
-				throw new Exception('Unnkown test_type: ' . $request->getParameter('campaign[test_type]'));
+				throw new Exception('Unkown test_type: ' . $POST_campaign['test_type']);
 		} // switch
 		$this->setLayout(false);
 		$this->getResponse()->setContent(date('H:i:s') . ' ' . $responseContent);
