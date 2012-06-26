@@ -39,6 +39,50 @@ class CampaignTemplate extends BaseCampaignTemplate {
 		return $badge;
 	}
 
+	function updateImageUrl($zip)
+	{
+		$path = sprintf('%s/uploads/campaign-templates/%s', sfConfig::get('app_app_url'), $this->getId());
+
+		$content = $this->getTemplate();
+
+		$patterns = array();
+		$replacement = array();
+
+		if (preg_match_all('|src="(?P<src>[^"]*)"|si', $content, $matchElements)) {
+			foreach ($matchElements[0] as $key => $element) {
+				if (preg_match('/(jpg|gif|png|css)$/', strtolower($matchElements['src'][$key]))) {
+					if ($zip) {
+						$image = $matchElements['src'][$key];
+					}else {
+						$tokens = explode('/', $matchElements['src'][$key]);
+						$image = array_pop($tokens);
+					}
+
+					$patterns[] = $element;
+					$replacement[] = sprintf('src="%s/%s"', $path, $image);
+				}
+			}
+		}
+
+		if (preg_match_all('|href="(?P<target>[^"]*)"|si', $content, $matchElements)) {
+			foreach ($matchElements[0] as $key => $element) {
+				if (preg_match('/(css|pdf)$/', strtolower($matchElements['target'][$key]))) {
+					$tokens = explode('/', $matchElements['target'][$key]);
+					$image = array_pop($tokens);
+					$patterns[] = $element;
+					$replacement[] = sprintf('href="%s/%s"', $path, $image);
+				}
+			}
+		}
+
+		$content = str_replace($patterns, $replacement, $content);
+
+		$this->setTemplate($content);
+		$this->save();
+
+		return true;
+	}
+
 	public function createEditWidget(Campaign $campaign)
 	{
 		$result = array();

@@ -447,7 +447,6 @@ class CatalyzEmailing {
         $ct = new CampaignTemplate();
         $ct->setTemplate($content);
         $ct->setName($updatedContent['title']);
-        $ct->setPreviewFilename('/images/default_image.jpg');
         $ct->setIsArchived(0);
         $ct->save();
 

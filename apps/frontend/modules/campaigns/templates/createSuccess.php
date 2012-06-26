@@ -36,7 +36,7 @@
    	<?php echo html_entity_decode($form['template_id']) ?>
 
 
-		<p>Si votre modèle n'apparait pas dans la liste ci-dessus, vous pouvez l'<a href="">importer à partir d'une archive</a> ou <a href="">depuis une adresse internet</a>.</p>
+		<p>Si votre modèle n'apparait pas dans la liste ci-dessus, vous pouvez l'<a href="<?php echo url_for('@campaigns_create_from_zip') ?>">importer à partir d'une archive</a> ou <a href="<?php echo url_for('@campaigns_create_from_url') ?>">depuis une adresse internet</a>.</p>
 		</div>
 	</div>
 

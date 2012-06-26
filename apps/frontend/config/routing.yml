@@ -72,6 +72,14 @@ campaigns_handle_create:
   url:   /campaigns/handle/create
   param: { module: campaigns, action: handleCreate }
 
+campaigns_create_from_zip:
+  url:   /campaigns/create/zip
+  param: { module: campaigns, action: createFromZip }
+
+campaigns_create_from_url:
+  url:   /campaigns/create/url
+  param: { module: campaigns, action: createFromUrl }
+
 campaigns_archived:
   url:   /campaigns/archived
   param: { module: campaigns, action: archived }

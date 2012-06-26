@@ -39,16 +39,11 @@ class campaignsActions extends sfActions
 			$values = $request->getParameter('campaign');
 			$files = $request->getFiles('campaign');
 
-			if ($values['template_id'] == 'archive') {
-				$this->executeCreateZip($this->form);
-			} elseif ($values['template_id'] == 'url') {
-				$this->executeCreateUrl($this->form);
-			} else {
-				$campaign = $this->form->save();
-				sfContext::getInstance()->getUser()->setFlash('info', 'La campagne a été créée, vous pouvez désormais la configurer.');
-				$this->redirect('@campaign_index?slug='.$campaign->getSlug());
-				exit;
-			}
+			$campaign = $this->form->save();
+			$message = sprintf('<h4 class="alert-heading">Campagne crée</h4><p>La campagne "%s" a été crée, vous pouvez désormais la configurer.</p>',$campaign->getName());
+			sfContext::getInstance()->getUser()->setFlash('notice_success', $message);
+			$this->redirect('@campaign_index?slug='.$campaign->getSlug());
+			exit;
 		}
 
 		$this->setTemplate('create');
@@ -58,6 +53,102 @@ class campaignsActions extends sfActions
 			$title = sprintf('Campagnes / Modification  %s', sfConfig::get('app_settings_default_suffix'));
 		}
 
+		$this->getResponse()->setTitle($title);
+	}
+
+	public function executeCreateFromZip(sfWebRequest $request)
+	{
+		$this->form = new CampaignFromZipForm();
+
+
+		if ($request->isMethod('post')) {
+
+			$this->form->bind($request->getParameter('campaign'), $request->getFiles('campaign'));
+			if ($this->form->isValid()) {
+				$archive = $this->form->getValue('archive');
+				$name = CatalyzEmailing::slug($this->form->getValue('name'));
+
+				$path = sprintf('%s/createFromZip/%s_%s%s', sfConfig::get('sf_data_dir'), date('Y-m-d-His'),
+		    $name, $archive->getOriginalExtension());
+
+				$archive->save($path, 0777, true, 0777, true);
+
+				$rapport = CatalyzEmailing::extractZip($archive->getSavedName());
+				$validate = CatalyzEmailing::validateZip($rapport['zipLocation'], $path);
+
+				if (!empty($validate['html'])) {
+					$content = file_get_contents($validate['html']);
+					$updatedValues = CatalyzEmailing::updateHtml($content);
+
+					$ct = new CampaignTemplate();
+					$ct->setName($updatedValues['title']);
+					$ct->setTemplate($updatedValues['content']);
+					$ct->setPreviewFilename($validate['image']?$validate['image']:'/images/default_image.jpg');
+					$ct->setIsArchived(0);
+					$ct->save();
+
+					$newPath = sprintf('%s/campaign-templates/%s', sfConfig::get('sf_upload_dir'), $ct->getId());
+					if (!empty($validate['image'])) {
+						$thumbnailPath = sprintf('/uploads/campaign-templates/%s', $ct->getId()) . str_ireplace(str_ireplace('.zip', '', $path), '', $validate['image']);
+						$ct->setPreviewFilename($thumbnailPath);
+						$ct->save();
+					}
+					$bool = CatalyzEmailing::smartCopy(dirname($validate['html']), $newPath, array('folderPermission' => 0777, 'filePermission' => 0777));
+
+					$ct->updateImageUrl(true);
+
+					$this->form->updateTemplateValue($ct->getId());
+
+					sfToolkit::clearDirectory($rapport['zipLocation']);
+					$campaign = /*(Campaign)*/$this->form->save();
+
+					$message = sprintf('<h4 class="alert-heading">Campagne crée</h4><p>La campagne "%s" a été crée, vous pouvez désormais la configurer.</p>',$campaign->getName());
+					sfContext::getInstance()->getUser()->setFlash('notice_success', $message);
+
+					$this->redirect('@campaign_index?slug='.$campaign->getSlug());
+					exit;
+				} else {
+					$message = sprintf('<h4 class="alert-heading">Campagne non crée</h4><p>La campagne n\'a pas été crée, l\'archive semble ne pas avoir de fichier html.</p>');
+					sfContext::getInstance()->getUser()->setFlash('notice_error', $message);
+
+					sfToolkit::clearDirectory($rapport['zipLocation']);
+					$this->redirect('@campaigns_create_from_zip');
+					exit;
+				}
+			}
+		}
+
+		$title = sprintf('Campagnes / Création depuis une archive %s', sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
+	}
+
+	public function executeCreateFromUrl(sfWebRequest $request)
+	{
+		$this->form = new CampaignFromUrlForm();
+
+		if ($request->isMethod('post')) {
+
+			$this->form->bind($request->getParameter('campaign'), $request->getFiles('campaign'));
+			if ($this->form->isValid()) {
+
+				$url = $this->form->getValue('url');
+				$name = $this->form->getValue('name');
+
+				$ct = CatalyzEmailing::extractFromUrl($url);
+
+				$this->form->updateTemplateValue($ct->getId());
+
+				$campaign =/*(Campaign)*/ $this->form->save();
+
+				$message = sprintf('<h4 class="alert-heading">Campagne crée</h4><p>La campagne "%s" a été crée, vous pouvez désormais la configurer.</p>',$campaign->getName());
+				sfContext::getInstance()->getUser()->setFlash('notice_success', $message);
+
+				$this->redirect('@campaign_index?slug='.$campaign->getSlug());
+			}
+
+		}
+
+		$title = sprintf('Campagnes / Création depuis une url %s', sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
 	}
 
