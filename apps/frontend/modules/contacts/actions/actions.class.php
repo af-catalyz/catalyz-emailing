@@ -288,6 +288,52 @@ class contactsActions extends sfActions
 		return sfView::NONE;
 	}
 
+	public function executeExportSampleFile($request)
+	{
+		$fieldIndex = 0;
+		$fields = array();
+		$fields['FIRST_NAME'] = $fieldIndex;
+		$fields['LAST_NAME'] = $fieldIndex++;
+		$fields['COMPANY'] = $fieldIndex++;
+		$fields['EMAIL'] = $fieldIndex++;
+
+		$customFields = CatalyzEmailing::getCustomFields();
+
+		$sheetTitle = sprintf('Exemple de fichier d\'import');
+
+		$this->spreadsheet = new sfPhpExcel();
+		$this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
+
+		$this->spreadsheet->setActiveSheetIndex(0);
+		$this->activeSheet = $this->spreadsheet->getActiveSheet();
+		$this->activeSheet->setTitle($sheetTitle);
+
+		$letter = 'A';
+		foreach ($fields as $fieldName => $caption){
+			$this->activeSheet->setCellValue($letter.'1', ContactPeer::getFieldLabel($fieldName));
+			$letter =  chr(ord($letter)+1);
+		}
+
+		foreach ($customFields as $fieldName => $caption){
+			$this->activeSheet->setCellValue($letter.'1', $caption.' (optionnel)');
+			$letter =  chr(ord($letter)+1);
+		}
+
+		$objWriter = new PHPExcel_Writer_Excel5($this->spreadsheet);
+
+		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
+		$objWriter->save($tempFilename);
+
+		$response = $this->getResponse();
+		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s',sprintf('%s_%s.xls', CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+		$response->setHttpHeader('Content-Length', filesize($tempFilename));
+		$response->sendHttpHeaders();
+		readfile($tempFilename);
+		unlink($tempFilename);
+		return sfView::NONE;
+	}
+
 	public function executeAjax(sfWebRequest $request)
 	{
 		$this->campaignId = $request->getParameter('id');
@@ -385,11 +431,113 @@ class contactsActions extends sfActions
 
 	public function executeImport(sfWebRequest $request)
 	{
+		$this->form = new ContactImportForm();
 		return sfView::SUCCESS;
 	}
 
-	public function executeImportStep(sfWebRequest $request)
+	public function executeContactInDb($request)
 	{
-		return sfView::SUCCESS;
+		$this->setTemplate('import');
+		$this->error = '';
+		$this->forward404Unless($request->isMethod('post'));
+		$this->form = new ContactImportForm();
+		$this->form->bind($request->getParameter('contact_import'), $request->getFiles('contact_import'));
+
+		if ($this->form->isValid()) {
+			$importer = ContactImporter::instance();
+			$importer->createDefaultConfiguration();
+			$this->form->initializeContactImporter($importer);
+
+			$excel =/*(sfValidatedFileContactImport)*/ $this->form->getValue('file');
+
+			sfContext::getInstance()->getUser()->setAttribute('importerGroups', $importer->getGroups());
+			sfContext::getInstance()->getUser()->setAttribute('file', $excel);
+
+			for($rowIndex = 0; $rowIndex < $excel->numRows; $rowIndex++) {
+				try {
+					$importer->ContactsInDb($excel->datas[$rowIndex]);
+				}
+				catch(Exception $e) {
+					$errors[] = $rowIndex + 2;
+					var_dump($e->getMessage());
+				}
+			}
+
+			$this->count = $importer->getInDbCount();
+
+			if (($this->count > 0) && ($this->form->getValue('operation') != ContactImportForm::OPTION_GROUP_NONE)) {
+				$this->setTemplate('importStep');
+			} else {
+				$this->executeImportProcess($request);
+			}
+		} else {
+			$this->setTemplate('import');
+		}
+
+		$title = sprintf('Contacts / Import %s', sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
+	}
+
+	public function executeImportProcess($request)
+	{
+		$this->forward404Unless($request->isMethod('post'));
+		$type = $request->getParameter('type', ContactImporter::IMPORT_ALL);
+
+		$user = sfContext::getInstance()->getUser();
+		$excel =/*(sfValidatedFileContactImport)*/ $user->getAttribute('file');
+		$importer = ContactImporter::instance();
+
+		$fields = $importer->getFields();
+		if (empty($fields)) {
+			$importer->createDefaultConfiguration();
+			$importer->setGroups(sfContext::getInstance()->getUser()->getAttribute('importerGroups', array()));
+		}
+
+		$this->form =/*(ContactImportForm)*/ new ContactImportForm();
+
+		$this->errors = array();
+		$this->errorRows = array();
+		for($rowIndex = 0; $rowIndex < $excel->numRows; $rowIndex++) {
+			if ($excel->datas[$rowIndex] != null) {
+				try {
+					$contact = $importer->processContact($excel->datas[$rowIndex], $type);
+				}
+				catch(Exception $e) {
+					$this->errorRows[] = $excel->datas[$rowIndex];
+					$this->errors[] = $rowIndex + 2;
+				}
+			}
+		}
+
+		$this->ko_message = FALSE;
+		$this->ok_message = FALSE;
+
+		$importer->commit();
+
+		if (count($this->errors) == 0) {
+
+			$message = sprintf('<h4 class="alert-heading">Importation terminée.</h4><p>%s</p><a class="btn" href="%s">Importer un autre fichier</a>',$importer->getStatusMessage(), url_for('@contact_import'));
+			$this->getUser()->setFlash('notice_success', $message);
+
+			$user->getAttributeHolder()->remove('file');
+			$user->getAttributeHolder()->remove('importerGroups');
+			$this->redirect('@contacts');
+		} else {
+			if ($importer->getImportedCount() == 0 && $importer->getUpdatedCount() == 0) {
+				$this->ko_message = sprintf('<h4 class="alert-heading">Importation non réalisée.</h4><p>Aucun des contacts présent dans votre fichier n\'est valide, vous devez les corriger avant de réimporter votre liste.</p>');
+			} else {
+				$this->filePath = CatalyzEmailing::createContactImportErrorLogExcel($this->errorRows);
+				$this->ok_message = sprintf('<h4 class="alert-heading">Importation terminée.</h4><p>%1$s</p>',$importer->getStatusMessage());
+			}
+
+			$this->getUser()->setFlash('notice_error', $message);
+
+			//$importer->rollback();
+		}
+
+		$this->setTemplate('importErrors');
+
+		$title = sprintf('Contacts / Import %s', sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
 	}
 }

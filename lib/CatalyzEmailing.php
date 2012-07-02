@@ -628,6 +628,19 @@ class CatalyzEmailing {
 
 			return $return;
 		}
+
+	static function diagnosticEmail($email){
+
+		if (!preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $email)) {
+			return 'Le format de l\'adresse email fournit est invalide.';
+		}
+
+		if (!self::ValidateEmail($email)) {
+			 return 'Le domaine "wanadoo" est incorrect, vérifiez sa validité. Il doit comporter 2 parties, exemple: "domaine.com" et non "domaine".';
+		}
+
+		return true;
+	}
 }
 
 ?>

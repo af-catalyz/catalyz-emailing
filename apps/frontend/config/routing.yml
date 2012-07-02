@@ -328,6 +328,9 @@ contact_import:
   url:   /contact/import
   param: { module: contacts, action: import }
 
+contact_do_export_sample:
+  url:   /contact/export/sampleFile
+  param: { module: contacts, action: exportSampleFile }
 #GROUPS
 groups:
   url:   /groups

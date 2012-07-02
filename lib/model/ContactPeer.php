@@ -134,24 +134,7 @@ class ContactPeer extends BaseContactPeer {
 	}
 
 	static function getFiltersData(){
-		$groupCriteria = new Criteria();
-		$groupCriteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
-		$groupCriteria->add(ContactGroupPeer::IS_ARCHIVED, FALSE);
-		$a_groups = ContactGroupPeer::doSelect($groupCriteria);
-
-		$groups = array();
-		$temp = array();
-		foreach ($a_groups as /*(ContactGroup)*/$group){
-			$temp[$group->getColor()][]=$group;
-		}
-
-		krsort($temp);
-		$groups = array();
-		foreach ($temp as /*(ContactGroup)*/$elements){
-			foreach ($elements as /*(ContactGroup)*/$group){
-				$groups[$group->getId()] = sprintf('%s %s', $group->getColoredName(), $group->getCommentPopup());
-			}
-		}
+		$groups = ContactGroupPeer::getGroups();
 
 		$criteria = new Criteria();
 		$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);

@@ -49,7 +49,7 @@ class CampaignAnalyticsForm extends BaseCampaignForm {
 		$defaults['google_analytics_campaign_type'] = Campaign::ANALYTICS_CAMPAIGN_NAME;
 		//endregion
 
-		//region google_analytics_campaign
+		//region google_analytics_campaign_content
 		$widgets['google_analytics_campaign_content'] = new sfWidgetFormInput(array(), array('onclick'=>'document.getElementById(\'campaign_google_analytics_campaign_type_2\').checked = true;return false;','size' => 50));
 		$validators['google_analytics_campaign_content'] = new sfValidatorString(array('required' => FALSE));
 		//endregion
