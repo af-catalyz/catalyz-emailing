@@ -16,21 +16,19 @@
 }
 
 #wait{
-	position: absolute;
-	width: 790px;
+	margin: 0;
+	position: fixed;
+	width: inherit;
 	height: 100px;
 	z-index: 99;
 	border: 1px solid #000000;
 	border: 1px solid rgba(0, 0, 0, 0.05);
 	border-radius: 4px 4px 4px 4px;
 	padding: 50px;
-	top: 0;
-	right: 0;
 	background-color: #E5E5E5;
 	background-color: rgba(229, 229, 229, 0.8);
-
-
 	text-align: center;
+	display: block;
 }
 
 #wait p{

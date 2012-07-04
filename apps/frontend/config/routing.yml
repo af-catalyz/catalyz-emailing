@@ -231,6 +231,10 @@ unsubscribeStep:
   url:   /campaigns/unsubscribeStep
   param: { module: campaign, action: unsubscribeStep }
 
+campaign_do_create_relance:
+  url:   /campaign/create/relance/:slug
+  param: { module: campaign, action: createRelance }
+
 #STATISTICS
 campaign_statistics_summary:
   url:   /:slug/summary

@@ -1,14 +1,16 @@
 <?php $customFields_dispos = CatalyzEmailing::getCustomFields(); ?>
 <?php use_helper('Text') ?>
 
+
+
+
+<div style="position:relative;" class="span9">
+
 <div id="wait" style="display: none;">
 	<p><?php echo __('Veuillez patienter pendant le chargement de la liste avec les éléments du filtre.') ?></p>
 	<br/>
 	<img src="/images/loader.gif" width="60" height="60" alt="" border="0" />
 </div>
-
-
-<div class="span9">
 
 			  <table class="table table-striped table-condensed">
 			    <thead>

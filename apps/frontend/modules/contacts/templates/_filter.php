@@ -176,7 +176,7 @@ $(".campaign_selector").live("change", function(){
 
 
 $(document).ready(function() {
-//	sendAjax();
+	$("#wait").hide();
 });
 
 

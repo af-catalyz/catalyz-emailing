@@ -473,7 +473,7 @@ class campaignActions extends sfActions
 		$message = sprintf('<h4 class="alert-heading">Restriction modifié</h4><p>Le critère a été supprimé.</p>');
 		$this->getUser()->setFlash('notice_success', $message);
 		$this->redirect('@campaign_edit_targets?slug=' . $this->campaign->getSlug());
-	}
+	}//
 
 	public function executeTargetCleanup(sfWebRequest $request)
 	{
@@ -753,5 +753,49 @@ class campaignActions extends sfActions
 		$sent = $mailer->send($messageObject, $recipients, $from);
 		$mailer->disconnect();
 		return TRUE;
+	}
+
+	public function executeCreateRelance($request)
+	{
+		$this->forward404Unless($originalCampaign = /*(Campaign)*/CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+		$this->forward404Unless($request->isMethod('post'));
+
+		$newCampaign = /*(Campaign)*/ $originalCampaign->copy(true);
+		$newCampaign->setName(sprintf('%s (Relance)', $originalCampaign->getName()));
+		$newCampaign->setScheduleType(Campaign::SCHEDULING_NONE);
+		$newCampaign->setScheduledAt(null);
+		$newCampaign->setStatus(Campaign::STATUS_DRAFT);
+		$newCampaign->setCreatedAt(time());
+		$newCampaign->setUpdatedAt(time());
+		$newCampaign->setCreatedBy($this->getUser()->getGuardUser()->getProfile()->getId());
+		$newCampaign->setIsArchived(false);
+		$newCampaign->save();
+
+		//region delete old targets
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $newCampaign->getId());
+		CampaignContactPeer::doDelete($criteria);
+
+		foreach(CatalyzEmailing::getContactProviders() as $provider) {
+			$provider->cleanup($newCampaign);
+		}
+		//endregion
+
+		if ($request->getParameter('type', campaign::RELANCE_NO_OPEN) == campaign::RELANCE_NO_OPEN) {
+			$newCampaign->setProviderSettings('CampaignNotOpen', $originalCampaign->getId());
+		}else{
+			$newCampaign->setProviderSettings('CampaignOpen', $originalCampaign->getId());
+		}
+		$newCampaign->save();
+
+		$message = sprintf('<h4 class="alert-heading">Campagne dupliquée</h4><p>La campagne a été créée en reprenant toutes les informations de la campagne "%s", vous pouvez désormais la configurer.</p>',
+				$originalCampaign->getName()
+			);
+
+		$this->getUser()->setFlash('notice_success', $message);
+		$this->redirect('@campaign_index?slug='.$newCampaign->getSlug());
+
+
+		return sfView::SUCCESS;
 	}
 }

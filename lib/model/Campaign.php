@@ -41,6 +41,9 @@ class Campaign extends BaseCampaign {
 	const TARGET_ALL = 0;
 	const TARGET_GROUPS = 1;
 
+	const RELANCE_OPEN = 1;
+	const RELANCE_NO_OPEN = 2;
+
 	protected $providerSettings = null;
 
 	public function getCatalyzUrl(){
