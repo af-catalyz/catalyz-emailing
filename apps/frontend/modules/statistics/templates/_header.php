@@ -1,10 +1,7 @@
 <?php
 
-use_javascript('http://code.highcharts.com/highcharts.js');
-use_javascript('http://code.highcharts.com/modules/exporting.js');
-
-
-
+use_javascript('/js/highcharts.js');
+use_javascript('/js/exporting.js');
 
 $campaign = /*campaign*/$campaign->getRawValue();
 

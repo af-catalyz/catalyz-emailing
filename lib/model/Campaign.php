@@ -381,14 +381,6 @@ class Campaign extends BaseCampaign {
 		return 15;
 	}
 
-	public function getBouncedCount()
-	{
-		$criteria = new Criteria();
-		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->getId());
-		$criteria->add(CampaignContactPeer::BOUNCE_TYPE, catalyzemailingHandlebouncesTask::BOUNCE_HARD);
-		return $this->countCampaignContacts($criteria);
-	}
-
 	public function getClickStatistics($displayId = false)
 	{
 		$sql = 'SELECT ' . CampaignLinkPeer::URL . ' ,' . CampaignLinkPeer::GOOGLE_ANALYTICS_TERM . ', COUNT(DISTINCT(' . CampaignContactPeer::ID . ')) AS total,' . CampaignLinkPeer::ID . '
@@ -934,6 +926,22 @@ class Campaign extends BaseCampaign {
 
 
 		return $tab;
+	}
+
+	public function getAllBouncesCount()
+	{
+		$total = 0;
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->getId());
+		$criteria->add(CampaignContactPeer::FAILED_SENT_AT, null, Criteria::NOT_EQUAL);
+		$total += $this->countCampaignContacts($criteria);
+
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->getId());
+		$criteria->add(CampaignContactPeer::BOUNCE_TYPE, array(catalyzemailingHandlebouncesTask::BOUNCE_HARD, catalyzemailingHandlebouncesTask::BOUNCE_SOFT), Criteria::IN);
+		$total +=  $this->countCampaignContacts($criteria);
+
+		return $total;
 	}
 
 } // Campaign

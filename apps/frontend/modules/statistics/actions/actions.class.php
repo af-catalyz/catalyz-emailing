@@ -26,7 +26,7 @@ class statisticsActions extends sfActions
 		$this->view_count = $this->campaign->getOpenedCount();
 		$this->click_count = $this->campaign->getClickedCount();
 
-		$this->failed_count = $this->campaign->getFailedSentCount();
+		$this->failed_count = $this->campaign->getAllBouncesCount();
 
 		$this->reactivite = $this->view_count != 0?($this->click_count * 100) / $this->view_count:0;
 
@@ -411,6 +411,136 @@ class statisticsActions extends sfActions
 	public function executeReturnErrors(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$return = array();
+		$this->items = array();
+
+		//region soft and hard bounces
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->campaign->getId());
+		$CampaignContacts = CampaignContactPeer::doSelectJoinContact($criteria);
+
+		$ids = array();
+		foreach ($CampaignContacts as /*(CampaignContact)*/$CampaignContact){
+			$ids[$CampaignContact->getId()] = $CampaignContact->getId();
+		}
+
+		$criteria->add(CampaignContactBouncePeer::CAMPAIGN_CONTACT_ID, $ids, Criteria::IN);
+		$criteria->setDistinct();
+		$criteria->addAscendingOrderByColumn(CampaignContactBouncePeer::BOUNCE_TYPE);
+		$bounces = CampaignContactBouncePeer::doSelectJoinCampaignContact($criteria);
+		$this->total_soft = 0;
+		$this->total_hard = 0;
+
+		foreach ($bounces as /*(CampaignContactBounce)*/$bounce){
+			$return[] = $bounce;
+			$bounce->getBounceType() == catalyzemailingHandlebouncesTask::BOUNCE_HARD?$this->total_hard++:$this->total_soft++;
+		}
+		//endregion
+
+		//region erreurs à la réception
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->campaign->getId());
+		$criteria->add(CampaignContactPeer::FAILED_SENT_AT, null, Criteria::NOT_EQUAL);
+		$failed =  CampaignContactPeer::doSelect($criteria);
+
+		foreach ($failed as $fail_element){
+			$return[] = $fail_element;
+		}
+
+		$this->failed_count = count($failed);
+		//endregion
+
+		//region Pager
+		$this->endPager = 0;
+		$pagerSize=sfConfig::get('app_divers_pagerSize',15);
+		$this->actual = $request->getParameter('page', 1);
+		$view = 'details';
+		$this->endPager=ceil(count($return)/$pagerSize);
+		$nb=($this->actual-1)*$pagerSize;
+		$this->items = array_splice($return,$nb,$pagerSize);
+		//endregion
+
 		return sfView::SUCCESS;
+	}
+
+	public function executeExportBounces(sfWebRequest $request)
+	{
+
+		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$sheetTitle = sprintf('Erreurs durant l\'envoi');
+
+		$this->spreadsheet = new sfPhpExcel();
+		$this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
+
+		$this->spreadsheet->setActiveSheetIndex(0);
+		$this->activeSheet = $this->spreadsheet->getActiveSheet();
+		$this->activeSheet->setTitle($sheetTitle);
+
+		$this->activeSheet->setCellValue('A1', 'Type');
+		$this->activeSheet->setCellValue('B1', 'Email');
+		$this->activeSheet->setCellValue('C1', 'Nom complet');
+		$this->activeSheet->setCellValue('D1', 'date');
+
+		$row = 2;
+
+		//region soft and hard bounces
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getId());
+		$CampaignContacts = CampaignContactPeer::doSelectJoinContact($criteria);
+
+		$ids = array();
+		foreach ($CampaignContacts as /*(CampaignContact)*/$CampaignContact){
+			$ids[$CampaignContact->getId()] = $CampaignContact->getId();
+		}
+
+		$criteria->add(CampaignContactBouncePeer::CAMPAIGN_CONTACT_ID, $ids, Criteria::IN);
+		$criteria->setDistinct();
+		$criteria->addAscendingOrderByColumn(CampaignContactBouncePeer::BOUNCE_TYPE);
+		$bounces = CampaignContactBouncePeer::doSelectJoinCampaignContact($criteria);
+
+		foreach ($bounces as /*(CampaignContactBounce)*/$bounce){
+			$this->activeSheet->setCellValue('A'.$row, $bounce->getBounceType() == catalyzemailingHandlebouncesTask::BOUNCE_HARD?'HARD':'SOFT');
+			$this->activeSheet->setCellValue('B'.$row, $bounce->getAddress());
+			$this->activeSheet->setCellValue('C'.$row, $bounce->getCampaignContact()->getContact()->getFullName());
+			$this->activeSheet->setCellValue('D'.$row, $bounce->getArrivedAt('d/m/Y'));
+			$row++;
+		}
+		//endregion
+
+		//region erreurs à la réception
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getId());
+		$criteria->add(CampaignContactPeer::FAILED_SENT_AT, null, Criteria::NOT_EQUAL);
+		$failed =  CampaignContactPeer::doSelect($criteria);
+
+		foreach ($failed as $fail_element){
+			$this->activeSheet->setCellValue('A'.$row, 'ERREUR À LA RÉCEPTION');
+			$this->activeSheet->setCellValue('B'.$row, $fail_element->getContact()->getEmail());
+			$this->activeSheet->setCellValue('C'.$row, $fail_element->getContact()->getFullName());
+			$this->activeSheet->setCellValue('D'.$row, $fail_element->getFailedSentAt('d/m/Y'));
+			$row++;
+		}
+		//endregion
+
+		$objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
+		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
+		$objWriter->save($tempFilename);
+
+		$response = $this->getResponse();
+		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s',sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()),CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+		$response->setHttpHeader('Content-Length', filesize($tempFilename));
+		$response->sendHttpHeaders();
+		readfile($tempFilename);
+		unlink($tempFilename);
+		return sfView::NONE;
+	}
+
+	public function executeDisplayBounceDetails(sfWebRequest $request)
+	{
+		$this->forward404Unless($bounce = /*(CampaignContactBounce)*/ CampaignContactBouncePeer::retrieveByPK($request->getParameter('id')));
+		return $this->renderText(sprintf('<div class="well">%s</div>', $bounce->getMessage()));
 	}
 }

@@ -291,6 +291,16 @@ campaign_statistics_return_errors:
 campaign_statistics_unsubscribe:
   url:   /:slug/unsubscribe
   param: { module: statistics, action: unsubscribe }
+
+campaign_statistics_do_display_bounce_message:
+  url:   /:slug/returnErrors/details/:id
+  param: { module: statistics, action: displayBounceDetails }
+
+campaign_statistics_do_export_bounces:
+  url:   /:slug/returnErrors/export
+  param: { module: statistics, action: exportBounces }
+
+
 #CONTACTS
 contacts:
   url:   /contacts

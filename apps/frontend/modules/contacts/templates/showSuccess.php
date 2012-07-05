@@ -107,7 +107,7 @@ $customFields = CatalyzEmailing::getCustomFields();
 													    </div>
 													</td>',
 			__('Action'),
-			link_to(sprintf('<i class="icon-eye-open"></i> %s</a>', __('Voir les statistiques')), '@campaign_statistics_summary?slug='.$CampaignContact->getCampaign()->getSlug(), array('title' => __('Voir les statistiques')))
+			link_to(sprintf('<i class="icon-eye-open"></i> %s', __('Voir les statistiques')), '@campaign_statistics_summary?slug='.$CampaignContact->getCampaign()->getSlug(), array('title' => __('Voir les statistiques')))
 			);
 			?>
 

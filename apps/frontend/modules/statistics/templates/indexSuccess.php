@@ -74,7 +74,7 @@
 			if ($failed_count == 0) {
 				echo '0';
 			}else{
-				printf('<a href="">%s</a>', $failed_count);
+				printf('<a href="%s">%s</a>', url_for('@campaign_statistics_return_errors?slug='.$campaign->getSlug()),$failed_count);
 			}
 			printf('</h1>erreur%s',$failed_count>1?'s':'');
 			if ($failed_count) {
