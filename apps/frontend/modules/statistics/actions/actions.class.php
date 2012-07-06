@@ -51,7 +51,7 @@ class statisticsActions extends sfActions
 		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID, Criteria::LEFT_JOIN);
 		$criteria->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
 
-		$pager = new sfPropelPager('CampaignContact', 15);
+		$pager = new sfPropelPager('CampaignContact', sfConfig::get('app_divers_pagerSize',15));
 		$pager->setCriteria($criteria);
 		$pager->setPage($this->getRequestParameter('page', 1));
 		$pager->setPeerMethod('doSelectJoinContact');
@@ -75,7 +75,7 @@ class statisticsActions extends sfActions
 		$criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID, Criteria::LEFT_JOIN);
 		$criteria->addDescendingOrderByColumn(CampaignContactPeer::VIEW_AT);
 
-		$pager = new sfPropelPager('CampaignContact', 15);
+		$pager = new sfPropelPager('CampaignContact', sfConfig::get('app_divers_pagerSize',15));
 		$pager->setCriteria($criteria);
 		$pager->setPage($this->getRequestParameter('page', 1));
 		$pager->init();
@@ -195,7 +195,7 @@ class statisticsActions extends sfActions
 		$criteria->addDescendingOrderByColumn(CampaignClickPeer::CREATED_AT);
 		// $result = CampaignContactPeer::doSelect($criteria);
 		$criteria->setDistinct();
-		$pager = new sfPropelPager('Contact', 15);
+		$pager = new sfPropelPager('Contact', sfConfig::get('app_divers_pagerSize',15));
 		$pager->setCriteria($criteria);
 		$pager->setPage($this->getRequestParameter('page', 1));
 		$pager->init();
@@ -213,7 +213,6 @@ class statisticsActions extends sfActions
 	public function executeShowBrowser(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
-
 
 		$this->browscap = CatalyzEmailing::browscapEnable();
 		if ($this->browscap) {
@@ -405,7 +404,103 @@ class statisticsActions extends sfActions
 	public function executeUnsubscribe(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+		$this->list_choices = FALSE;
+
+		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+		$configuration = $czSettings->get(CatalyzSettings::CUSTOM_UNSUBSCRIBED_CONFIGURATION, array());
+		if (!empty($configuration['qualif_list_publication'])) {
+			$list_publication = unserialize($configuration['qualif_list_publication']);
+			$this->list_choices = array();
+			foreach ($list_publication as $ListId => $list_details){
+				$this->list_choices[$ListId] = $list_details['title'];
+			}
+		}
+
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->campaign->getId());
+		$criteria->add(CampaignContactPeer::UNSUBSCRIBED_AT, null, Criteria::NOT_EQUAL);
+		$criteria->addDescendingOrderByColumn(CampaignContactPeer::UNSUBSCRIBED_AT);
+
+		$pager = new sfPropelPager('CampaignContact', sfConfig::get('app_divers_pagerSize',15));
+		$pager->setCriteria($criteria);
+		$pager->setPage($this->getRequestParameter('page', 1));
+		$pager->setPeerMethod('doSelectJoinContact');
+		$pager->init();
+		$this->pager = $pager;
+
 		return sfView::SUCCESS;
+	}
+
+	public function executeExportUnsubscribe(sfWebRequest $request)
+	{
+		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$list_choices = array();
+		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+		$configuration = $czSettings->get(CatalyzSettings::CUSTOM_UNSUBSCRIBED_CONFIGURATION, array());
+		if (!empty($configuration['qualif_list_publication'])) {
+			$list_publication = unserialize($configuration['qualif_list_publication']);
+			foreach ($list_publication as $ListId => $list_details){
+				$list_choices[$ListId] = $list_details['title'];
+			}
+		}
+		$sheetTitle = sprintf('Desinscriptions');
+
+		$this->spreadsheet = new sfPhpExcel();
+		$this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
+
+		$this->spreadsheet->setActiveSheetIndex(0);
+		$this->activeSheet = $this->spreadsheet->getActiveSheet();
+		$this->activeSheet->setTitle($sheetTitle);
+
+		$this->activeSheet->setCellValue('A1', 'Date');
+		$this->activeSheet->setCellValue('B1', 'Nom complet');
+		$this->activeSheet->setCellValue('C1', 'Email');
+		$this->activeSheet->setCellValue('D1', 'Motifs');
+		if (!empty($list_choices)) {
+			$this->activeSheet->setCellValue('E1', 'Listes');
+		}
+
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getId());
+		$criteria->add(CampaignContactPeer::UNSUBSCRIBED_AT, null, Criteria::NOT_EQUAL);
+		$criteria->addDescendingOrderByColumn(CampaignContactPeer::UNSUBSCRIBED_AT);
+		$CampaignContacts = CampaignContactPeer::doSelectJoinContact($criteria);
+
+
+		$row = 2;
+		foreach ($CampaignContacts as /*(CampaignContact)*/$CampaignContact){
+			$this->activeSheet->setCellValue('A'.$row, $CampaignContact->getUnsubscribedAt('d/m/Y'));
+			$this->activeSheet->setCellValue('B'.$row, $CampaignContact->getContact()->getFullName());
+			$this->activeSheet->setCellValue('C'.$row, $CampaignContact->getContact()->getEmail());
+			$this->activeSheet->setCellValue('D'.$row, $CampaignContact->getRaison() );
+
+			if (!empty($list_choices)) {
+				$selectedLists = unserialize($CampaignContact->getUnsubscribedLists());
+				$temp = array();
+				foreach ($list_choices as $listId => $caption){
+					if (!empty($selectedLists[$listId])) {
+						$temp[] = $caption;
+					}
+				}
+				$this->activeSheet->setCellValue('E'.$row, implode(" | ", $temp) );
+			}
+
+			$row++;
+		}
+
+		$objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
+		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
+		$objWriter->save($tempFilename);
+
+		$response = $this->getResponse();
+		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s',sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()),CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+		$response->setHttpHeader('Content-Length', filesize($tempFilename));
+		$response->sendHttpHeaders();
+		readfile($tempFilename);
+		unlink($tempFilename);
+		return sfView::NONE;
 	}
 
 	public function executeReturnErrors(sfWebRequest $request)
@@ -438,7 +533,7 @@ class statisticsActions extends sfActions
 		}
 		//endregion
 
-		//region erreurs à la réception
+		//region erreurs à l'envoi
 		$criteria = new Criteria();
 		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->campaign->getId());
 		$criteria->add(CampaignContactPeer::FAILED_SENT_AT, null, Criteria::NOT_EQUAL);
@@ -481,7 +576,7 @@ class statisticsActions extends sfActions
 		$this->activeSheet->setCellValue('A1', 'Type');
 		$this->activeSheet->setCellValue('B1', 'Email');
 		$this->activeSheet->setCellValue('C1', 'Nom complet');
-		$this->activeSheet->setCellValue('D1', 'date');
+		$this->activeSheet->setCellValue('D1', 'Date');
 
 		$row = 2;
 
@@ -509,14 +604,14 @@ class statisticsActions extends sfActions
 		}
 		//endregion
 
-		//region erreurs à la réception
+		//region erreurs à l'envoi
 		$criteria = new Criteria();
 		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getId());
 		$criteria->add(CampaignContactPeer::FAILED_SENT_AT, null, Criteria::NOT_EQUAL);
 		$failed =  CampaignContactPeer::doSelect($criteria);
 
 		foreach ($failed as $fail_element){
-			$this->activeSheet->setCellValue('A'.$row, 'ERREUR À LA RÉCEPTION');
+			$this->activeSheet->setCellValue('A'.$row, 'ERREUR À L\'ENVOI');
 			$this->activeSheet->setCellValue('B'.$row, $fail_element->getContact()->getEmail());
 			$this->activeSheet->setCellValue('C'.$row, $fail_element->getContact()->getFullName());
 			$this->activeSheet->setCellValue('D'.$row, $fail_element->getFailedSentAt('d/m/Y'));
@@ -541,6 +636,7 @@ class statisticsActions extends sfActions
 	public function executeDisplayBounceDetails(sfWebRequest $request)
 	{
 		$this->forward404Unless($bounce = /*(CampaignContactBounce)*/ CampaignContactBouncePeer::retrieveByPK($request->getParameter('id')));
-		return $this->renderText(sprintf('<div class="well">%s</div>', $bounce->getMessage()));
+		return $this->renderText(sprintf('<div class="well">%s</div>', nl2br($bounce->getMessage())));
 	}
+
 }

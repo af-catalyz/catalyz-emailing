@@ -31,21 +31,20 @@
     	//endregion
 
     	//region erreur à la recep
-    	printf('<div class="span2 well"><center><h1>%s</h1>Erreur à <br/>la réception</center></div>', $failed_count);
+    	printf('<div class="span2 well"><center><h1>%s</h1>Erreur<br/>à l\'envoi</center></div>', $failed_count);
     	//endregion
 
     	echo '</div><br/>';
 		 ?>
 
-
 		<table class="table table-striped table-condensed">
 			<thead>
 				<tr>
-					<th>Type</th>
-					<th>Email</th>
-					<th>Nom complet</th>
-					<th>Date</th>
-					<th>Details</th>
+					<th class="span2">Type</th>
+
+					<th>Contact</th>
+					<th >Date</th>
+					<th class="span1">Details</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,8 +54,7 @@
 					$bounce = /*(CampaignContactBounce)*/ $bounce;
 					echo '<tr>';
 					printf('<td>%s</td>', $bounce->getBounceLabel());
-					printf('<td>%s</td>', $bounce->getAddress());
-					printf('<td>%s</td>', link_to($bounce->getCampaignContact()->getContact()->getFullName(), '@contact_show?slug=' . $bounce->getCampaignContact()->getContact()->getSlug()));
+					printf('<td>%s</td>', $bounce->getCampaignContact()->getContact()->getFieldValue('FULL_NAME'));
 					printf('<td>%s</td>', $bounce->getArrivedAt('d/m/Y'));
 					printf('<td nowrap="nowrap"><div class="btn-group">
 									<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s&nbsp;<span class="caret"></span></a>
@@ -69,9 +67,8 @@
 				}else{
 					$bounce = /*(CampaignContact)*/ $bounce;
 					echo '<tr>';
-					printf('<td><span class="badge badge-error">ERREUR À LA RÉCEPTION</span></td>');
-					printf('<td>%s</td>', $bounce->getContact()->getEmail());
-					printf('<td>%s</td>', link_to($bounce->getContact()->getFullName(), '@contact_show?slug=' . $bounce->getContact()->getSlug()));
+					printf('<td><span class="badge badge-inverse">ERREUR À L\'ENVOI</span></td>');
+					printf('<td>%s</td>', $bounce->getContact()->getFieldValue('FULL_NAME'));
 					printf('<td>%s</td>', $bounce->getFailedSentAt('d/m/Y'));
 					printf('<td nowrap="nowrap">&nbsp;</td>');
 					echo '</tr>';

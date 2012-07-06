@@ -16,8 +16,10 @@ else:
 
 
 	foreach (array(array('title1' => 'Répartition par type de client de messagerie', 'title2' => 'Client de messagerie', 'element' => $parents), array('title1' => 'Répartition par plateforme', 'title2' => 'Plateforme', 'element' => $platforms)) as $Elementgroup) {
+
 		$parentsCountTotal = $Elementgroup['element']['total'];
 		$parentsTab = $Elementgroup['element']['details'];
+		$parentsTab = $parentsTab->getRawValue();
 
 		if ($parentsCountTotal > 0):
 			printf('<div class="span5">
@@ -36,7 +38,7 @@ else:
 				if (count($values['details']) > 1) {
 					printf('<a class="details" href="javascript://" style="color: black;"><i class="icon-plus-sign"></i>&nbsp;%s</a>', $familly);
 				}else{
-					printf('%s', $familly);
+					printf('%s <small>(%s)</small>', $familly, key($values['details']));
 				}
 
 				echo '</td>';

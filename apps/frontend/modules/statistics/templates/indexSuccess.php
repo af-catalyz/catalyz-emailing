@@ -57,7 +57,7 @@
 			if ($unsubscribe_count == 0) {
 				echo '0';
 			}else{
-				printf('<a href="">%s</a>', $unsubscribe_count);
+				printf('<a href="%s">%s</a>', url_for('@campaign_statistics_unsubscribe?slug='.$campaign->getSlug()), $unsubscribe_count);
 			}
 			printf('</h1>désinscription%s <a rel="tooltip-campaign-comment" href="#" data-original-title="Nombre de contacts ayant clické sur le lien de désinscription de cette campagne."><i class="icon-question-sign"></i></a>',
 				$unsubscribe_count>1?'s':'');

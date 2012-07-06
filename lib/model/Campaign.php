@@ -559,12 +559,31 @@ class Campaign extends BaseCampaign {
 			$agents[] = $element->getViewUserAgent();
 		}
 
+
+
+
 		$parents = array();
 		$platforms = array();
 
+		$cpt = 0;
 		foreach ($agents as $userAgent) {
+			$cpt++;
 			$return = array();
 			$return = get_browser($userAgent, true);
+
+
+			if ($return['browser'] == 'Default Browser') {
+				if (preg_match('/iPhone/', $userAgent)) {
+					$return['parent'] = 'iPhone';
+					$return['browser'] = 'iPhone';
+					$return['platform'] = 'iPhone';
+				}
+				else{
+//					printf('<pre style="color: red;">%s => %s</pre>', $cpt ,$userAgent);
+				}
+			}else{
+//				printf('<pre >%s => %s</pre>', $cpt ,$userAgent);
+			}
 
 			$browser = $temp_parent = 'unknow';
 			if (!empty($return['parent'])) {
@@ -579,6 +598,7 @@ class Campaign extends BaseCampaign {
 			} else {
 				$parents[$browser][$temp_parent]++;
 			}
+
 
 			$familly['Win7'] = 'Windows';
 			$familly['WinXP'] = 'Windows';
@@ -595,6 +615,7 @@ class Campaign extends BaseCampaign {
 			$familly['SunOS'] = 'Linux'; //pas sur pour celui la
 			$familly['MacOSX'] = 'Mac';
 
+			$familly['iPhone'] = 'Mobile';
 			$familly['iPhone OSX'] = 'Mobile';
 			$familly['Android'] = 'Mobile';
 			$familly['WinPhone7'] = 'Mobile';
@@ -603,6 +624,8 @@ class Campaign extends BaseCampaign {
 			$familly['BlackBerry OS'] = 'Mobile';
 
 			$familly['unknown'] = 'Unknown';
+
+
 
 			if (empty($familly[$return['platform']])) {
 				$familly[$return['platform']] = 'Unknown';
@@ -614,6 +637,10 @@ class Campaign extends BaseCampaign {
 				$platforms[$familly[$return['platform']]][$return['platform']] = 1;
 			}
 		}
+
+
+//		var_dump($platforms);
+//		die();
 
 		$temp2 = $temp = array();
 		$totalPlatforms = 0;
@@ -670,6 +697,7 @@ class Campaign extends BaseCampaign {
 				$CampaignContact->setClickedAt(time());
 			}
 			if ($logUnsubscribe) {
+
 				if (0 == $CampaignContact->getUnsubscribedAt(null)) {
 					$CampaignContact->setUnsubscribedAt(time());
 				}
@@ -680,13 +708,11 @@ class Campaign extends BaseCampaign {
 					$contact->setStatus(Contact::STATUS_UNSUBSCRIBED);
 					$contact->save();
 				}
-
 			}
 
 			if ($listLog != NULL) {
 				$CampaignContact->setUnsubscribedLists($listLog);
 			}
-
 			$CampaignContact->save();
 		}
 		return $CampaignContact;

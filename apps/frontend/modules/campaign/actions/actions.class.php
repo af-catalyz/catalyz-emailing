@@ -625,10 +625,8 @@ class campaignActions extends sfActions
 			foreach ($selectedList as $list){
 				$log[$list]= $listes[$list]['title'];
 			}
-
 			$log = serialize($log);
 		}
-
 		$CampaignContact = Campaign::LogView($campaignId, $email, $request->getHttpHeader('User-Agent'), false, true, $raison, $changeContactStatus, $log);
 
 		//supprimer le lien entre le contact et les groupes de chaque liste
