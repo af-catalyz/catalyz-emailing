@@ -25,6 +25,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 
 		//enable clients
 		$this->enablePlugins('KreactivFormationPlugin');
+		$this->enablePlugins('newtechPlugin');
 
 
 
