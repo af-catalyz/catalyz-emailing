@@ -890,12 +890,12 @@ class Campaign extends BaseCampaign {
 
 		$tab = array();
 		$tab['enveloppe'] = $icon_false;
-		$tab['message'] = $icon_false;
+		$tab['message'] = $icon_true;
 		$tab['links'] = $icon_false;
 		$tab['googleAnalytics'] = $icon_false;
 		$tab['anti_spam'] = $icon_false;
 		$tab['controle'] = $icon_false;
-		$tab['destinataire'] = $icon_false;
+		$tab['destinataire'] = $icon_true;
 		$tab['returnErrors'] = $icon_false;
 		$tab['scheduling'] = $icon_false;
 

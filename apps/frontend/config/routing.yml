@@ -52,12 +52,8 @@ catalyz-ajax-create-thumbnail-path:
   param: { module: wizard, action: createThumbnailPath }
 
 # default rules
-homepage2:
-  url:   /
-  param: { module: homepage, action: routeToIndex }
-
 homepage:
-  url:   /home
+  url:   /
   param: { module: homepage, action: index }
 
 campaigns:
