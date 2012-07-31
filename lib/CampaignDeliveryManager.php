@@ -2,6 +2,7 @@
 
 class CampaignDeliveryManager {
     protected $Campaign;
+		protected $hasBeenPrepared = false;
 
     function __construct($Campaign)
     {
@@ -167,29 +168,22 @@ class CampaignDeliveryManager {
         return $this->replace($ressourceMap, $content);
     }
 
-    protected $hasBeenPrepared = false;
+
     public function prepareCampaignDelivery()
     {
-     //   if (!$this->hasBeenPrepared) {
+        if (!$this->hasBeenPrepared) {
             //region $content
             $content = $this->Campaign->getContent();
-            if (is_object($content)) {
-                $templateHandler = $this->Campaign->getCampaignTemplateHandler();
-                if ($templateHandler) {
-                    $rawContent = $content->getContents();
-                    // var_dump($rawContent);
-                    if (!is_array($rawContent)) {
-                        $rawContent = czWidgetFormWizard::asArray($rawContent);
-                        // var_dump($rawContent);
-                    }
 
-                    $this->Campaign->setContent(czWidgetFormWizard::asXml($rawContent));
-                    $content = $templateHandler->compute($rawContent);
-                } else {
-                    $content = $content->getContents();
-                    $this->Campaign->setContent($content);
-                }
+
+            $campaignTemplate = $this->Campaign->getCampaignTemplate();
+            $templateHandlerClassName = $campaignTemplate->getClassName();
+            if ($templateHandlerClassName) {
+            	$templateHandler = /*(KreactivNewsletter20110511CampaignTemplateHandler)*/new $templateHandlerClassName($this->Campaign);
+            	$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getContent());
+            	$content = (string) $templateHandler->compute($campaignContent);
             }
+
             $content = $this->mapLinks($content);
             $content = $this->mapRessources($content);
             $content = $this->embedStylesheets($content);
@@ -218,7 +212,7 @@ class CampaignDeliveryManager {
 
             $this->Campaign->save();
             $this->hasBeenPrepared = true;
-      //  }
+        }
         return true;
     }
 
