@@ -170,7 +170,7 @@ class CampaignDeliveryManager {
     protected $hasBeenPrepared = false;
     public function prepareCampaignDelivery()
     {
-        if (!$this->hasBeenPrepared) {
+     //   if (!$this->hasBeenPrepared) {
             //region $content
             $content = $this->Campaign->getContent();
             if (is_object($content)) {
@@ -218,7 +218,7 @@ class CampaignDeliveryManager {
 
             $this->Campaign->save();
             $this->hasBeenPrepared = true;
-        }
+      //  }
         return true;
     }
 
