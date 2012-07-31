@@ -808,4 +808,67 @@ class campaignActions extends sfActions
 
 		return sfView::SUCCESS;
 	}
+
+	public function executeLink($request)
+	{
+		sfConfig::set('sf_web_debug', false);
+
+		if (!preg_match('/^(.+)-([0-9]+)-([0-9]+)$/', $request->getParameter('key'), $tokens)) {
+			// compatibilite avec l'ancien format
+			if (!preg_match('/^(.+)-([0-9]+)$/', $request->getParameter('key'), $tokens)) {
+				throw new Exception('Invalid key format: ' . $request->getParameter('key'));
+			}
+			$email = $tokens[1];
+			$linkId = $tokens[2];
+			$position = 1;
+		} else {
+			$email = $tokens[1];
+			$linkId = $tokens[2];
+			$position = $tokens[3];
+		}
+
+		$this->forward404Unless($CampaignLink =/*(CampaignLink)*/ CampaignLinkPeer::retrieveByPk($linkId));
+
+		$CampaignContact =/*(CampaignContact)*/ Campaign::LogView($CampaignLink->getCampaignId(), $email, $request->getHttpHeader('User-Agent'), true);
+		if ($CampaignContact) {
+			$CampaignClick = new CampaignClick();
+			$CampaignClick->setCampaignLink($CampaignLink);
+			$CampaignClick->setCampaignContact($CampaignContact);
+			$CampaignClick->setPosition($position);
+			$CampaignClick->save();
+		}
+
+		$this->redirect($CampaignLink->getTrackedUrl());
+
+		$this->setLayout(false);
+		return sfView::NONE;
+	}
+
+	public function executeViewFromApi($request)
+	{
+		sfConfig::set('sf_web_debug', false);
+		$campaign =/*(Campaign)*/ CampaignPeer::retrieveByPK($request->getParameter('id'));
+		$this->forward404Unless($campaign);
+
+		$content = str_ireplace('#SUBJECT#', $campaign->getSubject(), $campaign->getPreparedContent());
+
+		$this->getResponse()->setContent($content);
+		$this->setLayout(false);
+		return sfView::NONE;
+	}
+
+	public function executePrint($request)
+	{
+		sfConfig::set('sf_web_debug', false);
+
+		list($email, $campaignId) = Campaign::extractKeyInformation($request->getParameter('key'));
+		$campaign =/*(Campaign)*/ CampaignPeer::retrieveByPK($campaignId);
+		$this->forward404Unless($campaign);
+
+		$content = $campaign->getCampaignDeliveryManager()->prepareContentForEmail($email, array(), true);
+		$content = preg_replace('|<body|', '<body onload="javascript:window.print();"', $content);
+		$this->getResponse()->setContent($content);
+		$this->setLayout(false);
+		return sfView::NONE;
+	}
 }

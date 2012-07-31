@@ -142,7 +142,8 @@ class CampaignDeliveryManager {
         $imgStoragePath = $this->getImageStoragePath(true);
         // $imgStoragePrefix = CatalyzEmailing::getApplicationUrl() . '/images/t/#SPY_KEY#' . $this->getImageStoragePath(false);
         $imgStoragePrefix = CatalyzEmailing::getApplicationUrl() ./*'/images/t/#SPY_KEY#' . */ $this->getImageStoragePath(false);
-        if (!file_exists($imgStoragePath)) {
+
+				if (!file_exists($imgStoragePath)) {
             mkdir($imgStoragePath, 0777, true);
         }
         if (!is_writable($imgStoragePath)) {
@@ -174,7 +175,6 @@ class CampaignDeliveryManager {
         if (!$this->hasBeenPrepared) {
             //region $content
             $content = $this->Campaign->getContent();
-
 
             $campaignTemplate = $this->Campaign->getCampaignTemplate();
             $templateHandlerClassName = $campaignTemplate->getClassName();
@@ -282,18 +282,21 @@ class CampaignDeliveryManager {
     public function prepareContentForEmail($email, $additionalMacros = array(), $onlineView = false)
     {
         $additionalMacros['#SUBJECT#'] = $this->prepareSubjectForEmail($email, $additionalMacros);
-
-	    	$campaignTemplate = $this->Campaign->getCampaignTemplate();
-	    	$templateHandlerClassName = $campaignTemplate->getClassName();
-	    	if ($templateHandlerClassName) {
-	    		$templateHandler = /*(KreactivNewsletter20110511CampaignTemplateHandler)*/new $templateHandlerClassName($this->Campaign);
-	    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
-	    		$content = (string) $templateHandler->compute($campaignContent);
-	    	}else{
+//
+//
+//
+//	    	$campaignTemplate = $this->Campaign->getCampaignTemplate();
+//	    	$templateHandlerClassName = $campaignTemplate->getClassName();
+//	    	if ($templateHandlerClassName) {
+//
+//
+//
+//	    		$templateHandler = /*(KreactivNewsletter20110511CampaignTemplateHandler)*/new $templateHandlerClassName($this->Campaign);
+//	    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
+//	    		$content = (string) $templateHandler->compute($campaignContent);
+//	    	}else{
 	    		$content = $this->Campaign->getPreparedContent();
-	    	}
-
-
+//	    	}
 
         // if ($onlineView) {
         // $content = preg_replace('|<p.+"#VIEW_ONLINE#".+</p>|im', '', $content) ;
@@ -310,15 +313,15 @@ class CampaignDeliveryManager {
     {
         $additionalMacros['#SUBJECT#'] = $this->prepareSubjectForEmail($email, $additionalMacros);
 
-	    	$campaignTemplate = $this->Campaign->getCampaignTemplate();
-	    	$templateHandlerClassName = $campaignTemplate->getClassName();
-	    	if ($templateHandlerClassName) {
-	    		$templateHandler = new $templateHandlerClassName($this->Campaign);
-	    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
-	    		$content = (string) $templateHandler->computeTextVersion($campaignContent);
-	    	}else{
+//	    	$campaignTemplate = $this->Campaign->getCampaignTemplate();
+//	    	$templateHandlerClassName = $campaignTemplate->getClassName();
+//	    	if ($templateHandlerClassName) {
+//	    		$templateHandler = new $templateHandlerClassName($this->Campaign);
+//	    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
+//	    		$content = (string) $templateHandler->computeTextVersion($campaignContent);
+//	    	}else{
 	    		$content = $this->Campaign->getPreparedTextContent();
-	    	}
+//	    	}
 
         $result = $this->replaceMacrosForEmail($content, $email, $additionalMacros);
 
@@ -393,7 +396,7 @@ class CampaignDeliveryManager {
     	catch (Exception $e) {
     		echo $e->getMessage();
     		$result['failed'] = $emails;
-    	}
+	   	}
 
     	return $result;
     }
