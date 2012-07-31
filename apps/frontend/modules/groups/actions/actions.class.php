@@ -93,6 +93,12 @@ class groupsActions extends sfActions
 
 		$message = sprintf('<h4 class="alert-heading">Groupe supprimé</h4><p>Le groupe "%s" a été supprimé.</p>',$contact_group->getName());
 		$this->getUser()->setFlash('notice_success', $message);
+
+
+		//$c = new Criteria();
+//		$c->add(ContactContactGroupPeer::CONTACT_GROUP_ID, $contact_group->getId());
+//		$liaisons = ContactContactGroupPeer::doSelect($c);
+
 		$contact_group->delete();
 
 		$this->redirect('@groups');

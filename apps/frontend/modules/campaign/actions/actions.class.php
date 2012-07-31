@@ -357,7 +357,9 @@ class campaignActions extends sfActions
 			} else {
 				$this->form->bind($request->getParameter('campaign'));
 				if ($this->form->isValid()) {
-					$values = $request->getParameter('campaign');
+					//$values = $request->getParameter('campaign');
+
+					$this->campaign->updateStatus();
 					$this->form->save();
 
 					$message = sprintf('<h4 class="alert-heading">Campagne sauvegardée</h4><p>La configuration de la campagne a été sauvegardée.</p>');
@@ -531,7 +533,6 @@ class campaignActions extends sfActions
 
 
 		$POST_campaign = $request->getPostParameter('campaign');
-
 		$campaign =/*(Campaign)*/ CampaignPeer::retrieveByPK($POST_campaign['id']);
 
 		if (!empty($POST_campaign['content'])) {
@@ -540,6 +541,17 @@ class campaignActions extends sfActions
 			}else{
 				$campaign->setContent($POST_campaign['content']);
 			}
+		}
+
+		if (!empty($POST_campaign['subject'])) {
+			$campaign->setSubject($POST_campaign['subject']);
+		}
+
+		if (!empty($POST_campaign['from_email'])) {
+			$campaign->setFromEmail($POST_campaign['from_email']);
+		}
+		if (!empty($POST_campaign['from_name'])) {
+			$campaign->setFromName($POST_campaign['from_name']);
 		}
 
 		switch ($POST_campaign['test_type']) {
@@ -785,6 +797,8 @@ class campaignActions extends sfActions
 			$newCampaign->setProviderSettings('CampaignOpen', $originalCampaign->getId());
 		}
 		$newCampaign->save();
+
+
 
 		$message = sprintf('<h4 class="alert-heading">Campagne dupliquée</h4><p>La campagne a été créée en reprenant toutes les informations de la campagne "%s", vous pouvez désormais la configurer.</p>',
 				$originalCampaign->getName()

@@ -129,10 +129,10 @@ $customFields = CatalyzEmailing::getCustomFields();
 
 
 			$allfields = array();
-			$allfields['firstName'] = ContactPeer::getFieldLabel('FIRST_NAME');
-			$allfields['lastName'] = ContactPeer::getFieldLabel('LAST_NAME');
-			$allfields['company'] = ContactPeer::getFieldLabel('COMPANY');
-			$allfields['email'] = ContactPeer::getFieldLabel('EMAIL');
+			$allfields['FIRST_NAME'] = ContactPeer::getFieldLabel('FIRST_NAME');
+			$allfields['LAST_NAME'] = ContactPeer::getFieldLabel('LAST_NAME');
+			$allfields['COMPANY'] = ContactPeer::getFieldLabel('COMPANY');
+			$allfields['EMAIL'] = ContactPeer::getFieldLabel('EMAIL');
 
 			if (!empty($customFields)) {
 				$allfields = array_merge($allfields, $customFields);

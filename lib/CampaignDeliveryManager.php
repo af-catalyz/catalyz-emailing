@@ -1,7 +1,7 @@
 <?php
 
 class CampaignDeliveryManager {
-    protected /*(Campaign)*/$Campaign;
+    protected $Campaign;
 
     function __construct($Campaign)
     {
@@ -258,7 +258,7 @@ class CampaignDeliveryManager {
      */
     public function getViewOnlineLink($email)
     {
-        return $this->getUrl('@view-online?key=' . $this->getUserKey($email));
+				return $this->getUrl('@view-online?key=' . $this->getUserKey($email));
     }
 
     public function getPrintLink($email)
@@ -294,10 +294,11 @@ class CampaignDeliveryManager {
 	    	if ($templateHandlerClassName) {
 	    		$templateHandler = /*(KreactivNewsletter20110511CampaignTemplateHandler)*/new $templateHandlerClassName($this->Campaign);
 	    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
-					$content = (string) $templateHandler->computeTextVersion($campaignContent);
+	    		$content = (string) $templateHandler->compute($campaignContent);
 	    	}else{
 	    		$content = $this->Campaign->getPreparedContent();
 	    	}
+
 
 
         // if ($onlineView) {
@@ -315,16 +316,15 @@ class CampaignDeliveryManager {
     {
         $additionalMacros['#SUBJECT#'] = $this->prepareSubjectForEmail($email, $additionalMacros);
 
-    	$campaignTemplate = $this->Campaign->getCampaignTemplate();
-    	$templateHandlerClassName = $campaignTemplate->getClassName();
-    	if ($templateHandlerClassName) {
-    		$templateHandler = new $templateHandlerClassName($this->Campaign);
-    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
-    		$content = (string) $templateHandler->computeTextVersion($campaignContent);
-    	}else{
-    		$content = $this->Campaign->getPreparedTextContent();
-    	}
-
+	    	$campaignTemplate = $this->Campaign->getCampaignTemplate();
+	    	$templateHandlerClassName = $campaignTemplate->getClassName();
+	    	if ($templateHandlerClassName) {
+	    		$templateHandler = new $templateHandlerClassName($this->Campaign);
+	    		$campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
+	    		$content = (string) $templateHandler->computeTextVersion($campaignContent);
+	    	}else{
+	    		$content = $this->Campaign->getPreparedTextContent();
+	    	}
 
         $result = $this->replaceMacrosForEmail($content, $email, $additionalMacros);
 
@@ -338,20 +338,19 @@ class CampaignDeliveryManager {
 
     public function sendTo($emails, $additionalMacros = array())
     {
-//    	die('CampaignDeliveryManager.php L322');
-        if (is_string($emails)) {
-            $emails = $this->extractEmails($emails);
-        }
+    	if (is_string($emails)) {
+    		$emails = $this->extractEmails($emails);
+    	}
 
-        if (count($additionalMacros) == 0) {
-            $additionalMacros = array();
-            $additionalMacros['#FIRSTNAME#'] = htmlentities('<Prénom>', ENT_COMPAT, 'utf-8');
-            $additionalMacros['#LASTNAME#'] = htmlentities('<Nom>', ENT_COMPAT, 'utf-8');
-            $additionalMacros['#COMPANY#'] = htmlentities('<Société>', ENT_COMPAT, 'utf-8');
-            for($i = 1; $i <= sfConfig::get('app_fields_count'); $i++) {
-                $additionalMacros[sprintf('#CUSTOM%d#', $i)] = htmlentities(sprintf('<Champ personnalisé n°%d>', $i), ENT_COMPAT, 'utf-8');
-            }
-        }
+    	if (count($additionalMacros) == 0) {
+    		$additionalMacros = array();
+    		$additionalMacros['#FIRSTNAME#'] = htmlentities('<Prénom>', ENT_COMPAT, 'utf-8');
+    		$additionalMacros['#LASTNAME#'] = htmlentities('<Nom>', ENT_COMPAT, 'utf-8');
+    		$additionalMacros['#COMPANY#'] = htmlentities('<Société>', ENT_COMPAT, 'utf-8');
+    		for($i = 1; $i <= sfConfig::get('app_fields_count'); $i++) {
+    			$additionalMacros[sprintf('#CUSTOM%d#', $i)] = htmlentities(sprintf('<Champ personnalisé n°%d>', $i), ENT_COMPAT, 'utf-8');
+    		}
+    	}
 
     	$result = array('success' => array(), 'failed' => array());
 
@@ -360,49 +359,49 @@ class CampaignDeliveryManager {
     	$emailConfiguration['replyTo'] = $this->Campaign->getReplyToEmail()!=''?$this->Campaign->getReplyToEmail():sfConfig::get('app_mail_reply_email');
     	$emailConfiguration['returnPath'] = $this->Campaign->getReturnPathEmail()?$this->Campaign->getReturnPathEmail():$this->Campaign->getReturnPathLogin();
 
-        $this->prepareCampaignDelivery();
-        try {
-            foreach($emails as $k => $email) {
-                if (empty($email)) {
-                    unset($emails[$k]);
-                } else {
-                    $expectedCount = 1;
+    	$this->prepareCampaignDelivery();
+    	try {
+    		foreach($emails as $k => $email) {
+    			if (empty($email)) {
+    				unset($emails[$k]);
+    			} else {
+    				$expectedCount = 1;
 
-                		$messageObject = /*(Swift_Message)*/Swift_Message::newInstance();
-                		$messageObject->setFrom($emailConfiguration['from']);
-                		$messageObject->setReplyTo($emailConfiguration['replyTo']);
-                		$messageObject->setReturnPath($emailConfiguration['returnPath']);
-										$messageObject->setTo($email);
+    				$messageObject = /*(Swift_Message)*/Swift_Message::newInstance();
+    				$messageObject->setFrom($emailConfiguration['from']);
+    				$messageObject->setReplyTo($emailConfiguration['replyTo']);
+    				$messageObject->setReturnPath($emailConfiguration['returnPath']);
+    				$messageObject->setTo($email);
 
-										if (sfConfig::get('app_mail_bcc', false)) {
-                        $messageObject->addBcc(sfConfig::get('app_mail_bcc', false));
-                        $expectedCount++;
-                    }
+    				if (sfConfig::get('app_mail_bcc', false)) {
+    					$messageObject->addBcc(sfConfig::get('app_mail_bcc', false));
+    					$expectedCount++;
+    				}
 
-                    $messageObject->setSubject($this->prepareSubjectForEmail($email, $additionalMacros));
-										$messageObject->setBody($this->prepareContentForEmail($email, $additionalMacros), 'text/html', '8bit', 'UTF-8') ;
-                		$messageObject->addPart($this->prepareContentTextForEmail($email, $additionalMacros), 'text/plain', '8bit', 'UTF-8');
+    				$messageObject->setSubject($this->prepareSubjectForEmail($email, $additionalMacros));
+    				$messageObject->setBody($this->prepareContentForEmail($email, $additionalMacros), 'text/html', '8bit', 'UTF-8') ;
+    				$messageObject->addPart($this->prepareContentTextForEmail($email, $additionalMacros), 'text/plain', '8bit', 'UTF-8');
 
-                    $messageObject->getHeaders()->addTextHeader('X-Catalyz-Email', $email);
-                    $messageObject->getHeaders()->addTextHeader('X-Catalyz-Campaign', $this->Campaign->getId());
-                    $messageObject->getHeaders()->addTextHeader('List-Unsubscribe', sprintf('<%s>', $this->getUnsubscribeLink($email)));
+    				$messageObject->getHeaders()->addTextHeader('X-Catalyz-Email', $email);
+    				$messageObject->getHeaders()->addTextHeader('X-Catalyz-Campaign', $this->Campaign->getId());
+    				$messageObject->getHeaders()->addTextHeader('List-Unsubscribe', sprintf('<%s>', $this->getUnsubscribeLink($email)));
 
-                	  $sent = sfContext::getInstance()->getMailer()->send($messageObject, $result['failed']);
+    				$sent = sfContext::getInstance()->getMailer()->send($messageObject, $result['failed']);
 
-                    if ($sent == $expectedCount) {
-                        $result['success'][] = $email;
-                    }
-                }
-            }
-          //  $mailer->disconnect();
-            //$result['failed'] = Swift_LogContainer::getLog()->getFailedRecipients();
-        }
-        catch (Exception $e) {
-            echo $e->getMessage();
-            $result['failed'] = $emails;
-        }
+    				if ($sent == $expectedCount) {
+    					$result['success'][] = $email;
+    				}
+    			}
+    		}
+    		//  $mailer->disconnect();
+    		//$result['failed'] = Swift_LogContainer::getLog()->getFailedRecipients();
+    	}
+    	catch (Exception $e) {
+    		echo $e->getMessage();
+    		$result['failed'] = $emails;
+    	}
 
-        return $result;
+    	return $result;
     }
 
     function getMailerConnection()

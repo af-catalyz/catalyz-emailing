@@ -37,6 +37,7 @@ url_for('groups/create'), __('Ajouter un groupe'));
 					printf('<tr%s>', $state=='archived'?' class="archived_elements"':'');
 					printf('<td>%s&nbsp;%s</td>', $state=='archived'?$contact_group->getName():html_entity_decode($contact_group->getColoredName()), html_entity_decode($contact_group->getCommentPopup()));
 					echo '<td align="center">';
+					$activeContactCount = 0;
 					if (!empty($groupsContactsDetails[$contact_group->getId()])) {
 						$activeContactCount = $groupsContactsDetails[$contact_group->getId()]['valid'];
 					}
@@ -48,6 +49,7 @@ url_for('groups/create'), __('Ajouter un groupe'));
 					}
 					echo '</td>';
 					echo '<td align="center">';
+					$contactCount = 0;
 					if (!empty($groupsContactsDetails[$contact_group->getId()])) {
 						$contactCount = $groupsContactsDetails[$contact_group->getId()]['all'];
 					}
