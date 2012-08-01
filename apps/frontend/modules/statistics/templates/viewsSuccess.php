@@ -11,6 +11,14 @@ viewsSuccess.php
 
     	<div class="tab-pane active" id="1">
 
+    		<?php
+
+				if ($pager->getNbResults() == 0):
+					printf('<p>Aucun contact n\'a ouvert cette campagne.</p>');
+				else:
+
+				 ?>
+
 				<p>La liste ci-dessous présente l'ensemble des contacts ayant ouvert votre campagne. Seul les premières ouverture sont comptabilisées.</p>
 
 				<p>Les contacts <?php echo $pager->getFirstIndice() ?> à <?php echo $pager->getLastIndice() ?> (sur <?php echo shortNumberFormat($pager->getNbResults()) ?> au total) sont affichés ci-dessous.</p>
@@ -65,6 +73,7 @@ foreach ($pager->getLinks() as $page){
 
 
 
+					<?php endif ?>
 					<?php endif ?>
 			</div>
     </div>

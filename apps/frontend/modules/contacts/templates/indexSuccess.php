@@ -32,7 +32,9 @@
 				'menu' => $menu,
 				'pager' => $pager,
 				'ContactsGroupListOverview' => $ContactsGroupListOverview,
-				'limit' => $limit
+				'limit' => $limit,
+				'sort' => $sort,
+				'column' => $column
 				)) ?>
 			</div>
 

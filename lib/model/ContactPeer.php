@@ -69,6 +69,7 @@ class ContactPeer extends BaseContactPeer {
 
 	static function getContactsGroupList()
 	{
+		$return =array();
 		$criteria = new Criteria();
 		$criteria->addJoin(ContactGroupPeer::ID, ContactContactGroupPeer::CONTACT_GROUP_ID);
 		$criteria->add(ContactGroupPeer::IS_ARCHIVED, false);

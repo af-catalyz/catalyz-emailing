@@ -32,7 +32,7 @@
     </div>
    </div>
 
-    <div class="row">
+    <!--div class="row">
 
 	    <div class="well span3">
 	    	<h3>Boite dynamique 1</h3>
@@ -50,7 +50,7 @@
 	    	<p>Nouveauté produit</p>
 	    </div>
 
-    </div>
+    </div-->
 
 
 	</div> <!-- /container -->

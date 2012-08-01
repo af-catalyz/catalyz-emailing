@@ -104,6 +104,7 @@ class ContactForm extends BaseContactForm
 
 	public function formatChoices($widget, $choices)
 	{
+		$result = '';
 		foreach($choices as $choice) {
 			$result .= sprintf('<label class="checkbox">%s</label>', str_replace('#INPUT#', $choice['input'], html_entity_decode($choice['label'])));
 		}

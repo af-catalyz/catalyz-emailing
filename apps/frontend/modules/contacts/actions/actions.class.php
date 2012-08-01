@@ -530,7 +530,7 @@ class contactsActions extends sfActions
 				$this->ok_message = sprintf('<h4 class="alert-heading">Importation terminée.</h4><p>%1$s</p>',$importer->getStatusMessage());
 			}
 
-			$this->getUser()->setFlash('notice_error', $message);
+
 
 			//$importer->rollback();
 		}
