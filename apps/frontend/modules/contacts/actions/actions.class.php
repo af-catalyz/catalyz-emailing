@@ -413,7 +413,9 @@ class contactsActions extends sfActions
 					'menu' => $menu,
 					'pager' => $pager,
 					'ContactsGroupListOverview' => ContactPeer::getContactsGroupList(),
-					'limit' => $limit
+					'limit' => $limit,
+					'sort' => $this->sort,
+					'column' => $this->column
 					));
 	}
 

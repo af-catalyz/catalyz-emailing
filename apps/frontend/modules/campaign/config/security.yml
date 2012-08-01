@@ -1,0 +1,17 @@
+unsubscribe:
+  is_secure: false
+
+unsubscribeStep:
+  is_secure: false
+
+viewFromApi:
+  is_secure: false
+
+view:
+  is_secure: false
+
+print:
+  is_secure: false
+
+link:
+  is_secure: false

@@ -153,7 +153,20 @@ class Contact extends BaseContact {
 				return $field;
 		} // switch
 	}
+
+
+	public function getSlugPattern()
+	{
+		if ($this->getLastName() == '') {
+			return $this->getEmail();
+		}
+
+
+			return $this->getLastName();
+	}
+
+
 } // Contact
 
-$columns_map = array('from'   => ContactPeer::LAST_NAME,'to'     => ContactPeer::SLUG);
+$columns_map = array('from'   => 'slugPattern','to'     => ContactPeer::SLUG);
 sfPropelBehavior::add('Contact', array('sfPropelActAsSluggableBehavior' => array('columns' => $columns_map)));
