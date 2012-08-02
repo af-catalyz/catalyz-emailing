@@ -25,7 +25,7 @@
 					<th>Contact</th>
 					<th class="span2">Date d'envoi</th>
 					<th class="span2">Date d'ouverture</th>
-					<th class="span2">Clicks</th>
+					<th class="span2">clics</th>
 				</tr>
 				<?php foreach($pager->getResults() as /*(CampaignContact)*/$contact):
 $contactObject = /*(Contact)*/$contact->getContact();

@@ -91,12 +91,12 @@
 			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux d\'ouverture  <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb ouvertures / Nb total envois réussis."><i class="icon-question-sign"></i></a></center></div>', $taux_ouverture);
 			//endregion
 
-			//region taux de clicks
-			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux de clics  <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clicks / Nb total envois réussis."><i class="icon-question-sign"></i></a></center></div>',$taux_clicks);
+			//region taux de clics
+			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux de clics  <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clics / Nb total envois réussis."><i class="icon-question-sign"></i></a></center></div>',$taux_clicks);
 			//endregion
 
 			//region taux de réactivité
-			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux de réactivité <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clicks / Nb ouvertures."><i class="icon-question-sign"></i></a></center></div>', $reactivite);
+			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux de réactivité <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clics / Nb ouvertures."><i class="icon-question-sign"></i></a></center></div>', $reactivite);
 			//endregion
 
 			echo '<div class="clear"></div>';

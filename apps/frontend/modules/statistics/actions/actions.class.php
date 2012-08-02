@@ -110,7 +110,7 @@ class statisticsActions extends sfActions
 		}
 
 
-		$title = sprintf('%s - Statistiques / Clicks %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
+		$title = sprintf('%s - Statistiques / Clics %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
 
 

@@ -25,7 +25,9 @@ foreach($links as $url => $details): ?>
 		<tr>
 			<td><a href="<?php echo $url ?>" target="_blank"><?php echo $details['label']!=NULL?$details['label']:$url ?></a></td>
 			<td><?php echo shortNumberFormat($details['count']) ?></td>
-			<td><?php echo link_to('details',sprintf('@campaign_statistics_show_clicks?id=%s',$details['id'] ), array('class' => 'btn btn-mini')) ?></td>
+			<td>
+				<?php printf('<div class="declenche-click-modal"><a class="btn btn-mini" data-toggle="modal" href="%s">%s</a></div>', url_for(sprintf('@campaign_statistics_show_clicks?id=%s',$details['id'])) , __('details')); ?>
+			</td>
 		</tr>
 		<?php endforeach; ?>
 		</table>
@@ -39,14 +41,44 @@ foreach($links as $url => $details): ?>
     </div>
 </div>
 
+<?php
+	//region clics modal
+	printf('<div class="modal fade" id="clickModal" style="display: none"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"></div><div class="modal-footer"><a href="#" class="btn btn-primary close_tag">%s</a></div></div>', __('Détail des clics'), __('Fermer'));
+	//endregion
+?>
+
 <script type="text/javascript">
 /* <![CDATA[ */
 
+$(document).ready(function() {
+	$('div.declenche-click-modal').on('click','a',function(){
+		var url = $(this).attr('href');
+
+		$('#clickModal .modal-body').load(url,function(){
+			$(this).modal({
+				keyboard:true,
+				backdrop:true
+			});
+		});
+
+		$('#clickModal').modal('show');
+		return false;
+	});
+
+
+	$('.modal-footer a.close_tag, .modal-header a').live('click',function(){
+		$('.modal').modal('hide');
+		$('.modal-backdrop').hide();
+		return false;
+	});
+
+});
+
 $(window).load(function(){
-	// plus 24, valeur arbitraire pour tenir compte des marges autour du document
-	height = $("#iframe").contents().find("body").outerHeight() + 24;
+	// plus 40, valeur arbitraire pour tenir compte des marges autour du document
+	height = $("#iframe").contents().find("body").outerHeight() + 40;
 	$("iframe").css("height", height);
-	$("#iframe_holder").css("height", height + 24);
+	$("#iframe_holder").css("height", height + 40);
 });
 
 /* ]]> */

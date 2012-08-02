@@ -8,8 +8,8 @@
 	?>
 
 <form  class="form-horizontal" action="<?php echo url_for('@campaign_edit_links?slug='.$campaign->getSlug()) ?>" method="post" >
-	<p>Vous pouvez donner un nom plus familier à chacun des liens présent dans votre campagne qui seront utilisés dans l'interface de suivi des clicks et dans Google Analytics.</p>
-	<p class="hint">Si vous laissez le champ vide, l'URL sera utilisée dans l'interface de suivi des clicks et ce lien ne sera pas suivi dans Google Analytics.</p>
+	<p>Vous pouvez donner un nom plus familier à chacun des liens présent dans votre campagne qui seront utilisés dans l'interface de suivi des clics et dans Google Analytics.</p>
+	<p class="hint">Si vous laissez le champ vide, l'URL sera utilisée dans l'interface de suivi des clics et ce lien ne sera pas suivi dans Google Analytics.</p>
 
 	 <table class="table table-striped">
 		<tr>

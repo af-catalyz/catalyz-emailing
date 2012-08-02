@@ -398,6 +398,7 @@ class Campaign extends BaseCampaign {
 		$connection = Propel::getConnection();
 		$statement = $connection->prepare($sql);
 		$statement->execute();
+		$result = array();
 
 		while($rs = $statement->fetch(PDO::FETCH_NUM)){
 			if ($displayId) {
@@ -873,7 +874,7 @@ class Campaign extends BaseCampaign {
 			data: [ %s]
 
 		}, {
-			name: "Clicks",
+			name: "Clics",
 			data: [ %s]
 		}]
 		});

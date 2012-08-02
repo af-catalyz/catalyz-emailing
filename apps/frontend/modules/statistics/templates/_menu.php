@@ -6,7 +6,7 @@
 	    printf('<li%s><a href="%s">Vue d\'ensemble</a></li>', $sf_context->getActionName() == 'index'?' class="active"':'',url_for('@campaign_statistics_summary?slug='.$campaign->getSlug()));
 	    printf('<li%s><a href="%s">Cibles</a></li>', $sf_context->getActionName() == 'targets'?' class="active"':'', url_for('@campaign_statistics_targets?slug='.$campaign->getSlug()));
 	    printf('<li%s><a href="%s">Ouvertures</a></li>', $sf_context->getActionName() == 'views'?' class="active"':'', url_for('@campaign_statistics_views?slug='.$campaign->getSlug()));
-	    printf('<li%s><a href="%s">Clicks</a></li>', $sf_context->getActionName() == 'showLinks'?' class="active"':'', url_for('@campaign_statistics_show_links?slug='.$campaign->getSlug()));
+	    printf('<li%s><a href="%s">Clics</a></li>', $sf_context->getActionName() == 'showLinks'?' class="active"':'', url_for('@campaign_statistics_show_links?slug='.$campaign->getSlug()));
 	    printf('<li%s><a href="%s">D&eacute;sinscriptions</a></li>', $sf_context->getActionName() == 'unsubscribe'?' class="active"':'', url_for('@campaign_statistics_unsubscribe?slug='.$campaign->getSlug()));
 	    printf('<li%s><a href="%s">Erreurs</a></li>', $sf_context->getActionName() == 'returnErrors'?' class="active"':'', url_for('@campaign_statistics_return_errors?slug='.$campaign->getSlug()));
 	    printf('<li%s><a href="%s">Configuration des destinataires</a></li>', $sf_context->getActionName() == 'showBrowser'?' class="active"':'', url_for('@campaign_statistics_show_browser?slug='.$campaign->getSlug()));

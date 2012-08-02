@@ -124,7 +124,7 @@
 </div>
 
 	<?php
-//region clicks modal
+//region clics modal
 printf('<div class="modal fade" id="detailsModal" style="display: none"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"></div><div class="modal-footer"><a href="#" class="btn btn-primary close_tag">%s</a></div></div>', __('Détails de l\'erreur'), __('Fermer'));
 //endregion
 

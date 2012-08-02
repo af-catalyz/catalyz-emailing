@@ -171,7 +171,7 @@ $customFields = CatalyzEmailing::getCustomFields();
 
 <?php
 //region clicks modal
-	printf('<div class="modal fade" id="clickModal" style="display: none"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"></div><div class="modal-footer"><a href="#" class="btn btn-primary close_tag">%s</a></div></div>', __('Détail des clicks'), __('Fermer'));
+	printf('<div class="modal fade" id="clickModal" style="display: none"><div class="modal-header"><a class="close" data-dismiss="modal">×</a><h3>%s</h3></div><div class="modal-body"></div><div class="modal-footer"><a href="#" class="btn btn-primary close_tag">%s</a></div></div>', __('Détail des clics'), __('Fermer'));
 //endregion
 
 ?>
