@@ -113,6 +113,8 @@ class campaignActions extends sfActions
 			$newCampaign->setIsArchived(false);
 			$newCampaign->save();
 
+			$newCampaign->getCampaignDeliveryManager()->prepareCampaignDelivery();
+
 			$message = sprintf('<h4 class="alert-heading">Campagne dupliquée</h4><p>La campagne a été créée en reprenant toutes les informations de la campagne "%s", vous pouvez désormais la configurer.</p>',
 				$originalCampaign->getName()
 			);

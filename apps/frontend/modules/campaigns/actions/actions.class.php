@@ -40,6 +40,9 @@ class campaignsActions extends sfActions
 			$files = $request->getFiles('campaign');
 
 			$campaign = $this->form->save();
+
+			$campaign->getCampaignDeliveryManager()->prepareCampaignDelivery();
+
 			$message = sprintf('<h4 class="alert-heading">Campagne crée</h4><p>La campagne "%s" a été crée, vous pouvez désormais la configurer.</p>',$campaign->getName());
 			sfContext::getInstance()->getUser()->setFlash('notice_success', $message);
 			$this->redirect('@campaign_index?slug='.$campaign->getSlug());
@@ -101,6 +104,7 @@ class campaignsActions extends sfActions
 
 					sfToolkit::clearDirectory($rapport['zipLocation']);
 					$campaign = /*(Campaign)*/$this->form->save();
+					$campaign->getCampaignDeliveryManager()->prepareCampaignDelivery();
 
 					$message = sprintf('<h4 class="alert-heading">Campagne crée</h4><p>La campagne "%s" a été crée, vous pouvez désormais la configurer.</p>',$campaign->getName());
 					sfContext::getInstance()->getUser()->setFlash('notice_success', $message);
@@ -139,6 +143,7 @@ class campaignsActions extends sfActions
 				$this->form->updateTemplateValue($ct->getId());
 
 				$campaign =/*(Campaign)*/ $this->form->save();
+				$campaign->getCampaignDeliveryManager()->prepareCampaignDelivery();
 
 				$message = sprintf('<h4 class="alert-heading">Campagne crée</h4><p>La campagne "%s" a été crée, vous pouvez désormais la configurer.</p>',$campaign->getName());
 				sfContext::getInstance()->getUser()->setFlash('notice_success', $message);

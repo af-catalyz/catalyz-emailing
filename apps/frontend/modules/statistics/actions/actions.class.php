@@ -30,8 +30,8 @@ class statisticsActions extends sfActions
 
 		$this->reactivite = $this->view_count != 0?($this->click_count * 100) / $this->view_count:0;
 
-		$this->taux_ouverture = $this->prepared_target_count != 0?($this->view_count * 100) / $this->prepared_target_count-$this->failed_count:0;
-		$this->taux_clicks = $this->prepared_target_count != 0?($this->click_count * 100) / $this->prepared_target_count-$this->failed_count:0;
+		$this->taux_ouverture = $this->prepared_target_count != 0?(($this->view_count * 100) / ($this->prepared_target_count-$this->failed_count)):0;
+		$this->taux_clicks = $this->prepared_target_count != 0?(($this->click_count * 100) / ($this->prepared_target_count-$this->failed_count)):0;
 
 		$this->unsubscribe_count = $this->campaign->getUnsubscribeCount();
 

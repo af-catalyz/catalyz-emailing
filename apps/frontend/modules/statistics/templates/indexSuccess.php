@@ -88,11 +88,11 @@
 			echo '<div class="clear"></div>';
 
 			//region taux d'ouverture
-			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux d\'ouverture  <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb ouvertures / Nb total envois."><i class="icon-question-sign"></i></a></center></div>', $taux_ouverture);
+			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux d\'ouverture  <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb ouvertures / Nb total envois réussis."><i class="icon-question-sign"></i></a></center></div>', $taux_ouverture);
 			//endregion
 
 			//region taux de clicks
-			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux de clics  <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clicks / Nb total envois."><i class="icon-question-sign"></i></a></center></div>',$taux_clicks);
+			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux de clics  <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clicks / Nb total envois réussis."><i class="icon-question-sign"></i></a></center></div>',$taux_clicks);
 			//endregion
 
 			//region taux de réactivité
