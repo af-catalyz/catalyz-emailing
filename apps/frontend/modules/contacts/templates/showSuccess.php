@@ -210,6 +210,7 @@ $(document).ready(function() {
 		});
 
 		$('#clickModal').modal('show');
+		return false;
 	});
 
 
@@ -238,6 +239,7 @@ $(document).ready(function() {
 
 		$('#campaign_short_url').empty().append(friendly_url);
 		$('#resendModal').modal('show');
+		return false;
 	});
 
 });

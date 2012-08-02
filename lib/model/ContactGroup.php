@@ -35,7 +35,7 @@ class ContactGroup extends BaseContactGroup {
 
 	public function getCommentPopup(){
 		if (trim($this->getLegend()) != '') {
-			return sprintf('<a rel="tooltip-campaign-comment" href="#" data-original-title="%s"><i class="icon-question-sign"></i></a>', nl2br($this->getLegend()));
+			return sprintf('<a rel="tooltip-campaign-comment" href="#" data-original-title="%s"><i class="icon-question-sign"></i></a>', str_ireplace('"', '&quot;', nl2br($this->getLegend())));
 		}
 
 		return FALSE;

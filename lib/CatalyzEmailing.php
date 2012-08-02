@@ -111,13 +111,13 @@ class CatalyzEmailing {
 
 
 
-								<a class="add_popover" rel="popover" style="position:absolute;" href="%s" target="_blank" data-content="<b>Nombre de clics :</b><br /><b>sur ce lien : </b>%d /%d (%d%%)<br />" data-original-title="%s">
+								<a class="add_popover" rel="popover" style="position:absolute;margin : 0; padding: 0; line-height:15px;" href="%s" target="_blank" data-content="<b>Nombre de clics :</b><br /><b>sur ce lien : </b>%d /%d (%d%%)<br />" data-original-title="%s">
 										<span style="z-index:10;position:absolute;bottom:-35px;left:0;height:15px;width:50px;border:1px solid blue;background: white;">
 
 										<span style="z-index:10;position:relative;height:15px;width:50px;float:left;">
 												<span style="z-index:10;position:absolute;left:0;height:15px;width:
 												%dpx;background: red;">&nbsp;</span>
-												<span style="z-index:10;position:absolute;top: 7px;left:0;height:10px;width:20px;font-size: 10px">
+												<span style="z-index:10;position:absolute;top: 1px;left:0;height:15px;width:20px;font-size: 10px;color: #000000">
 												%d%%</span>
 										</span>
 									</span>
@@ -133,7 +133,7 @@ class CatalyzEmailing {
 										<span style="z-index:10;position:relative;height:15px;width:50px;float:left;">
 												<span style="z-index:10;position:absolute;left:0;height:15px;width:
 												%dpx;background: red;">&nbsp;</span>
-												<span style="z-index:10;position:absolute;top: 7px;left:0;height:10px;width:20px;font-size: 10px">
+												<span style="z-index:10;position:absolute;top: 1px;left:0;height:15px;width:20px;font-size: 10px;color: #000000">
 												%d%%</span>
 										</span>
 									</span>

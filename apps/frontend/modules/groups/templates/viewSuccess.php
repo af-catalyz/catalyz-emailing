@@ -1,4 +1,6 @@
-<?php printf('<div class="page-header"><h1>%s%s</h1></div>', $ContactGroup->getName(), html_entity_decode($ContactGroup->getCommentPopup())) ?>
+<?php
+$ContactGroup = $ContactGroup->getRawValue();
+printf('<div class="page-header"><h1>%s%s</h1></div>', $ContactGroup->getName(), $ContactGroup->getCommentPopup()) ?>
 
 
 

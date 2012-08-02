@@ -361,8 +361,10 @@ class campaignActions extends sfActions
 				if ($this->form->isValid()) {
 					//$values = $request->getParameter('campaign');
 
-					$this->campaign->updateStatus();
+
 					$this->form->save();
+					$this->campaign->updateStatus();
+					$this->campaign->save();
 
 					$message = sprintf('<h4 class="alert-heading">Campagne sauvegardée</h4><p>La configuration de la campagne a été sauvegardée.</p>');
 					$this->getUser()->setFlash('notice_success', $message);

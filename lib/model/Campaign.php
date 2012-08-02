@@ -74,7 +74,7 @@ class Campaign extends BaseCampaign {
 
 	public function getCommentPopup(){
 		if (trim($this->getcommentaire()) != '') {
-			return sprintf('<a rel="tooltip-campaign-comment" href="#" data-original-title="%s"><i class="icon-question-sign"></i></a>', nl2br($this->getcommentaire()));
+			return sprintf('<a rel="tooltip-campaign-comment" href="#" data-original-title="%s"><i class="icon-question-sign"></i></a>', str_ireplace('"', '&quot;', nl2br($this->getcommentaire())));
 		}
 
 		return FALSE;
@@ -688,17 +688,17 @@ class Campaign extends BaseCampaign {
 		$CampaignContact =/*(CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
 		if ($CampaignContact) {
 			// Keep only first view
-			if (0 == $CampaignContact->getViewAt(null)) {
+			if (0 == $CampaignContact->getViewAt('U')) {
 				$CampaignContact->setViewAt(time());
 				$CampaignContact->setViewUserAgent($UserAgent);
 			}
 			// Keep only first click
-			if ($logClick && (0 == $CampaignContact->getClickedAt(null))) {
+			if ($logClick && (0 == $CampaignContact->getClickedAt('U'))) {
 				$CampaignContact->setClickedAt(time());
 			}
 			if ($logUnsubscribe) {
 
-				if (0 == $CampaignContact->getUnsubscribedAt(null)) {
+				if (0 == $CampaignContact->getUnsubscribedAt('U')) {
 					$CampaignContact->setUnsubscribedAt(time());
 				}
 				$CampaignContact->setRaison($raison);

@@ -14,7 +14,7 @@ if ($campaign->getCampaignTemplate()->getPreviewFilename() && is_file(sfConfig::
 }
 
 printf('<img src="%s" alt="" class="pull-left" style="margin-right: 10px;" />', $picture_src);
-printf('<h1>%s%s</h1>', $campaign->getName(), html_entity_decode($campaign->getCommentPopup()));
+printf('<h1>%s%s</h1>', $campaign->getName(), $campaign->getCommentPopup());
 
 printf('<h3><small>Cr&eacute;&eacute; %s le %s%s</small></h3>',
 	$campaign->getsfGuardUserProfile()?sprintf('par %s',$campaign->getsfGuardUserProfile()->getFullName()):'',

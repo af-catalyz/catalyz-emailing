@@ -1,8 +1,3 @@
-<?php
-
-viewsSuccess.php
-
-?>
 <?php include_partial('statistics/header', array('campaign' => $campaign)); ?>
 <div class="tabbable">
 <?php include_partial('statistics/menu', array('campaign' => $campaign)); ?>
