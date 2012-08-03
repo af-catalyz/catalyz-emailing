@@ -189,6 +189,9 @@ class ContactPeer extends BaseContactPeer {
 	{
 		$User = /*(sfUser)*/sfContext::getInstance()->getUser();
 
+		$campaignIdBounced = null;
+		$campaignIdUnsubscribed = null;
+
 		if (isset($status['campaignIdBounced'])) {
 			if ($status['campaignIdBounced'] != 'null') {
 				$campaignIdBounced = $status['campaignIdBounced'];

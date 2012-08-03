@@ -75,10 +75,16 @@ class campaignActions extends sfActions
 
 	public function executeDelete($request)
 	{
-		$this->forward404Unless($campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
-		$message = sprintf('<h4 class="alert-heading">Campagne supprimée</h4><p>La campagne "%s" a été supprimée.</p>',$campaign->getName());
-		$this->getUser()->setFlash('notice_success', $message);
-		$campaign->delete();
+		$this->forward404Unless($campaign = /*(Campaign)*/CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		if ($campaign->getStatus() == Campaign::STATUS_COMPLETED) {
+			$message = sprintf('<h4 class="alert-heading">Une erreur est survenue</h4><p>Impossible de supprimer la campagne "%s". On ne peut pas supprimer des campagnes qui ont été envoyées</p>',$campaign->getName());
+			$this->getUser()->setFlash('notice_error', $message);
+		}else{
+			$message = sprintf('<h4 class="alert-heading">Campagne supprimée</h4><p>La campagne "%s" a été supprimée.</p>',$campaign->getName());
+			$this->getUser()->setFlash('notice_success', $message);
+			$campaign->delete();
+		}
 
 		$this->redirect('@campaigns');
 	}

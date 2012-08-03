@@ -22,7 +22,9 @@ class feesActions extends sfActions
   	$this->dates = array();
   	// faire un tableau $datas[annee][campagne][mois]=count;
   	//region $campaigns
-  	$campaigns = CampaignPeer::doSelect(new Criteria());
+  	$criteria = new Criteria();
+  	$criteria->add(CampaignPeer::STATUS, campaign::STATUS_COMPLETED);
+  	$campaigns = CampaignPeer::doSelect($criteria);
   	$temp = array();
   	foreach ($campaigns as $campaign) {
   		$temp[$campaign->getId()] = array('Name' => $campaign->getName(), 'Id' => $campaign->getId(),'Slug' => $campaign->getSlug());
@@ -34,6 +36,7 @@ class feesActions extends sfActions
   	//region $datas
   	$criteria = new Criteria();
   	$criteria->add(CampaignContactPeer::SENT_AT, null, Criteria::NOT_EQUAL);
+  	$criteria->add(CampaignContactPeer::CAMPAIGN_ID, array_keys($campaigns), Criteria::IN);
   	$criteria->addJoin(CampaignContactPeer::CAMPAIGN_ID, CampaignPeer::ID, Criteria::LEFT_JOIN);
   	$elements = CampaignContactPeer::doSelect($criteria);
 
@@ -42,21 +45,17 @@ class feesActions extends sfActions
   		$dates = array();
   		foreach ($elements as/*(CampaignContact)*/ $CampaignContact) {
 
-  			if (empty($return[date('Y', strtotime($CampaignContact->getSentAt()))])) {
-  				$return[date('Y', strtotime($CampaignContact->getSentAt()))] = array();
+  			if (empty($return[date('Y', $CampaignContact->getSentAt('U'))])) {
+  				$return[date('Y', $CampaignContact->getSentAt('U'))] = array();
   			}
 
-  			$dates[date('Y', strtotime($CampaignContact->getSentAt()))] = date('Y', strtotime($CampaignContact->getSentAt()));
+  			$dates[date('Y', $CampaignContact->getSentAt('U'))] = date('Y', $CampaignContact->getSentAt('U'));
 
-  			if (empty($return[date('Y', strtotime($CampaignContact->getSentAt()))][serialize($campaigns[$CampaignContact->getCampaignId()])])) {
-  				$return[date('Y', strtotime($CampaignContact->getSentAt()))][serialize($campaigns[$CampaignContact->getCampaignId()])] = array();
+  			if (empty($return[date('Y', $CampaignContact->getSentAt('U'))][serialize($campaigns[$CampaignContact->getCampaignId()])])) {
+  				$return[date('Y', $CampaignContact->getSentAt('U'))][serialize($campaigns[$CampaignContact->getCampaignId()])] = array_fill(1, 12, 0);
   			}
 
-  			if (empty($return[date('Y', strtotime($CampaignContact->getSentAt()))][serialize($campaigns[$CampaignContact->getCampaignId()])])) {
-  				$return[date('Y', strtotime($CampaignContact->getSentAt()))][serialize($campaigns[$CampaignContact->getCampaignId()])] = array_fill(1, 12, 0);
-  			}
-
-  			$return[date('Y', strtotime($CampaignContact->getSentAt()))][serialize($campaigns[$CampaignContact->getCampaignId()])][date('n', strtotime($CampaignContact->getSentAt()))]++;
+  			$return[date('Y', $CampaignContact->getSentAt('U'))][serialize($campaigns[$CampaignContact->getCampaignId()])][date('n', $CampaignContact->getSentAt('U'))]++;
   		}
 
   		krsort($return);

@@ -17,11 +17,11 @@ if (count($campaigns)>0) {
         printf('<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">Action<span class="caret"></span></a><ul class="dropdown-menu"><li>
 <a href="%s">Restaurer</a></li>
 <li><a href="%s">Dupliquer</a></li>
-<li>%s</li>
+%s
 </ul>',
 url_for('@campaign_do_unarchive?slug='.$campaign->getSlug()),
 url_for('@campaign_do_copy?slug='.$campaign->getSlug()),
-link_to('Supprimer', '@campaign_do_delete?slug='.$campaign->getSlug(), array('post' => true, 'confirm' => sprintf('Vous êtes sur le point de supprimer la campagne "%s" et toutes les statistiques associées.\nCette action est définitive et ne peut pas être annulée.\n\nCliquez sur OK pour confirmer la suppression définitive de cette campagne.\nCliquez sur Annuler pour conserver cette campagne.', $campaign->getName())))
+$campaign->getStatus()!=Campaign::STATUS_COMPLETED?sprintf('<li>%s</li>', link_to('Supprimer', '@campaign_do_delete?slug='.$campaign->getSlug(), array('post' => true, 'confirm' => sprintf('Vous êtes sur le point de supprimer la campagne "%s" et toutes les statistiques associées.\nCette action est définitive et ne peut pas être annulée.\n\nCliquez sur OK pour confirmer la suppression définitive de cette campagne.\nCliquez sur Annuler pour conserver cette campagne.', $campaign->getName())))):''
 
 				);
         echo '</div></div></li>';

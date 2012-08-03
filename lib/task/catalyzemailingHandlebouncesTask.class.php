@@ -327,7 +327,7 @@ EOF;
             $bounceCount = CampaignContactBouncePeer::doCount($criteria);
             $bounceStopCount = sfConfig::get('app_bounce_stop_count', 2);
             if ($bounceCount <= $bounceStopCount) {
-                $CampaignContact->setSentAt(null);
+               // $CampaignContact->setSentAt(null);
                 $this->log(sprintf('BOUNCE_SOFT received for #%06d (%s), found %d previous bounce, less than stop count (%d), so preparing new send',
                     $Contact->getId(), $Contact->getEmail(), $bounceCount, $bounceStopCount));
             } else {
