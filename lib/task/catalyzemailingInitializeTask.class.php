@@ -384,11 +384,19 @@ EOF;
                 $template = new CampaignTemplate();
                 $template->setName('Lancement/invitation');
                 $template->setClassName('newtechCampaign01CampaignTemplateHandler');
-                $template->setPreviewFilename('/newtech/images/campaign01.jpg');
+                $template->setPreviewFilename('/newtechPlugin/images/campaign01.jpg');
                 $template->setInitializer('newtechCampaign01TemplateInitializer');
                 $template->setTemplate(false);
                 $template->save();
 
+
+	        			$template = new CampaignTemplate();
+	        			$template->setName('Invitation Salon E-Commerce');
+	        			$template->setClassName('newtechCampaign02CampaignTemplateHandler');
+	        			$template->setPreviewFilename('/newtechPlugin/images/campaign02.jpg');
+	        			$template->setInitializer('newtechCampaign01TemplateInitializer');
+	        			$template->setTemplate(false);
+	        			$template->save();
                 break;
         } // switch
     }
