@@ -53,7 +53,7 @@ class ContactImportForm extends sfForm {
 		$widgets['file'] = new sfWidgetFormInputFile(array('label' => 'Fichier à importer'));
 
 		//excels
-		$allowedMimeTypes = array ('application/vnd.ms-office','application/vnd.ms-excel', 'application/x-msexcel', 'application/ms-excel', 'application/excel');
+		$allowedMimeTypes = array ('application/vnd.ms-office','application/vnd.ms-excel', 'application/x-msexcel', 'application/ms-excel', 'application/excel', 'application/msword');
 		foreach($allowedMimeTypes as $k => $v){
 			$allowedMimeTypes[] = $v.'; charset=binary';
 		}
