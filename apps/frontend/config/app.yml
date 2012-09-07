@@ -6,9 +6,9 @@
 af:
   website_url: 'http://local.af.cciv4.fr'
   app_url: 'http://local.af.catalyz-emailing2.fr'
-  options:
-    contact_group:  true
-    email_validation: true
+#  options:
+#    contact_group:  true
+#    email_validation: true
   mail:
     server: localhost
     port: 25
@@ -43,7 +43,7 @@ all:
   fields:
     count: 10
   options:
-    contact_group: false
+    contact_group: true
 #  mail:
 #    bcc:            'mailing@waterproof.fr'
 

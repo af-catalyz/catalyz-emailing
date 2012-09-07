@@ -85,6 +85,7 @@ if (!empty($errors['scheduled_at'])) {
 						?>
 					</div>
 				</div>
+				<?php if (sfConfig::get('app_options_contact_group', false)):?>
 				<div class="control-group">
 					<label class="control-label"><?php echo $form['operation']->renderLabel() ?></label>
 					<div class="controls">
@@ -94,6 +95,7 @@ if (!empty($errors['scheduled_at'])) {
 						?>
 					</div>
 				</div>
+				<?php endif ?>
 
 				<?php echo $form->renderHiddenFields(); ?>
 

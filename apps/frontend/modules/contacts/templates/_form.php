@@ -20,7 +20,17 @@ echo $form['last_name']->renderError();
 ?>
 			</div>
 		</div>
-		<?php
+
+		<div class="control-group">
+			<?php printf('<label class="control-label">%s</label>', $form['company']->renderLabel()) ?>
+			<div class="controls">
+				<?php
+echo $form['company'];
+echo $form['company']->renderError();
+?>
+			</div>
+		</div>
+			<?php
 $errors = $form->getErrorSchema()->getErrors();
 printf('<div class="control-group %s">', !empty($errors['email'])?'error':'');
 ?>
@@ -29,15 +39,6 @@ printf('<div class="control-group %s">', !empty($errors['email'])?'error':'');
 				<?php
 echo $form['email'];
 echo $form['email']->renderError();
-?>
-			</div>
-		</div>
-		<div class="control-group">
-			<?php printf('<label class="control-label">%s</label>', $form['company']->renderLabel()) ?>
-			<div class="controls">
-				<?php
-echo $form['company'];
-echo $form['company']->renderError();
 ?>
 			</div>
 		</div>
