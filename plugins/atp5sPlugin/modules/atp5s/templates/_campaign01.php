@@ -25,7 +25,10 @@
 			<td width="573">
 				<table width="573" bgcolor="#FFFFFF" cellspacing="0" cellpadding="0" border="0">
 					<tr valign="top">
-						<td width="268" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/logo.png" width="268" height="106" alt="" border="0" /></td>
+						<td width="268" style="line-height: 0px; font-size: 0px;">
+						<a href="http://www.atp5s.com/" target="_blank">
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/logo.png" width="268" height="106" alt="" border="0" /></td>
+						</a>
 						<td width="305">
 						<?php
 							if (!empty($parameters['picture']) && is_file(sfConfig::get('sf_web_dir').$parameters['picture'])) {
