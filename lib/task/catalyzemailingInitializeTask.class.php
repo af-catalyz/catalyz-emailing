@@ -398,6 +398,16 @@ EOF;
 	        			$template->setTemplate(false);
 	        			$template->save();
                 break;
+
+        		case 'atp5s':
+                $template = new CampaignTemplate();
+                $template->setName('Newsletter 1');
+                $template->setClassName('atp5sCampaign01CampaignTemplateHandler');
+                $template->setPreviewFilename('/atp5sPlugin/images/campaign01.jpg');
+                $template->setInitializer('atp5sCampaign01TemplateInitializer');
+                $template->setTemplate(false);
+                $template->save();
+                break;
         } // switch
     }
 
