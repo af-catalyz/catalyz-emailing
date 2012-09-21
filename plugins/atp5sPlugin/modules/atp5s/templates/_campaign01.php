@@ -136,6 +136,9 @@
 						</td>
 						<td width="34" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="1" alt="" border="0" /></td>
 					</tr>
+					<tr valign="top" style="line-height: 0px; font-size: 0px;">
+						<td colspan="5"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="10" alt="" border="0" /></td>
+					</tr>
 					<?php endif ?>
 				</table>
 				<?php endif ?>
