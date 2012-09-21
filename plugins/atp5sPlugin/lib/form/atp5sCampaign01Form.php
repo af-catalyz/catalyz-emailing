@@ -57,7 +57,7 @@ class atp5sCampaign01Form extends sfForm {
 		//endregion
 
 		//region blue_content
-		$this->widgetSchema['blue_content'] = new czWidgetFormTextareaTinyMCE(array(),array('label' => 'Contenu','height' => 500 ,'style' => 'width: 400px'));
+		$this->widgetSchema['blue_content'] = $this->createWidget(array('label' => 'Contenu'));
 		$this->validatorSchema['blue_content'] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp('blue_content', '');
 		//endregion
