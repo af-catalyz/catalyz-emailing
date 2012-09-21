@@ -32,9 +32,9 @@ class CatalyzEmailRenderer {
     {
         $fontTag_begin = sprintf('<font face="%s" style="%s" size="2" color="%s">', $this->face, $this->style, $this->color);
         if ($link_color) {
-        	$fontTag_begin_a = sprintf('<font face="%s" style="color:%s;%s" size="2" color="%s">', $this->face, $link_color, $this->style, $link_color);
+        	$fontTag_begin_a = sprintf('<font face="%s" style="color:%s;text-decoration: underline;%s" size="2" color="%s">', $this->face, $link_color, $this->style, $link_color);
         }else{
-        	$fontTag_begin_a = $fontTag_begin;
+        	$fontTag_begin_a = sprintf('<font face="%s" style="text-decoration: underline;%s" size="2" color="%s">', $this->face, $this->style, $this->color);
         }
 
 			  $fontTag_end = '</font>';
@@ -110,8 +110,6 @@ class CatalyzEmailRenderer {
 
     	echo $content;
     }
-
-
 }
 
 ?>
