@@ -175,8 +175,8 @@
 			<td width="26"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="30" alt="" border="0" /></td>
 			<td width="1" bgcolor="#cccccc"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_grey.gif" width="1" height="1" alt="" border="0" /></td>
 			<td width="27"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="1" alt="" border="0" /></td>
-			<td width="491" align="right"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/shaddow_l.png" width="221" height="7" alt="" border="0" /></td>
-			<td width="23"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/shaddow_r.png" width="23" height="7" alt="" border="0" /></td>
+			<td width="491" align="right" valign="top"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/shaddow_l.png" width="221" height="7" alt="" border="0" /></td>
+			<td width="23" valign="top"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/shaddow_r.png" width="23" height="7" alt="" border="0" /></td>
 			<td width="32"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="1" alt="" border="0" /></td>
 		</tr>
 	</table>
