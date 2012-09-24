@@ -87,6 +87,8 @@ class CampaignEnvoiForm extends BaseCampaignForm {
 				case Campaign::SCHEDULING_NONE:
 				case Campaign::SCHEDULING_NOW:
 					$this->validatorSchema["scheduled_at"] = new sfValidatorPass();;
+					//remove $taintedValues['scheduled_at'] if exist to avoid non-well date format
+					unset($taintedValues['scheduled_at']);
 					//$this->validatorSchema["scheduled_at"]->setOption('required', false);
 					break;
 				case Campaign::SCHEDULING_AT:

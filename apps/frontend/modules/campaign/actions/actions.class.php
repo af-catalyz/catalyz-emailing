@@ -101,7 +101,7 @@ class campaignActions extends sfActions
 		$this->forward404Unless($request->isMethod('post'));
 
 		$formValues = $request->getParameter('campaign_copy', array());
-		$originalCampaign = CampaignPeer::retrieveBySlug($formValues['copy_from']);
+		$originalCampaign = CampaignPeer::retrieveByPK($formValues['copy_from']);
 		$this->forward404Unless($originalCampaign);
 
 		$this->form = new CampaignCopyForm($originalCampaign);
@@ -366,7 +366,6 @@ class campaignActions extends sfActions
 				$this->form->bind($request->getParameter('campaign'));
 				if ($this->form->isValid()) {
 					//$values = $request->getParameter('campaign');
-
 
 					$this->form->save();
 					$this->campaign->updateStatus();
@@ -807,6 +806,8 @@ class campaignActions extends sfActions
 			$newCampaign->setProviderSettings('CampaignOpen', $originalCampaign->getId());
 		}
 		$newCampaign->save();
+
+		$newCampaign->getCampaignDeliveryManager()->prepareCampaignDelivery();
 
 		$message = sprintf('<h4 class="alert-heading">Campagne dupliquée</h4><p>La campagne a été créée en reprenant toutes les informations de la campagne "%s", vous pouvez désormais la configurer.</p>',
 				$originalCampaign->getName()
