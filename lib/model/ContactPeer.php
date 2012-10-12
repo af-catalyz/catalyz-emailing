@@ -300,4 +300,13 @@ class ContactPeer extends BaseContactPeer {
 		$criteria->add(ContactPeer::EMAIL, $email_address);
 		return ContactPeer::doSelectOne($criteria);
 	}
+
+	static function getActiveContactFromTestGroups()
+	{
+		$criteria = new Criteria();
+		$criteria->add(ContactGroupPeer::IS_TEST_GROUP, true);
+		$criteria->addJoin(ContactGroupPeer::ID, ContactContactGroupPeer::CONTACT_GROUP_ID);
+		$criteria->addJoin(ContactContactGroupPeer::CONTACT_ID, ContactPeer::ID);
+		return self::doSelect($criteria);
+	}
 } // ContactPeer

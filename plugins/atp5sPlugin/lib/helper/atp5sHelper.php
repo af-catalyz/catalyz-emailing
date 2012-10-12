@@ -90,4 +90,74 @@ function createImage($src, $targetFilename){
 
 }
 
+function renderAtp5sWysiwyg($content, $style, $color, $link_color= FALSE)
+{
+
+	$fontTag_begin_default = sprintf('<font face="%s" style="%s" size="2" color="%s">', 'Arial', $style, $color);
+
+	$fontTag_begin_a = sprintf('<font face="Arial" style="%s" size="2" color="%s">', $style, $color);
+	$fontTag_end = '</font>';
+
+	$fontTag_begin_li = sprintf('<font face="%s" style="%s" size="2" color="%s">', 'Arial', $style, $color);
+
+	$formatter = new CatalyzEmailRenderer('Arial',$color,$style);
+
+	//region link
+	$content = str_ireplace('</a>', $fontTag_end . "</a>", $content);
+	$content = $formatter->changeTag($content, "a", $fontTag_begin_a);
+	//endregion
+
+	//region strong
+	$content = str_ireplace('</strong>', $fontTag_end . "</strong>", $content);
+	$content = $formatter->changeTag($content, "strong", $fontTag_begin_li);
+	//endregion
+
+	//region p
+	$content = str_ireplace('</p>', $fontTag_end . "</p>", $content);
+	$content = $formatter->changeTag($content, "p", $fontTag_begin_default);
+	//endregion
+
+	//region br
+	$content = str_ireplace('<br>', "<br />", $content);
+	$content = str_ireplace('<p>', "<p style=\"margin:0;padding:0;\">", $content);
+	//endregion
+
+	$content = updateLi($content, $style, $color);
+	$content = str_ireplace('<ul>', '<br/><table width="100%" cellspacing="0" cellpadding="0" border="0">', $content);
+	$content = str_ireplace('</ul>', "</table><br/>", $content);
+
+	echo $content;
+}
+
+function updateLi($content, $style, $color)
+{
+	$appli_url = CatalyzEmailing::getApplicationUrl();
+
+	if (preg_match_all('#(?P<tag><li(?P<attr>.*)>(?P<cont>.+)</li>)#sU', $content, $matches)) {
+		if (!empty($matches['tag']) && 0 < count($matches['tag'])) {
+			foreach ($matches['tag'] as $index => $tag) {
+
+
+					$inside_contenu = $matches['cont'][$index];
+
+						$new_tag = sprintf('
+						<tr valign="top">
+							<td style="line-height: 0px; font-size: 0px;" width="20">
+							<img src="%1$s/atp5sPlugin/images/campaign01/bullet_02.gif" width="16" height="15" alt="" border="0" style="display: block;" />
+							</td>
+							<td>
+								<font face="Arial" style="%3$s" size="2" color="%4$s">%2$s
+								</font>
+							</td>
+						</tr>
+					',$appli_url, $inside_contenu, $style, $color);
+
+					$content = str_replace($tag, $new_tag, $content);
+			}
+		}
+	}
+	return $content;
+}
+
+
 ?>

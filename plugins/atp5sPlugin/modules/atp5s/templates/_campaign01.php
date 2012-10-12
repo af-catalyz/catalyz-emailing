@@ -4,10 +4,10 @@
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
-<body bgcolor="FFFFFF" vlink="#cc3300" link="#cc3300" alink="#cc3300">
+<body bgcolor="#FFFFFF" vlink="#cc3300" link="#cc3300" alink="#cc3300">
 	<?php
 	$parameters = unEscape($parameters);
-	$renderer = new CatalyzEmailRenderer('Arial, Helvetica, sans-serif','#6c6c6c','line-height: 16px; font-size: 13px;font-style: italic;');
+
 	use_helper('atp5s');
 	?>
 
@@ -27,8 +27,9 @@
 					<tr valign="top">
 						<td width="268" style="line-height: 0px; font-size: 0px;">
 						<a href="http://www.atp5s.com/" target="_blank">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/logo.png" width="268" height="106" alt="" border="0" /></td>
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/logo.png" width="268" height="106" alt="" border="0" />
 						</a>
+						</td>
 						<td width="305">
 						<?php
 	if (!empty($parameters['picture']) && is_file(sfConfig::get('sf_web_dir').$parameters['picture'])) {
@@ -57,7 +58,7 @@
 	}
 
 	if (!empty($parameters['edito'])) {
-		$renderer->renderWysiwyg(utf8_decode($parameters['edito']),'#6c6c6c');
+		renderAtp5sWysiwyg($parameters['edito'], 'line-height: 16px; font-size: 13px;font-style: italic;', '#6c6c6c');
 	}
 	?>
 						</td>
@@ -74,13 +75,11 @@
 				<table width="573" bgcolor="#FFFFFF" cellspacing="0" cellpadding="0" border="0">
 					<?php if (!empty($parameters['left_column']) || !empty($parameters['right_column'])) : ?>
 					<tr valign="top">
-						<td width="27" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="1" alt="" border="0" /></td>
+						<td width="27" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="27" height="1" alt="" border="0" /></td>
 						<td width="271">
 							<?php
 	if (!empty($parameters['left_column']) ) {
-		$renderer->setColor('#000000');
-		$renderer->setStyle('line-height: 16px; font-size: 13px;');
-		$renderer->renderWysiwyg(utf8_decode($parameters['left_column']),'#000000');
+		renderAtp5sWysiwyg($parameters['left_column'], 'line-height: 16px; font-size: 13px;', '#000000');
 	}
 	?>
 						</td>
@@ -92,7 +91,7 @@
 							<table width="219" bgcolor="#cc3300" cellspacing="0" cellpadding="0" border="0">
 								<tr valign="top" style="line-height: 0px; font-size: 0px;">
 									<td width="21" align="left"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/orange_t_l.gif" width="5" height="5" alt="" border="0" /></td>
-									<td width="177"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_orange.gif" width="1" height="1" alt="" border="0" /></td>
+									<td width="177"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_orange.gif" width="1" height="15" alt="" border="0" /></td>
 									<td width="21" align="right"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/orange_t_r.gif" width="5" height="5" alt="" border="0" /></td>
 								</tr>
 
@@ -101,17 +100,15 @@
 									<td width="177" align="center">
 
 										<?php
-										$renderer->setColor('#ffffff');
-	$renderer->setStyle('line-height: 18px; font-size: 14px;');
-	$renderer->renderWysiwyg(utf8_decode($parameters['right_column']),'#ffffff');
+		renderAtp5sWysiwyg($parameters['right_column'], 'line-height: 18px; font-size: 14px;', '#ffffff');
 	?>
 									</td>
 									<td width="21" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_orange.gif" width="1" height="1" alt="" border="0" /></td>
 								</tr>
 
-								<tr valign="top" style="line-height: 0px; font-size: 0px;">
+								<tr valign="bottom" style="line-height: 0px; font-size: 0px;">
 									<td width="21" align="left"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/orange_b_l.gif" width="5" height="5" alt="" border="0" /></td>
-									<td width="177"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_orange.gif" width="1" height="1" alt="" border="0" /></td>
+									<td width="177"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_orange.gif" width="1" height="15" alt="" border="0" /></td>
 									<td width="21" align="right"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/orange_b_r.gif" width="5" height="5" alt="" border="0" /></td>
 								</tr>
 							</table>
@@ -129,9 +126,7 @@
 						<td colspan="3">
 
 							<?php
-						$renderer->setColor('#000000');
-	$renderer->setStyle('line-height: 16px; font-size: 13px;');
-	$renderer->renderWysiwyg(utf8_decode($parameters['custom']),'#000000');
+						renderAtp5sWysiwyg($parameters['right_column'], 'line-height: 16px; font-size: 13px;', '#000000');
 	?>
 						</td>
 						<td width="34" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="1" alt="" border="0" /></td>
@@ -159,9 +154,7 @@
 			<td colspan="3" bgcolor="#297cc2" width="54" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_blue.gif" width="1" height="1" alt="" border="0" /></td>
 			<td width="491" bgcolor="#297cc2" align="center">
 				<?php
-				$renderer->setColor('#ffffff');
-	$renderer->setStyle('line-height: 18px; font-size: 14px;font-weight: bold;');
-	$renderer->renderWysiwyg(utf8_decode($parameters['blue_content']),'#ffffff');
+		renderAtp5sWysiwyg($parameters['blue_content'], 'line-height: 18px; font-size: 14px;font-weight: bold;', '#ffffff');
 	?>
 			</td>
 			<td width="23" bgcolor="#297cc2" valign="top" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_blue.gif" width="1" height="1" alt="" border="0" /></td>
