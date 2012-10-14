@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -58,7 +58,7 @@
 	}
 
 	if (!empty($parameters['edito'])) {
-		renderAtp5sWysiwyg(utf8_decode($parameters['edito']) , 'line-height: 16px; font-size: 13px;font-style: italic;', '#6c6c6c');
+		renderAtp5sWysiwyg(htmlentities($parameters['edito'], ENT_COMPAT, 'utf-8') , 'line-height: 16px; font-size: 13px;font-style: italic;', '#6c6c6c');
 	}
 	?>
 						</td>
@@ -79,7 +79,7 @@
 						<td width="271">
 							<?php
 	if (!empty($parameters['left_column']) ) {
-		renderAtp5sWysiwyg(utf8_decode($parameters['left_column']), 'line-height: 16px; font-size: 13px;', '#000000');
+		renderAtp5sWysiwyg(htmlentities($parameters['left_column'], ENT_COMPAT, 'utf-8'), 'line-height: 16px; font-size: 13px;', '#000000');
 	}
 	?>
 						</td>
@@ -100,7 +100,7 @@
 									<td width="177" align="center">
 
 										<?php
-		renderAtp5sWysiwyg(utf8_decode($parameters['right_column']), 'line-height: 18px; font-size: 14px;', '#ffffff');
+		renderAtp5sWysiwyg(htmlentities($parameters['right_column'], ENT_COMPAT, 'utf-8'), 'line-height: 18px; font-size: 14px;', '#ffffff');
 	?>
 									</td>
 									<td width="21" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_orange.gif" width="1" height="1" alt="" border="0" /></td>
@@ -126,7 +126,7 @@
 						<td colspan="3">
 
 							<?php
-						renderAtp5sWysiwyg(utf8_decode($parameters['right_column']), 'line-height: 16px; font-size: 13px;', '#000000');
+						renderAtp5sWysiwyg(htmlentities($parameters['right_column'], ENT_COMPAT, 'utf-8'), 'line-height: 16px; font-size: 13px;', '#000000');
 	?>
 						</td>
 						<td width="34" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="1" alt="" border="0" /></td>
@@ -154,7 +154,7 @@
 			<td colspan="3" bgcolor="#297cc2" width="54" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_blue.gif" width="1" height="1" alt="" border="0" /></td>
 			<td width="491" bgcolor="#297cc2" align="center">
 				<?php
-		renderAtp5sWysiwyg(utf8_decode($parameters['blue_content']), 'line-height: 18px; font-size: 14px;font-weight: bold;', '#ffffff');
+		renderAtp5sWysiwyg(htmlentities($parameters['blue_content'], ENT_COMPAT, 'utf-8'), 'line-height: 18px; font-size: 14px;font-weight: bold;', '#ffffff');
 	?>
 			</td>
 			<td width="23" bgcolor="#297cc2" valign="top" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_blue.gif" width="1" height="1" alt="" border="0" /></td>
