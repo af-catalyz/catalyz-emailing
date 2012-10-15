@@ -159,5 +159,9 @@ function updateLi($content, $style, $color)
 	return $content;
 }
 
+function fixSpecialChars($string){
+	return htmlspecialchars_decode(htmlentities($string, ENT_NOQUOTES, 'UTF-8'));
+}
+
 
 ?>

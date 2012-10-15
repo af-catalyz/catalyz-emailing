@@ -54,11 +54,11 @@
 							<?php
 
 	if (!empty($parameters['edito_title'])) {
-		printf('<font face="Arial, Helvetica, sans-serif" style="line-height: 23px; font-size: 19px;font-weight: bold;" size="2" color="#cc3300">%s</font>', nl2br($parameters['edito_title']));
+		printf('<font face="Arial, Helvetica, sans-serif" style="line-height: 23px; font-size: 19px;font-weight: bold;" size="2" color="#cc3300">%s</font>', nl2br(fixSpecialChars($parameters['edito_title'])));
 	}
 
 	if (!empty($parameters['edito'])) {
-		renderAtp5sWysiwyg($parameters['edito'] , 'line-height: 16px; font-size: 13px;font-style: italic;', '#6c6c6c');
+		renderAtp5sWysiwyg(fixSpecialChars($parameters['edito']), 'line-height: 16px; font-size: 13px;font-style: italic;', '#6c6c6c');
 	}
 	?>
 						</td>
@@ -79,7 +79,7 @@
 						<td width="271">
 							<?php
 	if (!empty($parameters['left_column']) ) {
-		renderAtp5sWysiwyg($parameters['left_column'], 'line-height: 16px; font-size: 13px;', '#000000');
+		renderAtp5sWysiwyg(fixSpecialChars($parameters['left_column']), 'line-height: 16px; font-size: 13px;', '#000000');
 	}
 	?>
 						</td>
@@ -100,7 +100,7 @@
 									<td width="177" align="center">
 
 										<?php
-		renderAtp5sWysiwyg($parameters['right_column'], 'line-height: 18px; font-size: 14px;', '#ffffff');
+		renderAtp5sWysiwyg(fixSpecialChars($parameters['right_column']), 'line-height: 18px; font-size: 14px;', '#ffffff');
 	?>
 									</td>
 									<td width="21" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_orange.gif" width="1" height="1" alt="" border="0" /></td>
@@ -126,7 +126,7 @@
 						<td colspan="3">
 
 							<?php
-						renderAtp5sWysiwyg($parameters['right_column'], 'line-height: 16px; font-size: 13px;', '#000000');
+						renderAtp5sWysiwyg(fixSpecialChars($parameters['right_column']), 'line-height: 16px; font-size: 13px;', '#000000');
 	?>
 						</td>
 						<td width="34" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="1" alt="" border="0" /></td>
@@ -154,7 +154,7 @@
 			<td colspan="3" bgcolor="#297cc2" width="54" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_blue.gif" width="1" height="1" alt="" border="0" /></td>
 			<td width="491" bgcolor="#297cc2" align="center">
 				<?php
-		renderAtp5sWysiwyg($parameters['blue_content'], 'line-height: 18px; font-size: 14px;font-weight: bold;', '#ffffff');
+		renderAtp5sWysiwyg(fixSpecialChars($parameters['blue_content']), 'line-height: 18px; font-size: 14px;font-weight: bold;', '#ffffff');
 	?>
 			</td>
 			<td width="23" bgcolor="#297cc2" valign="top" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/border_blue.gif" width="1" height="1" alt="" border="0" /></td>
