@@ -90,12 +90,12 @@ function createImage($src, $targetFilename){
 
 }
 
-function renderAtp5sWysiwyg($content, $style, $color, $link_color= FALSE)
+function renderAtp5sWysiwyg($content, $style, $color)
 {
 
 	$fontTag_begin_default = sprintf('<font face="%s" style="%s" size="2" color="%s">', 'Arial', $style, $color);
 
-	$fontTag_begin_a = sprintf('<font face="Arial" style="%s" size="2" color="%s">', $style, $color);
+	$fontTag_begin_a = sprintf('<font face="Arial" style="color:%s;text-decoration: underline;%s" size="2" color="%s">', $color, $style, $color);
 	$fontTag_end = '</font>';
 
 	$fontTag_begin_li = sprintf('<font face="%s" style="%s" size="2" color="%s">', 'Arial', $style, $color);
