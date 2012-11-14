@@ -1,0 +1,5 @@
+# default values
+#all:
+all:
+  api:
+    key: 'm4g1ck3y'
