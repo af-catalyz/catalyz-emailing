@@ -408,6 +408,14 @@ EOF;
                 $template->setTemplate(false);
                 $template->save();
                 break;
+
+        	 	case 'luxhedge':
+                $template = new CampaignTemplate();
+                $template->setName('Newsletter');
+                $template->setPreviewFilename('/luxhedgePlugin/images/campaign01.jpg');
+                $template->setTemplate($this->getPartial('luxhedge/campaign01'));
+                $template->save();
+                break;
         } // switch
     }
 

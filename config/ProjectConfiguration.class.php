@@ -27,5 +27,6 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('KreactivFormationPlugin');
 		$this->enablePlugins('newtechPlugin');
 		$this->enablePlugins('atp5sPlugin');
+		$this->enablePlugins('luxhedgePlugin');
   }
 }
