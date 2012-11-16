@@ -1,6 +1,23 @@
+<?php
+
+require_once(dirname(__FILE__) . '/../../../bootstrap.php');
+
+
+$colors = explode(',', sfConfig::get('app_catalyz_tinymce_default_colors', array()));
+
+$return = array();
+foreach ($colors as $color){
+	$return[$color] = sprintf('"#%s"', $color);
+}
+
+$return = implode(',', $return);
+?>
+
 tinyMCEPopup.requireLangPack();
 
 var detail = 50, strhex = "0123456789ABCDEF", i, isMouseDown = false, isMouseOver = false;
+
+var czColors = [<?php echo $return ?>];
 
 var colors = [
 	"#000000","#000033","#000066","#000099","#0000cc","#0000ff","#330000","#330033",
@@ -68,7 +85,12 @@ function init() {
 	generatePicker();
 	generateWebColors();
 	generateNamedColors();
-	generateWebsiteColors();
+
+	<?php if (sfConfig::get('app_catalyz_tinymce_default_colors', false)) {
+		echo 'generateCharteColors();';
+	} ?>
+
+
 
 	if (inputColor) {
 		changeFinalColor(inputColor);
@@ -231,7 +253,6 @@ function paintCanvas(el) {
 		}
 	});
 }
-
 function generateNamedColors() {
 	var el = document.getElementById('namedcolors'), h = '', n, v, i = 0;
 
@@ -328,24 +349,39 @@ function setCol(e, c) {
 	}
 }
 
-function generateWebsiteColors() {
+
+function generateCharteColors() {
 	var el = document.getElementById('charteColors'), h = '', i;
 
 	if (el.className == 'generated')
-	return;
+		return;
 
-	for (n in colors) {
-		v = named[n];
-		h += '<a href="javascript:insertAction();" role="option" tabindex="-2" style="background-color: ' + n + '">';
+	// TODO: VoiceOver doesn't seem to support legend as a label referenced by labelledby.
+	h += '<div role="listbox" aria-labelledby="webcolors_title" tabindex="0"><table role="presentation" border="0" cellspacing="1" cellpadding="0">'
+		+ '<tr>';
 
-		h += '</a>';
-		i++;
+	for (i in czColors) {
+		h += '<td bgcolor="' + czColors[i] + '" width="10" height="10">'
+			+ '<a href="javascript:insertAction();" role="option" tabindex="-1" aria-labelledby="charte_colors_' + i + '" onfocus="showColor(\'' + czColors[i] + '\');" onmouseover="showColor(\'' + czColors[i] + '\');" style="display:block;width:10px;height:10px;overflow:hidden;">';
+		if (tinyMCEPopup.editor.forcedHighContrastMode) {
+			h += '<canvas class="mceColorSwatch" height="10" width="10" data-color="' + czColors[i] + '"></canvas>';
+		}
+		h += '<span class="mceVoiceLabel" style="display:none;" id="charte_colors_' + i + '">' + czColors[i].toUpperCase() + '</span>';
+		h += '</a></td>';
+		if ((i+1) % 18 == 0){
+			h += '</tr><tr>';
+		}
+
 	}
+
+	h += '</table></div>';
 
 	el.innerHTML = h;
 	el.className = 'generated';
 
 	paintCanvas(el);
+	enableKeyboardNavigation(el.firstChild);
 }
+
 
 tinyMCEPopup.onInit.add(init);

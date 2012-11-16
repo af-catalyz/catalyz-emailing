@@ -7,10 +7,13 @@
 	<script type="text/javascript" src="../../utils/mctabs.js"></script>
 	<!--script type="text/javascript" src="js/color_picker.js"></script-->
 
-
 	<script type="text/javascript" src="../../../jquery.min.js"></script>
 	<script type="text/javascript" src="../../../jquery-ui.min.js"></script>
 	<script type="text/javascript" src="js/color_picker.php"></script>
+
+	<?php
+	require_once('../../bootstrap.php');
+  ?>
 
 </head>
 <body id="colorpicker" style="display: none" role="application" aria-labelledby="app_label">
@@ -22,10 +25,16 @@
 			<li id="rgb_tab" aria-controls="rgb_panel"><span><a href="javascript:;" onclick="mcTabs.displayTab('rgb_tab','rgb_panel');" onmousedown="return false;">{#advanced_dlg.colorpicker_palette_tab}</a></span></li>
 			<li id="named_tab" aria-controls="named_panel"><span><a  href="javascript:;" onclick="javascript:mcTabs.displayTab('named_tab','named_panel');" onmousedown="return false;">{#advanced_dlg.colorpicker_named_tab}</a></span></li>
 
+			<?php if (sfConfig::get('app_catalyz_tinymce_default_colors', false)) {
+				printf('<li id="charte_tab" aria-controls="charte_panel"><span><a href="javascript:;" onclick="mcTabs.displayTab(\'charte_tab\',\'charte_panel\');" onmousedown="return false;">Charte</a></span></li>');
+			} ?>
 
-			<li id="charte_tab" aria-controls="charte_panel"><span><a href="javascript:;" onclick="mcTabs.displayTab('charte_tab','charte_panel');" onmousedown="return false;">Charte</a></span></li>
+
 
 		</ul>
+
+
+
 	</div>
 
 	<div class="panel_wrapper">
@@ -71,8 +80,8 @@
 		</div>
 
 		<!-- CZ -->
-
-			<div id="charte_panel" class="panel">
+		<?php if (sfConfig::get('app_catalyz_tinymce_default_colors', false)): ?>
+		<div id="charte_panel" class="panel">
 			<fieldset>
 				<legend>Charte</legend>
 				<div id="charteColors">
@@ -82,6 +91,7 @@
 				<br style="clear: both" />
 			</fieldset>
 		</div>
+		<?php endif ?>
 
 		<!-- endCZ -->
 

@@ -173,7 +173,7 @@
 
 				foreach ($parameters['right_content'] as $element){
 					$total--;
-					printf('<tr valign="top"><td style="line-height:0; font-size: 0;" width="10"><img src="%s/staPlugin/images/campaign01/bullet_2.gif" width="10" height="10" alt="" style="display:block;" border="0" /></td><td width="163">', CatalyzEmailing::getApplicationUrl());
+					printf('<tr valign="top"><td valign="top" style="line-height:0; font-size: 0;" width="10"><img src="%s/staPlugin/images/campaign01/bullet_2.gif" width="10" height="10" alt="" style="display:block;" border="0" /></td><td width="163">', CatalyzEmailing::getApplicationUrl());
 					if (!empty($element['title']) || !empty($element['link'])) {
 						echo '<font face="Arial" style="line-height: 13px; font-size: 11px;" size="2" color="#cc6633">';
 						if (!empty($element['title'])) {

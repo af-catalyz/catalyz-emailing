@@ -4,7 +4,7 @@
 # default values
 #all:
 af:
-  website_url: 'http://local.af.cciv4.fr'
+  website_url: 'http://local.af.luxhedge.com'
   app_url: 'http://local.af.catalyz-emailing2.fr'
   options:
 #    contact_group:  true
@@ -42,6 +42,8 @@ all:
   seed: 'c4t4lyz'
   fields:
     count: 10
+  catalyz:
+    tinymce_default_colors: '006699,cc6600'
   options:
     contact_group: true
 #  mail:

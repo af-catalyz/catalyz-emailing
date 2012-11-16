@@ -52,7 +52,6 @@ class staCampaign01Form extends sfForm {
 		$this->getWidgetSchema()->setHelp('right_content', '');
 		//endregion
 
-
 		//region footer
 		$this->widgetSchema['footer'] = new sfWidgetFormTextarea(array(),array('label' => 'Bas de page'));
 		$this->validatorSchema['footer'] = new sfValidatorString(array('required' => false));
