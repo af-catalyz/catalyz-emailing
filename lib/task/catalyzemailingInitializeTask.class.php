@@ -416,6 +416,16 @@ EOF;
                 $template->setTemplate($this->getPartial('luxhedge/campaign01'));
                 $template->save();
                 break;
+
+        	  case 'sta':
+                $template = new CampaignTemplate();
+                $template->setName('Newsletter 1');
+                $template->setClassName('staCampaign01CampaignTemplateHandler');
+                $template->setPreviewFilename('/staPlugin/images/campaign01.jpg');
+                $template->setInitializer('staCampaign01TemplateInitializer');
+                $template->setTemplate(false);
+                $template->save();
+                break;
         } // switch
     }
 
