@@ -28,16 +28,18 @@ class CatalyzEmailRenderer {
         $this->color = $color;
     }
 
-    function renderWysiwyg($content, $link_color= FALSE)
+    function renderWysiwyg($content, $link_color = false)
     {
         $fontTag_begin = sprintf('<font face="%s" style="%s" size="2" color="%s">', $this->face, $this->style, $this->color);
         if ($link_color) {
-        	$fontTag_begin_a = sprintf('<font face="%s" style="color:%s;text-decoration: underline;%s" size="2" color="%s">', $this->face, $link_color, $this->style, $link_color);
-        }else{
-        	$fontTag_begin_a = sprintf('<font face="%s" style="text-decoration: underline;%s" size="2" color="%s">', $this->face, $this->style, $this->color);
+            $fontTag_begin_a = sprintf('<font face="%s" style="color:%s;text-decoration: underline;%s" size="2" color="%s">', $this->face, $link_color, $this->style, $link_color);
+        } else {
+            $fontTag_begin_a = sprintf('<font face="%s" style="text-decoration: underline;%s" size="2" color="%s">', $this->face, $this->style, $this->color);
         }
 
-			  $fontTag_end = '</font>';
+        $fontTag_end = '</font>';
+
+        $content = $this->updateImageTag($content);
 
         //region link
         $content = str_ireplace('</a>', $fontTag_end . "</a>", $content);
@@ -54,13 +56,13 @@ class CatalyzEmailRenderer {
         $content = $this->changeTag($content, "p", $fontTag_begin);
         //endregion
 
-    		//region ul
-    		$content = $this->changeUlTag($content, $this->color);
-    		//endregion
+        //region ul
+        $content = $this->changeUlTag($content, $this->color);
+        //endregion
 
-    		//region br
-    		$content = str_ireplace('<br>', "<br />", $content);
-    		//endregion
+        //region br
+        $content = str_ireplace('<br>', "<br />", $content);
+        //endregion
 
         echo $content;
     }
@@ -91,24 +93,40 @@ class CatalyzEmailRenderer {
 
     static function changeUlTag($content, $color)
     {
-    	$doc = new DOMDocument();
-    	$doc->loadHTML($content);
+        $doc = new DOMDocument();
+        $doc->loadHTML($content);
 
-    	//region $a_tags
-    	$ul_tags = $doc->getElementsByTagName('ul');
-    	foreach ($ul_tags as/*(DOMElement)*/ $ul_tag) {
-    		$style = $ul_tag->getAttribute('style');
-    		$style .= 'color:'.$color;
-    		$ul_tag->setAttribute('style', $style);
-    	}
-    	//endregion
+        //region $a_tags
+        $ul_tags = $doc->getElementsByTagName('ul');
+        foreach ($ul_tags as/*(DOMElement)*/ $ul_tag) {
+            $style = $ul_tag->getAttribute('style');
+            $style .= 'color:' . $color;
+            $ul_tag->setAttribute('style', $style);
+        }
+        //endregion
 
-    	$content = $doc->saveHTML();
+        $content = $doc->saveHTML();
 
-    	$content = str_ireplace('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">' . "\n<html><body>", '', $content);
-    	$content = str_ireplace('</body></html>', '', $content);
+        $content = str_ireplace('<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd">' . "\n<html><body>", '', $content);
+        $content = str_ireplace('</body></html>', '', $content);
 
-    	echo $content;
+        echo $content;
+    }
+
+    function updateImageTag($content)
+    {
+        if (preg_match_all('/(?P<tag><img(?P<attr>[^>]*)\/>)/si', $content, $matches)) {
+            if (!empty($matches['tag']) && 0 < count($matches['tag'])) {
+                foreach ($matches['tag'] as $index => $tag) {
+                    $attr = $matches['attr'][$index];
+                    if (!preg_match('/border="/', $attr)) {
+                        $attr .= ' border="0" ';
+                    }
+                    $content = str_replace($tag, sprintf('<img %s/>', $attr), $content);
+                }
+            }
+        }
+        return $content;
     }
 }
 
