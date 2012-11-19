@@ -184,9 +184,9 @@
 						}
 						if (!empty($element['illustration']) && is_file(sfConfig::get('sf_web_dir').$element['illustration'])) {
 							if (!empty($element['link'])) {
-								printf('%s<br/><a href="%s" target="_blank">%s</a>', !empty($element['title'])||!empty($element['link'])?'<br/>':'', czWidgetFormLink::displayLink($element['link']),thumbnail_tag($element['illustration'], 154, 136, array('abslolute' => true)));
+								printf('%s<br/><a href="%s" target="_blank"><img border="0" alt="" src="%s"/></a>', !empty($element['title'])||!empty($element['link'])?'<br/>':'', czWidgetFormLink::displayLink($element['link']),thumbnail_path($element['illustration'], 154, 136, true));
 							}else{
-								printf('%s<br/>%s', !empty($element['title'])||!empty($element['link'])?'<br/>':'', thumbnail_tag($element['illustration'], 154, 136, array('absolute' => true)));
+								printf('%s<br/><img border="0" alt="" src="%s"/>', !empty($element['title'])||!empty($element['link'])?'<br/>':'', thumbnail_path($element['illustration'], 154, 136, true));
 							}
 						}
 						echo '</font>';
