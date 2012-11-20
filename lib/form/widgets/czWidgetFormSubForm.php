@@ -116,9 +116,11 @@ class czWidgetFormSubForm extends sfWidgetForm {
             	$form =/*(sfForm)*/ new $formClass();
 
                 $temp = $sortable = true;
+
+
                 foreach ($form->getWidgetSchema()->getFields() as $key => $field) {
 
-                    if ($field instanceof czWidgetFormTextareaWysiwyg || $field instanceof czWidgetFormTextareaTinyMCE) {
+                    if ($field instanceof czWidgetFormTextareaWysiwyg || $field instanceof czWidgetFormTextareaTinyMCE || $field instanceof sfWidgetFormTextareaTinyMCE) {
                         $temp = false;
                         if (false != $sortable) {
                             $sortable = $temp;
