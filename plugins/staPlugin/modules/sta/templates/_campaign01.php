@@ -141,7 +141,7 @@
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep_blue.gif" width="13" height="1" alt="" style="display:block;" border="0" />
 						</td>
 						<td width="135" bgcolor="#1899c2" valign="middle">
-						<?php printf('<font face="TimesNewRoman" style="line-height: 14px; font-size: 14px;" size="2" color="#ffffff">%s</font>', htmlentities($parameters['right_title'], ENT_COMPAT, 'utf-8')); ?>
+						<?php printf('<font face="Times New Roman" style="line-height: 14px; font-size: 14px;" size="2" color="#ffffff">%s</font>', htmlentities($parameters['right_title'], ENT_COMPAT, 'utf-8')); ?>
 						</td>
 						<td style="line-height:0; font-size: 0;" width="38" align="left">
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/title_r.gif" width="11" height="26" alt="" style="display:block;" border="0" />
