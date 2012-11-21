@@ -268,8 +268,11 @@ class CampaignDeliveryManager {
     protected function replaceMacrosForEmail($text, $email, $additionnal = array())
     {
         $macros = $additionnal;
-        $macros['#EMAIL#'] = $email;
-	      $macros['#SPY_KEY#'] = $this->getUserKey($email);
+    	$macros['#EMAIL#'] = $email;
+    	$macros['#UNSUBSCRIBE#'] = $this->getUnsubscribeLink($email);
+    	$macros['#VIEW_ONLINE#'] = $this->getViewOnlineLink($email);
+    	$macros['#PRINT#'] = $this->getPrintLink($email);
+    	$macros['#SPY_KEY#'] = $this->getUserKey($email);
 
         $macroKeywords = array_keys($macros);
         $macroValues = array_values($macros);

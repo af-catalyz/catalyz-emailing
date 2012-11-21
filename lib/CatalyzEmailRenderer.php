@@ -51,6 +51,11 @@ class CatalyzEmailRenderer {
         $content = $this->changeTag($content, "li", $fontTag_begin);
         //endregion
 
+	    	//region td
+				$content = str_ireplace('</td>', $fontTag_end . "</td>", $content);
+	    	$content = $this->changeTag($content, "td", $fontTag_begin);
+	    	//endregion
+
         //region p
         $content = str_ireplace('</p>', $fontTag_end . "</p>", $content);
         $content = $this->changeTag($content, "p", $fontTag_begin);
