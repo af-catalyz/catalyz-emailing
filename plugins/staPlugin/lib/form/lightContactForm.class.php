@@ -64,6 +64,12 @@ public function configure()
       'invalid' => 'L\'adresse email n\'est pas valide')
 	);
 
+	$this->validatorSchema->setPostValidator(
+      new sfValidatorPropelUnique(array('model' => 'Contact', 'column' => array('email')), array('invalid' => 'Une autre personne posséde deja cet email'))
+    );
+
+	$this->validatorSchema->setPostValidator(new czValidatorPropelUniqueContact());
+
 	$labels = array(
 	'first_name' => 'Prénom',
 	'last_name' => 'Nom',
