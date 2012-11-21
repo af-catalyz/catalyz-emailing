@@ -1,0 +1,7 @@
+sta_edit:
+  url:   /sta/user/edit
+  param: { module: sta, action: edit }
+
+sta_ty:
+  url:   /sta/user/thank-you
+  param: { module: sta, action: thankYou }
