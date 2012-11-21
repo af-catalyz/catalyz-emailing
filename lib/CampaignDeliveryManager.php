@@ -260,7 +260,7 @@ class CampaignDeliveryManager {
         return $this->getUrl('@campaign-print?key=' . $this->getUserKey($email));
     }
 
-    protected function getUserKey($email)
+    public function getUserKey($email)
     {
         return sprintf('%s-%d-%s', $email, $this->Campaign->getId(), md5($email . sfConfig::get('app_seed')));
     }
@@ -269,10 +269,7 @@ class CampaignDeliveryManager {
     {
         $macros = $additionnal;
         $macros['#EMAIL#'] = $email;
-        $macros['#UNSUBSCRIBE#'] = $this->getUnsubscribeLink($email);
-        $macros['#VIEW_ONLINE#'] = $this->getViewOnlineLink($email);
-        $macros['#PRINT#'] = $this->getPrintLink($email);
-        $macros['#SPY_KEY#'] = $this->getUserKey($email);
+	      $macros['#SPY_KEY#'] = $this->getUserKey($email);
 
         $macroKeywords = array_keys($macros);
         $macroValues = array_values($macros);

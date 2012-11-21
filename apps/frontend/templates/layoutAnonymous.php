@@ -16,7 +16,9 @@
    <!--[if lt IE 9]>
 		<script src="/js/html5.js"></script>
     <![endif]-->
-
+		<script type="text/javascript" src="/js/jquery.js"></script>
+		<script type="text/javascript" src="/js/jquery-ui-1.8.20.custom.min.js"></script>
+		<link rel="stylesheet" href="/css/ui-lightness/jquery-ui-1.8.20.custom.css" />
 
     <!-- Le fav and touch icons
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">

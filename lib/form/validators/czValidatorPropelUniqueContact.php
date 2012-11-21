@@ -14,6 +14,7 @@ class czValidatorPropelUniqueContact extends sfValidatorPropelUnique
 
 	protected function doClean($values)
 	{
+		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url' );
 		if (!is_array($values))
 		{
 			throw new InvalidArgumentException('You must pass an array parameter to the clean() method (this validator can only be used as a post validator).');
@@ -44,7 +45,7 @@ class czValidatorPropelUniqueContact extends sfValidatorPropelUnique
 <p>Votre base de données ne peut pas contenir deux contacts différents avec la même adresse email.</p>
 <a href="%s" class="btn btn-danger">Modifier le contact existant</a>', $object->getEmail(),  url_for('@contact_edit?slug='.$object->getSlug()));
 
-		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url' );
+
 		sfContext::getInstance()->getUser()->setFlash('notice_error', $error_message ,false);
 
 

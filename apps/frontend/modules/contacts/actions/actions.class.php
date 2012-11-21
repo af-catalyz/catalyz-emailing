@@ -219,10 +219,9 @@ class contactsActions extends sfActions
 	}
 
 	public function executeUnsubscribe($request)
-    {
+  {
 				$contact = ContactPeer::retrieveByPK($request->getParameter('id'));
 				$this->forward404Unless($contact);
-
 
         $criteria = new Criteria();
         $criteria->add(CampaignContactPeer::CONTACT_ID, $request->getParameter('id'));

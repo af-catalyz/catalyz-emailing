@@ -57,7 +57,7 @@
 						</td>
 						<td width="177">
 							<font face="Arial" style="line-height: 11px; font-size: 9px;" size="2" color="#0099cc">
-								<a style="color:#0099cc;" href="#" target="_blank">Modification et enregistrement<br/>de vos coordonn&#233;es</a>
+								<a style="color:#0099cc;" href="<?php echo CatalyzEmailing::getApplicationUrl().'/sta/user/edit?key=#SPY_KEY#' ?>" target="_blank">Modification et enregistrement<br/>de vos coordonn&#233;es</a>
 							</font>
 						</td>
 					</tr>
@@ -238,7 +238,7 @@
 		<tr>
 			<td style="line-height:0; font-size: 0;" width="62"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep.gif" width="62" height="1" alt="" style="display:block;" border="0" /></td>
 			<td width="476" align="center">
-				<font face="Arial" style="font-size: 9px;line-height: 12px;" size="2" color="#999999">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectification<br/>et d'opposition aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#999999;" href="mailto:XXXXXXXX@XXXXXXXXX" target="_blank">XXXXXXXX@XXXXXXXXX</a><br/>ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#999999;">ce lien de d&#233;sinscription</a>
+				<font face="Arial" style="font-size: 9px;line-height: 12px;" size="2" color="#999999">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectification<br/>et d'opposition aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#999999;" href="mailto:email@assurance-sta.com" target="_blank">email@assurance-sta.com</a><br/>ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#999999;">ce lien de d&#233;sinscription</a>
 				</font>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="62"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep.gif" width="62" height="1" alt="" style="display:block;" border="0" /></td>

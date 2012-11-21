@@ -3,8 +3,8 @@
 
 af:
   .settings:
-#    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
-    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
+    error_reporting:        <?php echo ((E_ALL | E_STRICT) ^ E_NOTICE)."\n" ?>
+#    error_reporting:        <?php echo (E_ALL | E_STRICT)."\n" ?>
     web_debug:              true
     cache:                  false
     no_script_name:         false
@@ -42,7 +42,7 @@ all:
 
     # Enable the database manager
     use_database:           true
-    enabled_modules:      [default, sfGuardGroup, sfGuardUser, sfGuardPermission, sfGuardAuth, KreactivFormation]
+    enabled_modules:      [default, sfGuardGroup, sfGuardUser, sfGuardPermission, sfGuardAuth, KreactivFormation, sta]
 
     i18n:                   true
     standard_helpers:       [Partial, Cache, I18N, cz, rendering]

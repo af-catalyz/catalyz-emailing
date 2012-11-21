@@ -89,17 +89,16 @@ class api10Actions extends sfActions {
         $this->logCall('lists()');
 
         $criteria = new Criteria();
-        $criteria->addSelectColumn(ContactGroupPeer::ID);
-        $criteria->addSelectColumn(ContactGroupPeer::NAME);
         $criteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
 
         $result = array();
-        foreach(ContactGroupPeer::doSelectRS($criteria) as $id => $group) {
+        foreach(ContactGroupPeer::doSelect($criteria) as /*(ContactGroup)*/$group) {
             $item = array();
-            $item['id'] = $group[0];
-            $item['name'] = $group[1];
+            $item['id'] = $group->getId();
+            $item['name'] = $group->getName();
             $result[] = $item;
         }
+
         return $result;
     }
 
