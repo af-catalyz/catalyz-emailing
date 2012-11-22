@@ -136,6 +136,8 @@ class api10Actions extends sfActions {
 
         $this->logCall(sprintf('listSubscribe(%d, %s, %s)', $id, $email_address, $this->arrayToString($attributes)));
 
+
+
         $group = ContactGroupPeer::retrieveByPK($id);
         if (null == $group) {
             throw new Exception(sprintf('Unknown list (%d)', $id));
@@ -145,8 +147,9 @@ class api10Actions extends sfActions {
             throw new Exception(sprintf('Email adress is invalid: %s', $email_address));
         }
 
-        $connection = Propel::getConnection();
-        $connection->begin();
+        $connection = Propel::getConnection(ContactPeer::DATABASE_NAME);
+
+        $connection->beginTransaction();
         try {
             $contact = ContactPeer::retreiveByEmail($email_address);
             if (null == $contact) {
@@ -188,7 +191,7 @@ class api10Actions extends sfActions {
         $group_name = $request->getParameter('group_name');
         //endregion
 
-        $this->logCall(sprintf('listAdd(%s)', $name));
+        $this->logCall(sprintf('listAdd(%s)', $group_name));
 
         $list = $this->lists($request);
         $groups = array();
