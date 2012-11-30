@@ -330,7 +330,7 @@ class CampaignDeliveryManager {
 
     public function prepareSubjectForEmail($email, $additionalMacros = array())
     {
-        return $this->replaceMacrosForEmail($this->Campaign->getSubject(), $email, $additionalMacros);
+        return utf8_decode($this->replaceMacrosForEmail($this->Campaign->getSubject(), $email, $additionalMacros));
     }
 
     public function sendTo($emails, $additionalMacros = array())
