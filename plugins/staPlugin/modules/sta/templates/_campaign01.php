@@ -7,13 +7,13 @@
 <body bgcolor="#FFFFFF" alink="#0099cc" vlink="#0099cc" link="#0099cc">
 	<?php
 	$parameters = unEscape($parameters);
-	$renderer = new CatalyzEmailRenderer('Arial','#333333','line-height: 14px; font-size: 12px;');
+	$renderer = new CatalyzEmailRenderer('Trebuchet MS','#333333','line-height: 14px; font-size: 12px;');
 	?>
 
 	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr valign="top">
 			<td align="center">
-				<font face="Arial" style="line-height: 12px; font-size: 8px;" size="2" color="#666666">Si vous avez des difficult&#233;s pour visualiser ce message et ses images. <a style="color:#666666;" href="#VIEW_ONLINE#" target="_blank">cliquez ici</a>.<br/><br/></font>
+				<font face ="Trebuchet MS" style="line-height: 12px; font-size: 8px;" size="2" color="#666666">Si vous avez des difficult&#233;s pour visualiser ce message et ses images. <a style="color:#666666;" href="#VIEW_ONLINE#" target="_blank">cliquez ici</a>.<br/><br/></font>
 			</td>
 		</tr>
 	</table>
@@ -39,7 +39,7 @@
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep.gif" width="12" height="70" alt="" style="display:block;" border="0" />
 						</td>
 						<td width="188">
-							<font face="Arial" style="line-height: 18px; font-size: 14px; font-weight:bold;" size="2" color="#333333">Assur&#233; n&#176; #CUSTOM1#<br/>#LASTNAME# #FIRSTNAME#</font>
+							<font face ="Trebuchet MS" style="line-height: 18px; font-size: 14px; font-weight:bold;" size="2" color="#333333">Assur&#233; n&#176; #CUSTOM1#<br/>#LASTNAME# #FIRSTNAME#</font>
 						</td>
 					</tr>
 				</table>
@@ -56,7 +56,7 @@
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/bullet_1.gif" width="23" height="22" alt="" style="display:block;" border="0" />
 						</td>
 						<td width="177">
-							<font face="Arial" style="line-height: 11px; font-size: 9px;" size="2" color="#0099cc">
+							<font face ="Trebuchet MS" style="line-height: 11px; font-size: 9px;" size="2" color="#0099cc">
 								<a style="color:#0099cc;" href="<?php echo CatalyzEmailing::getApplicationUrl().'/sta/user/edit?key=#SPY_KEY#' ?>" target="_blank">Modification et enregistrement<br/>de vos coordonn&#233;es</a>
 							</font>
 						</td>
@@ -175,7 +175,7 @@
 					$total--;
 					printf('<tr valign="top"><td valign="top" style="line-height:0; font-size: 0;" width="10"><img src="%s/staPlugin/images/campaign01/bullet_2.gif" width="10" height="10" alt="" style="display:block;" border="0" /></td><td width="163">', CatalyzEmailing::getApplicationUrl());
 					if (!empty($element['title']) || !empty($element['link'])) {
-						echo '<font face="Arial" style="line-height: 13px; font-size: 11px;" size="2" color="#cc6633">';
+						echo '<font face ="Trebuchet MS" style="line-height: 13px; font-size: 11px;" size="2" color="#cc6633">';
 						if (!empty($element['title'])) {
 							echo htmlentities($element['title'], ENT_COMPAT, 'utf-8');
 						}
@@ -220,7 +220,7 @@
 		<tr bgcolor="#e16a02">
 			<td style="line-height:0; font-size: 0;" width="62"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep_orange.gif" width="62" height="1" alt="" style="display:block;" border="0" /></td>
 			<td width="476" align="center">
-				<?php printf('<font face="Arial" style="font-size: 9px;line-height: 12px;" size="2" color="#ffffff">%s</font>', nl2br(htmlentities($parameters['footer'], ENT_COMPAT, 'utf-8')) ); ?>
+				<?php printf('<font face ="Trebuchet MS" style="font-size: 9px;line-height: 12px;" size="2" color="#ffffff">%s</font>', nl2br(htmlentities($parameters['footer'], ENT_COMPAT, 'utf-8')) ); ?>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="62"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep_orange.gif" width="62" height="1" alt="" style="display:block;" border="0" /></td>
 		</tr>
@@ -238,7 +238,7 @@
 		<tr>
 			<td style="line-height:0; font-size: 0;" width="62"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep.gif" width="62" height="1" alt="" style="display:block;" border="0" /></td>
 			<td width="476" align="center">
-				<font face="Arial" style="font-size: 9px;line-height: 12px;" size="2" color="#999999">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectification<br/>et d'opposition aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#999999;" href="mailto:email@assurance-sta.com" target="_blank">email@assurance-sta.com</a><br/>ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#999999;">ce lien de d&#233;sinscription</a>
+				<font face ="Trebuchet MS" style="font-size: 9px;line-height: 12px;" size="2" color="#999999">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectification<br/>et d'opposition aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#999999;" href="mailto:email@assurance-sta.com" target="_blank">email@assurance-sta.com</a><br/>ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#999999;">ce lien de d&#233;sinscription</a>
 				</font>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="62"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep.gif" width="62" height="1" alt="" style="display:block;" border="0" /></td>
