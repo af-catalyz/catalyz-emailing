@@ -309,12 +309,12 @@ class contactsActions extends sfActions
 
 		$letter = 'A';
 		foreach ($fields as $fieldName => $caption){
-			$this->activeSheet->setCellValue($letter.'1', ContactPeer::getFieldLabel($fieldName));
+			$this->activeSheet->setCellValueExplicit($letter.'1', ContactPeer::getFieldLabel($fieldName));
 			$letter =  chr(ord($letter)+1);
 		}
 
 		foreach ($customFields as $fieldName => $caption){
-			$this->activeSheet->setCellValue($letter.'1', $caption.' (optionnel)');
+			$this->activeSheet->setCellValueExplicit($letter.'1', $caption.' (optionnel)');
 			$letter =  chr(ord($letter)+1);
 		}
 

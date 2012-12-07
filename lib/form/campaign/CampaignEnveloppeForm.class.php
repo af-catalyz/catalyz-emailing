@@ -24,7 +24,7 @@ class CampaignEnveloppeForm extends BaseCampaignForm {
 			$this['return_path_login'],
 			$this['return_path_server'],
 			$this['return_path_email'],
-			$this['reply_to_email'],
+			//$this['reply_to_email'],
 			$this['target'],
 			$this['test_user_list'],
 			$this['test_type'],
@@ -45,6 +45,17 @@ class CampaignEnveloppeForm extends BaseCampaignForm {
 		$this->widgetSchema['subject'] =  new sfWidgetFormInput(array('label' => FALSE),array('class'=> 'span6'));
 		$this->widgetSchema['from_name'] =  new sfWidgetFormInput(array('label' => 'Nom'),array('class'=> 'input-xlarge'));
 		$this->widgetSchema['from_email'] =  new sfWidgetFormInput(array('label' => 'Email'),array('class'=> 'input-xlarge'));
+
+		$this->widgetSchema['reply_to_email'] =  new sfWidgetFormInput(array('label' => 'Email de réponse'),array('class'=> 'input-xlarge'));
+
+		$this->validatorSchema['reply_to_email'] = new sfValidatorEmail(array('required' => false),	array('required' =>
+		'<span class="help-block">Vous devez préciser l\'adresse email à utiliser</span>', 'invalid' =>
+		'<span class="help-block">Vous devez préciser une adresse email valide</span>'));
+
+		$this->getWidgetSchema()->setHelps(array(
+		'reply_to_email' => '<span class="help-block hint">Exemple: nomprenom@entreprise.com</span>'
+	));
+
 
 		$campaign =/*(Campaign)*/ $this->getObject();
 

@@ -242,7 +242,6 @@ class statisticsActions extends sfActions
 		$criteria->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
 		$results = CampaignClickPeer::doSelectJoinAll($criteria);
 
-
 		$returns = array();
 		foreach ($results as /*(CampaignClick)*/$result){
 			$CampaignLink = /*(CampaignLink)*/$result->getCampaignLink();
@@ -251,7 +250,7 @@ class statisticsActions extends sfActions
 				$returns[$contact->getId()] = array('name'=>$contact->getFullName(), 'clicks' => array());
 			}
 
-			$returns[$contact->getId()]['clicks'][] = array('name' => $CampaignLink->getGoogleAnalyticsTerm(), 'url' => $CampaignLink->getUrl(), 'date' => CatalyzDate::formatShortWithTime(strtotime($result->getCreatedAt())));
+			$returns[$contact->getId()]['clicks'][strtotime($result->getCreatedAt())] = array('name' => $CampaignLink->getGoogleAnalyticsTerm(), 'url' => $CampaignLink->getUrl(), 'date' => CatalyzDate::formatShortWithTime(strtotime($result->getCreatedAt())));
 		}
 
 		$sheetTitle = sprintf('Details des clicks');
@@ -263,10 +262,10 @@ class statisticsActions extends sfActions
 		$this->activeSheet = $this->spreadsheet->getActiveSheet();
 		$this->activeSheet->setTitle($sheetTitle);
 
-		$this->activeSheet->setCellValue('A1', 'Nom');
-		$this->activeSheet->setCellValue('B1', 'Nom de l\'url');
-		$this->activeSheet->setCellValue('C1', 'url');
-		$this->activeSheet->setCellValue('D1', 'date');
+		$this->activeSheet->setCellValueExplicit('A1', 'Nom');
+		$this->activeSheet->setCellValueExplicit('B1', 'Nom de l\'url');
+		$this->activeSheet->setCellValueExplicit('C1', 'url');
+		$this->activeSheet->setCellValueExplicit('D1', 'date');
 
 		$row = 2;
 		foreach ($returns as $return){
@@ -276,10 +275,10 @@ class statisticsActions extends sfActions
 				$url_path = $clicks['url'];
 				$date = $clicks['date'];
 
-				$this->activeSheet->setCellValue('A'.$row, $contactName);
-				$this->activeSheet->setCellValue('B'.$row, $url_name);
-				$this->activeSheet->setCellValue('C'.$row, $url_path);
-				$this->activeSheet->setCellValue('D'.$row, $date);
+				$this->activeSheet->setCellValueExplicit('A'.$row, $contactName);
+				$this->activeSheet->setCellValueExplicit('B'.$row, $url_name);
+				$this->activeSheet->setCellValueExplicit('C'.$row, $url_path);
+				$this->activeSheet->setCellValueExplicit('D'.$row, $date);
 				$row++;
 			}
 		}
@@ -319,20 +318,20 @@ class statisticsActions extends sfActions
 		$this->activeSheet = $this->spreadsheet->getActiveSheet();
 		$this->activeSheet->setTitle($sheetTitle);
 
-		$this->activeSheet->setCellValue('A1', 'Nom');
-		$this->activeSheet->setCellValue('B1', 'Envoyé le');
-		$this->activeSheet->setCellValue('C1', 'Ouvert le');
-		$this->activeSheet->setCellValue('D1', 'Click le');
-		$this->activeSheet->setCellValue('E1', 'Bounce');
+		$this->activeSheet->setCellValueExplicit('A1', 'Nom');
+		$this->activeSheet->setCellValueExplicit('B1', 'Envoyé le');
+		$this->activeSheet->setCellValueExplicit('C1', 'Ouvert le');
+		$this->activeSheet->setCellValueExplicit('D1', 'Click le');
+		$this->activeSheet->setCellValueExplicit('E1', 'Bounce');
 
 		$row = 2;
 		foreach ($results as /*(CampaignContact)*/$CampaignContact){
 			$contact = $CampaignContact->getContact();
-				$this->activeSheet->setCellValue('A'.$row, $contact->getFullName());
-				$this->activeSheet->setCellValue('B'.$row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
-				$this->activeSheet->setCellValue('C'.$row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
-				$this->activeSheet->setCellValue('D'.$row, $CampaignContact->getClickedAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getClickedAt())):'');
-				$this->activeSheet->setCellValue('E'.$row, $CampaignContact->getBounceType()!=1?$CampaignContact->getBounceTypeFmt():'');
+				$this->activeSheet->setCellValueExplicit('A'.$row, $contact->getFullName());
+				$this->activeSheet->setCellValueExplicit('B'.$row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
+				$this->activeSheet->setCellValueExplicit('C'.$row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
+				$this->activeSheet->setCellValueExplicit('D'.$row, $CampaignContact->getClickedAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getClickedAt())):'');
+				$this->activeSheet->setCellValueExplicit('E'.$row, $CampaignContact->getBounceType()!=1?$CampaignContact->getBounceTypeFmt():'');
 				$row++;
 		}
 
@@ -372,18 +371,18 @@ class statisticsActions extends sfActions
 		$this->activeSheet = $this->spreadsheet->getActiveSheet();
 		$this->activeSheet->setTitle($sheetTitle);
 
-		$this->activeSheet->setCellValue('A1', 'Nom');
-		$this->activeSheet->setCellValue('B1', 'Envoyé le');
-		$this->activeSheet->setCellValue('C1', 'Ouvert le');
-		$this->activeSheet->setCellValue('D1', 'Click le');
+		$this->activeSheet->setCellValueExplicit('A1', 'Nom');
+		$this->activeSheet->setCellValueExplicit('B1', 'Envoyé le');
+		$this->activeSheet->setCellValueExplicit('C1', 'Ouvert le');
+		$this->activeSheet->setCellValueExplicit('D1', 'Click le');
 
 		$row = 2;
 		foreach ($results as /*(CampaignContact)*/$CampaignContact){
 			$contact = $CampaignContact->getContact();
-			$this->activeSheet->setCellValue('A'.$row, $contact->getFullName());
-			$this->activeSheet->setCellValue('B'.$row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
-			$this->activeSheet->setCellValue('C'.$row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
-			$this->activeSheet->setCellValue('D'.$row, $CampaignContact->getClickedAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getClickedAt())):'');
+			$this->activeSheet->setCellValueExplicit('A'.$row, $contact->getFullName());
+			$this->activeSheet->setCellValueExplicit('B'.$row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
+			$this->activeSheet->setCellValueExplicit('C'.$row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
+			$this->activeSheet->setCellValueExplicit('D'.$row, $CampaignContact->getClickedAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getClickedAt())):'');
 			$row++;
 		}
 
@@ -453,12 +452,12 @@ class statisticsActions extends sfActions
 		$this->activeSheet = $this->spreadsheet->getActiveSheet();
 		$this->activeSheet->setTitle($sheetTitle);
 
-		$this->activeSheet->setCellValue('A1', 'Date');
-		$this->activeSheet->setCellValue('B1', 'Nom complet');
-		$this->activeSheet->setCellValue('C1', 'Email');
-		$this->activeSheet->setCellValue('D1', 'Motifs');
+		$this->activeSheet->setCellValueExplicit('A1', 'Date');
+		$this->activeSheet->setCellValueExplicit('B1', 'Nom complet');
+		$this->activeSheet->setCellValueExplicit('C1', 'Email');
+		$this->activeSheet->setCellValueExplicit('D1', 'Motifs');
 		if (!empty($list_choices)) {
-			$this->activeSheet->setCellValue('E1', 'Listes');
+			$this->activeSheet->setCellValueExplicit('E1', 'Listes');
 		}
 
 		$criteria = new Criteria();
@@ -470,10 +469,10 @@ class statisticsActions extends sfActions
 
 		$row = 2;
 		foreach ($CampaignContacts as /*(CampaignContact)*/$CampaignContact){
-			$this->activeSheet->setCellValue('A'.$row, $CampaignContact->getUnsubscribedAt('d/m/Y'));
-			$this->activeSheet->setCellValue('B'.$row, $CampaignContact->getContact()->getFullName());
-			$this->activeSheet->setCellValue('C'.$row, $CampaignContact->getContact()->getEmail());
-			$this->activeSheet->setCellValue('D'.$row, $CampaignContact->getRaison() );
+			$this->activeSheet->setCellValueExplicit('A'.$row, $CampaignContact->getUnsubscribedAt('d/m/Y'));
+			$this->activeSheet->setCellValueExplicit('B'.$row, $CampaignContact->getContact()->getFullName());
+			$this->activeSheet->setCellValueExplicit('C'.$row, $CampaignContact->getContact()->getEmail());
+			$this->activeSheet->setCellValueExplicit('D'.$row, $CampaignContact->getRaison() );
 
 			if (!empty($list_choices)) {
 				$selectedLists = unserialize($CampaignContact->getUnsubscribedLists());
@@ -483,7 +482,7 @@ class statisticsActions extends sfActions
 						$temp[] = $caption;
 					}
 				}
-				$this->activeSheet->setCellValue('E'.$row, implode(" | ", $temp) );
+				$this->activeSheet->setCellValueExplicit('E'.$row, implode(" | ", $temp) );
 			}
 
 			$row++;
@@ -573,10 +572,10 @@ class statisticsActions extends sfActions
 		$this->activeSheet = $this->spreadsheet->getActiveSheet();
 		$this->activeSheet->setTitle($sheetTitle);
 
-		$this->activeSheet->setCellValue('A1', 'Type');
-		$this->activeSheet->setCellValue('B1', 'Email');
-		$this->activeSheet->setCellValue('C1', 'Nom complet');
-		$this->activeSheet->setCellValue('D1', 'Date');
+		$this->activeSheet->setCellValueExplicit('A1', 'Type');
+		$this->activeSheet->setCellValueExplicit('B1', 'Email');
+		$this->activeSheet->setCellValueExplicit('C1', 'Nom complet');
+		$this->activeSheet->setCellValueExplicit('D1', 'Date');
 
 		$row = 2;
 
@@ -596,10 +595,10 @@ class statisticsActions extends sfActions
 		$bounces = CampaignContactBouncePeer::doSelectJoinCampaignContact($criteria);
 
 		foreach ($bounces as /*(CampaignContactBounce)*/$bounce){
-			$this->activeSheet->setCellValue('A'.$row, $bounce->getBounceType() == catalyzemailingHandlebouncesTask::BOUNCE_HARD?'HARD':'SOFT');
-			$this->activeSheet->setCellValue('B'.$row, $bounce->getAddress());
-			$this->activeSheet->setCellValue('C'.$row, $bounce->getCampaignContact()->getContact()->getFullName());
-			$this->activeSheet->setCellValue('D'.$row, $bounce->getArrivedAt('d/m/Y'));
+			$this->activeSheet->setCellValueExplicit('A'.$row, $bounce->getBounceType() == catalyzemailingHandlebouncesTask::BOUNCE_HARD?'HARD':'SOFT');
+			$this->activeSheet->setCellValueExplicit('B'.$row, $bounce->getAddress());
+			$this->activeSheet->setCellValueExplicit('C'.$row, $bounce->getCampaignContact()->getContact()->getFullName());
+			$this->activeSheet->setCellValueExplicit('D'.$row, $bounce->getArrivedAt('d/m/Y'));
 			$row++;
 		}
 		//endregion
@@ -611,10 +610,10 @@ class statisticsActions extends sfActions
 		$failed =  CampaignContactPeer::doSelect($criteria);
 
 		foreach ($failed as $fail_element){
-			$this->activeSheet->setCellValue('A'.$row, 'ERREUR À L\'ENVOI');
-			$this->activeSheet->setCellValue('B'.$row, $fail_element->getContact()->getEmail());
-			$this->activeSheet->setCellValue('C'.$row, $fail_element->getContact()->getFullName());
-			$this->activeSheet->setCellValue('D'.$row, $fail_element->getFailedSentAt('d/m/Y'));
+			$this->activeSheet->setCellValueExplicit('A'.$row, 'ERREUR À L\'ENVOI');
+			$this->activeSheet->setCellValueExplicit('B'.$row, $fail_element->getContact()->getEmail());
+			$this->activeSheet->setCellValueExplicit('C'.$row, $fail_element->getContact()->getFullName());
+			$this->activeSheet->setCellValueExplicit('D'.$row, $fail_element->getFailedSentAt('d/m/Y'));
 			$row++;
 		}
 		//endregion

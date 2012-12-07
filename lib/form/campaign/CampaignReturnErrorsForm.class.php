@@ -24,7 +24,7 @@ class CampaignReturnErrorsForm extends BaseCampaignForm {
 //			$this['return_path_login'],
 //			$this['return_path_server'],
 //			$this['return_path_email'],
-//			$this['reply_to_email'],
+			$this['reply_to_email'],
 			$this['target'],
 			$this['test_user_list'],
 			$this['test_type'],
@@ -70,11 +70,7 @@ class CampaignReturnErrorsForm extends BaseCampaignForm {
 		}
 
 		$this->widgetSchema['return_path_email'] =  new sfWidgetFormInput(array('label' => 'Email retours en erreur'),array('class'=> 'input-xlarge'));
-		$this->widgetSchema['reply_to_email'] =  new sfWidgetFormInput(array('label' => 'Email de réponse'),array('class'=> 'input-xlarge'));
 
-		$this->validatorSchema['reply_to_email'] = new sfValidatorEmail(array('required' => false),	array('required' =>
-		'<span class="help-block">Vous devez préciser l\'adresse email à utiliser</span>', 'invalid' =>
-		'<span class="help-block">Vous devez préciser une adresse email valide</span>'));
 		$this->validatorSchema['return_path_email'] = new sfValidatorEmail(array('required' => false),	array('required' =>
 		'<span class="help-block">Vous devez préciser l\'adresse email à utiliser</span>', 'invalid' =>
 		'<span class="help-block">Vous devez préciser une adresse email valide</span>'));
@@ -84,8 +80,6 @@ class CampaignReturnErrorsForm extends BaseCampaignForm {
 			'return_path_server' => '<span class="help-block hint">Exemple: pop.catalyz.fr</span>',
 			'return_path_login' => '<span class="help-block hint">Exemple: noreply@catalyz.fr</span>',
 			'return_path_password' => '<span class="help-block hint">Exemple: s3s4me</span>',
-			'reply_to_email' => '<span class="help-block hint">Exemple: bdurant@catalyz.fr</span>',
-			'reply_to_email' => '<span class="help-block hint">Exemple: bdurant@catalyz.fr</span>'
 		));
 
 

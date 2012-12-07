@@ -17,6 +17,12 @@ class staCampaign01Form extends sfForm {
 		$this->getWidgetSchema()->setHelp('website_link', '');
 		//endregion
 
+		//region top_right
+		$this->widgetSchema['top_right'] = new sfWidgetFormTextarea(array(), array('label' => 'Contenu', 'style' => 'width: 400px'));
+		$this->validatorSchema['top_right'] = new sfValidatorString(array('required' => false));
+		$this->getWidgetSchema()->setHelp('top_right', '');
+		//endregion
+
 		//region main_content
 		$this->widgetSchema['main_content'] = new czWidgetFormSubForm(array(
 		        'fieldName' => 'main_content',

@@ -100,6 +100,33 @@ echo '</ul></div></span>';
 	  	echo '</ul></div></div>';
 	  } ?>
 
+
+
+
+	  <fieldset>
+		<legend>Champ "Reply-To"</legend>
+		<p>Vous pouvez spécifier une adresse de réponse aux emails de votre campagne à laquelle les destinataires de vos campagnes pourront envoyer leurs réponses.</p>
+
+						<?php
+    $class = '';
+if (!empty($errors['reply_to_email'])) {
+	$class = ' error';
+}
+
+    printf('<div class="control-group%s">', $class);
+    ?>
+			<label class="control-label"><?php echo $form['reply_to_email']->renderLabel(); ?></label>
+			<div class="controls">
+				<?php echo $form['reply_to_email'] ?>
+				<?php echo $form['reply_to_email']->renderError(); ?>
+				<?php echo $form['reply_to_email']->renderHelp() ?>
+			</div>
+		</div>
+
+
+	</fieldset>
+
+
 	    <div class="form-actions">
 	    <?php
     if ($campaign->getStatus()< Campaign::STATUS_SENDING) {

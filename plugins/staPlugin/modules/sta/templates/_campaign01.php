@@ -39,7 +39,13 @@
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/sep.gif" width="12" height="70" alt="" style="display:block;" border="0" />
 						</td>
 						<td width="188">
-							<font face ="Trebuchet MS" style="line-height: 18px; font-size: 14px; font-weight:bold;" size="2" color="#333333">Assur&#233; n&#176; #CUSTOM1#<br/>#LASTNAME# #FIRSTNAME#</font>
+							<?php
+								if (!empty($parameters['top_right'])) {
+									printf('<font face ="Trebuchet MS" style="line-height: 18px; font-size: 14px; font-weight:bold;" size="2" color="#333333">%s</font>', nl2br($parameters['top_right']));
+								}else{
+									echo '&nbsp;';
+								}
+							 ?>
 						</td>
 					</tr>
 				</table>

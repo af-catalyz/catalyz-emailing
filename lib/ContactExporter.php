@@ -27,15 +27,15 @@ class ContactExporter{
 		$this->activeSheet = $this->spreadsheet->getActiveSheet();
 		$this->activeSheet->setTitle('Contacts');
 
-		$this->activeSheet->setCellValue('A1', 'Prénom');
-		$this->activeSheet->setCellValue('B1', 'Nom');
-		$this->activeSheet->setCellValue('C1', 'Société');
-		$this->activeSheet->setCellValue('D1', 'Email');
-		$this->activeSheet->setCellValue('E1', 'Statut');
+		$this->activeSheet->setCellValueExplicit('A1', 'Prénom');
+		$this->activeSheet->setCellValueExplicit('B1', 'Nom');
+		$this->activeSheet->setCellValueExplicit('C1', 'Société');
+		$this->activeSheet->setCellValueExplicit('D1', 'Email');
+		$this->activeSheet->setCellValueExplicit('E1', 'Statut');
 
 		for ($i = 1; $i <= sfConfig::get('app_fields_count'); $i++) {
 			$cellName = chr(ord('E') + $i) .'1';
-			$this->activeSheet->setCellValue($cellName, ContactPeer::getfieldLabel('CUSTOM'.$i));
+			$this->activeSheet->setCellValueExplicit($cellName, ContactPeer::getfieldLabel('CUSTOM'.$i));
 		}
 
 		$groupCriteria = new Criteria();
@@ -44,7 +44,7 @@ class ContactExporter{
 		if ($groups) {
 			$letter='K';
 			foreach ($groups as $group){
-				$this->activeSheet->setCellValue($letter.'1', $group->getName());
+				$this->activeSheet->setCellValueExplicit($letter.'1', $group->getName());
 				$letter=  $this->plus($letter);
 			}
 		}
@@ -63,17 +63,17 @@ class ContactExporter{
 		}
 
 		foreach($this->fields as $name => $position) {
-			$this->activeSheet->setCellValueByColumnAndRow($position, $this->exportedCount + 2, $contact->{'get'.$name}());
+			$this->activeSheet->setCellValueExplicitByColumnAndRow($position, $this->exportedCount + 2,  $contact->{'get'.$name}());
 		}
 
 		$letter='K';
 		$row=$this->exportedCount + 2;
 		foreach ($groups as $group){
 			if (!empty($ContactGroups[$group->getId()])) {
-				$this->activeSheet->setCellValue($letter.$row, ' X ');
+				$this->activeSheet->setCellValueExplicit($letter.$row, ' X ');
 			}
 			else{
-				$this->activeSheet->setCellValue($letter.$row, ' ');
+				$this->activeSheet->setCellValueExplicit($letter.$row, ' ');
 			}
 			$letter=  $this->plus($letter);
 		}

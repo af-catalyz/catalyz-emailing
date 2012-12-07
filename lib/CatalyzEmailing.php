@@ -539,17 +539,17 @@ class CatalyzEmailing {
         $activeSheet = $spreadsheet->getActiveSheet();
         $activeSheet->setTitle('Contacts');
 
-        $activeSheet->setCellValue('A1', 'Prénom');
-        $activeSheet->setCellValue('B1', 'Nom');
-        $activeSheet->setCellValue('C1', 'Société');
-        $activeSheet->setCellValue('D1', 'Email');
+        $activeSheet->setCellValueExplicit('A1', 'Prénom');
+        $activeSheet->setCellValueExplicit('B1', 'Nom');
+        $activeSheet->setCellValueExplicit('C1', 'Société');
+        $activeSheet->setCellValueExplicit('D1', 'Email');
 
         $mapping = range('A', 'Z');
 
         $row = 2;
         foreach ($errorRows as $errorRow) {
             foreach ($errorRow as $cellPosition => $content) {
-                $activeSheet->setCellValue($mapping[$cellPosition] . $row, $content);
+                $activeSheet->setCellValueExplicit($mapping[$cellPosition] . $row, $content);
             }
             $row++;
         }
