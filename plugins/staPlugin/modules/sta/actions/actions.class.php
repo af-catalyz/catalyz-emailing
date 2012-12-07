@@ -41,7 +41,7 @@ class staActions extends sfActions
 
 		$criteria = new Criteria();
 		$criteria->add(ContactPeer::EMAIL, $email);
-		$this->user =/*(CampaignContact)*/ ContactPeer::doSelectOne($criteria);
+		$this->user =/*(Contact)*/ ContactPeer::doSelectOne($criteria);
 		$this->forward404Unless($this->user);
 		//endregion
 
@@ -49,11 +49,32 @@ class staActions extends sfActions
 		$this->form->bind($request->getParameter($this->form->getName()));
 
 		if ($this->form->isValid()) {
-			$this->form->save();
+			$user = $this->form->save();
+			$this->sendUserEmail($user);
 		}else{
 			$this->setTemplate('edit');
 		}
 
 		$this->setLayout('layoutAnonymous');
+	}
+
+	function sendUserEmail($user){
+		try {
+			$subject = 'Un grand merci !';
+			$message =	$this->getPartial('sta/email_thankYou', array('user' => $user));
+
+			$messageAdmin = Swift_Message::newInstance()
+			  ->setFrom(array('sta@catalyz-emailing.com' => 'STA'))
+			  ->setTo($user->getEmail())
+			  ->setSubject($subject)
+			  ->setBody($message,'text/html');
+
+			$this->getMailer()->send($messageAdmin);
+		}
+		catch(Exception $e) {
+
+		}
+
+		return TRUE;
 	}
 }

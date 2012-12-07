@@ -7,7 +7,14 @@
 	</tr>
 	<tr>
 		<td>
-			<?php echo 'Vos données ont été mises à jour.<br/><br/>' ?>
+			<p>Nous tenons à vous remercier pour votre contribution à l'amélioration de nos services.<br/>
+<br/>
+Votre Chargé de Clientèle est disponible pour toute demande complémentaire au 05.34.31.71.91.<br/>
+<br/>
+Nos bureaux sont ouverts du lundi au vendredi de 9h à 17h,<br/>
+et en dehors de ces horaires sur rendez-vous.<br/>
+<br/>
+Le Service Développement</p>
 		</td>
 	</tr>
 	<tr>
