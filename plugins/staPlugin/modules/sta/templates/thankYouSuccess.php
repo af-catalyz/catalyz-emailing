@@ -1,5 +1,8 @@
+<?php
 
-<?php printf('<form action="%s" method="post">'	,url_for('@sta_ty?key='.$key)); ?>
+use_stylesheet('/staPlugin/css/forms.css','last');
+ ?>
+
 
 <table align="center" width="400" cellpadding="0" cellspacing="0">
 	<tr>
@@ -7,14 +10,18 @@
 	</tr>
 	<tr>
 		<td>
-			<p>Nous tenons à vous remercier pour votre contribution à l'amélioration de nos services.<br/>
+			<p>
+			<font style="font-size: 12px;line-height: 16px;" size="2" color="#333333" face="Trebuchet MS">
+			Nous tenons à vous remercier pour votre contribution à l'amélioration de nos services.<br/>
 <br/>
 Votre Chargé de Clientèle est disponible pour toute demande complémentaire au 05.34.31.71.91.<br/>
 <br/>
 Nos bureaux sont ouverts du lundi au vendredi de 9h à 17h,<br/>
 et en dehors de ces horaires sur rendez-vous.<br/>
 <br/>
-Le Service Développement</p>
+Le Service Développement
+</font>
+</p>
 		</td>
 	</tr>
 	<tr>
@@ -24,4 +31,3 @@ Téléphone : 05 34 31 71 91 - Fax : 05 34 31 71 90<br/><br/></font>
 		</td>
 	</tr>
 </table>
-</form>
