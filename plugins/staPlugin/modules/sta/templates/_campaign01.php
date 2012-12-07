@@ -41,7 +41,7 @@
 						<td width="188">
 							<?php
 								if (!empty($parameters['top_right'])) {
-									printf('<font face ="Trebuchet MS" style="line-height: 18px; font-size: 14px; font-weight:bold;" size="2" color="#333333">%s</font>', nl2br($parameters['top_right']));
+									printf('<font face ="Trebuchet MS" style="line-height: 18px; font-size: 14px; font-weight:bold;" size="2" color="#333333">%s</font>', nl2br(htmlentities($parameters['top_right'], ENT_COMPAT, 'utf-8')));
 								}else{
 									echo '&nbsp;';
 								}
