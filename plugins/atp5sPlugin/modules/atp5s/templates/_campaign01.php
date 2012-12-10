@@ -126,7 +126,7 @@
 						<td colspan="3">
 
 							<?php
-						renderAtp5sWysiwyg(fixSpecialChars($parameters['right_column']), 'line-height: 16px; font-size: 13px;', '#000000');
+						renderAtp5sWysiwyg(fixSpecialChars($parameters['custom']), 'line-height: 16px; font-size: 13px;', '#000000');
 	?>
 						</td>
 						<td width="34" style="line-height: 0px; font-size: 0px;"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/atp5sPlugin/images/campaign01/spacer.gif" width="1" height="1" alt="" border="0" /></td>
