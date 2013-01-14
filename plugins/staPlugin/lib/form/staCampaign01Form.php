@@ -28,8 +28,8 @@ class staCampaign01Form extends sfForm {
 
 		//region display_edit_contact
 		$choices = array();
-		$choices[staCampaign01Form::DISPLAY_LINK] = 'Afficher le lien pour editer son compte';
-		$choices[staCampaign01Form::DONT_DISPLAY_LINK] = 'Ne pas afficher le lien pour editer son compte';
+		$choices[staCampaign01Form::DISPLAY_LINK] = 'Afficher le lien pour éditer son compte';
+		$choices[staCampaign01Form::DONT_DISPLAY_LINK] = 'Ne pas afficher le lien pour éditer son compte';
 
 
 		$this->widgetSchema['display_edit_contact'] = new sfWidgetFormChoice(array("choices" => $choices) , array( 'style' => 'width: 400px'));
