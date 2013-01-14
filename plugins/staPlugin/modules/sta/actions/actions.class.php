@@ -11,10 +11,14 @@ class staActions extends sfActions
 
 		$this->key = $request->getParameter('key');
 
-		$tokens = explode('-', $this->key);
-		$key_hash = $tokens[2];
+		preg_match('/^(.+)-([0-9]+)-([a-zA-Z0-9]+)$/', $this->key, $tokens);
+		$key_hash = $tokens[3];
 
 		list($email, $campaignId) = Campaign::extractKeyInformation($this->key);
+
+//		$email = 'stephane.machado@airbus.com';
+//		var_dump(md5($email . sfConfig::get('app_seed')));
+//		die();
 
 		$this->forward404If($key_hash != md5($email . sfConfig::get('app_seed')));
 
