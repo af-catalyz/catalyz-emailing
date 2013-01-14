@@ -14,9 +14,13 @@ class staActions extends sfActions
 		$tokens = explode('-', $this->key);
 		$key_hash = $tokens[2];
 
-		list($email, $campaignId) = Campaign::extractKeyInformation($this->key);
-
-		$this->forward404If($key_hash != md5($email . sfConfig::get('app_seed')));
+		//allow admin to test application
+		if ($key_hash == sfConfig::get('app_seed')) {
+			$email = $tokens[0];
+			$campaignId = $tokens[1];
+		}else{
+			list($email, $campaignId) = Campaign::extractKeyInformation($this->key);
+		}
 
 		$criteria = new Criteria();
 		$criteria->add(ContactPeer::EMAIL, $email);

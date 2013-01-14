@@ -1,6 +1,9 @@
 <?php
 class staCampaign01Form extends sfForm {
 
+	const DISPLAY_LINK = 1;
+	const DONT_DISPLAY_LINK = 2;
+
 	public function configure()
 	{
 		parent::configure();
@@ -21,6 +24,17 @@ class staCampaign01Form extends sfForm {
 		$this->widgetSchema['top_right'] = new sfWidgetFormTextarea(array(), array('label' => 'Contenu', 'style' => 'width: 400px'));
 		$this->validatorSchema['top_right'] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp('top_right', '');
+		//endregion
+
+		//region display_edit_contact
+		$choices = array();
+		$choices[staCampaign01Form::DISPLAY_LINK] = 'Afficher le lien pour editer son compte';
+		$choices[staCampaign01Form::DONT_DISPLAY_LINK] = 'Ne pas afficher le lien pour editer son compte';
+
+
+		$this->widgetSchema['display_edit_contact'] = new sfWidgetFormChoice(array("choices" => $choices) , array( 'style' => 'width: 400px'));
+		$this->validatorSchema['display_edit_contact'] = new sfValidatorChoice(array('required' => false, 'choices' => array_keys($choices)));
+		$this->getWidgetSchema()->setHelp('display_edit_contact', '');
 		//endregion
 
 		//region main_content

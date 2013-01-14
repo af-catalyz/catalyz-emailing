@@ -56,22 +56,37 @@
 		</tr>
 		<tr>
 			<td valign="middle">
-				<table width="200" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
-					<tr>
-						<td width="23" style="line-height:0; font-size: 0;">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/bullet_1.gif" width="23" height="22" alt="" style="display:block;" border="0" />
-						</td>
-						<td width="177">
-							<font face ="Trebuchet MS" style="line-height: 11px; font-size: 9px;" size="2" color="#0099cc">
-								<a style="color:#0099cc;" href="<?php echo CatalyzEmailing::getApplicationUrl().'/sta/user/edit?key=#SPY_KEY#' ?>" target="_blank">Modification et enregistrement<br/>de vos coordonn&#233;es</a>
-							</font>
-						</td>
-					</tr>
-				</table>
+				<?php
+				if (!empty($parameters['display_edit_contact']) && $parameters['display_edit_contact'] == staCampaign01Form::DISPLAY_LINK) :
+				 ?>
+				 <table width="200" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
+						<tr>
+							<td width="23" style="line-height:0; font-size: 0;">
+								<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/bullet_1.gif" width="23" height="22" alt="" style="display:block;" border="0" />
+							</td>
+							<td width="177">
+								<font face ="Trebuchet MS" style="line-height: 11px; font-size: 9px;" size="2" color="#0099cc">
+									<a style="color:#0099cc;" href="<?php echo CatalyzEmailing::getApplicationUrl().'/sta/user/edit?key=#SPY_KEY#' ?>" target="_blank">Modification et enregistrement<br/>de vos coordonn&#233;es</a>
+								</font>
+							</td>
+						</tr>
+					</table>
+
+				 <?php else :
+				 	echo '&nbsp;';
+					?>
+
+				 <?php endif ?>
+
 			</td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;">
-			<td valign="bottom"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/staPlugin/images/campaign01/header_sep.gif" width="200" height="2" alt="" style="display:block;" border="0" /></td>
+			<td valign="bottom">
+			<?php if (!empty($parameters['display_edit_contact']) && $parameters['display_edit_contact'] == staCampaign01Form::DISPLAY_LINK)  {
+				printf('<img src="%s/staPlugin/images/campaign01/header_sep.gif" width="200" height="2" alt="" style="display:block;" border="0" /></td>', CatalyzEmailing::getApplicationUrl());
+			}else{
+				echo '&nbsp;';
+			} ?>
 		</tr>
 		<tr style="line-height:0; font-size: 0;">
 			<td colspan="2">
