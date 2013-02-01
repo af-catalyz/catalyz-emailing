@@ -426,6 +426,16 @@ EOF;
                 $template->setTemplate(false);
                 $template->save();
                 break;
+        	case 'sudprojet':
+                $template = new CampaignTemplate();
+                $template->setName('Newsletter 1');
+                $template->setClassName('sudprojetCampaign01CampaignTemplateHandler');
+                $template->setPreviewFilename('/sudprojetPlugin/images/campaign01.jpg');
+                $template->setInitializer('sudprojetCampaign01TemplateInitializer');
+                $template->setTemplate(false);
+                $template->save();
+        				break;
+
         } // switch
     }
 

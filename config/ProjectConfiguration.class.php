@@ -29,5 +29,6 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('atp5sPlugin');
 		$this->enablePlugins('luxhedgePlugin');
 		$this->enablePlugins('staPlugin');
+		$this->enablePlugins('sudprojetPlugin');
   }
 }
