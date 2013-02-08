@@ -20,9 +20,22 @@ class CampaignForm extends BaseCampaignForm
 		$criteria->addAscendingOrderByColumn(CampaignTemplatePeer::NAME);
 		$templates = CampaignTemplatePeer::doSelect($criteria);
 		foreach($templates as/*(CampaignTemplate)*/ $template) {
-			$choices[$template->getId()] = sprintf('<img src="%s" alt="%s"><h5>#INPUT# %s %s</h5><div style="clear:both"></div>',
 
-			$template->getPreviewFilename() && is_file(sfConfig::get('sf_web_dir').$template->getPreviewFilename())?thumbnail_path($template->getPreviewFilename(), 260, 180):'http://placehold.it/260x180'
+			$image_path = 'http://placehold.it/260x180';
+			$options = sprintf('width="260" height="180"');
+			if ($template->getPreviewFilename() && is_file(sfConfig::get('sf_web_dir').$template->getPreviewFilename())) {
+				$image_path = thumbnail_path($template->getPreviewFilename(), 260, 180);
+
+				$thumbnailPath = sfConfig::get('sf_web_dir').thumbnail_path($template->getPreviewFilename(), 260, 180);
+				$thumbnailSize = getimagesize($thumbnailPath);
+				$options = $thumbnailSize[3];
+			}
+
+
+
+			$choices[$template->getId()] = sprintf('<img src="%s" %s alt="%s"><h5>#INPUT# %s %s</h5><div style="clear:both"></div>',
+
+			$image_path, $options
 			, $template->getName(),$template->getName(), $template->getStatusBadge());
 		}
 

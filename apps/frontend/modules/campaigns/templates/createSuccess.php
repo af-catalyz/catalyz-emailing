@@ -51,15 +51,14 @@
 
 <script type="text/javascript">
 /* <![CDATA[ */
-
-$(document).ready(function() {
+$(window).load(function () {
 	adaptHeight();
 });
 
 
 //change li height to avoid floating problems
 function adaptHeight(){
-	var max = 140;
+	var max = 0;
 
 	//on ne prend que ceux qui sont visible(ceux du tab en cours)
 	$('.top_li:visible div.thumbnail').each(function(index) {
