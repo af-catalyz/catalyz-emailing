@@ -59,7 +59,7 @@ $(document).ready(function() {
 
 //change li height to avoid floating problems
 function adaptHeight(){
-	var max = 0;
+	var max = 140;
 
 	//on ne prend que ceux qui sont visible(ceux du tab en cours)
 	$('.top_li:visible div.thumbnail').each(function(index) {
