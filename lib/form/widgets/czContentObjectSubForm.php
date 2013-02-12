@@ -1,6 +1,6 @@
 <?php
 
-class czContentObjectSubForm extends sfForm {
+class czContentObjectSubForm extends czForm {
     function configure()
     {
         parent::configure();

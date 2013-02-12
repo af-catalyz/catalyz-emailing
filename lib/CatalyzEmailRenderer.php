@@ -13,6 +13,17 @@ class CatalyzEmailRenderer {
         return true;
     }
 
+    protected $rules = array();
+    public function addRule($name, $face, $style, $color, $size = false)
+    {
+        $this->rules[$name] = array(
+            'face' => $face,
+            'style' => $style,
+            'color' => $color,
+            'size' => $size
+            );
+    }
+
     function setStyle($style)
     {
         $this->style = $style;
@@ -30,7 +41,16 @@ class CatalyzEmailRenderer {
 
     function renderWysiwyg($content, $link_color = false)
     {
-        $fontTag_begin = sprintf('<font face="%s" style="%s" size="2" color="%s">', $this->face, $this->style, $this->color);
+    	foreach($this->rules as $name => $style) {
+    		if($style['size']){
+    			$replacement = sprintf('<font face="%s" style="%s" color="%s" size="%s">\1</font>', $style['face'], $style['style'], $style['color'], $style['size']);
+    		}else{
+    			$replacement = sprintf('<font face="%s" style="%s" color="%s">\1</font>', $style['face'], $style['style'], $style['color']);
+    		}
+    		$content = preg_replace(sprintf('|<[a-z]+ class="%s">([^<]+)</[a-z]+>|', $name), $replacement, $content);
+    	}
+
+		$fontTag_begin = sprintf('<font face="%s" style="%s" size="2" color="%s">', $this->face, $this->style, $this->color);
         if ($link_color) {
             $fontTag_begin_a = sprintf('<font face="%s" style="color:%s;text-decoration: underline;%s" size="2" color="%s">', $this->face, $link_color, $this->style, $link_color);
         } else {
@@ -51,10 +71,10 @@ class CatalyzEmailRenderer {
         $content = $this->changeTag($content, "li", $fontTag_begin);
         //endregion
 
-	    	//region td
-				$content = str_ireplace('</td>', $fontTag_end . "</td>", $content);
-	    	$content = $this->changeTag($content, "td", $fontTag_begin);
-	    	//endregion
+        //region td
+        $content = str_ireplace('</td>', $fontTag_end . "</td>", $content);
+        $content = $this->changeTag($content, "td", $fontTag_begin);
+        //endregion
 
         //region p
         $content = str_ireplace('</p>', $fontTag_end . "</p>", $content);
@@ -68,6 +88,8 @@ class CatalyzEmailRenderer {
         //region br
         $content = str_ireplace('<br>', "<br />", $content);
         //endregion
+
+
 
         echo $content;
     }
