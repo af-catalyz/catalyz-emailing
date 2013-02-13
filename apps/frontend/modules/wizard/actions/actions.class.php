@@ -69,9 +69,7 @@ class wizardActions extends sfActions {
 
     public function executeAjaxAddForm(sfWebRequest $request)
     {
-        $fieldId = $this->getUser()->getAttribute('catalyzAjaxAddForm_counter', 100);
-        $fieldId++;
-        $this->getUser()->setAttribute('catalyzAjaxAddForm_counter', $fieldId);
+        $fieldId = md5(time());
 
         $formId = $request->getParameter('formId');
 
