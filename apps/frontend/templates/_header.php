@@ -20,7 +20,7 @@
 			    	<?php echo CatalyzEmailing::getCampaignsMenu() ?>
 		    	</li>
               <li<?php if($sf_context->getModuleName() == 'contacts'){echo ' class="active"';}?>><a href="<?php echo url_for('@contacts'); ?>">Contacts</a></li>
-		    		<?php if($sf_user->hasCredential('admin')): ?>
+		    <?php if($sf_user->hasCredential('admin')): ?>
     		<li<?php if($sf_context->getModuleName() == 'fees'){echo ' class="active"';}?>><a href="<?php echo url_for('fees/index'); ?>">Routage</a></li>
      		  <li class="dropdown<?php if(in_array($sf_context->getModuleName(), array('settings'))){echo ' active';}?>"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		    			Configuration

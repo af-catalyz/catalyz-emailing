@@ -236,6 +236,10 @@ campaign_statistics_summary:
   url:   /:slug/summary
   param: { module: statistics, action: index }
 
+campaign_statistics_compare:
+  url:   /:slug/compare
+  param: { module: statistics, action: compare }
+
 campaign_statistics_targets:
   url:   /:slug/targets
   param: { module: statistics, action: targets }

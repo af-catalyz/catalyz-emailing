@@ -38,6 +38,8 @@ class statisticsActions extends sfActions
 		$title = sprintf('%s - Statistiques / Vue d\'ensemble %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
 
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
+
 		return sfView::SUCCESS;
 	}
 
@@ -638,4 +640,12 @@ class statisticsActions extends sfActions
 		return $this->renderText(sprintf('<div class="well">%s</div>', nl2br($bounce->getMessage())));
 	}
 
+	public function executeCompare(sfWebRequest $request){
+
+		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+		$this->forward404Unless($this->campaign2 =/*(Campaign)*/ CampaignPeer::retrieveByPk($request->getParameter('campaign')));
+
+
+		return sfView::SUCCESS;
+	}
 }

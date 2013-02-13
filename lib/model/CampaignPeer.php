@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Skeleton subclass for performing query and update operations on the 'campaign' table.
  *
@@ -14,34 +13,47 @@
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  *
- * @package    lib.model
+ * @package lib.model
  */
 class CampaignPeer extends BaseCampaignPeer {
-	public static function retrieveBySlug($slug)
-	{
-		$criteria = new Criteria(CampaignPeer::DATABASE_NAME);
-		$criteria->add(CampaignPeer::SLUG, $slug);
+    public static function retrieveBySlug($slug)
+    {
+        $criteria = new Criteria(CampaignPeer::DATABASE_NAME);
+        $criteria->add(CampaignPeer::SLUG, $slug);
 
-		$v = CampaignPeer::doSelectOne($criteria);
+        $v = CampaignPeer::doSelectOne($criteria);
 
-		return $v;
-	}
+        return $v;
+    }
 
-	public static function getStatisticsChartScript($datas, $divId){
-		$datas = $datas->getRawValue();
+    public static function getOtherSentCampaigns($mainCampaignId)
+    {
+        $criteria = new Criteria();
+        $criteria->add(self::ID, $mainCampaignId, Criteria::NOT_EQUAL);
+        $criteria->add(self::STATUS, Campaign::STATUS_COMPLETED);
 
-		$temp = array();
-		$labels = array_keys($datas);
-		foreach ($labels as $label){
-			$temp[]= date('"d/m/Y"', $label);
-		}
-		$labels = implode(',', $temp);
+        $result = array();
+        foreach(self::doSelect($criteria) as $campaign) {
+            $result[$campaign->getId()] = $campaign->getName();
+        }
+        return $result;
+    }
 
+    public static function getStatisticsChartScript($datas, $divId)
+    {
+        $datas = $datas->getRawValue();
 
-		$values = array_values($datas);
-		$values = implode(',', $values);
+        $temp = array();
+        $labels = array_keys($datas);
+        foreach ($labels as $label) {
+            $temp[] = date('"d/m/Y"', $label);
+        }
+        $labels = implode(',', $temp);
 
-		$return = sprintf('$(function () {
+        $values = array_values($datas);
+        $values = implode(',', $values);
+
+        $return = sprintf('$(function () {
     var chart;
     $(document).ready(function() {
         chart = new Highcharts.Chart({
@@ -104,7 +116,6 @@ series: [{
 
 });', $divId, $labels, $values);
 
-
-		return $return;
-	}
+        return $return;
+    }
 } // CampaignPeer
