@@ -203,7 +203,7 @@ class html2text
         //'',                                     // Comments -- which strip_tags might have problem a with
         "mb_strtoupper(\"\n\n\\1\n\n\", 'UTF-8')",          // H1 - H3
         "ucwords(\"\n\n\\1\n\n\")",             // H4 - H6
-        "\n\n\t",                               // <P>
+        "\n\n",                               // <P>
         "\n",                                   // <br>
         'mb_strtoupper("\\1", "UTF-8")',                    // <b>
         'mb_strtoupper("\\1", "UTF-8")',                    // <strong>

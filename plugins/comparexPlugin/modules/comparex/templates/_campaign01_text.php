@@ -1,39 +1,49 @@
 <?php $renderer = new CatalyzEmailTextRenderer();
 $parameters = unEscape($parameters);
-$renderer->renderHeader1('Newsletter Newtech');
+
+//print_r($parameters);
 
 if (!empty($parameters['edito'])) {
-	$renderer->renderContent($parameters ['edito']);
+    $renderer->renderContent($parameters ['edito']);
 }
 
-if (!empty($parameters['website_link'])) {
-	$renderer->renderContent($parameters['website_link']);
+if (!empty($parameters['video_url'])) {
+	echo "\n";
+
+    echo czWidgetFormLink::displayLink($parameters ['video_url']);
 }
 
-$renderer->renderContent('<br/>', false);
-
-if (!empty($parameters['offers_link']) && $parameters['offers_link']!= '') {
-	$renderer->renderContent(sprintf('Pour découvrir nos nouvelles offres sans tarder :<br/>%s<br/>',$parameters ['offers_link']));
+if (!empty($parameters['video_promo_url'])) {
+	echo "\n";
+	echo czWidgetFormLink::displayLink($parameters ['video_promo_url']);
 }
 
-if (!empty($parameters['contact_link']) && $parameters['contact_link']!= '') {
-	$renderer->renderContent(sprintf('Pour être contacté :<br/>%s<br/>',$parameters ['contact_link']));
+if (isset($parameters['articles']) && is_array($parameters['articles'])) {
+    foreach($parameters['articles'] as $article) {
+    	echo "\n";
+        $renderer->renderHeader2($article['title']);
+        $renderer->renderContent($article['content']);
+    	echo "\n";
+        echo czWidgetFormLink::displayLink($article['button_url']);
+    }
 }
 
-if (!empty($parameters['phone'])) {
-	if (!empty($parameters['offers_link']) || !empty($parameters['contact_link'])) {
-		$renderer->renderContent(sprintf('Sinon, vous pouvez nous joindre au %s<br/>',$parameters ['phone']));
-	}else{
-		$renderer->renderContent(sprintf('Vous pouvez nous joindre au %s<br/>',$parameters ['phone']));
-	}
+if (!empty($parameters['bottom_text'])) {
+    $renderer->renderContent($parameters['fbooter']);
 }
-
 if (!empty($parameters['footer'])) {
-	$renderer->renderContent($parameters ['footer']);
+	echo "\n";
+    echo $parameters['footer'];
 }
 
-if (!empty($parameters['thanks'])) {
-	$renderer->renderContent($parameters ['thanks']);
+if (!empty($parameters['footer_email'])) {
+	echo "\n";
+	echo trim($parameters['footer_email']);
+}
+
+if (!empty($parameters['footer_url'])) {
+	echo "\n";
+	echo czWidgetFormLink::displayLink($parameters ['footer_url']);
 }
 
 ?>

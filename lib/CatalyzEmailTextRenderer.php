@@ -18,6 +18,7 @@ class CatalyzEmailTextRenderer {
     function renderHeader1($content, $withSpacePrefix = true)
     {
     	if (!empty($content)) {
+    		$content = str_replace("\r\n", ' ', $content);
     		if ($withSpacePrefix) {
     			echo "\n";
     		}
@@ -27,6 +28,8 @@ class CatalyzEmailTextRenderer {
     function renderHeader2($content, $withSpacePrefix = true)
     {
         if (!empty($content)) {
+			$content = str_replace("\r\n", ' ', $content);
+
             if ($withSpacePrefix) {
                 echo "\n";
             }
