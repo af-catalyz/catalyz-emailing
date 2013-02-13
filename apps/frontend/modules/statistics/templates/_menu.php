@@ -1,4 +1,6 @@
+<?php if ($sf_user->hasCredential('admin')) : ?>
    <a class="btn pull-right" data-toggle="modal" href="#dialog-campaign-test">Créer une relance</a>
+   <?php endif; ?>
 
 		<ul class="nav nav-tabs">
 	    <?php

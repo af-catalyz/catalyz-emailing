@@ -20,6 +20,7 @@
 			    	<?php echo CatalyzEmailing::getCampaignsMenu() ?>
 		    	</li>
               <li<?php if($sf_context->getModuleName() == 'contacts'){echo ' class="active"';}?>><a href="<?php echo url_for('@contacts'); ?>">Contacts</a></li>
+		    		<?php if($sf_user->hasCredential('admin')): ?>
     		<li<?php if($sf_context->getModuleName() == 'fees'){echo ' class="active"';}?>><a href="<?php echo url_for('fees/index'); ?>">Routage</a></li>
      		  <li class="dropdown<?php if(in_array($sf_context->getModuleName(), array('settings'))){echo ' active';}?>"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		    			Configuration
@@ -30,6 +31,7 @@
 			    		<li><a href="<?php echo url_for('@settings_custom_fields'); ?>">Champs personnalisés</a></li>
 			    		<li><a href="<?php echo url_for('@settings_unsubscribe'); ?>">Processus de désabonnement</a></li>
 			    	</ul></li>
+		    	<?php endif; ?>
 
             </ul>
 		    <?php

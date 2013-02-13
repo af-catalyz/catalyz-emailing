@@ -74,21 +74,25 @@
 				    					} // switch
 				    			}
 				    		}
+if ($sf_user->hasCredential('admin')) {
+	printf('<td nowrap="nowrap"><div class="btn-group"><a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s&nbsp;<span class="caret"></span></a>
+			    						    	<ul class="dropdown-menu">
+			    							    	<li>%s</li>
+			    							    	<li>%s</li>
+			    							    	<li>%s</li>
+			    							    </ul>
+			    						    </div>
+			    						</td>',
+	__('Action'),
+	link_to(sprintf('<i class="icon-eye-open"></i> %s</a>', __('Détails')), '@contact_show?slug=' . $contact->getSlug(), array('title' => __('Voir les informations de ce contact'))),
+	link_to(sprintf('<i class="icon-edit"></i> %s</a>', __('Modifier')), '@contact_edit?slug=' . $contact->getSlug(), array('title' => __('Modifier ce contact'))),
+	link_to(sprintf('<i class="icon-remove-circle"></i> %s</a>', __('Supprimer')), '@contact_do_delete?slug=' . $contact->getSlug(),array('title' => __('Supprimer ce contact'), 'post' => true, 'confirm' => sprintf(__('Souhaitez vous supprimer le contact "%s" de façon définitive?'), $contact->getFullName())))
+	);
+}else{
+	printf('<td nowrap="nowrap">%s</td>',
 
-				    		printf('<td nowrap="nowrap"><div class="btn-group"><a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s&nbsp;<span class="caret"></span></a>
-				    						    	<ul class="dropdown-menu">
-				    							    	<li>%s</li>
-				    							    	<li>%s</li>
-				    							    	<li>%s</li>
-				    							    </ul>
-				    						    </div>
-				    						</td>',
-				    		__('Action'),
-				    		link_to(sprintf('<i class="icon-eye-open"></i> %s</a>', __('Détails')), '@contact_show?slug=' . $contact->getSlug(), array('title' => __('Voir les informations de ce contact'))),
-				    		link_to(sprintf('<i class="icon-edit"></i> %s</a>', __('Modifier')), '@contact_edit?slug=' . $contact->getSlug(), array('title' => __('Modifier ce contact'))),
-				    		link_to(sprintf('<i class="icon-remove-circle"></i> %s</a>', __('Supprimer')), '@contact_do_delete?slug=' . $contact->getSlug(),array('title' => __('Supprimer ce contact'), 'post' => true, 'confirm' => sprintf(__('Souhaitez vous supprimer le contact "%s" de façon définitive?'), $contact->getFullName())))
-				    		);
-
+	link_to(sprintf('<i class="icon-eye-open"></i> %s</a>', __('Détails')), '@contact_show?slug=' . $contact->getSlug(), array('title' => __('Voir les informations de ce contact'), 'class' => 'btn btn-mini')));
+}
 				    		echo '</tr>';
 				    	}
 				    	?>

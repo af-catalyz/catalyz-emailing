@@ -18,6 +18,11 @@
  */
 class sfGuardUserProfile extends BasesfGuardUserProfile {
 	public function getFullName(){
-		return sprintf('%s %s', $this->getFirstName(), $this->getLastName());
+		$role = '';
+		foreach($this->getsfGuardUser()->getGroups() as $group){
+			$role.=$group->getDescription();
+		}
+
+		return sprintf('%s %s (%s)', $this->getFirstName(), $this->getLastName(), $role);
 	}
 } // sfGuardUserProfile

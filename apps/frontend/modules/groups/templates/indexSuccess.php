@@ -1,7 +1,9 @@
 <div class="tabbable">
 <?php
+if ($sf_user->hasCredential('admin')) {
 printf('<a href="%s" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> %s</a>',
 url_for('groups/create'), __('Ajouter un groupe'));
+}
 ?>
 <ul class="nav nav-tabs">
 	<?php printf('<li><a href="%s">%s</a></li>', url_for('@contacts'), __('Contacts')) ?>
@@ -62,7 +64,7 @@ url_for('groups/create'), __('Ajouter un groupe'));
 					echo '</td>';
 
 					printf('<td align="center">%s</td>', $contact_group->getIsTestGroup()?'<i class="icon-ok-sign"></i>':'&nbsp;');
-
+if ($sf_user->hasCredential('admin')) {
 					printf('<td nowrap="nowrap"><div class="btn-group"><a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s&nbsp;<span class="caret"></span></a>
 													    	<ul class="dropdown-menu">
 														    	<li>%s</li>
@@ -79,7 +81,17 @@ url_for('groups/create'), __('Ajouter un groupe'));
 					link_to(sprintf('<i class="icon-star-empty"></i> %s</a>', __("Archiver le groupe")), '@group_do_archive?slug=' . $contact_group->getSlug(), array('title' => __('Archiver le groupe'))),
 					link_to(sprintf('<i class="icon-remove-circle"></i> %s</a>', __('Supprimer le groupe')), '@group_do_delete?slug=' . $contact_group->getSlug(),array('title' => __('Supprimer le groupe'), 'post' => true, 'confirm' => sprintf(__("Vous êtes sur le point de supprimer le groupe de contacts \"%s\".\nCette action est définitive et ne peut pas être annulée.\nLes contacts associés à ce groupe ne seront pas supprimés, ils seront visibles comme ne faisant plus parti de ce groupe dans la liste des contacts.\n\nCliquez sur OK pour confirmer la suppression définitive de ce groupe.\nCliquez sur Annuler pour conserver ce groupe."), $contact_group->getName())))
 					);
+}else{
+	printf('<td nowrap="nowrap"><div class="btn-group"><a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">%s&nbsp;<span class="caret"></span></a>
+													    	<ul class="dropdown-menu">
+														    	<li>%s</li>
+														    	<li>%s</li></ul></div></td>',
+	__('Action'),
+	link_to(sprintf('<i class="icon-download"></i> %s</a>', __('Exporter')), '@group_do_export?slug=' . $contact_group->getSlug(), array('title' => __('Exporter'))),
+	link_to(sprintf('<i class="icon-signal"></i> %s</a>', __("Statistiques")), '@group_view?slug=' . $contact_group->getSlug(), array('title' => __("Statistiques")))
 
+	);
+}
 
 
 					echo '</tr>';

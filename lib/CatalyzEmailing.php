@@ -14,7 +14,6 @@ class CatalyzEmailing {
     {
         $atom = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]'; // caractères autorisés avant l'arobase
         $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // caractères autorisés après l'arobase (nom de domaine)
-
         $regex = '/^' . $atom . '+' . // Une ou plusieurs fois les caractères autorisés avant l'arobase
         '(\.' . $atom . '+)*' . // Suivis par zéro point ou plus
         // séparés par des caractères autorisés avant l'arobase
@@ -48,9 +47,9 @@ class CatalyzEmailing {
 
     static function addStatisticsToLinks($content, $CampaignUrls, $clickedLinksPos)
     {
-       	//$content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
-       	$content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
-    	 	$content = preg_replace('|(</body>)|i', '<script type="text/javascript">$(".add_popover").popover({trigger: "hover", delay: { show: 10, hide: 500 }}); </script>\1', $content);
+        // $content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
+        $content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
+        $content = preg_replace('|(</body>)|i', '<script type="text/javascript">$(".add_popover").popover({trigger: "hover", delay: { show: 10, hide: 500 }}); </script>\1', $content);
 
         $content = str_replace('<a ', sprintf('<a style="position:relative;" '), $content);
         $content = self::addStats($content, $CampaignUrls, $clickedLinksPos);
@@ -567,80 +566,86 @@ class CatalyzEmailing {
         return $filename;
     }
 
-		static function getCampaignsMenu(){
-			$return = sprintf('<ul class="dropdown-menu"><li><a href="%s">%s</a></li>',url_for('@campaigns_do_create'),__('Créer une campagne'));
+    static function getCampaignsMenu()
+    {
+    	$return = '<ul class="dropdown-menu">';
 
-			//region $last3_prepared
-			$criteria = new Criteria();
-			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
-			$criteria->add(CampaignTemplatePeer::IS_ARCHIVED,0);
-			$criteria->add(CampaignPeer::IS_ARCHIVED, 0);
-			$criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::LESS_THAN);
-			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
-			$criteria->setLimit(3);
-			$criteria->setDistinct();
+        $sf_user = sfContext::getInstance()->getUser();
+        if ($sf_user->hasCredential('admin')) {
+            $return = sprintf('<li><a href="%s">%s</a></li>', url_for('@campaigns_do_create'), __('Créer une campagne'));
 
-			$last3_prepared = CampaignPeer::doSelect($criteria);
-			if (!empty($last3_prepared)) {
-				$return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>',url_for('@campaigns'),__('Campagnes en préparation') );
-				foreach ($last3_prepared as /*(Campaign)*/ $campaign){
-					$return .= sprintf('<li><a href="%s">&nbsp;%s</a></li>', $campaign->getCatalyzUrl(), $campaign->getName());
-				}
-			}
-			//endregion
+            //region $last3_prepared
+            $criteria = new Criteria();
+            $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+            $criteria->add(CampaignTemplatePeer::IS_ARCHIVED, 0);
+            $criteria->add(CampaignPeer::IS_ARCHIVED, 0);
+            $criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::LESS_THAN);
+            $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+            $criteria->setLimit(3);
+            $criteria->setDistinct();
 
-			//region $last3_send
-			$criteria = new Criteria();
-			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
-			$criteria->add(CampaignTemplatePeer::IS_ARCHIVED,0);
-			$criteria->add(CampaignPeer::IS_ARCHIVED, 0);
-			$criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::GREATER_EQUAL);
-			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
-			$criteria->setLimit(3);
-			$criteria->setDistinct();
+            $last3_prepared = CampaignPeer::doSelect($criteria);
+            if (!empty($last3_prepared)) {
+                $return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>', url_for('@campaigns'), __('Campagnes en préparation'));
+                foreach ($last3_prepared as/*(Campaign)*/ $campaign) {
+                    $return .= sprintf('<li><a href="%s">&nbsp;%s</a></li>', $campaign->getCatalyzUrl(), $campaign->getName());
+                }
+            }
+            //endregion
+        }
+        //region $last3_send
+        $criteria = new Criteria();
+        $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+        $criteria->add(CampaignTemplatePeer::IS_ARCHIVED, 0);
+        $criteria->add(CampaignPeer::IS_ARCHIVED, 0);
+        $criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::GREATER_EQUAL);
+        $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+        $criteria->setLimit(3);
+        $criteria->setDistinct();
 
-			$last3_send = CampaignPeer::doSelect($criteria);
-			if (!empty($last3_send)) {
-				$return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>', url_for('@campaigns?type=2'),__('Campagnes envoyées'));
+        $last3_send = CampaignPeer::doSelect($criteria);
+        if (!empty($last3_send)) {
+            $return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>', url_for('@campaigns?type=2'), __('Campagnes envoyées'));
 
-				foreach ($last3_send as /*(Campaign)*/ $campaign){
-					$return .= sprintf('<li><a href="%s">&nbsp;%s</a></li>', $campaign->getCatalyzUrl(), $campaign->getName());
-				}
-			}
-			//endregion
+            foreach ($last3_send as/*(Campaign)*/ $campaign) {
+                $return .= sprintf('<li><a href="%s">&nbsp;%s</a></li>', $campaign->getCatalyzUrl(), $campaign->getName());
+            }
+        }
+        //endregion
 
-			//region archived
-			$criteria = new Criteria();
-			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
-			$criteria->add(CampaignTemplatePeer::IS_ARCHIVED,0);
-			$criteria->add(CampaignPeer::IS_ARCHIVED, 1);
-			$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
-			$criteria->setLimit(1);
-			$criteria->setDistinct();
+        //region archived
+        $criteria = new Criteria();
+        $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+        $criteria->add(CampaignTemplatePeer::IS_ARCHIVED, 0);
+        $criteria->add(CampaignPeer::IS_ARCHIVED, 1);
+        $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
+        $criteria->setLimit(1);
+        $criteria->setDistinct();
 
-			$archived = CampaignPeer::doSelect($criteria);
-			if (!empty($archived)) {
-				$return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>', url_for('@campaigns?type=3'),__('Campagnes archivées'));
-			}
-			//endregion
+        $archived = CampaignPeer::doSelect($criteria);
+        if (!empty($archived)) {
+            $return .= sprintf('<li><a href="%s" class="nav-header">%s</a></li>', url_for('@campaigns?type=3'), __('Campagnes archivées'));
+        }
+        //endregion
+        if ($sf_user->hasCredential('admin')) {
+            $return .= sprintf('<li class="divider"></li><li><a href="%s">%s</a></li>', url_for('@campaigns_templates'), __('Gestion des modèles de campagnes'));;
+        }
+    	$return .= '</ul>';
+        return $return;
+    }
 
-			$return .= sprintf('<li class="divider"></li><li><a href="%s">%s</a></li></ul>', url_for('@campaigns_templates'),__('Gestion des modèles de campagnes'));;
+    static function diagnosticEmail($email)
+    {
+        if (!preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $email)) {
+            return 'Le format de l\'adresse email fournit est invalide.';
+        }
 
-			return $return;
-		}
+        if (!self::ValidateEmail($email)) {
+            return 'Le domaine "wanadoo" est incorrect, vérifiez sa validité. Il doit comporter 2 parties, exemple: "domaine.com" et non "domaine".';
+        }
 
-	static function diagnosticEmail($email){
-
-		if (!preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $email)) {
-			return 'Le format de l\'adresse email fournit est invalide.';
-		}
-
-		if (!self::ValidateEmail($email)) {
-			 return 'Le domaine "wanadoo" est incorrect, vérifiez sa validité. Il doit comporter 2 parties, exemple: "domaine.com" et non "domaine".';
-		}
-
-		return true;
-	}
+        return true;
+    }
 }
 
 ?>

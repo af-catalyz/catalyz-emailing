@@ -3,8 +3,10 @@
 
 <div class="tabbable">
 	<?php
+			if ($sf_user->hasCredential('admin')) {
 			printf('<a href="%s" class="btn btn-primary pull-right"><i class="icon-plus icon-white"></i> %s</a>',
 			url_for('contacts/add'), __('Ajouter des contacts'));
+			}
 	 ?>
 
 	<ul class="nav nav-tabs">

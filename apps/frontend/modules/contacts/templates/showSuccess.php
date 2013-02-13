@@ -8,7 +8,10 @@ echo $contact->getFullName();
 if ($contact->getCompany()) {
 	printf('&nbsp;<small>%s</small>', $contact->getCompany());
 }
-printf('&nbsp;<a href="%s" class="btn btn-mini">%s</a>', url_for('@contact_edit?slug=' . $contact->getSlug()),__('modifier'));
+ if ($sf_user->hasCredential('admin')) {
+
+ 	printf('&nbsp;<a href="%s" class="btn btn-mini">%s</a>', url_for('@contact_edit?slug=' . $contact->getSlug()),__('modifier'));
+ }
 echo '</h1>';
 //endregion
 

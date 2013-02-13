@@ -99,6 +99,23 @@ if (!empty($errors['confirmation'])) {
 	</div>
 </div>
 
+	<?php
+	$class = '';
+if (!empty($errors['groups'])) {
+	$class = ' error';
+}
+
+	printf('<div class="control-group%s">', $class);
+	?>
+	<?php printf('<label class="control-label">%s</label>', $form['groups']->renderLabel()) ?>
+	<div class="controls">
+		<?php
+	echo $form['groups'];
+	echo $form['groups']->renderError();
+	?>
+	</div>
+</div>
+
 
 
   <?php printf('<div class="form-actions"><input type="submit" class="btn btn-primary" value="%s"/>&nbsp;<a href="%s" class="btn">Annuler</a></div>', __('Enregistrer'), url_for('@settings')); ?>

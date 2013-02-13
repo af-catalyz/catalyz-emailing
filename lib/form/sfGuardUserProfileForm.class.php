@@ -17,13 +17,17 @@ class sfGuardUserProfileForm extends BasesfGuardUserProfileForm
 		if (!$this->isNew){
 			$defaults = $this->getDefaults();
 			$guardUser = sfGuardUserPeer::retrieveByPK($defaults['user_id']);
-			$this->setDefaults(array_merge(array('username'=>$guardUser->getusername()), $this->getDefaults()));
+
+			$this->setDefaults(array_merge(array('username'=>$guardUser->getusername(), 'groups' => $guardUser->getGroupNames()), $this->getDefaults()));
 		}
 	}
 
 	public function configure()
 	{
 		parent::configure();
+
+
+		$groups = sfGuardGroupPeer::getAllOptions();
 
 		$this->setWidgets(array(
 		'id'         => new sfWidgetFormInputHidden(),
@@ -33,7 +37,8 @@ class sfGuardUserProfileForm extends BasesfGuardUserProfileForm
 		'email'      => new sfWidgetFormInput(),
 		'username' => new sfWidgetFormInput(),
 		'password' => new sfWidgetFormInputPassword(),
-		'confirmation' => new sfWidgetFormInputPassword()
+		'confirmation' => new sfWidgetFormInputPassword(),
+		'groups' => new sfWidgetFormChoice(array('choices' => $groups))
 	));
 
 
@@ -45,14 +50,16 @@ class sfGuardUserProfileForm extends BasesfGuardUserProfileForm
 		'email'      => new sfValidatorEmail(array('required' => false), array('invalid'=>'<span class="help-inline">Cet email n\'est pas valide</span>')),
 		'username'      => new sfValidatorString(array('max_length' => 64, 'required' => true), array('required'=>'<span class="help-inline">l\'identifiant est obligatoire</span>')),
 		'password'      => new sfValidatorString(array('max_length' => 64, 'required' => FALSE), array('required'=>'<span class="help-inline">Le mot de passe est obligatoire</span>')),
-		'confirmation'      => new sfValidatorString(array('max_length' => 64, 'required' => FALSE), array('required'=>'<span class="help-inline">La conformation du mot de passe est obligatoire</span>'))
+		'confirmation'      => new sfValidatorString(array('max_length' => 64, 'required' => FALSE), array('required'=>'<span class="help-inline">La conformation du mot de passe est obligatoire</span>')),
+		'groups' => new sfValidatorChoice(array('choices' => array_keys($groups)))
 	));
 
 		$this->widgetSchema->setLabels(array(
 		'first_name' => 'Prénom',
 		'last_name' => 'Nom',
 		'email' => 'Email',
-		'username' => 'Identifiant <sup>*</sup>'
+		'username' => 'Identifiant <sup>*</sup>',
+		'groups' => 'Rôle'
 	));
 
 
@@ -86,14 +93,21 @@ class sfGuardUserProfileForm extends BasesfGuardUserProfileForm
 				$guardUser->setPassword($this->getValue('password'));
 			}
 			$guardUser->save();
+			$criteria = new Criteria();
+			$criteria->add(sfGuardUserGroupPeer::USER_ID, $guardUser->getId());
+			sfGuardUserGroupPeer::doDelete($criteria);
+
+			$guardUser->addGroupByName($this->getValue('groups'));
 		}
 		else{
 			$guardUser=  /*(sfGuardUser)*/ new sfGuardUser();
 			$guardUser->setPassword($this->getValue('password'));
 			$guardUser->setUsername($this->getValue('username'));
 			$guardUser->setIsActive(TRUE);
-			$guardUser->setIsSuperAdmin(TRUE);
+			//$guardUser->setIsSuperAdmin(TRUE);
 			$guardUser->save();
+
+			$guardUser->addGroupByName($this->getValue('groups'));
 		}
 
 		$this->updateObject();
