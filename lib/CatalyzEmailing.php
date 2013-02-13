@@ -572,7 +572,7 @@ class CatalyzEmailing {
 
         $sf_user = sfContext::getInstance()->getUser();
         if ($sf_user->hasCredential('admin')) {
-            $return = sprintf('<li><a href="%s">%s</a></li>', url_for('@campaigns_do_create'), __('Créer une campagne'));
+            $return .= sprintf('<li><a href="%s">%s</a></li>', url_for('@campaigns_do_create'), __('Créer une campagne'));
 
             //region $last3_prepared
             $criteria = new Criteria();
