@@ -1,4 +1,4 @@
-	<?php include_partial('statistics/header', array('campaign' => $campaign)); ?>
+	<?php include_partial('statistics/header', array('campaign' => $campaign, 'other_campaigns' => $other_campaigns)); ?>
 <div class="tabbable">
 <?php include_partial('statistics/menu', array('campaign' => $campaign)); ?>
 

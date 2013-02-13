@@ -28,7 +28,7 @@ class statisticsActions extends sfActions
 
 		$this->failed_count = $this->campaign->getAllBouncesCount();
 
-		$this->reactivite = $this->view_count != 0?($this->click_count * 100) / $this->view_count:0;
+		$this->reactivite = $this->campaign->getReactivityRate();
 
 		$this->taux_ouverture = $this->prepared_target_count != 0?(($this->view_count * 100) / ($this->prepared_target_count-$this->failed_count)):0;
 		$this->taux_clicks = $this->prepared_target_count != 0?(($this->click_count * 100) / ($this->prepared_target_count-$this->failed_count)):0;
@@ -62,6 +62,8 @@ class statisticsActions extends sfActions
 
 		$title = sprintf('%s - Statistiques / Cibles %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
+
 
 		return sfView::SUCCESS;
 	}
@@ -85,6 +87,8 @@ class statisticsActions extends sfActions
 
 		$title = sprintf('%s - Statistiques / Ouvertures %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
+
 
 		return sfView::SUCCESS;
 	}
@@ -118,6 +122,8 @@ class statisticsActions extends sfActions
 
 		$this->getResponse()->addJavaScript('/js/jquery.js');
 		$this->getResponse()->addJavaScript('/js/overlib/overlib_mini.js', 'last');
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
+
 
 		return sfView::SUCCESS;
 	}
@@ -203,12 +209,16 @@ class statisticsActions extends sfActions
 		$pager->init();
 		$this->pager = $pager;
 		// $this->total= array_sum($this->links);
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
+
 		return sfView::SUCCESS;
 	}
 
 	public function executeMessage(sfWebRequest $request)
 	{
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
+
 		return sfView::SUCCESS;
 	}
 
@@ -226,6 +236,8 @@ class statisticsActions extends sfActions
 
 		$title = sprintf('%s - Statistiques / Clients de messagerie %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
 		$this->getResponse()->setTitle($title);
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
+
 
 		return sfView::SUCCESS;
 	}
@@ -428,6 +440,8 @@ class statisticsActions extends sfActions
 		$pager->setPeerMethod('doSelectJoinContact');
 		$pager->init();
 		$this->pager = $pager;
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
+
 
 		return sfView::SUCCESS;
 	}
@@ -556,6 +570,7 @@ class statisticsActions extends sfActions
 		$nb=($this->actual-1)*$pagerSize;
 		$this->items = array_splice($return,$nb,$pagerSize);
 		//endregion
+		$this->other_campaigns =CampaignPeer::getOtherSentCampaigns($this->campaign->getId());
 
 		return sfView::SUCCESS;
 	}
@@ -640,11 +655,28 @@ class statisticsActions extends sfActions
 		return $this->renderText(sprintf('<div class="well">%s</div>', nl2br($bounce->getMessage())));
 	}
 
+	protected function computeChangeRate($value1, $value2, $positiveIsGood = true){
+		$result = sprintf('%s%%', number_format(100 * ($value2 - $value1) / $value1, 0, '.', ' '));
+
+		if($positiveIsGood){
+			return sprintf('<span style="color: #4EAD00">%s%s</span>', ($result >= 0)?'+':'-', $result);
+		}else{
+			return sprintf('<span style="color: #C40000">%s%s</span>', ($result >= 0)?'+':'-', $result);
+		}
+
+	}
+
 	public function executeCompare(sfWebRequest $request){
 
 		$this->forward404Unless($this->campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 		$this->forward404Unless($this->campaign2 =/*(Campaign)*/ CampaignPeer::retrieveByPk($request->getParameter('campaign')));
 
+		$this->evolution = array();
+		$this->evolution['target'] = $this->computeChangeRate($this->campaign->getTargetCount(), $this->campaign2->getTargetCount());
+		$this->evolution['opened'] = $this->computeChangeRate($this->campaign->getOpenedCount(), $this->campaign2->getOpenedCount());
+		$this->evolution['click'] = $this->computeChangeRate($this->campaign->getClickedCount(), $this->campaign2->getClickedCount());
+		$this->evolution['reactivity'] = $this->computeChangeRate($this->campaign->getReactivityRate(), $this->campaign2->getReactivityRate());
+		$this->evolution['unsubscribe'] = $this->computeChangeRate($this->campaign->getUnsubscribeCount(), $this->campaign2->getUnsubscribeCount(), false);
 
 		return sfView::SUCCESS;
 	}

@@ -970,7 +970,16 @@ class Campaign extends BaseCampaign {
 
 		return $total;
 	}
+	public function getReactivityRate($formatted = false){
 
+		$view_count = $this->getOpenedCount();
+		$click_count = $this->getClickedCount();
+		$result = $view_count != 0?($click_count * 100) / $view_count:0;
+		if($formatted){
+		return sprintf('%0.2f%%', $result);
+		}
+		return $result;
+	}
 } // Campaign
 
 $columns_map = array('from'   => CampaignPeer::NAME,'to'     => CampaignPeer::SLUG);
