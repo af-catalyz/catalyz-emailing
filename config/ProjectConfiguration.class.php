@@ -30,5 +30,7 @@ class ProjectConfiguration extends sfProjectConfiguration
 		$this->enablePlugins('luxhedgePlugin');
 		$this->enablePlugins('staPlugin');
 		$this->enablePlugins('sudprojetPlugin');
+		$this->enablePlugins('cciFormationPlugin');
+		$this->enablePlugins('comparexPlugin');
   }
 }

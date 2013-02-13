@@ -435,6 +435,59 @@ EOF;
                 $template->setTemplate(false);
                 $template->save();
         				break;
+        	case 'comparex':
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 1');
+        		$template->setClassName('comparexCampaign01CampaignTemplateHandler');
+        		$template->setPreviewFilename('/comparexPlugin/images/campaign01.jpg');
+        		$template->setInitializer('comparexCampaign01TemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+        		break;
+
+        	case 'cciFormation':
+        		$template = new CampaignTemplate();
+        		$template->setName('Calendrier');
+        		$template->setClassName('cciFormationCalendrierCampaignTemplateHandler');
+        		$template->setPreviewFilename('/cciFormationPlugin/images/calendrier.jpg');
+        		$template->setInitializer('cciFormationCalendrierTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Calendrier');
+        		$template->setPreviewFilename('/cciFormationPlugin/images/calendrier.jpg');
+        		$template->setTemplate($this->getPartial('cciFormation/calendrier2'));
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Invitation');
+        		$template->setClassName('cciFormationInvitationCampaignTemplateHandler');
+        		$template->setPreviewFilename('/cciFormationPlugin/images/invitation.jpg');
+        		$template->setInitializer('cciFormationInvitationTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Invitation');
+        		$template->setPreviewFilename('/cciFormationPlugin/images/invitation.jpg');
+        		$template->setTemplate($this->getPartial('cciFormation/invitation2'));
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 1');
+        		$template->setClassName('cciFormationCampaign01CampaignTemplateHandler');
+        		$template->setPreviewFilename('/cciFormationPlugin/images/campaign01.jpg');
+        		$template->setInitializer('cciFormationCampaign01TemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 1');
+        		$template->setPreviewFilename('/cciFormationPlugin/images/campaign01.jpg');
+        		$template->setTemplate($this->getPartial('cciFormation/campaign01_2'));
+        		$template->save();
+        		break;
 
         } // switch
     }
