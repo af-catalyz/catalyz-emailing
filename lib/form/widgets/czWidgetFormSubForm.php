@@ -38,44 +38,39 @@ class czWidgetFormSubForm extends sfWidgetForm {
         parent::__construct($options, $attributes);
     }
 
-    static function asArray($xml)
-    {
-				$fieldId = 0;
-        $xmlDoc = simplexml_load_string($xml1);
-        $value = array();
-        if ($xmlDoc instanceof SimpleXMLElement) {
-            foreach($xmlDoc->item as $item) {
-                while(!empty($value[$fieldId])){
-                	$fieldId++;
-                }
-								foreach($item as $subFieldName => $subFieldValue) {
-                    $value[$fieldId][$subFieldName] = unserialize((string)$subFieldValue);
-                }
-            }
-        }
+		static function asArray($xml) {
+			$fieldId = 0;
+			$xmlDoc = simplexml_load_string($xml);
+			$value = array();
+			if ($xmlDoc instanceof SimpleXMLElement) {
+				foreach($xmlDoc->item as $item) {
+					foreach($item as $subFieldName => $subFieldValue) {
+						$value[$fieldId][$subFieldName] = unserialize((string)$subFieldValue);
+					}
+					$fieldId++;
+				}
+			}
+			return $value;
+		}
 
+	static function asXml(array $value, $formName) {
+		$xml = "<?xml version='1.0' standalone='yes'?><root></root>";
+		$xmlDoc = new SimpleXMLElement($xml);
 
-        return $value;
-    }
+		foreach($value as $formValues) {
+			$node = $xmlDoc->addChild('item');
 
-    static function asXml(array $value, $formName)
-    {
-        $xml = "<?xml version='1.0' standalone='yes'?><root></root>";
-        $xmlDoc = new SimpleXMLElement($xml);
+			$form = new $formName();
+			$form->bind($formValues);
 
-        foreach($value as $formValues) {
-            $node = $xmlDoc->addChild('item');
+			foreach($formValues as $fieldName => $fieldValue) {
+				$fieldValue = preg_replace('|/catalyz/node-translation-edit/\d+/[a-z]{2}|siU', '', $fieldValue);
+				$node->addChild($fieldName, htmlspecialchars(serialize($fieldValue)));
+			}
+		}
 
-            $form = new $formName();
-            $form->bind($formValues);
-
-            foreach($formValues as $fieldName => $fieldValue) {
-                $node->addChild($fieldName, htmlspecialchars(serialize($fieldValue)));
-            }
-        }
-
-        return $xmlDoc->asXml();
-    }
+		return $xmlDoc->asXml();
+	}
 
     static function asXml2(array $value)
     {
