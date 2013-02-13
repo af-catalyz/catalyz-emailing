@@ -657,11 +657,22 @@ class statisticsActions extends sfActions
 
 	protected function computeChangeRate($value1, $value2, $positiveIsGood = true){
 		$result = sprintf('%s%%', number_format(100 * ($value2 - $value1) / $value1, 0, '.', ' '));
+		if($result == 0){
+			return '-';
+		}
 
 		if($positiveIsGood){
-			return sprintf('<span style="color: #4EAD00">%s%s</span>', ($result >= 0)?'+':'-', $result);
+			if($result > 0){
+				return sprintf('<span style="color: #4EAD00">%s%s</span>', ($result >= 0)?'+':'', $result);
+			}else{
+				return sprintf('<span style="color: #C40000">%s%s</span>', ($result >= 0)?'+':'', $result);
+			}
 		}else{
-			return sprintf('<span style="color: #C40000">%s%s</span>', ($result >= 0)?'+':'-', $result);
+			if($result > 0){
+				return sprintf('<span style="color: #C40000">%s%s</span>', ($result >= 0)?'+':'', $result);
+			}else{
+				return sprintf('<span style="color: #4EAD00">%s%s</span>', ($result >= 0)?'+':'', $result);
+			}
 		}
 
 	}
@@ -672,7 +683,7 @@ class statisticsActions extends sfActions
 		$this->forward404Unless($this->campaign2 =/*(Campaign)*/ CampaignPeer::retrieveByPk($request->getParameter('campaign')));
 
 		$this->evolution = array();
-		$this->evolution['target'] = $this->computeChangeRate($this->campaign->getTargetCount(), $this->campaign2->getTargetCount());
+		$this->evolution['target'] = $this->computeChangeRate($this->campaign->getPreparedTargetCount(), $this->campaign2->getPreparedTargetCount());
 		$this->evolution['opened'] = $this->computeChangeRate($this->campaign->getOpenedCount(), $this->campaign2->getOpenedCount());
 		$this->evolution['click'] = $this->computeChangeRate($this->campaign->getClickedCount(), $this->campaign2->getClickedCount());
 		$this->evolution['reactivity'] = $this->computeChangeRate($this->campaign->getReactivityRate(), $this->campaign2->getReactivityRate());
