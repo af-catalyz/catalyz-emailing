@@ -1,2 +1,8 @@
 default:
   credentials: admin
+
+show:
+  is_secure: false
+
+action:
+  is_secure: false
