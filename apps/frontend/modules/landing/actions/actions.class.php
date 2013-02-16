@@ -76,17 +76,41 @@ class landingActions extends sfActions {
         $this->setTemplate('edit');
     }
 
-    public function executeDelete($request)
-    {
-        $this->forward404Unless($landing = LandingPeer::retrieveByPk($request->getParameter('id')));
-        $message = sprintf('<h4 class="alert-heading">Page d\'atterrissage supprimée</h4><p>La page d\'atterrissage "%s" a été supprimée.</p>', $landing->getName());
-        $this->getUser()->setFlash('notice_success', $message);
-        $landing->delete();
+	public function executeDelete($request)
+	{
+		$this->forward404Unless($landing = LandingPeer::retrieveByPk($request->getParameter('id')));
+		$message = sprintf('<h4 class="alert-heading">Page d\'atterrissage supprimée</h4><p>La page d\'atterrissage "%s" a été supprimée.</p>', $landing->getName());
+		$this->getUser()->setFlash('notice_success', $message);
+		$landing->delete();
 
-        $this->redirect('@landing');
-    }
+		$this->redirect('@landing');
+	}
 
-    public function executeShow(sfWebRequest $request)
+
+	public function executeDuplicate($request)
+	{
+		$this->forward404Unless($landing = LandingPeer::retrieveByPk($request->getParameter('id')));
+
+		$new_landing = new Landing();
+		$options = $landing->toArray();
+		unset($options['Id']);
+		unset($options['Slug']);
+		unset($options['CreatedAt']);
+		unset($options['CreatedBy']);
+		unset($options['UpdatedAt']);
+		$options['Name'] = sprintf('Copie de %s', $options['Name']);
+		$options['Slug'] = CatalyzEmailing::slug($options['Name']);
+
+		$new_landing->fromArray($options);
+		$new_landing->save();
+
+		$message = sprintf('<h4 class="alert-heading">Page d\'atterrissage copiée</h4><p>La page d\'atterrissage "%s" a été dupliquée.</p>', $landing->getName());
+		$this->getUser()->setFlash('notice_success', $message);
+
+		$this->redirect('@landing_edit?id='.$new_landing->getId());
+	}
+
+	public function executeShow(sfWebRequest $request)
     {
         $this->forward404Unless($landing = LandingPeer::retrieveBySlug($request->getParameter('slug')));
 

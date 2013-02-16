@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Skeleton subclass for performing query and update operations on the 'landing' table.
  *
@@ -14,16 +13,33 @@
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  *
- * @package    lib.model
+ * @package lib.model
  */
 class LandingPeer extends BaseLandingPeer {
-	public static function retrieveBySlug($slug)
-	{
-		$criteria = new Criteria(self::DATABASE_NAME);
-		$criteria->add(self::SLUG, $slug);
+    public static function retrieveBySlug($slug)
+    {
+        $criteria = new Criteria(self::DATABASE_NAME);
+        $criteria->add(self::SLUG, $slug);
 
-		$v = self::doSelectOne($criteria);
+        $v = self::doSelectOne($criteria);
 
-		return $v;
-	}
+        return $v;
+    }
+
+    public static function getAllOptions()
+    {
+        $criteria = new Criteria();
+        $criteria->addSelectColumn(self::SLUG);
+        $criteria->addSelectColumn(self::NAME);
+        $statement = self::doSelectStmt($criteria);
+
+    	$controller = sfContext::getInstance()->getController();
+
+    	$result = array();
+    	while($row = $statement->fetch(PDO::FETCH_ASSOC)){
+    		$url = $controller->genUrl('@landing_show?slug='.$row['SLUG'], true).'?key=#SPY_KEY#';
+			$result[$url] = $row['NAME'];
+    	}
+        return $result;
+    }
 } // LandingPeer

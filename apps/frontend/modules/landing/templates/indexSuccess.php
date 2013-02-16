@@ -20,8 +20,9 @@
 	$url = url_for('@landing_show?slug='.$landing->getSlug(), true);
 	printf('<a href="%s" target="_blank">%s</a>',$url, $url); ?></td>
 	<td>
+		<a href="<?php echo url_for('@landing_duplicate?id='.$landing->getId()) ?>" class="btn">Dupliquer</a>
 		<a href="<?php echo url_for('@landing_edit?id='.$landing->getId()) ?>" class="btn">Modifier</a>
-		<a href="<?php echo url_for('@landing_delete?id='.$landing->getId()) ?>" class="btn btn-danger">Supprimer</a>
+		<a href="<?php echo url_for('@landing_delete?id='.$landing->getId()) ?>" class="btn btn-danger" onclick="return confirm('Souhaitez vous supprimer la page <?php echo $landing->getName(); ?> de façon définitive?');">Supprimer</a>
 	</td>
 </tr>
 <?php endforeach; ?>

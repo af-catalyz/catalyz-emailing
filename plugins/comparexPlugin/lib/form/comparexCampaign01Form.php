@@ -14,9 +14,9 @@ class comparexCampaign01Form extends czForm {
         $this->addSubformField('articles', 'Ajouter un article', 'comparexCampaign01Form_article');
         $this->addWysiwygField('bottom_text', 'Fin de newsletter', array('height' => 300), array('style' => 'width: 400px'));
 
-        $this->addTextareaField('footer', 'Coordonnées', array('height' => 300), array('style' => 'width: 400px'));
-        $this->addTextField('footer_email', 'Email');
-        $this->addTextField('footer_url', 'URL');
+        $this->addTextareaField('footer', 'Coordonnées', array('style' => 'width: 700px'));
+        $this->addTextField('footer_email', 'Email', array('style' => 'width: 700px'));
+        $this->addTextField('footer_url', 'URL', array('style' => 'width: 700px'));
 
         $this->widgetSchema->setNameFormat('campaign[content][%s]');
     }

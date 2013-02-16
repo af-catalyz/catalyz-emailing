@@ -438,6 +438,10 @@ landing_delete:
   url:   /landing/delete/:id
   param: { module: landing, action: delete }
 
+landing_duplicate:
+  url:   /landing/duplicate/:id
+  param: { module: landing, action: duplicate }
+
 landing_show:
   url:   /page/:slug
   param: { module: landing, action: show }
