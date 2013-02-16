@@ -52,7 +52,7 @@ class Landing extends BaseLanding {
 		    'from_name' => $properties[$name . '_visitor_notification_from_name'],
 		    'from_email' => $properties[$name . '_visitor_notification_from_email'],
 		    'subject' => $properties[$name . '_visitor_notification_subject'],
-		    'message' => $properties[$name . '_visitor_notification_body'],
+		    'message' => $properties[$name . '_visitor_notification_message'],
 		    );
 	}
 

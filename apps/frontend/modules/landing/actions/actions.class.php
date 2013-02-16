@@ -145,76 +145,65 @@ class landingActions extends sfActions {
 
         $properties = $landing->getActionParameters($actionType);
 
-    	$this->sendWebmasterNotification($landing->getWebmasterFormProperties($actionType), $datas);
-    	$this->sendVisitorNotification($landing->getUserFormProperties($actionType), $datas);
+        $this->sendWebmasterNotification($properties, $datas, $landing, $actionType);
+        $this->sendVisitorNotification($landing->getUserFormProperties($actionType), $datas, $landing, $actionType);
 
         return $this->renderText($properties['feedback']);
     }
 
-	public function sendEmailToVisitor($values, $macroKeywords, $macroValues, $visitorEmail)
-	{
-		if ($visitorEmail && $this->ContentObject->Translation[$this->culture]->visitor_notification_enabled && $visitorEmail != 'Non renseigné par le visiteur') {
-			$xml = $this->ContentObject->Translation[$this->culture]->custom_contact_form;
-			$field = czWidgetFormGenerator::getVisitorEmailField($xml);
+    public function sendWebmasterNotification($properties, $datas, $landing, $actionType)
+    {
+        // $message = CatalyzTextFilter::makeLinksAbsolute($message);
+        $messageObject =/*(Swift_Message)*/ Swift_Message::newInstance();
+        $messageObject->setCharset('utf-8');
+        $messageObject->setFrom($properties['from']);
+        $messageObject->setTo($properties['to']);
 
-			$message = str_replace($macroKeywords, $macroValues, $this->ContentObject->Translation[$this->culture]->visitor_notification_message);
-			$message = CatalyzTextFilter::makeLinksAbsolute($message);
+        if (sfConfig::get('app_mail_bcc', false)) {
+            $messageObject->addBcc(sfConfig::get('app_mail_bcc', false));
+        }
 
-			$messageVisitor = Catalyz::createNewSwiftMessageInstance($visitorEmail);
+        $messageObject->setSubject($properties['subject']);
 
-			$app_config = sfConfig::get('app_site_mail', array());
-			if (preg_match('/^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i', $this->ContentObject->Translation[$this->culture]->visitor_notification_from_email)) {
-				$messageVisitor->setFrom(array($this->ContentObject->Translation[$this->culture]->visitor_notification_from_email => $this->ContentObject->Translation[$this->culture]->visitor_notification_from_name));
-			}elseif(!empty($app_config)){
-				$messageVisitor->setFrom(array($app_config['from_email'] => $app_config['from_name']));
-			}
+    		$class = sprintf('%sLandingForm', $landing->getTemplateClass());
+    	$result = array();
+    	foreach($datas as $key => $value){
+    		$result[$class::translateActionFormFieldName($actionType, $key)] = $value;
+    	}
 
-			$messageVisitor->setSubject(str_replace($macroKeywords, $macroValues, $this->ContentObject->Translation[$this->culture]->visitor_notification_subject));
-			$messageVisitor->setBody($message, 'text/html') ;
-			if (is_array($field) && count($field) > 1) {
-				$notificationRecipients = array();
-				foreach ($field as $fieldElement) {
-					array_push($notificationRecipients, $values[$fieldElement]);
-				}
-				$messageVisitor->setCc($notificationRecipients);
-			}
-			$this->getMailer()->send($messageVisitor);
-		}
+		$content = $this->getPartial('landing/notification', array('datas' => $result, 'type' => $class::translateActionFormName($actionType)));
+		$content = $this->getPartial('landing/email', array('content' => $content));
+		$messageObject->setBody($content, 'text/html', 'UTF-8') ;
 
-		return true;
-	}
+        $mailer = Swift_Mailer::newInstance($this->getEmailTransport());
+        $mailer->send($messageObject);
+    }
 
+    public function sendVisitorNotification($properties, $datas, $landing, $actionType)
+    {
+        // $message = CatalyzTextFilter::makeLinksAbsolute($message);
+        if (empty($properties['enabled']) || empty($datas['email'])) {
+            return false;
+        }
+    	$messageObject =/*(Swift_Message)*/ Swift_Message::newInstance();
+        $messageObject->setCharset('utf-8');
+        $messageObject->setFrom($properties['from_email'], $properties['from_name']);
+        $messageObject->setTo($datas['email']);
 
-	public function sendWebmasterNotification($properties, $datas)
-	{
-		//$message = CatalyzTextFilter::makeLinksAbsolute($message);
+        if (sfConfig::get('app_mail_bcc', false)) {
+            $messageObject->addBcc(sfConfig::get('app_mail_bcc', false));
+        }
 
-		$messageAdmin = Catalyz::createNewSwiftMessageInstance($recipients);
-		$messageAdmin->setSubject($properties['']);
-		$messageAdmin->setBody($message, 'text/html');
-		// mettre en piece jointe le fichier
-		if (!empty($fichiers)) {
-			foreach ($fichiers as $fichier) {
-				$messageAdmin->attach(Swift_Attachment::fromPath($fichier['path'], $fichier['mime']));
-			}
-		}
+        $messageObject->setSubject($properties['subject']);
 
-		$field = czWidgetFormGenerator::getVisitorEmailField($xml);
-		$visitorEmail = '';
-		if ($field) {
-			$visitorEmail = $values[array_shift($field)];
-			if ($visitorEmail != 'Non renseigné par le visiteur') {
-				$messageAdmin->setReplyTo($visitorEmail);
-			}
-		}
+    	$messageObject->setBody($this->getPartial('landing/email', array('content' => $properties['message'])), 'text/html', 'UTF-8') ;
 
-		$this->getMailer()->send($messageAdmin);
+        $mailer = Swift_Mailer::newInstance($this->getEmailTransport());
+        $mailer->send($messageObject);
+    }
 
-		return $visitorEmail;
-	}
-
-	public function sendVisitorNotification($properties, $datas)
-	{
-		throw new Exception('Non implementé.');
-	}
+    protected function getEmailTransport()
+    {
+        return Swift_SmtpTransport::newInstance(sfConfig::get('app_mail_server', 'localhost'), sfConfig::get('app_mail_port', 25));
+    }
 }

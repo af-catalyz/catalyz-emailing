@@ -72,8 +72,8 @@ class czForm extends sfForm {
 
 	public function addNotificationFields($prefix)
 	{
-		$this->addTextField($prefix.'_from', 'Expéditeur', array('style' => 'width: 700px'));
-		$this->addTextField($prefix.'_to', 'Destinataire', array('style' => 'width: 700px'));
+		$this->addTextField($prefix.'_from', 'Email de l\'expéditeur', array('style' => 'width: 700px'));
+		$this->addTextField($prefix.'_to', 'Email du destinataire', array('style' => 'width: 700px'));
 		$this->addTextField($prefix.'_subject', 'Objet du message', array('style' => 'width: 700px'));
 		$this->addTextareaField($prefix.'_feedback', 'Message de confirmation pour le visiteur', array('style' => 'width: 700px'));
 
