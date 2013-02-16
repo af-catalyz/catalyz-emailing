@@ -66,7 +66,21 @@ h1{
 	text-transform: uppercase;
 
 }
-.h2:hover{
+.vip h2{
+	margin-top:0;
+	font-size:14px;
+	line-height:18px;
+	color:#ff0000;
+	font-weight: bold;
+	text-decoration: underline;
+	text-transform: uppercase;
+
+}
+
+.vip h2 a{
+	color:#ff0000;
+}
+.vip h2 a:hover{
 	color:#990000;
 }
 
@@ -78,6 +92,13 @@ p{
 	margin:0;
 }
 .p_12{
+	font-size:12px;
+	font-family: Arial;
+	color:#666666;
+	line-height:15px;
+	margin:0;
+}
+.vip p{
 	font-size:12px;
 	font-family: Arial;
 	color:#666666;
@@ -335,7 +356,7 @@ p{
 	color: #333333;
 	font-weight: bold;
 }
-.bullet_red_p{
+.bullet_red p{
 	margin-left:15px;
 
 }

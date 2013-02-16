@@ -4,7 +4,7 @@ class comparexLandingForm_menu extends czContentObjectSubFormLanding {
     {
         parent::configure();
         $this->addTextField('title', 'Titre');
-        $this->addUrlField('button_url', 'URL');
+        $this->addUrlField('url', 'URL');
     }
 }
 

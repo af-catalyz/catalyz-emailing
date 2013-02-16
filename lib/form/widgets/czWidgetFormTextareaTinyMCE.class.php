@@ -10,8 +10,8 @@ class czWidgetFormTextareaTinyMCE extends sfWidgetFormTextarea
 		$this->addOption('height');
 		$this->addOption('config', '');
 
-		$this->setOption('width', 560);
-		$this->setOption('height', 100);
+		$this->setOption('width', isset($options['width'])?$options['width']:560);
+		$this->setOption('height', isset($options['height'])?$options['height']:100);
 
 
 		$config = 'language: "' . sfConfig::get('app_catalyz_language','fr') . '",';

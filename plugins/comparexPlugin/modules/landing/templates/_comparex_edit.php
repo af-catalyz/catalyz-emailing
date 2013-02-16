@@ -24,11 +24,21 @@ $formatter->renderField('box3_content');
 $formatter->endGroup();
 
 $formatter->nextTab();
+$formatter->startGroup('Publicité 1');
 $formatter->renderField('top_right_picture');
 $formatter->renderField('top_right_picture_url');
 $formatter->renderField('top_right_content');
+$formatter->endGroup();
 
-$formatter->renderField('right_add');
+$formatter->renderNotificationFields('form1', 'Formulaire 1');
+
+$formatter->startGroup('Publicité 2');
+$formatter->renderField('right_ad_picture');
+$formatter->renderField('right_ad_url');
+$formatter->endGroup();
+
+$formatter->renderNotificationFields('form2', 'Formulaire 2');
+
 $formatter->renderField('right_bottom');
 
 $formatter->nextTab();
@@ -42,21 +52,25 @@ $formatter->renderField('bottom_legend');
 $formatter->nextTab();
 $formatter->startGroup('Zone 1');
 $formatter->renderField('sitemap1_title');
+$formatter->renderField('sitemap1_url');
 $formatter->renderField('sitemap1');
 $formatter->endGroup();
 
 $formatter->startGroup('Zone 2');
 $formatter->renderField('sitemap2_title');
+$formatter->renderField('sitemap2_url');
 $formatter->renderField('sitemap2');
 $formatter->endGroup();
 
 $formatter->startGroup('Zone 3');
 $formatter->renderField('sitemap3_title');
+$formatter->renderField('sitemap3_url');
 $formatter->renderField('sitemap3');
 $formatter->endGroup();
 
 $formatter->startGroup('Zone 4');
 $formatter->renderField('sitemap4_title');
+$formatter->renderField('sitemap4_url');
 $formatter->renderField('sitemap4');
 $formatter->endGroup();
 

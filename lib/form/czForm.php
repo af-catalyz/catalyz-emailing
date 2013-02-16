@@ -25,9 +25,10 @@ class czForm extends sfForm {
         $this->getWidgetSchema()->setLabel($fieldName, $label);
 
     }
-    protected function addTextField($fieldName, $label)
+    protected function addTextField($fieldName, $label, $options = array())
     {
-        $this->widgetSchema[$fieldName] = new sfWidgetFormInputText(array(), array('label' => $label));
+        $options['label'] = $label;
+		$this->widgetSchema[$fieldName] = new sfWidgetFormInputText(array(), $options);
         $this->validatorSchema[$fieldName] = new sfValidatorString(array('required' => false));
         $this->getWidgetSchema()->setHelp($fieldName, '');
     	$this->getWidgetSchema()->setLabel($fieldName, $label);
@@ -40,10 +41,10 @@ class czForm extends sfForm {
     	$this->getWidgetSchema()->setLabel($fieldName, $label);
     }
 
-    protected function addWysiwygField($fieldName, $label, $options = array())
+    protected function addWysiwygField($fieldName, $label, $options = array(), $attributes = array())
     {
-        $options['label'] = $label;
-        $this->widgetSchema[$fieldName] = new czWidgetFormTextareaTinyMCE(array(), $options);
+        $attributes['label'] = $label;
+        $this->widgetSchema[$fieldName] = new czWidgetFormTextareaTinyMCE($options, $attributes);
         $this->validatorSchema[$fieldName] = new sfValidatorString(array('required' => false));
         $this->getWidgetSchema()->setHelp($fieldName, '');
     	$this->getWidgetSchema()->setLabel($fieldName, $label);
@@ -68,6 +69,14 @@ class czForm extends sfForm {
         $this->defaults[$fieldName] = '';
         $this->getWidgetSchema()->setHelp($fieldName, '');
     }
+
+	public function addNotificationFields($prefix)
+	{
+		$this->addTextField($prefix.'_from', 'Expéditeur', array('style' => 'width: 700px'));
+		$this->addTextField($prefix.'_to', 'Destinataire', array('style' => 'width: 700px'));
+		$this->addTextField($prefix.'_subject', 'Objet du message', array('style' => 'width: 700px'));
+		$this->addTextareaField($prefix.'_feedback', 'Message de confirmation pour le visiteur', array('style' => 'width: 700px'));
+	}
 }
 
 ?>

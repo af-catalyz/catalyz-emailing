@@ -20,6 +20,8 @@ class LandingForm extends BaseLandingForm {
 
     	$formClass = $this->getObject()->getTemplateClassName();
 
+    	$this->setWidget('name', new sfWidgetFormInputText(array(), array('style' => 'width: 700px')));
+
 		$this->setWidget('content', new czWidgetFormWizardLanding(array('formClass' => $formClass, 'landing' => $this->getObject())));
 		$this->setValidator('content', new czValidatorWizard(array('formClass' => $formClass)));
 		$this->setDefault('content', $this->getObject()->getContent());

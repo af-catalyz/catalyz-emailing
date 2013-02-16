@@ -7,6 +7,28 @@
 	<title>Comparex Landing Page</title>
 </head>
 <body>
+
+<?php
+$parameters = $parameters->getRawValue();
+
+//function embedArray($parameters)
+//{
+//    foreach($parameters as $key => $value) {
+//        if (is_array($value)) {
+//            $value = embedArray($value);
+//        } else {
+//            if (!preg_match('/(picture|url)$/', $key)) {
+//                $value = sprintf('<div style="border: 1px dotted #00ff00">%s</div>', $value);
+//            }
+//        }
+//        $parameters[$key] = $value;
+//    }
+//    return $parameters;
+//}
+//
+//$parameters = embedArray($parameters);
+
+?>
     <div id="wrapper">
      	 <div id="wrapper_bg">
      	 	<div id="header">
@@ -14,33 +36,50 @@
 						<div id="menu_haut">
 							<table align="left" width="456" cellpadding="4" cellspacing="0" border="0">
 								<tr valign="top">
-									<td><a href="javascript://">Salle de Presse</a></td>
+								<?php if (isset($parameters['top_menu'])): ?>
+								<?php while ($menu = array_shift($parameters['top_menu'])): ?>
+									<td>
+									<?php
+    if (!empty($menu['url'])) {
+        printf('<a href="%s">%s</a>', czWidgetFormLink::displayLink($menu['url']), $menu['title']);
+    } else {
+        echo $menu['title'];
+    }
+
+    ?>
+									</td>
+									<?php if (count($parameters['top_menu']) > 0): ?>
 									<td><img src="/comparexPlugin/images/landing/comparex/menu_haut_sep.gif" width="1" height="13" alt="" border="0" /></td>
-									<td><a href="javascript://">Recrutement</a></td>
-									<td><img src="/comparexPlugin/images/landing/comparex/menu_haut_sep.gif" width="1" height="13" alt="" border="0" /></td>
-									<td><a href="javascript://">Software</a></td>
-									<td><img src="/comparexPlugin/images/landing/comparex/menu_haut_sep.gif" width="1" height="13" alt="" border="0" /></td>
-									<td><a href="javascript://">Consulting</a></td>
-									<td><img src="/comparexPlugin/images/landing/comparex/menu_haut_sep.gif" width="1" height="13" alt="" border="0" /></td>
-									<td><a href="javascript://">Services</a></td>
-									<td><img src="/comparexPlugin/images/landing/comparex/menu_haut_sep.gif" width="1" height="13" alt="" border="0" /></td>
-									<td><a href="javascript://">COMPAREX Global</a></td>
+									<?php endif; ?>
+									<?php endwhile; ?>
+									<?php endif; ?>
 								</tr>
 							</table>
 						</div>
 							<div class="logo"></div>
 							<div class="search">
-								<form class="searchform" target="_self" action="#">
-									<input class="search_bg" type="text" name="search_bg" value="Recherche sur le site"/>
+								<form class="searchform" target="_self" action="http://www.comparex-online.com/web/global/en/search.htm">
+									<input class="search_bg" type="text" name="searchpattern" value="Recherche sur le site"/>
 								</form>
 							</div>
 							<div id="menu_bas">
 							<table width="630" cellpadding="3" cellspacing="0" border="0">
 								<tr valign="top">
-									<td><a style="color:#ff0000" href="javascript://">Accueil</a></td>
-									<td><a style="color:#ff0000" href="javascript://">Thématiques</a></td>
-									<td><a style="color:#ff0000" href="javascript://">Espace client</a></td>
-									<td><a style="color:#ff0000" href="javascript://">A propos de comparex</a></td>
+								<?php if (isset($parameters['menu'])): ?>
+								<?php while ($menu = array_shift($parameters['menu'])): ?>
+									<td>
+									<?php
+        if (!empty($menu['url'])) {
+            printf('<a style="color:#ff0000" href="%s">%s</a>', czWidgetFormLink::displayLink($menu['url']), $menu['title']);
+        } else {
+            printf('<span style="color:#ff0000">%s</span>', $menu['title']);
+        }
+
+        ?>
+									</td>
+
+									<?php endwhile; ?>
+									<?php endif; ?>
 								</tr>
 							</table>
 							<div class="red_sep"></div>
@@ -50,22 +89,37 @@
      	 	</div>
 				<div id="content">
 					<div class="content_left">
-								<p class="title">Une gestion des postes simplifiée </p>
+								<p class="title"><?php if (isset($parameters['box1_title'])) {
+            echo $parameters['box1_title'];
+        }
+
+        ?></p>
 								<div class="sep_point"></div>
 							<div class="sous_text">
-									<p>La console d'administration vous offre une <strong>gestion simplifiée des applications d'Adobe CS6 Master Collection</strong> pour les postes utilisateurs :</p>
-									<ul>
-										<li><strong>Expérimentez la souplesse</strong> de la formule pour vos variations de besoins en licences avec la console d’administration.</li>
-										<li>Bénéficiez de versions <strong>multiplateformes et multilingues.</strong></li>
-										<li>Profitez du <strong>support Adobe Expert</strong> (2 incidents / utilisateur).</li>
-									</ul>
+									<?php if (isset($parameters['box1_content'])) {
+            echo $parameters['box1_content'];
+        }
+
+        ?>
 							</div>
 					</div>
 					<div class="content_right">
-						<div class="pub_1"></div>
+					<?php
+        if (isset($parameters['top_right_picture'])) {
+            if (!empty($parameters['top_right_picture_url'])) {
+                printf('<a href="%s"><img src="%s" width="233" height="102" style="float: left; margin: 16px 0 0 14px; padding: 0; position: relative;" /></a>', czWidgetFormLink::displayLink($parameters['top_right_picture_url']), $parameters['top_right_picture']);
+            } else {
+                printf('<img src="%s" width="233" height="102" style="float: left; margin: 16px 0 0 14px; padding: 0; position: relative;" />', $parameters['top_right_picture']);
+            }
+        }
+
+        ?>
+
+
 							<div class="vip">
-								<p class="p_12">Au terme de cette période, vous avez la possibilité de poursuivre l’abonnement avec le</p>
-								<a class="h2" href="javascript://">programme VIP</a>
+								<?php if (isset($parameters['top_right_content'])) {
+									echo $parameters['top_right_content'];
+								} ?>
 							</div>
 						<div class="clear"></div>
 						       	<div class="adhesion">
@@ -176,20 +230,33 @@
 					<div class="clear"></div>
 
 						<div class="content_left">
-								<p class="title">Une solution financièrement avantageuse</p>
+								<p class="title"><?php if (isset($parameters['box2_title'])) {
+            echo $parameters['box2_title'];
+        }
+
+        ?></p>
 								<div class="sep_point"></div>
 							<div class="sous_text">
-									<p>Le mode abonnement permet de réaliser des économies substantielles :</p>
-									<ul>
-										<li><strong>Economisez</strong> en remplaçant les upgrades massifs par la mise à jour régulière de vos applications Adobe.</li>
-										<li><strong>Réduisez les coûts</strong> de conformité, de gestion des versions et d’administration des utilisateurs… avec un parc toujours à jour !</li>
-										<li><strong>Amortissez l’investissement</strong> sur la durée.</li>
-									</ul>
+									<?php if (isset($parameters['box2_content'])) {
+            echo $parameters['box2_content'];
+        }
+
+        ?>
 							</div>
 					</div>
 					<div class="content_right">
 						<div class="pub_2">
-							<img src="/comparexPlugin/images/landing/comparex/pub_2.jpg" width="443" height="53" alt="" border="0" />
+							<?php
+if (isset($parameters['right_ad_picture'])) {
+	if (!empty($parameters['right_ad_url'])) {
+		printf('<a href="%s"><img src="%s" width="443" height="53" alt="" border="0" /></a>', czWidgetFormLink::displayLink($parameters['right_ad_url']), $parameters['right_ad_picture']);
+	} else {
+		printf('<img src="%s" width="443" height="53" alt="" border="0" />', $parameters['right_ad_picture']);
+	}
+}
+
+?>
+
 						</div>
 						       	<div class="adhesion">
 						       		<form action="#">
@@ -317,15 +384,18 @@
 					<div class="clear"></div>
 
 						<div class="content_left">
-								<p class="title">Des opportunités créatives étendues</p>
+								<p class="title"><?php if (isset($parameters['box3_title'])) {
+            echo $parameters['box3_title'];
+        }
+
+        ?></p>
 								<div class="sep_point"></div>
 							<div class="sous_text">
-									<p>Le mode abonnement permet de réaliser des économies substantielles :</p>
-									<ul>
-										<li>Bénéficiez toujours des <strong>dernières versions des applications d’Adobe Creative Suite® 6 Master Collection,</strong> grâce à l’accès immédiat et permanent à toutes les nouvelles fonctionnalités.</li>
-										<li>Elargissez votre palette de compétences grâce à la <strong>mise à disposition de nombreuses applications complémentaires et exclusives.</strong></li>
-										<li>Créez et gérez des groupes de travail virtuels pour collaborer avec des collègues en interne et en externe. <strong>Profitez d'une capacité de stockage en mode Cloud de 100 Go par poste</strong> ainsi que de fonctions de synchronisation de terminaux qui facilitent le partage de projets et de fichiers, où que vous soyez. </li>
-									</ul>
+									<?php if (isset($parameters['box3_content'])) {
+            echo $parameters['box3_content'];
+        }
+
+        ?>
 							</div>
 					</div>
 					<div class="content_right2">
@@ -337,48 +407,11 @@
 										<td class="box_left" width="27">
 										</td>
 										<td class="bullet_red" width="417">
-											<table width="417" align="center" cellspacing="0" cellpadding="0" border="0">
-												<tr valign="top">
-													<td class="color_grey" width="417">
-														<ul>
-															<li>Adobe Photoshop® Lightroom® 4</li>
-														</ul>
-															<p class="bullet_red_p">Une palette complète d'outils de photographie numérique permettant d'effectuer des réglages simples et efficaces en un clic mais aussi d'accéder à des commandes sophistiquées.</p>
-														</td>
-													</tr>
-													<tr valign="top">
-														<td width="417">
-															<ul>
-																<li>Adobe Digital Publishing Suite Single Edition</li>
-															</ul>
-															<p class="bullet_red_p">Pour déployer des applications iPad telles que des brochures, portfolios, albums-souvenirs et rapports annuels, sans faire appel à la programmation.</p>
-														</td>
-													</tr>
-													<tr valign="top">
-														<td width="417">
-															<ul>
-																<li>Adobe Acrobat® XI Pro</li>
-															</ul>
-															<p class="bullet_red_p">Ce n'est pas seulement le meilleur convertisseur PDF du marché. Il regorge également d'outils intelligents qui multiplient les possibilités de communication — avec facilité, transparence et brio.</p>
-														</td>
-													</tr>
-													<tr valign="top">
-														<td width="417">
-															<ul>
-																<li>Adobe Muse™</li>
-															</ul>
-															<p class="bullet_red_p">Pour créer des sites web HTML pour les postes de travail et les terminaux mobiles, sans programmation.</p>
-														</td>
-													</tr>
-													<tr valign="top">
-														<td width="417">
-															<ul>
-																<li>Adobe Edge Tools &amp; Services</li>
-															</ul>
-															<p class="bullet_red_p">De nouveaux outils et services pour un web moderne et esthétique.</p>
-														</td>
-													</tr>
-												</table>
+											<?php if (isset($parameters['right_bottom'])) {
+												echo $parameters['right_bottom'];
+											}
+
+?>
 										</td>
 										<td class="box_right" width="31">
 										</td>
@@ -401,7 +434,11 @@
                             		<img src="/comparexPlugin/images/landing/comparex/prog_left1.gif" width="24" height="22" alt="" border="0" />
                             	</td>
                             	<td width="788" bgcolor="#b3b3b3">
-                            		<p class="white_title">LE PROGRAMME VIP : mode d’emploi</p>
+                            		<p class="white_title"><?php if (isset($parameters['bottom_title'])) {
+            echo $parameters['bottom_title'];
+        }
+
+        ?></p>
                             	</td>
                                	<td width="23">
                             		<img src="/comparexPlugin/images/landing/comparex/prog_right1.gif" width="23" height="22" alt="" border="0" />
@@ -427,7 +464,11 @@
                             					<img src="/comparexPlugin/images/landing/comparex/bg_prog.gif" width="10" height="1" alt="" border="0" />
                             				</td>
                          					<td width="132" bgcolor="#868686">
-                         						<p class="white_12">Une fois que votre interlocuteur COMPAREX aura enregistré votre demande d’adhésion...</p>
+                         						<p class="white_12"><?php if (isset($parameters['bottom_zone1'])) {
+            echo $parameters['bottom_zone1'];
+        }
+
+        ?></p>
                             				</td>
                                				<td width="10" bgcolor="#868686">
                             					<img src="/comparexPlugin/images/landing/comparex/bg_prog.gif" width="10" height="1" alt="" border="0" />
@@ -439,7 +480,11 @@
                             					<img src="/comparexPlugin/images/landing/comparex/bg_prog.gif" width="10" height="1" alt="" border="0" />
                             				</td>
                          					<td width="142" bgcolor="#868686">
-                         						<p class="white_12">...vous recevrez une invitation pour vous inscrire au programme VIP*...(Value Incentive Plan)</p>
+                         						<p class="white_12"><?php if (isset($parameters['bottom_zone2'])) {
+            echo $parameters['bottom_zone2'];
+        }
+
+        ?></p>
                             				</td>
                             				<td width="10" bgcolor="#868686">
                             					<img src="/comparexPlugin/images/landing/comparex/bg_prog.gif" width="10" height="1" alt="" border="0" />
@@ -451,7 +496,11 @@
                             					<img src="/comparexPlugin/images/landing/comparex/bg_prog.gif" width="10" height="1" alt="" border="0" />
                             				</td>
                          					<td width="132" bgcolor="#868686">
-                         						<p class="white_12">...et vous pourrez inviter vos utilisateurs en saisissant simplement leurs adresses email.</p>
+                         						<p class="white_12"><?php if (isset($parameters['bottom_zone3'])) {
+            echo $parameters['bottom_zone3'];
+        }
+
+        ?></p>
                             				</td>
                             				<td width="10" bgcolor="#868686">
                             					<img src="/comparexPlugin/images/landing/comparex/bg_prog.gif" width="10" height="1" alt="" border="0" />
@@ -463,7 +512,11 @@
                             					<img src="/comparexPlugin/images/landing/comparex/bg_prog.gif" width="10" height="1" alt="" border="0" />
                             				</td>
                          					<td width="163" bgcolor="#868686">
-                         						<p class="white_12">Ils accèderont alors à l'interface en ligne et installeront sur leur poste les applications de leur choix. Vous pouvez également réaliser des masters de déploiement si vous le souhaitez.</p>
+                         						<p class="white_12"><?php if (isset($parameters['bottom_zone4'])) {
+            echo $parameters['bottom_zone4'];
+        }
+
+        ?></p>
                             				</td>
                             				<td width="10" bgcolor="#868686">
                             					<img src="/comparexPlugin/images/landing/comparex/bg_prog.gif" width="10" height="1" alt="" border="0" />
@@ -481,7 +534,11 @@
                             		<img src="/comparexPlugin/images/landing/comparex/prog_left3.gif" width="24" height="32" alt="" border="0" />
                             	</td>
                             	<td width="788" bgcolor="#868686">
-                            		<p class="white">* VIP (Value Incentive Plan) est le nouveau programme Adobe de licences sur abonnement qui facilite l’achat et la gestion de produits Adobe ainsi que l’attribution des licences d’utilisation des logiciels et services Adobe sur la base d’identifiants utilisateur déclarés.</p>
+                            		<p class="white"><?php if (isset($parameters['bottom_legend'])) {
+            echo $parameters['bottom_legend'];
+        }
+
+        ?></p>
                             	</td>
                                	<td width="23">
                             		<img src="/comparexPlugin/images/landing/comparex/prog_right3.gif" width="23" height="32" alt="" border="0" />
@@ -523,41 +580,37 @@
 				<div class="sep_footer">
 					<div class="sep_footer_content"></div>
 				</div>
-				<table width="700" align="center" cellspacing="10" cellpadding="0" border="0">
+				<table align="center" cellspacing="10" cellpadding="0" border="0">
 					<tr valign="top">
-                       	<td width="130">
-                       		<a style="color:#000000; font-weight:bold; text-transform:uppercase; text-decoration:none" href="javascript://">Accueil</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Notification légale</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Conditions générales</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Recherche sur le site</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Plan du site</a>
+					<?php for($i = 1; $i <= 4; $i++): ?>
+                       	<td>
+
+                       	<?php
+        if (isset($parameters['sitemap' . $i . '_title'])) {
+            if (!empty($parameters['sitemap' . $i . '_url'])) {
+                printf('<a style="color:#000000; font-weight:bold; text-transform:uppercase; text-decoration:none" href="%s">%s</a>', czWidgetFormLink::displayLink($parameters['sitemap' . $i . '_url']), $parameters['sitemap' . $i . '_title']);
+            } else {
+                printf('<span style="color:#000000; font-weight:bold; text-transform:uppercase; text-decoration:none">%s</span>', $parameters['sitemap' . $i . '_title']);
+            }
+        }
+        echo '<br />';
+        if (isset($parameters['sitemap' . $i])) {
+            foreach($parameters['sitemap' . $i] as $menu) {
+                if (isset($menu['url'])) {
+                    printf('<a style="color:#333333; text-decoration:none" href="%s">%s</a>', czWidgetFormLink::displayLink($menu['url']), $menu['title']);
+                } else {
+                    printf('<span style="color:#333333; text-decoration:none">%s</span>', $menu['title']);
+                }
+                echo '<br />';
+            }
+        }
+
+        ?>
+
+
                        	</td>
-                       	<td width="141">
-                       		<a style="color:#000000; font-weight:bold; text-transform:uppercase; text-decoration:none" href="javascript://">Thématiques</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Logiciels</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Virtualisation</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Sécurité informatique</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Bureau et communication</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Software Asset Management</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Espace client</a>
-                       	</td>
-                       	<td width="170">
-                       		<a style="color:#000000; font-weight:bold; text-transform:uppercase; text-decoration:none" href="javascript://">Questions</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Comment sécuriser mes données?</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Suis-je à jour de mes licences?</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Mes systèmes sont-ils sécurisés?</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Comment postuler?</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Quoi de nouveau?</a>
-                       	</td>
-                       	<td width="130">
-                       		<a style="color:#000000; font-weight:bold; text-transform:uppercase; text-decoration:none" href="javascript://">Comparex</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Groupe COMPAREX</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Direction</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Partenaires et éditeurs</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Employés</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Contacts</a><br />
-                       		<a style="color:#333333; text-decoration:none" href="javascript://">Downloads et Multimedia</a>
-                       	</td>
+                       	<?php endfor; ?>
+
                        </tr>
                    </table>
 

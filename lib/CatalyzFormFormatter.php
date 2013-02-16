@@ -339,6 +339,17 @@ id="' . $this->sortable_current_id . '_items_' . $this->sortable_current_item . 
     abstract protected function getFieldError($field);
 
     abstract protected function getFieldIcon($field);
+
+	public function renderNotificationFields($prefix, $groupName){
+		$this->startGroup($groupName);
+		$this->renderField($prefix.'_from');
+		$this->renderField($prefix.'_to');
+		$this->renderField($prefix.'_subject');
+		$this->renderField($prefix.'_feedback');
+		$this->endGroup();
+	}
+
+
 }
 
 class CatalyzFormFormatter3 extends AbstractCatalyzFormFormatter {
