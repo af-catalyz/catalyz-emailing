@@ -71,7 +71,7 @@ class CampaignDeliveryManager {
 
         $linkMap = array();
         $links = $this->getLinkList($content);
-
+$linkTabNew = array();
         foreach(array_unique($links) as $key => $link) {
             // creations des links pour la campagne
             if ($this->isLinkValid($link)) {
@@ -90,7 +90,10 @@ class CampaignDeliveryManager {
                     $CampaignLink->setCampaign($this->Campaign);
                     $CampaignLink->setUrl($targetLink);
                     $CampaignLink->save();
-                    $linkTab[$CampaignLink->getUrl()] = $CampaignLink;
+                    $linkTabNew[$CampaignLink->getUrl()] = $CampaignLink;
+                }else{
+                	$linkTabNew[$targetLink] = $linkTab[$targetLink];
+                	unset($linkTab[$targetLink]);
                 }
             }
             // remove des mauvais liens
@@ -98,6 +101,10 @@ class CampaignDeliveryManager {
                 $links = $this->removeFromTab($links, $link);
             }
         }
+
+    	foreach($linkTab as $link){
+    		$link->delete();
+    	}
 
         foreach ($links as $pos => $link) {
             $CL = false;
