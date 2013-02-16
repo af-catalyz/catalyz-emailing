@@ -47,14 +47,14 @@ echo '</ul></div></span>';
 //endregion
 
 $magic_chars = array('✉', '✍', '✎', '✓', '☑', '☒', '✗', '⊕', '⊗', '☞', '☜', '♫', '✄', '✁', '∞', '♨', '☢', '✈', '☰', '☷', '♥', '★', '☆', '☺', '☹', '♔', '♕', '♖', '♘', '♆', '✠', '♂', '♀', '♠', '♣', '♥', '♦', '☣', '☮', '☃', '☂', '☯', '☠');
-    printf('<span class="help-inline"><div class="btn-group"><a class="btn btn-mini dropdown-toggle" data-toggle="dropdown" href="#">%s <span class="caret"></span></a><ul class="dropdown-menu">', __('Caractères spéciaux'));
 
+echo '<div style="margin-top: 3px">';
 foreach ($magic_chars as $magic_char){
-	printf('<li><a class="listen_dynamic_field" href="javascript://" rel="%s">%s</a></li>', $magic_char, $magic_char);
+	printf('<a class="listen_dynamic_field btn btn-mini" href="javascript://" rel="%s">%s</a>', $magic_char, $magic_char);
 }
 
+    echo '</div>';
 
-    echo '</ul></div></span>';
 
 
 
