@@ -86,23 +86,34 @@ class landingActions extends sfActions {
         $this->redirect('@landing');
     }
 
-	public function executeShow(sfWebRequest $request)
-	{
-		$this->forward404Unless($landing = LandingPeer::retrieveBySlug($request->getParameter('slug')));
+    public function executeShow(sfWebRequest $request)
+    {
+        $this->forward404Unless($landing = LandingPeer::retrieveBySlug($request->getParameter('slug')));
 
-		$parameters = czWidgetFormWizard::asArray((string)$landing->getContent());
-		return $this->renderPartial(sprintf('landing/%s', $landing->getTemplateClass()), array('parameters' => $parameters));
-	}
+        $parameters = czWidgetFormWizard::asArray((string)$landing->getContent());
+        return $this->renderPartial(sprintf('landing/%s', $landing->getTemplateClass()), array('parameters' => $parameters, 'landing' => $landing));
+    }
 
+    public function executeAction(sfWebRequest $request)
+    {
+    	sfConfig::set('sf_web_debug', false);
+    	$this->forward404Unless($landing = /*(Landing)*/LandingPeer::retrieveBySlug($request->getParameter('slug')));
+        $this->forward404Unless($actionType = $request->getParameter('type'));
+        $this->forward404Unless($landing->hasAction($actionType));
 
-	public function executeAction(sfWebRequest $request)
-	{
-		$this->forward404Unless($landing = LandingPeer::retrieveBySlug($request->getParameter('slug')));
+        $datas = $request->getParameter('datas', array());
 
-//		$parameters = czWidgetFormWizard::asArray((string)$landing->getContent());
-//		return $this->renderPartial(sprintf('landing/%s', $landing->getTemplateClass()), array('parameters' => $parameters));
-	}
+        list($email, $campaignId) = Campaign::extractKeyInformation($request->getParameter('key'));
 
+        $CampaignContact = Campaign::LogView($campaignId, $email, $request->getHttpHeader('User-Agent'));
+    	//var_dump($CampaignContact);
+        if ($CampaignContact) {
+            $CampaignContact->addLandingAction($landing->getTemplateClass(), $actionType, $datas);
+            $CampaignContact->save();
 
-
+            $properties = $landing->getActionParameters($actionType);
+            return $this->renderText($properties['feedback']);
+        }
+        return $this->renderText('');
+    }
 }

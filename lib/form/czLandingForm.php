@@ -6,6 +6,12 @@ class czLandingForm extends czForm {
 		return 'landing';
 	}
 
+	static function translateActionFormName($name){
+		return $name;
+	}
+	static function translateActionFormFieldName($formName, $fieldName){
+		return $fieldName;
+	}
 }
 
 ?>

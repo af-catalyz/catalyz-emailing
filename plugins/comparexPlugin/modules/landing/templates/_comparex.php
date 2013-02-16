@@ -123,7 +123,9 @@ $parameters = $parameters->getRawValue();
 							</div>
 						<div class="clear"></div>
 						       	<div class="adhesion">
-						       		<form action="#">
+						       	<a name="form1"></a>
+						       		<form action="#" onsubmit="czEmailingLandingAction($(this), '<?php
+	echo url_for(sprintf('@landing_action?slug=%s&type=form1', $landing->getSlug())).'?key='.(isset($_REQUEST['key'])?$_REQUEST['key']:''); ?>'); return false;">
                             	  	<table width="482" align="center" cellspacing="0" cellpadding="0" border="0">
                             			<tr valign="top">
                             				<td width="482" colspan="6">
@@ -152,13 +154,13 @@ $parameters = $parameters->getRawValue();
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Société :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input" name="form_input" value=""/>
+                            					<input type="text" class="form_input" name="datas[company]" value=""/>
                             				</td>
                                				<td width="79">
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Nom :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input" name="form_input" value=""/>
+                            					<input type="text" class="form_input" name="datas[last_name]" value=""/>
                             				</td>
                             				<td width="38">
 												<img src="/comparexPlugin/images/landing/comparex/form1_right2.jpg" width="38" height="22" alt="" border="0" />
@@ -175,13 +177,13 @@ $parameters = $parameters->getRawValue();
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Email :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input" name="form_input" value=""/>
+                            					<input type="text" class="form_input" name="datas[email]" value=""/>
                             				</td>
                                				<td width="79">
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Prénom :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input" name="form_input" value=""/>
+                            					<input type="text" class="form_input" name="datas[first_name]" value=""/>
                             				</td>
                             				<td width="38">
 												<img src="/comparexPlugin/images/landing/comparex/form1_right2.jpg" width="38" height="22" alt="" border="0" />
@@ -206,10 +208,8 @@ $parameters = $parameters->getRawValue();
                             								<img src="/comparexPlugin/images/landing/comparex/bg_white.gif" width="55" height="1" alt="" border="0" />
                             							</td>
                             							<td width="73">
-                            								<form action="#">
 			                            					<span class="send_text">envoyer</span>
 			                            					<input type="submit" class="form_submit" name="form_submit" value=""/>
-			                            					</form>
                             							</td>
 													</tr>
 												</table>
@@ -259,7 +259,9 @@ if (isset($parameters['right_ad_picture'])) {
 
 						</div>
 						       	<div class="adhesion">
-						       		<form action="#">
+<a name="form2"></a>
+						       		<form action="#" onsubmit="czEmailingLandingAction($(this), '<?php
+	echo url_for(sprintf('@landing_action?slug=%s&type=form2', $landing->getSlug())).'?key='.(isset($_REQUEST['key'])?$_REQUEST['key']:''); ?>'); return false;">
                             	  	<table width="482" align="center" cellspacing="0" cellpadding="0" border="0">
                             			<tr valign="top">
                             				<td width="482" colspan="6">
@@ -288,13 +290,13 @@ if (isset($parameters['right_ad_picture'])) {
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Société :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input" name="form_input" value=""/>
+                            					<input type="text" class="form_input" name="datas[company]" value=""/>
                             				</td>
                                				<td width="79">
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Nom :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input" name="form_input" value=""/>
+                            					<input type="text" class="form_input" name="datas[last_name]" value=""/>
                             				</td>
                             				<td width="38">
 												<img src="/comparexPlugin/images/landing/comparex/form1_right2.jpg" width="38" height="24" alt="" border="0" />
@@ -312,13 +314,13 @@ if (isset($parameters['right_ad_picture'])) {
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Email :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input" name="form_input" value=""/>
+                            					<input type="text" class="form_input" name="datas[email]" value=""/>
                             				</td>
                                				<td width="79">
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Prénom :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input" name="form_input" value=""/>
+                            					<input type="text" class="form_input" name="datas[first_name]" value=""/>
                             				</td>
                             				<td width="38">
 												<img src="/comparexPlugin/images/landing/comparex/form1_right2.jpg" width="38" height="24" alt="" border="0" />
@@ -335,7 +337,7 @@ if (isset($parameters['right_ad_picture'])) {
                             					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Nombre d’utilisateurs de la Creative Suite :</font>
                             				</td>
                             				<td width="132">
-                            					<input type="text" class="form_input2" name="form_input2" value=""/>
+                            					<input type="text" class="form_input2" name="datas[user_count]" value=""/>
                             				</td>
                             				<td width="38">
 												<img src="/comparexPlugin/images/landing/comparex/form1_right2.jpg" width="38" height="24" alt="" border="0" />
@@ -360,10 +362,8 @@ if (isset($parameters['right_ad_picture'])) {
                             								<img src="/comparexPlugin/images/landing/comparex/bg_white.gif" width="55" height="1" alt="" border="0" />
                             							</td>
                             							<td width="73">
-                            								<form action="#">
 			                            					<span class="send_text">envoyer</span>
 			                            					<input type="submit" class="form_submit" name="form_submit" value=""/>
-			                            					</form>
                             							</td>
 													</tr>
 												</table>
@@ -619,6 +619,8 @@ if (isset($parameters['right_ad_picture'])) {
    		 </div>
 		<div id="bg_end"></div>
     </div>
+	<script type="text/javascript" src="/js/jquery.js"></script>
+	<script type="text/javascript" src="/js/landing.js"></script>
 </body>
 </html>
 

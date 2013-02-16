@@ -54,18 +54,18 @@ class CampaignContact extends BaseCampaignContact {
         return catalyzemailingHandlebouncesTask::getBounceTypeFmt($this->getBounceType());
     }
 
-	public function getLandingActionArray(){
-		$actions = $this->getLandingActions();
-		if ($actions) {
-			$actions = unserialize($actions);
-		} else {
-			$actions = array();
-		}
-		return $actions;
-	}
+    public function getLandingActionArray()
+    {
+        $actions = $this->getLandingActions();
+        if ($actions) {
+            $actions = unserialize($actions);
+        } else {
+            $actions = array();
+        }
+        return $actions;
+    }
     public function getLandingActionCount()
     {
-
         return count($this->getLandingActionArray());
     }
     public function getLandingActionLabel()
@@ -75,5 +75,37 @@ class CampaignContact extends BaseCampaignContact {
             return sprintf('<span class="badge">%d</span>', $count);
         }
         return '-';
+    }
+
+    public function addLandingAction($template, $actionType, $datas)
+    {
+        $actions = $this->getLandingActionArray();
+        $actions[] = array(
+            'when' => time(),
+            'template' => $template,
+            'type' => $actionType,
+            'content' => $datas);
+        $this->setLandingActions(serialize($actions));
+    }
+
+    function getLandingActionsForRendering()
+    {
+        $datas = $this->getLandingActionArray();
+    	$result = array();
+    	foreach($datas as $dataIndex => $data){
+    		$class = sprintf('%sLandingForm', $data['template']);
+    		if(!class_exists($class)){
+    			$result[$dataIndex] = $data;
+    		}else{
+    			$result[$dataIndex]['when'] = $data['when'];
+    			$result[$dataIndex]['type'] = $class::translateActionFormName($data['type']);
+    			$result[$dataIndex]['content'] = array();
+    			foreach($data['content'] as $key => $value){
+    				$result[$dataIndex]['content'][$class::translateActionFormFieldName($data['type'], $key)] = $value;
+    			}
+    		}
+
+    	}
+    	return $result;
     }
 } // CampaignContact

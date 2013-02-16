@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Skeleton subclass for representing a row from the 'landing' table.
  *
@@ -14,14 +13,34 @@
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  *
- * @package    lib.model
+ * @package lib.model
  */
 class Landing extends BaseLanding {
-	function getTemplateClassName(){
-		return sprintf('%sLandingForm', ucfirst($this->getTemplateClass()));
-	}
+    function getTemplateClassName()
+    {
+        return sprintf('%sLandingForm', ucfirst($this->getTemplateClass()));
+    }
 
-	function getEditPartialName(){
-		return sprintf('landing/%s_edit', $this->getTemplateClass());
-	}
+    function getEditPartialName()
+    {
+        return sprintf('landing/%s_edit', $this->getTemplateClass());
+    }
+
+    function hasAction($name)
+    {
+        $properties = czWidgetFormWizard::asArray($this->getContent());
+        return isset($properties[$name . '_feedback']);
+    }
+
+    function getActionParameters($name)
+    {
+        $properties = czWidgetFormWizard::asArray($this->getContent());
+
+        return array(
+            'from' => $properties[$name . '_from'],
+            'to' => $properties[$name . '_to'],
+            'subject' => $properties[$name . '_subject'],
+            'feedback' => $properties[$name . '_feedback'],
+            );
+    }
 } // Landing

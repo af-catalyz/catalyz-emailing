@@ -49,7 +49,7 @@ if ($contactObject != null):?>
 										<th>Détails</th>
 									</tr>
 								</thead>
-								<?php foreach($contact->getLandingActionArray() as $landingAction): ?>
+								<?php foreach($contact->getLandingActionsForRendering() as $landingAction): ?>
 								<tr>
 									<td><?php echo CatalyzDate::formatShort($landingAction['when']); ?></td>
 									<td><?php echo $landingAction['type']; ?></td>

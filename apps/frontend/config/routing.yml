@@ -442,6 +442,10 @@ landing_show:
   url:   /page/:slug
   param: { module: landing, action: show }
 
+landing_action:
+  url:   /landing/action/:slug/:type
+  param: { module: landing, action: action }
+
 
 # generic rules
 # please, remove them by adding more specific rules
