@@ -89,6 +89,7 @@ $parameters = $parameters->getRawValue();
      	 	</div>
 				<div id="content">
 					<div class="content_left">
+					<a name="box1"></a>
 								<p class="title"><?php if (isset($parameters['box1_title'])) {
             echo $parameters['box1_title'];
         }
@@ -102,6 +103,7 @@ $parameters = $parameters->getRawValue();
 
         ?>
 							</div>
+							<?php echo @$parameters['video']; ?>
 					</div>
 					<div class="content_right">
 					<?php
@@ -230,6 +232,7 @@ $parameters = $parameters->getRawValue();
 					<div class="clear"></div>
 
 						<div class="content_left">
+						<a name="box2"></a>
 								<p class="title"><?php if (isset($parameters['box2_title'])) {
             echo $parameters['box2_title'];
         }
@@ -384,6 +387,7 @@ if (isset($parameters['right_ad_picture'])) {
 					<div class="clear"></div>
 
 						<div class="content_left">
+						<a name="box1"></a>
 								<p class="title"><?php if (isset($parameters['box3_title'])) {
             echo $parameters['box3_title'];
         }
@@ -423,6 +427,7 @@ if (isset($parameters['right_ad_picture'])) {
 					</div>
 					<div class="clear"></div>
 					<div class="programme">
+					<a name="footer"></a>
 						<table width="835" align="center" cellspacing="0" cellpadding="0" border="0">
                             <tr valign="top">
                             	<td width="835" colspan="3">
@@ -562,7 +567,7 @@ if (isset($parameters['right_ad_picture'])) {
                             		<img src="/comparexPlugin/images/landing/comparex/info_left.png" width="148" height="18" alt="" border="0" />
                             	</td>
                             	 <td width="590" bgcolor="#ff0033" align="center">
-                            		<p class="yellow">Adhérez, testez, créez <img src="/comparexPlugin/images/landing/comparex/info_bullet.png" width="10" height="10" alt="" border="0" /> <span class="info_white">01 55 95 69 00</span> <img src="/comparexPlugin/images/landing/comparex/info_bullet2.png" width="6" height="12" alt="" border="0" /> <a href="info@comparex.fr" style="color:#FFFFFF; text-decoration:none;">info@comparex.fr</a></p>
+                            		<p class="yellow"><?php echo @$parameters['footer_caption'] ?> <img src="/comparexPlugin/images/landing/comparex/info_bullet.png" width="10" height="10" alt="" border="0" /> <span class="info_white"><?php echo @$parameters['footer_phone'] ?></span> <img src="/comparexPlugin/images/landing/comparex/info_bullet2.png" width="6" height="12" alt="" border="0" /> <a href="mailto:<?php echo @$parameters['footer_email'] ?>" style="color:#FFFFFF; text-decoration:none;"><?php echo @$parameters['footer_email'] ?></a></p>
                             	</td>
                             	<td width="160">
                             		<img src="/comparexPlugin/images/landing/comparex/info_right.png" width="160" height="18" alt="" border="0" />

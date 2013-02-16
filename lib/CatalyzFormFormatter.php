@@ -119,8 +119,8 @@ abstract class AbstractCatalyzFormFormatter {
         if ($error = $field->renderError()) {
             $rows++;
         }
-        printf('<tr valign="top"><td>%s %s</td><td width="82" rowspan="%d">%s</td></tr>' . "\n",
-            $field->render(), $field->renderLabel(), $rows, $this->getFieldIcon($field));
+        printf('<tr valign="top"><td>%s<div class="pull-left">&nbsp;</div>%s</td><td width="82" rowspan="%d">%s</td></tr>' . "\n",
+            $field->render(array('class' => 'pull-left')), $field->renderLabel(null, array('class' => 'pull-left')), $rows, $this->getFieldIcon($field));
         $this->renderHint($hint);
         $this->renderError($error);
     }
@@ -340,12 +340,19 @@ id="' . $this->sortable_current_id . '_items_' . $this->sortable_current_item . 
 
     abstract protected function getFieldIcon($field);
 
-	public function renderNotificationFields($prefix, $groupName){
-		$this->startGroup($groupName);
+	public function renderNotificationFields($prefix){
+		$this->renderField($prefix.'_feedback');
+		$this->startGroup('Notification au webmaster');
 		$this->renderField($prefix.'_from');
 		$this->renderField($prefix.'_to');
 		$this->renderField($prefix.'_subject');
-		$this->renderField($prefix.'_feedback');
+		$this->endGroup();
+		$this->startGroup('Notification au visiteur');
+		$this->renderField($prefix.'_visitor_notification_enabled');
+		$this->renderField($prefix.'_visitor_notification_from_name');
+		$this->renderField($prefix.'_visitor_notification_from_email');
+		$this->renderField($prefix.'_visitor_notification_from_subject');
+		$this->renderField($prefix.'_visitor_notification_from_body');
 		$this->endGroup();
 	}
 

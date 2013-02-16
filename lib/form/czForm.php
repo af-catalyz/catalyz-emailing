@@ -76,6 +76,21 @@ class czForm extends sfForm {
 		$this->addTextField($prefix.'_to', 'Destinataire', array('style' => 'width: 700px'));
 		$this->addTextField($prefix.'_subject', 'Objet du message', array('style' => 'width: 700px'));
 		$this->addTextareaField($prefix.'_feedback', 'Message de confirmation pour le visiteur', array('style' => 'width: 700px'));
+
+		$this->addCheckboxField($prefix.'_visitor_notification_enabled', 'Envoyer une notification au visiteur');
+		$this->addTextField($prefix.'_visitor_notification_from_name', 'Nom de l\'expéditeur', array('style' => 'width: 700px'));
+		$this->addTextField($prefix.'_visitor_notification_from_email', 'Email de l\'expéditeur', array('style' => 'width: 700px'));
+		$this->addTextField($prefix.'_visitor_notification_from_subject', 'Objet', array('style' => 'width: 700px'));
+		$this->addWysiwygField($prefix.'_visitor_notification_from_body', 'Contenu', array('height' => 400), array('style' => 'width: 700px'));
+	}
+
+	protected function addCheckboxField($fieldName, $label, $options = array())
+	{
+		$options['label'] = $label;
+		$this->widgetSchema[$fieldName] = new sfWidgetFormInputCheckbox(array(), $options);
+		$this->validatorSchema[$fieldName] = new sfValidatorBoolean(array('required' => false));
+		$this->getWidgetSchema()->setHelp($fieldName, '');
+		$this->getWidgetSchema()->setLabel($fieldName, $label);
 	}
 }
 

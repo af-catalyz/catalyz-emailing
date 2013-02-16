@@ -11,7 +11,9 @@ class comparexLandingForm extends czLandingForm {
         $this->addTextField('box1_title', 'Titre', array('style' => 'width: 700px'));
         $this->addWysiwygField('box1_content', 'Contenu', array('height' => 200));
 
-        $this->addTextField('box2_title', 'Titre', array('style' => 'width: 700px'));
+    	$this->addWysiwygField('video', 'Vidéo', array('height' => 500));
+
+		$this->addTextField('box2_title', 'Titre', array('style' => 'width: 700px'));
         $this->addWysiwygField('box2_content', 'Contenu', array('height' => 200));
 
         $this->addTextField('box3_title', 'Titre', array('style' => 'width: 700px'));
@@ -37,7 +39,11 @@ class comparexLandingForm extends czLandingForm {
         $this->addTextareaField('bottom_zone4', 'Zone 4', array('style' => 'width: 700px'));
         $this->addTextareaField('bottom_legend', 'Légende', array('style' => 'width: 700px'));
 
-        $this->addTextField('sitemap1_title', 'Titre', array('style' => 'width: 700px'));
+        $this->addTextField('footer_caption', 'Texte', array('style' => 'width: 700px'));
+        $this->addTextField('footer_phone', 'Téléphone', array('style' => 'width: 700px'));
+        $this->addTextField('footer_email', 'Email', array('style' => 'width: 700px'));
+
+		$this->addTextField('sitemap1_title', 'Titre', array('style' => 'width: 700px'));
         $this->addUrlField('sitemap1_url', 'URL');
         $this->addSubformField('sitemap1', 'Ajouter un élément de menu', 'comparexLandingForm_menu');
 
