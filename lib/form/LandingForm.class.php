@@ -29,7 +29,7 @@ class LandingForm extends BaseLandingForm {
 
         $this->getWidgetSchema()->setLabels(array(
                 'name' => 'Nom',
-                'url' => 'Adresse de la page',
+                'slug' => 'Adresse de la page',
                 'content' => false
                 ));
     }
