@@ -445,10 +445,11 @@ class CampaignDeliveryManager {
         $additionalMacros['#FIRSTNAME#'] = htmlentities($contact->getFirstName(), ENT_COMPAT, 'utf-8') ;
         $additionalMacros['#LASTNAME#'] = htmlentities($contact->getLastName(), ENT_COMPAT, 'utf-8') ;
         $additionalMacros['#COMPANY#'] = htmlentities($contact->getCompany(), ENT_COMPAT, 'utf-8') ;
-        for($i = 1; $i <= sfConfig::get('app_fields_count'); $i++) {
-            $method = 'getCustom' . $i;
-            $additionalMacros[sprintf('#CUSTOM%d#', $i)] = $contact->$method();
-        }
+
+    	$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+    	foreach($czSettings->get(CatalyzSettings::CUSTOM_FIELDS) as $fieldKey => $label) {
+    		$additionalMacros[sprintf('#%s#', strtoupper($fieldKey))] = $contact->$method();
+    	}
 
         return $additionalMacros;
     }
