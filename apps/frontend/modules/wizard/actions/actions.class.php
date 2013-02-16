@@ -111,12 +111,12 @@ class wizardActions extends sfActions {
 
         $form->setWidget($random . '_file_link', new sfWidgetFormInput(array(), array(
                     'id' => $random . '_file_link',
-                    'onclick' => 'document.getElementById(\'' . $random . '_LinkType2\').checked = true;', 'style' => 'width: 650px;')));
+                    'onclick' => 'document.getElementById(\'' . $random . '_LinkType2\').checked = true;', 'style' => 'width: 500px;')));
         $form->setValidator($random . '_file_link', new sfValidatorPass());
 
         $form->setWidget($random . '_website_link', new sfWidgetFormInput(array(), array(
                     'id' => $random . '_website_link',
-                    'onclick' => 'document.getElementById(\'' . $random . '_LinkType3\').checked = true;', 'style' => 'width: 650px;'))
+                    'onclick' => 'document.getElementById(\'' . $random . '_LinkType3\').checked = true;', 'style' => 'width: 500px;'))
             );
         $form->setValidator($random . '_website_link', new sfValidatorPass());
 
@@ -126,7 +126,7 @@ class wizardActions extends sfActions {
             if (count($choices) > 0) {
             	$form->setWidget($random . '_landing_link', new sfWidgetFormChoice(array('choices' => $choices), array(
             	            'id' => $random . '_landing_link',
-            	            'onclick' => 'document.getElementById(\'' . $random . '_LinkType_landing\').checked = true;', 'style' => 'width: 500px;')));
+            	            'onclick' => 'document.getElementById(\'' . $random . '_LinkType_landing\').checked = true;', 'style' => 'width: 400px;')));
             	$form->setValidator($random . '_landing_link', new sfValidatorChoice(array('choices' => array_keys($choices))));
 
             	$form->setWidget($random . '_landing_link_anchor', new sfWidgetFormInput(array(), array(
