@@ -203,16 +203,16 @@ class ContactImporter {
                         $message .= '1 nouveau contact a été créé.';
                         break;
                     default:
-                        $message .= sprintf('%d nouveaux contacts ont étés créés.', $this->getImportedCount());
+                        $message .= sprintf('%d nouveaux contacts ont été créés.', $this->getImportedCount());
                 } // switch
                 switch ($this->getUpdatedCount()) {
                     case 0:
                         break;
                     case 1:
-                        $message .= '1 contact a été mis à jour.';
+                        $message .= ' 1 contact a été mis à jour.';
                         break;
                     default:
-                        $message .= sprintf('%d contacts ont étés mis à jour.', $this->getUpdatedCount());
+                        $message .= sprintf(' %d contacts ont été mis à jour.', $this->getUpdatedCount());
                 } // switch
         } // switch
         return $message;

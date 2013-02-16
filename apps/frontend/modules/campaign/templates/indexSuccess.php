@@ -1,4 +1,4 @@
-    <?php include_partial('campaign/header',array('campaign' => $campaign)) ?>
+    <?php include_partial('campaign/header', array('campaign' => $campaign)) ?>
 
 
 
@@ -9,16 +9,17 @@
     <div class="tab-content">
 	    <div class="tab-pane active" id="1">
 
-	    	<form  class="form-horizontal" action="<?php echo url_for('@campaign_index?slug='.$campaign->getSlug()) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+	    	<form  class="form-horizontal" action="<?php echo url_for('@campaign_index?slug=' . $campaign->getSlug()) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 <?php echo $form->renderHiddenFields() ?>
 	    <fieldset>
 	    <legend><?php echo __('Objet du message') ?></legend>
 	    <div class="control-group">
 	    <div class="controls">
 	    <?php
-    		echo $form['subject'];
-    		echo $form['subject']->renderError();
-    	?>
+echo $form['subject'];
+echo $form['subject']->renderError();
+
+?>
 
 <?php
 
@@ -30,17 +31,16 @@ $defaultFields['LASTNAME'] = __('Nom');
 $defaultFields['COMPANY'] = __('Société');
 $defaultFields['EMAIL'] = __('Email');
 
-foreach ($defaultFields as $fieldName => $caption){
-	printf('<li><a class="listen_dynamic_field" href="javascript://" rel="#%s#">%s</a></li>', strtoupper($fieldName), $caption);
+foreach ($defaultFields as $fieldName => $caption) {
+    printf('<li><a class="listen_dynamic_field" href="javascript://" rel="#%s#">%s</a></li>', strtoupper($fieldName), $caption);
 }
 
 $customFields = CatalyzEmailing::getCustomFields();
-if (!empty($customFields)){
-	foreach ($customFields as $fieldName => $caption){
-		printf('<li><a class="listen_dynamic_field" href="javascript://" rel="#%s#">%s</a></li>', strtoupper($fieldName), $caption);
-	}
+if (!empty($customFields)) {
+    foreach ($customFields as $fieldName => $caption) {
+        printf('<li><a class="listen_dynamic_field" href="javascript://" rel="#%s#">%s</a></li>', strtoupper($fieldName), $caption);
+    }
 }
-
 
 echo '</ul></div></span>';
 
@@ -49,24 +49,25 @@ echo '</ul></div></span>';
 $magic_chars = array('✉', '✍', '✎', '✓', '☑', '☒', '✗', '⊕', '⊗', '☞', '☜', '♫', '✄', '✁', '∞', '♨', '☢', '✈', '☰', '☷', '♥', '★', '☆', '☺', '☹', '♔', '♕', '♖', '♘', '♆', '✠', '♂', '♀', '♠', '♣', '♥', '♦', '☣', '☮', '☃', '☂', '☯', '☠', '✑', '✒');
 
 echo '<div style="margin-top: 3px">';
-foreach ($magic_chars as $magic_char){
-	printf('<a class="listen_dynamic_field btn btn-mini" href="javascript://" rel="%s">%s</a>', $magic_char, $magic_char);
+foreach ($magic_chars as $index => $magic_char) {
+    printf('<a class="listen_dynamic_field btn btn-small" href="javascript://" rel="%s" style="font-size: 11pt; width: 20px">%s</a>', $magic_char, $magic_char);
+	if(($index + 1)%23 == 0){
+		echo '</div>';
+		echo '<div style="margin-top: 3px">';
+	}
 }
-
     echo '</div>';
 
-
-
-
- ?>
+    ?>
 
 		<?php if (!empty($othersCampaigns['titles'])) {
-			printf('<p class="help-block">%s</p><ul>', __('Vous avez utilisé les objets suivants dans vos campagnes précédentes :'));
-			foreach ($othersCampaigns['titles'] as $caption){
-				printf('<li><span>%s</span> <a href="javascript://" class="btn btn-mini listen_titles">%s</a></li>', $caption, __('Réutiliser'));
-			}
-			echo '</ul>';
-		} ?>
+        printf('<p class="help-block">%s</p><ul>', __('Vous avez utilisé les objets suivants dans vos campagnes précédentes :'));
+        foreach ($othersCampaigns['titles'] as $caption) {
+            printf('<li><span>%s</span> <a href="javascript://" class="btn btn-mini listen_titles">%s</a></li>', $caption, __('Réutiliser'));
+        }
+        echo '</ul>';
+    }
+    ?>
 
 	    </div>
 
@@ -80,9 +81,10 @@ foreach ($magic_chars as $magic_char){
 	    <label class="control-label" for="input01"><?php echo $form['from_name']->renderlabel(); ?></label>
 	    <div class="controls">
 	    	<?php
-		    	echo $form['from_name'];
-		    	echo $form['from_name']->renderError();
-		    ?>
+    echo $form['from_name'];
+    echo $form['from_name']->renderError();
+
+    ?>
 
 	    </div>
 
@@ -92,24 +94,26 @@ foreach ($magic_chars as $magic_char){
 	    <label class="control-label" for="input01"><?php echo $form['from_email']->renderlabel(); ?></label>
 	    <div class="controls">
 	    	<?php
-			    echo $form['from_email'];
-			    echo $form['from_email']->renderError();
-		    ?>
+    echo $form['from_email'];
+    echo $form['from_email']->renderError();
+
+    ?>
 
 	    </div>
 	    </div>
 	    </fieldset>
 
 	  <?php if (!empty($othersCampaigns['expediteurs'])) {
-	  	printf('<div class="control-group"><div class="controls"><p class="help-block">%s</p><ul>', __('Vous avez utilisé les expediteurs suivants dans vos campagnes précédentes:'));
-	  	foreach ($othersCampaigns['expediteurs'] as $caption => $expediteurDetails){
-	  		printf('<li>%s <a href="javascript://"%s%s class="btn btn-mini listen_expediteurs">%s</a></li>', $caption,
-	  			!empty($expediteurDetails['email'])?sprintf(' rel="%s"', $expediteurDetails['email']):'' ,
-	  			!empty($expediteurDetails['name'])?sprintf(' name="%s"', $expediteurDetails['name']):'' ,
-	  			 __('Réutiliser'));
-	  	}
-	  	echo '</ul></div></div>';
-	  } ?>
+        printf('<div class="control-group"><div class="controls"><p class="help-block">%s</p><ul>', __('Vous avez utilisé les expediteurs suivants dans vos campagnes précédentes:'));
+        foreach ($othersCampaigns['expediteurs'] as $caption => $expediteurDetails) {
+            printf('<li>%s <a href="javascript://"%s%s class="btn btn-mini listen_expediteurs">%s</a></li>', $caption,
+                !empty($expediteurDetails['email'])?sprintf(' rel="%s"', $expediteurDetails['email']):'' ,
+                !empty($expediteurDetails['name'])?sprintf(' name="%s"', $expediteurDetails['name']):'' ,
+                __('Réutiliser'));
+        }
+        echo '</ul></div></div>';
+    }
+    ?>
 
 
 
@@ -120,11 +124,12 @@ foreach ($magic_chars as $magic_char){
 
 						<?php
     $class = '';
-if (!empty($errors['reply_to_email'])) {
-	$class = ' error';
-}
+    if (!empty($errors['reply_to_email'])) {
+        $class = ' error';
+    }
 
     printf('<div class="control-group%s">', $class);
+
     ?>
 			<label class="control-label"><?php echo $form['reply_to_email']->renderLabel(); ?></label>
 			<div class="controls">
@@ -140,9 +145,10 @@ if (!empty($errors['reply_to_email'])) {
 
 	    <div class="form-actions">
 	    <?php
-    if ($campaign->getStatus()< Campaign::STATUS_SENDING) {
-    	echo '<input type="submit" name="Save" value="Enregistrer" class="btn btn-primary" />';
-    } ?>
+    if ($campaign->getStatus() < Campaign::STATUS_SENDING) {
+        echo '<input type="submit" name="Save" value="Enregistrer" class="btn btn-primary" />';
+    }
+    ?>
 
 		</div>
 
@@ -221,7 +227,7 @@ $(document).ready(function() {
 	    </div>
 
 			<div class="tab-pane" id="5">
-				<?php include_component('campaign', 'antiSpam',array('campaign' => $campaign)) ?>
+				<?php include_component('campaign', 'antiSpam', array('campaign' => $campaign)) ?>
 			</div>
 
     </div>
