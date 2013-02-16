@@ -19,6 +19,9 @@
 		    		</a>
 			    	<?php echo CatalyzEmailing::getCampaignsMenu() ?>
 		    	</li>
+		    	<?php if(LandingPageUtils::isModuleAvailable() && $sf_user->hasCredential('admin')): ?>
+              <li<?php if($sf_context->getModuleName() == 'landing'){echo ' class="active"';}?>><a href="<?php echo url_for('@landing'); ?>">Page d'atterrissage</a></li>
+              <?php endif; ?>
               <li<?php if($sf_context->getModuleName() == 'contacts'){echo ' class="active"';}?>><a href="<?php echo url_for('@contacts'); ?>">Contacts</a></li>
 		    <?php if($sf_user->hasCredential('admin')): ?>
     		<li<?php if($sf_context->getModuleName() == 'fees'){echo ' class="active"';}?>><a href="<?php echo url_for('fees/index'); ?>">Routage</a></li>

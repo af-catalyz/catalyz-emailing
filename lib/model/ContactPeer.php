@@ -19,9 +19,6 @@
 class ContactPeer extends BaseContactPeer {
 	static public function getFieldLabel($field)
 	{
-		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
-		$customFields = $czSettings->get('contact.customsField', array());
-
 		switch ($field) {
 			case 'FULL_NAME':
 				return 'Nom complet';
@@ -42,7 +39,10 @@ class ContactPeer extends BaseContactPeer {
 			case 'GROUPS':
 				return 'Groupes';
 			default:
-				if (preg_match('/^CUSTOM([1-9][0-9]?)$/', $field, $tokens)) {
+				if (preg_match('/^CUSTOM([1-9][0-9]?)$/i', $field, $tokens)) {
+					$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+					$customFields = $czSettings->get(CatalyzSettings::CUSTOM_FIELDS, array());
+
 					$tokens[1] = (int)$tokens[1];
 					if ($tokens[1] > 0 && $tokens[1] <= sfConfig::get('app_fields_count')) {
 						if (!empty($customFields['custom' . $tokens[1]])) {

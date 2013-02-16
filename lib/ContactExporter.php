@@ -32,20 +32,25 @@ class ContactExporter {
         $this->activeSheet->setCellValueExplicit('C1', 'Société');
         $this->activeSheet->setCellValueExplicit('D1', 'Email');
         $this->activeSheet->setCellValueExplicit('E1', 'Statut');
+		$letter = 'E';
 
-        for ($i = 1; $i <= sfConfig::get('app_fields_count'); $i++) {
-            $cellName = chr(ord('E') + $i) . '1';
-            $this->activeSheet->setCellValueExplicit($cellName, ContactPeer::getfieldLabel('CUSTOM' . $i));
-        }
+    	$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+
+    	//var_dump($czSettings->get(CatalyzSettings::CUSTOM_FIELDS));exit;
+
+    	foreach($czSettings->get(CatalyzSettings::CUSTOM_FIELDS) as $fieldKey => $label){
+    		$letter = $this->plus($letter);
+    		$cellName = $letter . '1';
+    		$this->activeSheet->setCellValueExplicit($cellName, $label);
+    	}
 
         $groupCriteria = new Criteria();
         $groupCriteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
         $groups = ContactGroupPeer::doSelect($groupCriteria);
         if ($groups) {
-            $letter = 'K';
             foreach ($groups as $group) {
-                $this->activeSheet->setCellValueExplicit($letter . '1', $group->getName());
-                $letter = $this->plus($letter);
+            	$letter = $this->plus($letter);
+            	$this->activeSheet->setCellValueExplicit($letter . '1', $group->getName());
             }
         }
         if (count($this->fields) == 0) {

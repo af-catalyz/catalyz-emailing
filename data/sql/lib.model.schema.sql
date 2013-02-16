@@ -338,5 +338,30 @@ CREATE TABLE `sf_guard_user_profile`
 		ON DELETE CASCADE
 )Type=InnoDB;
 
+#-----------------------------------------------------------------------------
+#-- landing
+#-----------------------------------------------------------------------------
+
+DROP TABLE IF EXISTS `landing`;
+
+
+CREATE TABLE `landing`
+(
+	`id` INTEGER  NOT NULL AUTO_INCREMENT,
+	`name` VARCHAR(255),
+	`url` VARCHAR(255),
+	`template_class` VARCHAR(255),
+	`content` LONGTEXT,
+	`created_at` DATETIME,
+	`created_by` INTEGER,
+	`updated_at` DATETIME,
+	PRIMARY KEY (`id`),
+	INDEX `landing_FI_1` (`created_by`),
+	CONSTRAINT `landing_FK_1`
+		FOREIGN KEY (`created_by`)
+		REFERENCES `sf_guard_user_profile` (`id`)
+		ON DELETE CASCADE
+)Type=InnoDB;
+
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

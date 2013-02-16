@@ -1,6 +1,13 @@
 <?php
 
 class czForm extends sfForm {
+
+	function configure(){
+		 parent::configure();
+
+		$this->widgetSchema->setNameFormat($this->getFormType().'[content][%s]');
+	}
+
     protected function addUrlField($fieldName, $label)
     {
         $this->widgetSchema[$fieldName] = new czWidgetFormLink(array(), array('label' => $label, 'style' => 'width: 400px'));
@@ -42,12 +49,16 @@ class czForm extends sfForm {
     	$this->getWidgetSchema()->setLabel($fieldName, $label);
     }
 
+	protected function getFormType(){
+		return 'campaign';
+	}
+
     protected function addSubformField($fieldName, $label, $subFormClass, $itemTitleFieldName = 'title', $options = array())
     {
         $this->widgetSchema[$fieldName] = new czWidgetFormSubForm(array(
                 'fieldName' => $fieldName,
                 'formClass' => $subFormClass,
-                'contentObjectClass' => 'campaign[content]',
+                'contentObjectClass' => sprintf('%s[content]', $this->getFormType()),
                 'title' => $itemTitleFieldName,
                 'label.add' => $label,
                 ), array('label' => false)

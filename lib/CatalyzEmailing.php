@@ -641,11 +641,12 @@ class CatalyzEmailing {
         }
 
         if (!self::ValidateEmail($email)) {
-            return 'Le domaine "wanadoo" est incorrect, vérifiez sa validité. Il doit comporter 2 parties, exemple: "domaine.com" et non "domaine".';
+            return 'Le domaine est incorrect, vérifiez sa validité. Il doit comporter 2 parties, exemple: "domaine.com" et non "domaine".';
         }
 
         return true;
     }
+
 }
 
 ?>

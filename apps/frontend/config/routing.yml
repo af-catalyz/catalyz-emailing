@@ -410,6 +410,31 @@ settings_change_list_limit:
   url:   /settings/contactListLimit
   param: { module: settings, action: changeContactListLimit }
 
+landing:
+  url:   /landing
+  param: { module: landing, action: index }
+
+landing_add:
+  url:   /landing/add
+  param: { module: landing, action: add }
+
+landing_edit:
+  url:   /landing/edit/:id
+  param: { module: landing, action: edit }
+
+landing_update:
+  url:   /landing/update
+  param: { module: landing, action: update }
+
+landing_delete:
+  url:   /landing/delete/:id
+  param: { module: landing, action: delete }
+
+landing_show:
+  url:   /landing/show/:id
+  param: { module: landing, action: show }
+
+
 # generic rules
 # please, remove them by adding more specific rules
 default_index:

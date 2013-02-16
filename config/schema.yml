@@ -140,3 +140,13 @@ propel:
     first_name:  varchar(20)
     last_name:   varchar(20)
     email:    varchar(64)
+
+  landing:
+    id:
+    name:                     { type: varchar(255) }
+    url:                      { type: varchar(255) }
+    template_class:           { type: varchar(255) }
+    content:                  { type: CLOB }
+    created_at:
+    created_by:               { type: integer, foreignTable: sf_guard_user_profile, foreignReference: id, onDelete: cascade }
+    updated_at:

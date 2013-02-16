@@ -251,9 +251,12 @@ class contactsActions extends sfActions
 		$fields['Company'] = $fieldIndex++;
 		$fields['Email'] = $fieldIndex++;
 		$fields['StatusString'] = $fieldIndex++;
-		for ($i = 1; $i <= sfConfig::get('app_fields_count'); $i++) {
-			$fields['custom' . $i] = $fieldIndex++;
+
+		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+		foreach($czSettings->get(CatalyzSettings::CUSTOM_FIELDS) as $fieldKey => $label){
+			$fields[$fieldKey] = $fieldIndex++;
 		}
+
 		$exporter =/*(ContactExporter)*/ new ContactExporter($fields);
 		$exporter->start();
 		$User = sfContext::getInstance()->getUser();
