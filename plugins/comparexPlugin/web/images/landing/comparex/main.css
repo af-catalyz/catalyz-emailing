@@ -29,8 +29,8 @@ table, tr{
 .height20{ height: 20px; }
 .no_screen{ display: none; }
 .search_bg{ background-image: url("search.gif"); font-size:11px; color: #999999; width: 202px; height: 20px; border:none; padding:0 5px; background-repeat: no-repeat; }
-.form_input{ background-image: url("form1_input.jpg"); font-size:11px; color: #999999; width: 132px; height: 22px; border:none; padding:0 5px; background-repeat: no-repeat; }
-.form_input2{ background-image: url("form1_input2.jpg"); font-size:11px; color: #999999; width: 34px; height: 22px; border:none; padding:0 5px; background-repeat: no-repeat; }
+.form_input{ background-image: url("form1_input.jpg"); font-size:11px; color: #999999; width: 125px; height: 22px; border:none; padding:0 5px; background-repeat: no-repeat; }
+.form_input2{ background-image: url("form1_input2.jpg"); font-size:11px; color: #999999; width: 25px; height: 22px; border:none; padding:0 5px; background-repeat: no-repeat; }
 
 
 .form_submit{
