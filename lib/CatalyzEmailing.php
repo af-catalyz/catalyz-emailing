@@ -506,6 +506,24 @@ class CatalyzEmailing {
         return $link;
     }
 
+	static function makeLinksAbsolute($content)
+	{
+		$url = CatalyzEmailing::getApplicationUrl();
+		return str_replace(
+		array(
+			'src="/uploads/assets/',
+			'src="/images/',
+			'href="/uploads/assets/'
+			),
+		array(
+			'src="' . $url . '/uploads/assets/',
+			'src="' . $url . '/images/',
+			'href="' . $url . '/uploads/assets/'),
+		$content
+		);
+	}
+
+
     static function getCustomFields()
     {
         $czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();

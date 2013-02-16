@@ -153,7 +153,6 @@ class landingActions extends sfActions {
 
     public function sendWebmasterNotification($properties, $datas, $landing, $actionType)
     {
-        // $message = CatalyzTextFilter::makeLinksAbsolute($message);
         $messageObject =/*(Swift_Message)*/ Swift_Message::newInstance();
         $messageObject->setCharset('utf-8');
         $messageObject->setFrom($properties['from']);
@@ -196,7 +195,7 @@ class landingActions extends sfActions {
 
         $messageObject->setSubject($properties['subject']);
 
-    	$messageObject->setBody($this->getPartial('landing/email', array('content' => $properties['message'])), 'text/html', 'UTF-8') ;
+    	$messageObject->setBody($this->getPartial('landing/email', array('content' => CatalyzEmailing::makeLinksAbsolute($properties['message']))), 'text/html', 'UTF-8') ;
 
         $mailer = Swift_Mailer::newInstance($this->getEmailTransport());
         $mailer->send($messageObject);
