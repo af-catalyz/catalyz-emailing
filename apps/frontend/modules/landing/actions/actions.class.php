@@ -144,6 +144,20 @@ class landingActions extends sfActions {
         }
 
         $properties = $landing->getActionParameters($actionType);
+
+    	$this->sendWebmasterNotification($properties, $datas);
+    	$this->sendVisitorNotification($properties, $datas);
+
         return $this->renderText($properties['feedback']);
     }
+
+	public function sendWebmasterNotification($properties, $datas)
+	{
+
+	}
+
+	public function sendVisitorNotification($properties, $datas)
+	{
+		throw new Exception('Non implementé.');
+	}
 }

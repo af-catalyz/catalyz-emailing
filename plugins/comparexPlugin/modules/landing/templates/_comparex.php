@@ -588,7 +588,7 @@ if (isset($parameters['right_ad_picture'])) {
 				<table align="center" cellspacing="10" cellpadding="0" border="0">
 					<tr valign="top">
 					<?php for($i = 1; $i <= 4; $i++): ?>
-                       	<td>
+                       	<td style="padding-right: 35px">
 
                        	<?php
         if (isset($parameters['sitemap' . $i . '_title'])) {
