@@ -14,11 +14,11 @@ echo $form['name']->renderError();
 	</div>
 
    <div class="control-group">
-   <?php printf('<label class="control-label">%s</label>', $form['url']->renderLabel()) ?>
+   <?php printf('<label class="control-label">%s</label>', $form['slug']->renderLabel()) ?>
    <div class="controls">
    <?php
-   echo $form['url'];
-   echo $form['url']->renderError();
+   echo $form['slug'];
+   echo $form['slug']->renderError();
    ?>
    </div>
    </div>
