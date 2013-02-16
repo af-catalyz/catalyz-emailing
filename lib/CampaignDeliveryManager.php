@@ -373,9 +373,9 @@ class CampaignDeliveryManager {
                         $expectedCount++;
                     }
 
-                    $messageObject->setSubject(utf8_decode($this->prepareSubjectForEmail($email, $additionalMacros)));
-                    $messageObject->setBody($this->prepareContentForEmail($email, $additionalMacros), 'text/html', '8bit', 'UTF-8') ;
-                    $messageObject->addPart($this->prepareContentTextForEmail($email, $additionalMacros), 'text/plain', '8bit', 'UTF-8');
+                    $messageObject->setSubject($this->prepareSubjectForEmail($email, $additionalMacros));
+                    $messageObject->setBody($this->prepareContentForEmail($email, $additionalMacros), 'text/html', 'UTF-8') ;
+                    $messageObject->addPart($this->prepareContentTextForEmail($email, $additionalMacros), 'text/plain', 'UTF-8');
 
                     $messageObject->getHeaders()->addTextHeader('X-Catalyz-Email', $email);
                     $messageObject->getHeaders()->addTextHeader('X-Catalyz-Campaign', $this->Campaign->getId());
