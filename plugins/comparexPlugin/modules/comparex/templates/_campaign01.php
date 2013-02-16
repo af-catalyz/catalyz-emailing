@@ -38,7 +38,7 @@ $parameters = unEscape($parameters);
        						$renderer = new CatalyzEmailRenderer('Arial, sans-serif', '#FFFFFF', 'text-align:left; line-height:16px; font-size:11px; color:#FFFFFF');
        						$renderer->addRule('titre-blanc', 'Arial, sans-serif', 'text-align:left; line-height:18px; font-size:14px; font-weight:bold; color:#FFFFFF', '#FFFFFF');
        						$renderer->addRule('titre-rouge', 'Arial, sans-serif', 'text-align:left; line-height:24px; font-size:18px; font-weight:bold; color:#FF0033', '#FF0033', 4);
-       						echo $renderer->renderWysiwyg($parameters['edito'], '#FFFFFF');
+       						echo $renderer->renderWysiwyg(utf8_decode($parameters['edito']), '#FFFFFF');
        					}
 
 ?>
@@ -111,7 +111,7 @@ $parameters = unEscape($parameters);
 	       					</td>
 	       					<td width="400" bgcolor="#FFFFFF">
 	       						<font face="Arial, sans-serif" style="text-align:left; line-height:19px; font-size:15px; font-weight:bold; color:#ff0033">
-	       						<?php echo nl2br(htmlentities($article['title'])); ?>
+	       						<?php echo nl2br(htmlentities(utf8_decode($article['title']))); ?>
 								</font>
 	       					</td>
 	       					<td style="line-height:0; font-size: 0;" width="216" bgcolor="#FFFFFF" colspan="2">
@@ -133,12 +133,12 @@ $parameters = unEscape($parameters);
 	       					<td width="400" bgcolor="#FFFFFF">
 	       					<?php
     // var_dump($article);
-    if (isset($article['content'])) {
+    if (!empty($article['content'])) {
         $renderer = new CatalyzEmailRenderer('Arial, sans-serif', '#666666', 'text-align:left; line-height:15px; font-size:11px; color:#666666');
         $renderer->addRule('texte-noir', 'Arial, sans-serif', 'text-align:left; line-height:15px; font-size:11px; font-weight:bold; color:#000000', '#000000');
         $renderer->addRule('texte-rouge', 'Arial, sans-serif', 'text-align:left; line-height:15px; font-size:11px; font-weight:bold; color:#ff0000', '#ff0000');
 
-        echo $renderer->renderWysiwyg($article['content'], '#666666');
+        echo $renderer->renderWysiwyg(utf8_decode($article['content']), '#666666');
     }
 
     ?>
@@ -160,7 +160,7 @@ $parameters = unEscape($parameters);
 	       									<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/campaign01/red_box_left.jpg" width="13" height="34" alt="" border="0" />
 	       								</td>
 	       								<td width="151" bgcolor="#ff3333" align="center">
-	       									<font face="Arial, sans-serif" style="text-decoration:underline; text-transform:uppercase; text-align:center; line-height:11px; font-size:9px; font-weight:bold; color:#FFFFFF"><a target="_blank" style="color:#FFFFFF; text-decoration:underline" href="<?php echo czWidgetFormLink::displayLink($article['button_url']) ?>"><?php echo nl2br(htmlentities($article['button_text'])) ?></a></font>
+	       									<font face="Arial, sans-serif" style="text-decoration:underline; text-transform:uppercase; text-align:center; line-height:11px; font-size:9px; font-weight:bold; color:#FFFFFF"><a target="_blank" style="color:#FFFFFF; text-decoration:underline" href="<?php echo czWidgetFormLink::displayLink($article['button_url']) ?>"><?php echo nl2br(htmlentities(utf8_decode($article['button_text']))) ?></a></font>
 	       								</td>
 	       		       					<td style="line-height:0; font-size: 0;">
 	       									<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/campaign01/red_box_right.jpg" width="33" height="34" alt="" border="0" />
@@ -196,9 +196,9 @@ $parameters = unEscape($parameters);
 	       					</td>
 	       					<td width="625" bgcolor="#FFFFFF" colspan="3">
 	       							<?php
-    if (isset($parameters['bottom_text'])) {
+    if (!empty($parameters['bottom_text'])) {
         $renderer = new CatalyzEmailRenderer('Arial, sans-serif', '#333333', 'text-align:left; line-height:15px; font-size:11px; color:#333333');
-        echo $renderer->renderWysiwyg($parameters['bottom_text'], '#333333');
+        echo $renderer->renderWysiwyg(utf8_decode($parameters['bottom_text']), '#333333');
     }
 
     ?>
@@ -240,8 +240,8 @@ $parameters = unEscape($parameters);
 								<td>
 			       					<font face="Arial, sans-serif" style=" text-align:left; line-height:11px; font-size:11px; color:#FFFFFF">
 			       					<?php
-    if (isset($parameters['footer'])) {
-        echo nl2br(htmlentities($parameters['footer']));
+    if (!empty($parameters['footer'])) {
+        echo nl2br(htmlentities(utf8_decode($parameters['footer'])));
     }
 
     ?>
