@@ -304,6 +304,14 @@ campaign_statistics_do_export_unsubscribe:
   url:   /:slug/unsubscribes/export
   param: { module: statistics, action: exportUnsubscribe }
 
+campaign_statistics_landing_actions:
+  url:   /:slug/landing-actions
+  param: { module: statistics, action: landingActions }
+
+campaign_statistics_do_export_landing:
+  url:   /:slug/unsubscribes/export
+  param: { module: statistics, action: exportLandingActions }
+
 #CONTACTS
 contacts:
   url:   /contacts
@@ -431,7 +439,7 @@ landing_delete:
   param: { module: landing, action: delete }
 
 landing_show:
-  url:   /landing/show/:id
+  url:   /page/:slug
   param: { module: landing, action: show }
 
 
