@@ -24,9 +24,12 @@ all:
     class:        sfPropelDatabase
     param:
       classname:  PropelPDO
-      dsn:        mysql:dbname=af_catalyz3_emailingV14;host=localhost
+      dsn:        mysql:dbname=shordeaux_emailing4;host=localhost
       username:   af
       password:   password
       encoding:   utf8
       persistent: true
       pooling:    true
+      attributes:
+        default_table_charset: utf8
+        default_table_collate: utf8_general_ci
