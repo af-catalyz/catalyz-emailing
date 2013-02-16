@@ -90,6 +90,7 @@ propel:
     unsubscribed_at:    { type: timestamp }
     raison:             { type: CLOB }
     unsubscribed_lists: { type: CLOB }
+    landing_actions:    { type: CLOB }
     bounce_type:        { type: integer, default: <?php echo catalyzemailingHandlebouncesTask::BOUNCE_NONE; ?> }
 
   campaign_contact_element:
@@ -144,7 +145,7 @@ propel:
   landing:
     id:
     name:                     { type: varchar(255) }
-    url:                      { type: varchar(255) }
+    slug:                     { type: varchar(255) }
     template_class:           { type: varchar(255) }
     content:                  { type: CLOB }
     created_at:

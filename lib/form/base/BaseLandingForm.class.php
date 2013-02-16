@@ -16,7 +16,7 @@ abstract class BaseLandingForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
       'name'           => new sfWidgetFormInputText(),
-      'url'            => new sfWidgetFormInputText(),
+      'slug'           => new sfWidgetFormInputText(),
       'template_class' => new sfWidgetFormInputText(),
       'content'        => new sfWidgetFormTextarea(),
       'created_at'     => new sfWidgetFormDateTime(),
@@ -27,7 +27,7 @@ abstract class BaseLandingForm extends BaseFormPropel
     $this->setValidators(array(
       'id'             => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
       'name'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'url'            => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'slug'           => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'template_class' => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'content'        => new sfValidatorString(array('required' => false)),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),

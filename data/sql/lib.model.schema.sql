@@ -181,6 +181,7 @@ CREATE TABLE `campaign_contact`
 	`unsubscribed_at` DATETIME,
 	`raison` LONGTEXT,
 	`unsubscribed_lists` LONGTEXT,
+	`landing_actions` LONGTEXT,
 	`bounce_type` INTEGER default 1,
 	PRIMARY KEY (`id`,`campaign_id`,`contact_id`),
 	INDEX `campaign_contact_FI_1` (`campaign_id`),
@@ -349,7 +350,7 @@ CREATE TABLE `landing`
 (
 	`id` INTEGER  NOT NULL AUTO_INCREMENT,
 	`name` VARCHAR(255),
-	`url` VARCHAR(255),
+	`slug` VARCHAR(255),
 	`template_class` VARCHAR(255),
 	`content` LONGTEXT,
 	`created_at` DATETIME,

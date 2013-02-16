@@ -12,7 +12,7 @@ echo $form['name']->renderError();
 ?>
 		</div>
 	</div>
-<?php /* ?>
+
    <div class="control-group">
    <?php printf('<label class="control-label">%s</label>', $form['url']->renderLabel()) ?>
    <div class="controls">
@@ -22,8 +22,7 @@ echo $form['name']->renderError();
    ?>
    </div>
    </div>
-   <?php */ ?>
-	<div class="control-group">
+<div class="control-group">
 		<?php printf('<label class="control-label">%s</label>', $form['content']->renderLabel()) ?>
 		<div class="controls">
 			<?php

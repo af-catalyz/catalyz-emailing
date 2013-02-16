@@ -13,7 +13,7 @@ abstract class BaseLandingFormFilter extends BaseFormFilterPropel
   {
     $this->setWidgets(array(
       'name'           => new sfWidgetFormFilterInput(),
-      'url'            => new sfWidgetFormFilterInput(),
+      'slug'           => new sfWidgetFormFilterInput(),
       'template_class' => new sfWidgetFormFilterInput(),
       'content'        => new sfWidgetFormFilterInput(),
       'created_at'     => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
@@ -23,7 +23,7 @@ abstract class BaseLandingFormFilter extends BaseFormFilterPropel
 
     $this->setValidators(array(
       'name'           => new sfValidatorPass(array('required' => false)),
-      'url'            => new sfValidatorPass(array('required' => false)),
+      'slug'           => new sfValidatorPass(array('required' => false)),
       'template_class' => new sfValidatorPass(array('required' => false)),
       'content'        => new sfValidatorPass(array('required' => false)),
       'created_at'     => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
@@ -48,7 +48,7 @@ abstract class BaseLandingFormFilter extends BaseFormFilterPropel
     return array(
       'id'             => 'Number',
       'name'           => 'Text',
-      'url'            => 'Text',
+      'slug'           => 'Text',
       'template_class' => 'Text',
       'content'        => 'Text',
       'created_at'     => 'Date',

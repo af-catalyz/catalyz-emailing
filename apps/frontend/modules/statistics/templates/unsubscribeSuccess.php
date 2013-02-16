@@ -14,7 +14,7 @@
 				<tr>
 					<th class="span2">Date</th>
 					<th>Contact</th>
-					<th class="span5">Motifs</th>
+					<th class="span5">Motif</th>
 					<?php if ($list_choices) {
 						printf('<th class="span5">%s</th>', __('Listes'));
 					} ?>

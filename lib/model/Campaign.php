@@ -318,6 +318,13 @@ class Campaign extends BaseCampaign {
 		$criteria->add(CampaignContactPeer::CLICKED_AT, null, Criteria::NOT_EQUAL);
 		return $this->countCampaignContacts($criteria);
 	}
+	public function getLandingActionCount()
+	{
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $this->getId());
+		$criteria->add(CampaignContactPeer::LANDING_ACTIONS, '', Criteria::NOT_EQUAL);
+		return $this->countCampaignContacts($criteria);
+	}
 
 	protected function getHistory($sql)
 	{

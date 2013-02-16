@@ -124,6 +124,7 @@
     <column name="unsubscribed_at" type="timestamp" />
     <column name="raison" type="CLOB" />
     <column name="unsubscribed_lists" type="CLOB" />
+    <column name="landing_actions" type="CLOB" />
     <column name="bounce_type" type="integer" default="1" />
   </table>
 
@@ -205,7 +206,7 @@
   <table name="landing">
     <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
     <column name="name" type="varchar" size="255" />
-    <column name="url" type="varchar" size="255" />
+    <column name="slug" type="varchar" size="255" />
     <column name="template_class" type="varchar" size="255" />
     <column name="content" type="CLOB" />
     <column name="created_at" type="timestamp" />

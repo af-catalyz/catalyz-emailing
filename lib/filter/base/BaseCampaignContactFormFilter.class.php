@@ -20,6 +20,7 @@ abstract class BaseCampaignContactFormFilter extends BaseFormFilterPropel
       'unsubscribed_at'    => new sfWidgetFormFilterDate(array('from_date' => new sfWidgetFormDate(), 'to_date' => new sfWidgetFormDate())),
       'raison'             => new sfWidgetFormFilterInput(),
       'unsubscribed_lists' => new sfWidgetFormFilterInput(),
+      'landing_actions'    => new sfWidgetFormFilterInput(),
       'bounce_type'        => new sfWidgetFormFilterInput(),
     ));
 
@@ -32,6 +33,7 @@ abstract class BaseCampaignContactFormFilter extends BaseFormFilterPropel
       'unsubscribed_at'    => new sfValidatorDateRange(array('required' => false, 'from_date' => new sfValidatorDate(array('required' => false)), 'to_date' => new sfValidatorDate(array('required' => false)))),
       'raison'             => new sfValidatorPass(array('required' => false)),
       'unsubscribed_lists' => new sfValidatorPass(array('required' => false)),
+      'landing_actions'    => new sfValidatorPass(array('required' => false)),
       'bounce_type'        => new sfValidatorSchemaFilter('text', new sfValidatorInteger(array('required' => false))),
     ));
 
@@ -61,6 +63,7 @@ abstract class BaseCampaignContactFormFilter extends BaseFormFilterPropel
       'unsubscribed_at'    => 'Date',
       'raison'             => 'Text',
       'unsubscribed_lists' => 'Text',
+      'landing_actions'    => 'Text',
       'bounce_type'        => 'Number',
     );
   }

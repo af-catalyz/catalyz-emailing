@@ -18,10 +18,10 @@
 class CampaignPeer extends BaseCampaignPeer {
     public static function retrieveBySlug($slug)
     {
-        $criteria = new Criteria(CampaignPeer::DATABASE_NAME);
-        $criteria->add(CampaignPeer::SLUG, $slug);
+        $criteria = new Criteria(self::DATABASE_NAME);
+        $criteria->add(self::SLUG, $slug);
 
-        $v = CampaignPeer::doSelectOne($criteria);
+        $v = self::doSelectOne($criteria);
 
         return $v;
     }

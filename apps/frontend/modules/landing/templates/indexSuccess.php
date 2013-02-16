@@ -16,9 +16,10 @@
 <?php foreach($landingPages as $landing): ?>
 <tr>
 	<td><?php echo $landing->getName() ?></td>
-	<td><?php echo $landing->getUrl() ?></td>
+	<td><?php
+	$url = url_for('@landing_show?slug='.$landing->getSlug(), true);
+	printf('<a href="%s" target="_blank">%s</a>',$url, $url); ?></td>
 	<td>
-		<a href="<?php echo url_for('@landing_show?id='.$landing->getId()) ?>" class="btn">Voir</a>
 		<a href="<?php echo url_for('@landing_edit?id='.$landing->getId()) ?>" class="btn">Modifier</a>
 		<a href="<?php echo url_for('@landing_delete?id='.$landing->getId()) ?>" class="btn btn-danger">Supprimer</a>
 	</td>

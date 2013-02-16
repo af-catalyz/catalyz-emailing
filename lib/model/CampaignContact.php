@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Skeleton subclass for representing a row from the 'campaign_contact' table.
  *
@@ -14,45 +13,67 @@
  * application requirements.  This class will only be generated as
  * long as it does not already exist in the output directory.
  *
- * @package    lib.model
+ * @package lib.model
  */
 class CampaignContact extends BaseCampaignContact {
+    /**
+     * Initializes internal state of CampaignContact object.
+     *
+     * @see parent::__construct()
+     */
+    public function __construct()
+    {
+        // Make sure that parent constructor is always invoked, since that
+        // is where any default values for this object are set.
+        parent::__construct();
+    }
 
-	/**
-	 * Initializes internal state of CampaignContact object.
-	 * @see        parent::__construct()
-	 */
-	public function __construct()
-	{
-		// Make sure that parent constructor is always invoked, since that
-		// is where any default values for this object are set.
-		parent::__construct();
+    public function getBounces()
+    {
+        $criteria = new Criteria();
+        $criteria->add(CampaignContactBouncePeer::CAMPAIGN_CONTACT_ID, $this->getId());
+        return CampaignContactBouncePeer::doSelect($criteria);
+    }
+
+    public function getBounceLabel()
+    {
+        switch ($this->getBounceTypeFmt()) {
+            case 'HARD':
+                return '<span class="badge badge-error">HARD</span>';;
+                break;
+            case 'SOFT':
+                return '<span class="badge badge-warning">SOFT</span>';;;
+                break;
+            default:
+                return '-';
+        } // switch
+    }
+
+    public function getBounceTypeFmt()
+    {
+        return catalyzemailingHandlebouncesTask::getBounceTypeFmt($this->getBounceType());
+    }
+
+	public function getLandingActionArray(){
+		$actions = $this->getLandingActions();
+		if ($actions) {
+			$actions = unserialize($actions);
+		} else {
+			$actions = array();
+		}
+		return $actions;
 	}
+    public function getLandingActionCount()
+    {
 
-	public function getBounces()
-	{
-		$criteria = new Criteria();
-		$criteria->add(CampaignContactBouncePeer::CAMPAIGN_CONTACT_ID, $this->getId());
-		return CampaignContactBouncePeer::doSelect($criteria);
-	}
-
-	public function getBounceLabel()
-	{
-		switch($this->getBounceTypeFmt()){
-			case 'HARD':
-				return '<span class="badge badge-error">HARD</span>';;
-				break;
-			case 'SOFT':
-				return '<span class="badge badge-warning">SOFT</span>';;;
-				break;
-			default:
-				return FALSE;;
-		} // switch
-	}
-
-	public function getBounceTypeFmt()
-	{
-		return catalyzemailingHandlebouncesTask::getBounceTypeFmt($this->getBounceType());
-	}
-
+        return count($this->getLandingActionArray());
+    }
+    public function getLandingActionLabel()
+    {
+        $count = $this->getLandingActionCount();
+        if ($count > 0) {
+            return sprintf('<span class="badge">%d</span>', $count);
+        }
+        return '-';
+    }
 } // CampaignContact

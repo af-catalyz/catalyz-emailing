@@ -9,12 +9,15 @@
 				<p>Les contacts <?php echo $pager->getFirstIndice() ?> à <?php echo $pager->getLastIndice() ?> (sur <?php echo shortNumberFormat($pager->getNbResults()) ?> au total) sont affichés ci-dessous.</p>
 				<table class="table table-striped table-condensed">
 				<tr>
-					<th class="span1">Statut</th>
+					<th width="100">Statut</th>
 					<th>Contact</th>
-					<th class="span2">Date d'envoi</th>
-					<th class="span2">Date d'ouverture</th>
-					<th class="span2">clics</th>
-					<th class="span2">Bounce</th>
+					<th width="100">Envoi</th>
+					<th width="100">Ouverture</th>
+					<th width="100">Clic</th>
+					<?php if(LandingPageUtils::isModuleAvailable()): ?>
+					<th width="100">Conversions</th>
+					<?php endif; ?>
+					<th width="100">Bounce</th>
 				</tr>
 				<?php foreach($pager->getResults() as /*(CampaignContact)*/$contact):
 					$contactObject = /*(Contact)*/$contact->getContact();
@@ -25,6 +28,9 @@
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getSentAt())); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getViewAt())); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getClickedAt())); ?></td>
+					<?php if(LandingPageUtils::isModuleAvailable()): ?>
+					<td><?php echo $contact->getLandingActionLabel(); ?></td>
+					<?php endif; ?>
 					<td><?php echo html_entity_decode($contact->getBounceLabel()); ?></td>
 				</tr>
 					<?php endif; ?>
