@@ -32,15 +32,30 @@ class Landing extends BaseLanding {
         return isset($properties[$name . '_feedback']);
     }
 
-    function getActionParameters($name)
-    {
-        $properties = czWidgetFormWizard::asArray($this->getContent());
+	function getActionParameters($name)
+	{
+		$properties = czWidgetFormWizard::asArray($this->getContent());
 
-        return array(
-            'from' => $properties[$name . '_from'],
-            'to' => $properties[$name . '_to'],
-            'subject' => $properties[$name . '_subject'],
-            'feedback' => $properties[$name . '_feedback'],
-            );
-    }
+		return array(
+		    'from' => $properties[$name . '_from'],
+		    'to' => $properties[$name . '_to'],
+		    'subject' => $properties[$name . '_subject'],
+		    'feedback' => $properties[$name . '_feedback'],
+		    );
+	}
+	function getUserFormProperties($name)
+	{
+		$properties = czWidgetFormWizard::asArray($this->getContent());
+
+		return array(
+		    'enabled' => $properties[$name . '_visitor_notification_enabled'],
+		    'from_name' => $properties[$name . '_visitor_notification_from_name'],
+		    'from_email' => $properties[$name . '_visitor_notification_from_email'],
+		    'subject' => $properties[$name . '_visitor_notification_subject'],
+		    'message' => $properties[$name . '_visitor_notification_body'],
+		    );
+	}
+
+
+
 } // Landing

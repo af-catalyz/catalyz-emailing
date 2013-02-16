@@ -351,8 +351,8 @@ id="' . $this->sortable_current_id . '_items_' . $this->sortable_current_item . 
 		$this->renderField($prefix.'_visitor_notification_enabled');
 		$this->renderField($prefix.'_visitor_notification_from_name');
 		$this->renderField($prefix.'_visitor_notification_from_email');
-		$this->renderField($prefix.'_visitor_notification_from_subject');
-		$this->renderField($prefix.'_visitor_notification_from_body');
+		$this->renderField($prefix.'_visitor_notification_subject');
+		$this->renderField($prefix.'_visitor_notification_message');
 		$this->endGroup();
 	}
 
