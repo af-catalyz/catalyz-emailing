@@ -12,8 +12,8 @@ if (count($campaigns) > 0) {
         if (trim($campaign->getCommentaire())) {
             printf('<p>%s</p>', nl2br($campaign->getCommentaire()));
         }
-        if ($sf_user->hasCredential('admin')) {
-            echo '<div class="btn-group">';
+    	echo '<div class="btn-group">';
+    	if ($sf_user->hasCredential('admin')) {
             printf('<a class="btn dropdown-toggle btn-mini" data-toggle="dropdown" href="#">Action<span class="caret"></span></a><ul class="dropdown-menu"><li>
 <a href="%s">Restaurer</a></li>
 <li><a href="%s">Dupliquer</a></li>
@@ -24,11 +24,10 @@ if (count($campaigns) > 0) {
                 $campaign->getStatus() != Campaign::STATUS_COMPLETED?sprintf('<li>%s</li>', link_to('Supprimer', '@campaign_do_delete?slug=' . $campaign->getSlug(), array('post' => true, 'confirm' => sprintf('Vous êtes sur le point de supprimer la campagne "%s" et toutes les statistiques associées.\nCette action est définitive et ne peut pas être annulée.\n\nCliquez sur OK pour confirmer la suppression définitive de cette campagne.\nCliquez sur Annuler pour conserver cette campagne.', $campaign->getName())))):''
 
                 );
-            echo '</div></div></li>';
-
-
-        echo '</ul></div></div>';}
+        }
+        echo '</div></div></li>';
     }
+	echo '</ul></div></div>';
 } else {
     printf('<p>%s</p>', __('Aucune campagne archivée'));
 }

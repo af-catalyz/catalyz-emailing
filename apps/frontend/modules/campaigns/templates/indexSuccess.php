@@ -26,7 +26,7 @@ foreach ($tabs as $tabId => $caption) {
 
 	<div class="tab-content">
 
-	<?php include_partial('global/flashMessage') ?>
+		<?php include_partial('global/flashMessage') ?>
 
 		<?php if ($sf_user->hasCredential('admin')): ?>
 		<?php printf('<div class="tab-pane%s" id="pane_1">', $selectedTab == 1?' active':'') ?>
