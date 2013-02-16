@@ -21,17 +21,18 @@
 				</tr>
 				<?php foreach($pager->getResults() as /*(CampaignContact)*/$contact):
 					$contactObject = /*(Contact)*/$contact->getContact();
+					$contactObject = $contactObject->getRawValue();
 					if ($contactObject != null):?>
 				<tr>
-					<td><?php echo html_entity_decode($contactObject->getStatusIcon()); ?></td>
-					<td><?php echo html_entity_decode($contactObject->getFieldValue('FULL_NAME')); ?></td>
+					<td><?php echo $contactObject->getStatusIcon(); ?></td>
+					<td><?php echo $contactObject->getFieldValue('FULL_NAME'); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getSentAt())); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getViewAt())); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getClickedAt())); ?></td>
 					<?php if(LandingPageUtils::isModuleAvailable()): ?>
-					<td><?php echo $contact->getLandingActionLabel(); ?></td>
+					<td><?php echo $contact->getLandingActionLabel(ESC_RAW); ?></td>
 					<?php endif; ?>
-					<td><?php echo html_entity_decode($contact->getBounceLabel()); ?></td>
+					<td><?php echo $contact->getBounceLabel(ESC_RAW); ?></td>
 				</tr>
 					<?php endif; ?>
 					<?php endforeach; ?>

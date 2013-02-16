@@ -240,8 +240,8 @@ class campaignActions extends sfActions {
 
         $defaults = array();
         foreach (array('id' => 'getId', 'google_analytics_enabled' => 'getGoogleAnalyticsEnabled', 'google_analytics_source' => 'getGoogleAnalyticsSource', 'google_analytics_medium' => 'getGoogleAnalyticsMedium', 'google_analytics_campaign_type' => 'getGoogleAnalyticsCampaignType') as $caption => $field) {
-            if ($this->campaign->$field != null) {
-                $defaults[$caption] = $this->campaign->$field;
+            if ($this->campaign->$field() != null) {
+                $defaults[$caption] = $this->campaign->$field();
             }
         }
 

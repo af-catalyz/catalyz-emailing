@@ -40,7 +40,7 @@ if ($contactObject != null):?>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getViewAt())); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getClickedAt())); ?></td>
 					<?php if(LandingPageUtils::isModuleAvailable()): ?>
-					<td><?php echo $contact->getLandingActionLabel(); ?></td>
+					<td><?php echo $contact->getLandingActionLabel(ESC_RAW); ?></td>
 					<?php endif; ?>
 				</tr>
 
