@@ -1,3 +1,4 @@
+<?php $parameters = $parameters->getRawValue(); ?>
 <div class="pub_2">
 							<?php
 if (isset($parameters['right_ad_picture'])) {

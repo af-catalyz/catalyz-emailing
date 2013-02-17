@@ -1,4 +1,6 @@
 <?php
+$parameters = $parameters->getRawValue();
+
 if (isset($parameters['top_right_picture'])) {
 	if (!empty($parameters['top_right_picture_url'])) {
 		printf('<a href="%s"><img src="%s" width="233" height="102" style="float: left; margin: 16px 0 0 14px; padding: 0; position: relative;" /></a>', czWidgetFormLink::displayLink($parameters['top_right_picture_url']), $parameters['top_right_picture']);
