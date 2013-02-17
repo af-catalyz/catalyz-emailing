@@ -106,32 +106,14 @@ $parameters = $parameters->getRawValue();
 							<?php echo @$parameters['video']; ?>
 					</div>
 					<div class="content_right">
-					<?php
-        if (isset($parameters['top_right_picture'])) {
-            if (!empty($parameters['top_right_picture_url'])) {
-                printf('<a href="%s"><img src="%s" width="233" height="102" style="float: left; margin: 16px 0 0 14px; padding: 0; position: relative;" /></a>', czWidgetFormLink::displayLink($parameters['top_right_picture_url']), $parameters['top_right_picture']);
-            } else {
-                printf('<img src="%s" width="233" height="102" style="float: left; margin: 16px 0 0 14px; padding: 0; position: relative;" />', $parameters['top_right_picture']);
-            }
-        }
 
-        ?>
-
-
-							<div class="vip">
-								<?php if (isset($parameters['top_right_content'])) {
-									echo $parameters['top_right_content'];
-								} ?>
-							</div>
-						<div class="clear"></div>
-						       	<div class="adhesion">
 						       	<?php if(@$parameters['reverse_form_order']){
 						       		include_partial('landing/comparex_form2', array('parameters' => $parameters, 'landing' => $landing));
 						       	}else{
 						       		include_partial('landing/comparex_form1', array('parameters' => $parameters, 'landing' => $landing));
 						       	} ?>
 
-                            </div>
+
 					</div>
 					<div class="clear"></div>
 
@@ -152,27 +134,14 @@ $parameters = $parameters->getRawValue();
 							</div>
 					</div>
 					<div class="content_right">
-						<div class="pub_2">
-							<?php
-if (isset($parameters['right_ad_picture'])) {
-	if (!empty($parameters['right_ad_url'])) {
-		printf('<a href="%s"><img src="%s" width="443" height="53" alt="" border="0" /></a>', czWidgetFormLink::displayLink($parameters['right_ad_url']), $parameters['right_ad_picture']);
-	} else {
-		printf('<img src="%s" width="443" height="53" alt="" border="0" />', $parameters['right_ad_picture']);
-	}
-}
 
-?>
-
-						</div>
-						       	<div class="adhesion">
 						       	<?php if(@$parameters['reverse_form_order']){
 						       		include_partial('landing/comparex_form1', array('parameters' => $parameters, 'landing' => $landing));
 						       	}else{
 						       		include_partial('landing/comparex_form2', array('parameters' => $parameters, 'landing' => $landing));
 						       	} ?>
 
-                            </div>
+
 					</div>
 					<div class="clear"></div>
 

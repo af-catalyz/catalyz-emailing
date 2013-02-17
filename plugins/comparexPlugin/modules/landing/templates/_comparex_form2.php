@@ -1,4 +1,18 @@
-<a name="form2"></a>
+<div class="pub_2">
+							<?php
+if (isset($parameters['right_ad_picture'])) {
+	if (!empty($parameters['right_ad_url'])) {
+		printf('<a href="%s"><img src="%s" width="443" height="53" alt="" border="0" /></a>', czWidgetFormLink::displayLink($parameters['right_ad_url']), $parameters['right_ad_picture']);
+	} else {
+		printf('<img src="%s" width="443" height="53" alt="" border="0" />', $parameters['right_ad_picture']);
+	}
+}
+
+							?>
+
+						</div>
+						       	<div class="adhesion">
+						       	<a name="form2"></a>
 						       		<form action="#" id="form2" onsubmit="czEmailingLandingAction($(this), '<?php
 						       		echo url_for(sprintf('@landing_action?slug=%s&type=form2', $landing->getSlug())).'?key='.(isset($_REQUEST['key'])?$_REQUEST['key']:''); ?>'); return false;">
                             	  	<table width="482" align="center" cellspacing="0" cellpadding="0" border="0">
@@ -118,3 +132,4 @@
 										</tr>
 									</table>
 									</form>
+									 </div>
