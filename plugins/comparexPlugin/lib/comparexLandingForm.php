@@ -20,6 +20,7 @@ class comparexLandingForm extends czLandingForm {
         $this->addWysiwygField('box3_content', 'Contenu', array('height' => 200));
 
         $this->addNotificationFields('form1');
+        $this->addCheckboxField('reverse_form_order', 'Inverser les formulaires');
 
         $this->addPictureField('top_right_picture', 'Image de la publicité', 233, 102);
         $this->addUrlField('top_right_picture_url', 'Cible');

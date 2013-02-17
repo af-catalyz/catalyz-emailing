@@ -27,6 +27,7 @@ $formatter->renderField('box3_content');
 $formatter->endGroup();
 
 $formatter->nextTab();
+$formatter->renderField('reverse_form_order');
 $formatter->startGroup('Publicité 1');
 $formatter->renderField('top_right_picture');
 $formatter->renderField('top_right_picture_url');
