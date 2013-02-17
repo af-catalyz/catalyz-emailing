@@ -10,6 +10,19 @@ class CatalyzSettings{
 
 	protected $settings = array();
 
+	function get($name, $default = null){
+		if(isset($this->settings[$name])){
+			return $this->settings[$name];
+		}
+		return $default;
+	}
+
+	function set($name, $value){
+		if($value != $this->settings[$name]){
+			$this->settings[$name] = $value;
+			$this->save();
+		}
+	}
 	protected function getFilename(){
 		return sfConfig::get('sf_data_dir').'/CatalyzSettings.conf';
 	}
@@ -29,19 +42,8 @@ class CatalyzSettings{
 		return $instance;
 	}
 
-	public function __destruct(){
+	protected function save(){
 		file_put_contents($this->getFilename(), serialize($this->settings));
-	}
-
-	function get($name, $default = null){
-		if(isset($this->settings[$name])){
-			return $this->settings[$name];
-		}
-		return $default;
-	}
-
-	function set($name, $value){
-		$this->settings[$name] = $value;
 	}
 }
 
