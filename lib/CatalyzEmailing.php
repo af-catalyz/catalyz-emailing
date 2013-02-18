@@ -599,7 +599,7 @@ class CatalyzEmailing {
             $criteria->add(CampaignPeer::IS_ARCHIVED, 0);
             $criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::LESS_THAN);
             $criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
-            $criteria->setLimit(3);
+            $criteria->setLimit(10);
             $criteria->setDistinct();
 
             $last3_prepared = CampaignPeer::doSelect($criteria);
