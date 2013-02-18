@@ -46,13 +46,13 @@ if (isset($parameters['top_right_picture'])) {
                             					<img src="/comparexPlugin/images/landing/comparex/form1_left2.jpg" width="23" height="22" alt="" border="0" />
                             				</td>
                             				<td width="68">
-                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Société :</font>
+                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Société* :</font>
                             				</td>
                             				<td width="132">
                             					<input type="text" class="form_input" name="datas[company]" value=""/>
                             				</td>
                                				<td width="79">
-                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Nom :</font>
+                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Nom* :</font>
                             				</td>
                             				<td width="132">
                             					<input type="text" class="form_input" name="datas[last_name]" value=""/>
@@ -69,13 +69,13 @@ if (isset($parameters['top_right_picture'])) {
                             					<img src="/comparexPlugin/images/landing/comparex/form1_left2.jpg" width="23" height="22" alt="" border="0" />
                             				</td>
                             				<td width="68">
-                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Email :</font>
+                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Email* :</font>
                             				</td>
                             				<td width="132">
                             					<input type="text" class="form_input" name="datas[email]" value=""/>
                             				</td>
                                				<td width="79">
-                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Prénom :</font>
+                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">Prénom* :</font>
                             				</td>
                             				<td width="132">
                             					<input type="text" class="form_input" name="datas[first_name]" value=""/>
@@ -89,7 +89,7 @@ if (isset($parameters['top_right_picture'])) {
                             					<img src="/comparexPlugin/images/landing/comparex/form1_left2.jpg" width="23" height="24" alt="" border="0" />
                             				</td>
                             				<td width="279" colspan="3">
-                            					<img src="/comparexPlugin/images/landing/comparex/bg_white.gif" width="279" height="22" alt="" border="0" />
+                            					<font face="Arial, sans-serif" style="font-weight:bold; text-align:left; line-height:16px; font-size:11px; color:#ff3333">* Tous les champs sont obligatoires</font>
                             				</td>
                             				<td width="132">
 												<table width="132" align="center" cellspacing="0" cellpadding="0" border="0">
