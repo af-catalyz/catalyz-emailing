@@ -455,6 +455,7 @@ $linkTabNew = array();
 
     	$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
     	foreach($czSettings->get(CatalyzSettings::CUSTOM_FIELDS) as $fieldKey => $label) {
+    		$method = 'get'.ucfirst($fieldKey);
     		$additionalMacros[sprintf('#%s#', strtoupper($fieldKey))] = $contact->$method();
     	}
 
