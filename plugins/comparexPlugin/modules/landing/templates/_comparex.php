@@ -146,7 +146,7 @@ $parameters = $parameters->getRawValue();
 					<div class="clear"></div>
 
 						<div class="content_left">
-						<a name="box1"></a>
+						<a name="box3"></a>
 								<p class="title"><?php if (isset($parameters['box3_title'])) {
             echo $parameters['box3_title'];
         }
