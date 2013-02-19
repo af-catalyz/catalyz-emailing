@@ -121,7 +121,7 @@ class CatalyzEmailRenderer {
     static function changeUlTag($content, $color)
     {
         $doc = new DOMDocument();
-        $doc->loadHTML($content);
+        @$doc->loadHTML($content);
 
         //region $a_tags
         $ul_tags = $doc->getElementsByTagName('ul');

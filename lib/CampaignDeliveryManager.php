@@ -8,12 +8,20 @@ class CampaignDeliveryManager {
     {
         $this->Campaign = $Campaign;
     }
+
+	protected function cleanUrl($url){
+		$result = str_replace('&amp;', '&', $url);
+		$result = preg_replace('/(#[^#]+)?$/s', '', $result);
+		printf('cleanUrl: %s - %s<br />', $url, $result);
+		return $result;
+	}
+
     public function getLinkList($content)
     {
-        if (preg_match_all("/<a[^>]*href=\"([^#\"][^\"]*)\"[^>]*>/", $content, $tokens, PREG_OFFSET_CAPTURE)) {
+        if (preg_match_all("/<a[^>]*href=\"([^\"]+)\"[^>]*>/", $content, $tokens, PREG_OFFSET_CAPTURE)) {
             $result = array();
             foreach ($tokens[1] as $element) {
-                $result[$element[1]] = str_replace('&amp;', '&', $element[0]);
+				$result[$element[1]] = $this->cleanUrl($element[0]);
             }
 
             foreach($result as $resultKey => $resultItem) {
@@ -308,9 +316,15 @@ $linkTabNew = array();
         $result = $this->replaceMacrosForEmail($content, $email, $additionalMacros);
 
         $spyUrl = sfContext::getInstance()->getController()->genUrl('@spy?key=' . $this->getUserKey($email), false);
-        $result = str_ireplace('</body>', '<img src="' . CatalyzEmailing::getApplicationUrl() . $spyUrl . '" height="1" width="1" alt=""/></body>', $result);
+    	$spyUrlFiltered = $this->stripCommandLinePath($spyUrl);
+    	//$debug = sprintf('[%s][%s]', $spyUrl, $spyUrlFiltered);
+
+        $result = str_ireplace('</body>', /*$debug.*/'<img src="' . CatalyzEmailing::getApplicationUrl() . $spyUrl . '" height="1" width="1" alt=""/></body>', $result);
         return $result;
     }
+	protected function stripCommandLinePath($value){
+		return preg_replace('/^(.*symfony)(.*)$/', '\2', $value);
+	}
 
     public function prepareContentTextForEmail($email, $additionalMacros = array(), $onlineView = false)
     {
