@@ -9,33 +9,33 @@ class CampaignDeliveryManager {
         $this->Campaign = $Campaign;
     }
 
-	protected function cleanUrl($url){
-		$result = str_replace('&amp;', '&', $url);
-		$result = preg_replace('/(#[^#]+)?$/s', '', $result);
-		printf('cleanUrl: %s - %s<br />', $url, $result);
-		return $result;
-	}
-
-    public function getLinkList($content)
-    {
-        if (preg_match_all("/<a[^>]*href=\"([^\"]+)\"[^>]*>/", $content, $tokens, PREG_OFFSET_CAPTURE)) {
-            $result = array();
-            foreach ($tokens[1] as $element) {
-				$result[$element[1]] = $this->cleanUrl($element[0]);
-            }
-
-            foreach($result as $resultKey => $resultItem) {
-                if (0 === strpos($resultItem, 'javascript:')) {
-                    unset($result[$resultKey]);
-                }
-                if (0 === strpos($resultItem, 'skype:')) {
-                    unset($result[$resultKey]);
-                }
-            }
-            return $result;
-        }
-        return array();
-    }
+//	protected function cleanUrl($url){
+//		$result = str_replace('&amp;', '&', $url);
+//		$result = preg_replace('/(#[^#]+)?$/s', '', $result);
+//		printf('cleanUrl: %s - %s<br />', $url, $result);
+//		return $result;
+//	}
+//
+//    public function getLinkList($content)
+//    {
+//        if (preg_match_all("/<a[^>]*href=\"([^\"]+)\"[^>]*>/", $content, $tokens, PREG_OFFSET_CAPTURE)) {
+//            $result = array();
+//            foreach ($tokens[1] as $element) {
+//				$result[$element[1]] = $this->cleanUrl($element[0]);
+//            }
+//
+//            foreach($result as $resultKey => $resultItem) {
+//                if (0 === strpos($resultItem, 'javascript:')) {
+//                    unset($result[$resultKey]);
+//                }
+//                if (0 === strpos($resultItem, 'skype:')) {
+//                    unset($result[$resultKey]);
+//                }
+//            }
+//            return $result;
+//        }
+//        return array();
+//    }
 
     public function getRessourceList($content)
     {
@@ -56,99 +56,99 @@ class CampaignDeliveryManager {
         }
         return str_replace($keys, $values, $content);
     }
+//
+//    protected function deleteCampaignLink()
+//    {
+//        $Criteria = new Criteria();
+//        $Criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->Campaign->getId());
+//        CampaignLinkPeer::doDelete($Criteria);
+//    }
 
-    protected function deleteCampaignLink()
-    {
-        $Criteria = new Criteria();
-        $Criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->Campaign->getId());
-        CampaignLinkPeer::doDelete($Criteria);
-    }
+ //   public function mapLinks($content)
+//    {
+//        $Criteria = new Criteria();
+//        $Criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->Campaign->getId());
+//        $olds = CampaignLinkPeer::doSelect($Criteria);
+//
+//        $linkTab = array();
+//        foreach ($olds as $old) {
+//            $linkTab[$old->getUrl()] = $old;
+//        }
+//
+//        $srcPrefix = CatalyzEmailing::getApplicationUrl();
+//
+//        $linkMap = array();
+//        $links = $this->getLinkList($content);
+//$linkTabNew = array();
+//        foreach(array_unique($links) as $key => $link) {
+//            // creations des links pour la campagne
+//            if ($this->isLinkValid($link)) {
+//                if (preg_match('|^(/?uploads/repository.+)$|', $link) || preg_match('|^(/?uploads/assets.+)$|', $link)) {
+//                    if ($link[1] != '/') {
+//                        $targetLink = $srcPrefix . '/' . $link;
+//                    } else {
+//                        $targetLink = $srcPrefix . $link;
+//                    }
+//                } else {
+//                    $targetLink = $link;
+//                }
+//
+//                if (!isset($linkTab[$targetLink])) {
+//                    $CampaignLink = new CampaignLink();
+//                    $CampaignLink->setCampaign($this->Campaign);
+//                    $CampaignLink->setUrl($targetLink);
+//                    $CampaignLink->save();
+//                    $linkTabNew[$CampaignLink->getUrl()] = $CampaignLink;
+//                }else{
+//                	$linkTabNew[$targetLink] = $linkTab[$targetLink];
+//                	unset($linkTab[$targetLink]);
+//                }
+//            }
+//            // remove des mauvais liens
+//            else {
+//                $links = $this->removeFromTab($links, $link);
+//            }
+//        }
+//
+//    	foreach($linkTab as $link){
+//    		$link->delete();
+//    	}
+//
+//        foreach ($links as $pos => $link) {
+//            $CL = false;
+//            if (empty($linkTab[$link])) {
+//                $temp_link = $srcPrefix . $link;
+//                if (!empty($linkTab[$temp_link])) {
+//                    $CL = $linkTab[$temp_link];
+//                }
+//
+//                $temp_link = $srcPrefix . '/' . $link;
+//                if (!empty($linkTab[$temp_link])) {
+//                    $CL = $linkTab[$temp_link];
+//                }
+//            } else {
+//                $CL = $linkTab[$link];
+//            }
+//            if ($CL) {
+//                $posId = $this->Campaign->getUrlPosition($link, $pos);
+//                if (is_object($CL)) {
+//                    $linkMap[] = $CL->getCollectorLink($posId);
+//                }
+//            }
+//        }
+//
+//        return $this->replaceLinks($linkMap, $content, $links);
+//    }
 
-    public function mapLinks($content)
-    {
-        $Criteria = new Criteria();
-        $Criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->Campaign->getId());
-        $olds = CampaignLinkPeer::doSelect($Criteria);
-
-        $linkTab = array();
-        foreach ($olds as $old) {
-            $linkTab[$old->getUrl()] = $old;
-        }
-
-        $srcPrefix = CatalyzEmailing::getApplicationUrl();
-
-        $linkMap = array();
-        $links = $this->getLinkList($content);
-$linkTabNew = array();
-        foreach(array_unique($links) as $key => $link) {
-            // creations des links pour la campagne
-            if ($this->isLinkValid($link)) {
-                if (preg_match('|^(/?uploads/repository.+)$|', $link) || preg_match('|^(/?uploads/assets.+)$|', $link)) {
-                    if ($link[1] != '/') {
-                        $targetLink = $srcPrefix . '/' . $link;
-                    } else {
-                        $targetLink = $srcPrefix . $link;
-                    }
-                } else {
-                    $targetLink = $link;
-                }
-
-                if (!isset($linkTab[$targetLink])) {
-                    $CampaignLink = new CampaignLink();
-                    $CampaignLink->setCampaign($this->Campaign);
-                    $CampaignLink->setUrl($targetLink);
-                    $CampaignLink->save();
-                    $linkTabNew[$CampaignLink->getUrl()] = $CampaignLink;
-                }else{
-                	$linkTabNew[$targetLink] = $linkTab[$targetLink];
-                	unset($linkTab[$targetLink]);
-                }
-            }
-            // remove des mauvais liens
-            else {
-                $links = $this->removeFromTab($links, $link);
-            }
-        }
-
-    	foreach($linkTab as $link){
-    		$link->delete();
-    	}
-
-        foreach ($links as $pos => $link) {
-            $CL = false;
-            if (empty($linkTab[$link])) {
-                $temp_link = $srcPrefix . $link;
-                if (!empty($linkTab[$temp_link])) {
-                    $CL = $linkTab[$temp_link];
-                }
-
-                $temp_link = $srcPrefix . '/' . $link;
-                if (!empty($linkTab[$temp_link])) {
-                    $CL = $linkTab[$temp_link];
-                }
-            } else {
-                $CL = $linkTab[$link];
-            }
-            if ($CL) {
-                $posId = $this->Campaign->getUrlPosition($link, $pos);
-                if (is_object($CL)) {
-                    $linkMap[] = $CL->getCollectorLink($posId);
-                }
-            }
-        }
-
-        return $this->replaceLinks($linkMap, $content, $links);
-    }
-
-    protected function removeFromTab($tab, $value)
-    {
-        while (in_array($value, $tab)) {
-            $cle = array_search($value, $tab);
-            unset($tab[$cle]);
-        }
-
-        return $tab;
-    }
+//    protected function removeFromTab($tab, $value)
+//    {
+//        while (in_array($value, $tab)) {
+//            $cle = array_search($value, $tab);
+//            unset($tab[$cle]);
+//        }
+//
+//        return $tab;
+//    }
 
     public function mapRessources($content)
     {
@@ -294,39 +294,21 @@ $linkTabNew = array();
     public function prepareContentForEmail($email, $additionalMacros = array(), $onlineView = false)
     {
         $additionalMacros['#SUBJECT#'] = $this->prepareSubjectForEmail($email, $additionalMacros);
-
-
-
-        // $campaignTemplate = $this->Campaign->getCampaignTemplate();
-        // $templateHandlerClassName = $campaignTemplate->getClassName();
-        // if ($templateHandlerClassName) {
-
-
-
-        // $templateHandler = /*(KreactivNewsletter20110511CampaignTemplateHandler)*/new $templateHandlerClassName($this->Campaign);
-        // $campaignContent = czWidgetFormWizard::asArray((string) $this->Campaign->getPreparedContent());
-        // $content = (string) $templateHandler->compute($campaignContent);
-        // }else{
         $content = $this->Campaign->getPreparedContent();
-        // }
-        // if ($onlineView) {
-        // $content = preg_replace('|<p.+"#VIEW_ONLINE#".+</p>|im', '', $content) ;
-        // $content = preg_replace('|<font.+"#VIEW_ONLINE#".+</font>|im', '', $content) ;
-        // }
         $result = $this->replaceMacrosForEmail($content, $email, $additionalMacros);
-
-        $spyUrl = sfContext::getInstance()->getController()->genUrl('@spy?key=' . $this->getUserKey($email), false);
-    	$spyUrlFiltered = $this->stripCommandLinePath($spyUrl);
-    	//$debug = sprintf('[%s][%s]', $spyUrl, $spyUrlFiltered);
-
-        $result = str_ireplace('</body>', /*$debug.*/'<img src="' . CatalyzEmailing::getApplicationUrl() . $spyUrl . '" height="1" width="1" alt=""/></body>', $result);
-        return $result;
+        return $this->includeViewSpy($email, $result);
     }
 	protected function stripCommandLinePath($value){
 		return preg_replace('/^(.*symfony)(.*)$/', '\2', $value);
 	}
 
-    public function prepareContentTextForEmail($email, $additionalMacros = array(), $onlineView = false)
+	protected function includeViewSpy($email, $value){
+		$spyUrl = sfContext::getInstance()->getController()->genUrl('@spy?key=' . $this->getUserKey($email), false);
+		$spyUrl = $this->stripCommandLinePath($spyUrl);
+		return str_ireplace('</body>', '<img src="' . CatalyzEmailing::getApplicationUrl() . $spyUrl . '" height="1" width="1" alt=""/></body>', $value);
+	}
+
+	public function prepareContentTextForEmail($email, $additionalMacros = array(), $onlineView = false)
     {
         $additionalMacros['#SUBJECT#'] = $this->prepareSubjectForEmail($email, $additionalMacros);
         // $campaignTemplate = $this->Campaign->getCampaignTemplate();
@@ -509,44 +491,44 @@ $linkTabNew = array();
         return $this->sendTo($contact->getEmail(), $this->getMacrosForContact($contact));
     }
 
-    public function isLinkValid($link)
-    {
-        if (preg_match('/^mailto:/i', $link)) {
-            return false;
-        }
-        return true;
-    }
+//    public function isLinkValid($link)
+//    {
+//        if (preg_match('/^mailto:/i', $link)) {
+//            return false;
+//        }
+//        return true;
+//    }
 
-    protected function str_replace_once($str_pattern, $str_replacement, $string)
-    {
-        if (strpos($string, $str_pattern) !== false) {
-            $occurrence = strpos($string, $str_pattern);
-            return substr_replace($string, $str_replacement, strpos($string, $str_pattern), strlen($str_pattern));
-        }
+//    protected function str_replace_once($str_pattern, $str_replacement, $string)
+//    {
+//        if (strpos($string, $str_pattern) !== false) {
+//            $occurrence = strpos($string, $str_pattern);
+//            return substr_replace($string, $str_replacement, strpos($string, $str_pattern), strlen($str_pattern));
+//        }
+//
+//        return $string;
+//    }
 
-        return $string;
-    }
-
-    public function replaceLinks($map, $content, $links)
-    {
-        $temp = array();
-        foreach ($links as $link) {
-            $temp[] = $link;
-        }
-        $links = $temp;
-
-        $keys = array();
-        $values = array();
-        foreach($map as $key => $val) {
-            $keys[] = '"' . $links[$key] . '"';
-            $values[] = '"' . $val . '"';
-        }
-
-        foreach ($keys as $k => $link) {
-            $content = $this->str_replace_once($link, $values[$k], $content);
-        }
-        return $content;
-    }
+//    public function replaceLinks($map, $content, $links)
+//    {
+//        $temp = array();
+//        foreach ($links as $link) {
+//            $temp[] = $link;
+//        }
+//        $links = $temp;
+//
+//        $keys = array();
+//        $values = array();
+//        foreach($map as $key => $val) {
+//            $keys[] = '"' . $links[$key] . '"';
+//            $values[] = '"' . $val . '"';
+//        }
+//
+//        foreach ($keys as $k => $link) {
+//            $content = $this->str_replace_once($link, $values[$k], $content);
+//        }
+//        return $content;
+//    }
 
     /**
      * CampaignDeliveryManager::embedStylesheets()
@@ -556,7 +538,7 @@ $linkTabNew = array();
      */
     public function embedStylesheets($content)
     {
-        if (preg_match_all('#<link\srel="stylesheet"\shref="([^"]+)"\s/>#', $content, $tokens)) {
+        if (preg_match_all('#<link\s+rel="stylesheet"\s+href="([^"]+)"\s*/>#i', $content, $tokens)) {
             foreach($tokens[1] as $index => $cssFilename) {
                 $cssContent = '<style class="text/css">';
                 $cssContent .= "\n" . file_get_contents(sfConfig::get('sf_web_dir') . $cssFilename);
@@ -566,7 +548,13 @@ $linkTabNew = array();
         }
         return $content;
     }
+
+
+	public function mapLinks($content)
+	{
+		 $filter = new CampaignSpyFilter(new CampaignLinkSerializer($this->Campaign), CatalyzEmailing::getApplicationUrl());
+		return $filter->execute($content);
+	}
 }
 
 ?>
-

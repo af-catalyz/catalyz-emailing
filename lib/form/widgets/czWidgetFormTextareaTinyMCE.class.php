@@ -77,8 +77,7 @@ $js .= <<<EOS
                     mlb.add('Email', '#EMAIL#');
 EOS;
 
-    	$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
-    	foreach($czSettings->get(CatalyzSettings::CUSTOM_FIELDS) as $fieldKey => $label) {
+    	foreach(CatalyzEmailing::getCustomFields() as $fieldKey => $label) {
     		$js .= sprintf('mlb.add(\'%s\', \'#%s#\');', str_replace("'", '\\\'', $label), strtoupper($fieldKey));
     	}
 

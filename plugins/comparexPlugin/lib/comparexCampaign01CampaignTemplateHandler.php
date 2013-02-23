@@ -33,6 +33,10 @@ class comparexCampaign01CampaignTemplateHandler extends CampaignTemplateHandler 
 	{
 		return 860;
 	}
+
+	static function getCampaignName(){
+		'Comparex - Modèle 01';
+	}
 }
 
 ?>

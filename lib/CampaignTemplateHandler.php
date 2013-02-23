@@ -43,6 +43,10 @@ class CampaignTemplateHandler {
     {
         return 500;
     }
+
+	static function getCampaignName(){
+		return 'Untitled';
+	}
 }
 
 ?>

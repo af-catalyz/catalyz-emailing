@@ -261,11 +261,11 @@ campaign_statistics_show_browser:
   param: { module: statistics, action: showBrowser }
 
 campaign_statistics_display_iframe:
-  url: /statistics/displayIframe/slug/:slug
+  url: /statistics/displayIframe/:slug
   param: { module: statistics, action: displayIframe }
 
 campaign_statistics_display_message_iframe:
-  url: /statistics/displayContentIframe/slug/:slug
+  url: /statistics/displayContentIframe/:slug
   param: { module: statistics, action: displayCampaignContentIframe }
 
 campaign_statistics_show_clicks:

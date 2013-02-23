@@ -35,6 +35,9 @@ class groupsActions extends sfActions
 			}
 		}
 		$this->contact_groupList['active'] = $temp;
+		if(count($this->contact_groupList['active']) == 0){
+			unset($this->contact_groupList['active']);
+		}
 
 		ksort($this->contact_groupList);
 

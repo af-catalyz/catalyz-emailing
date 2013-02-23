@@ -34,7 +34,7 @@ CREATE TABLE `contact`
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`),
 	UNIQUE KEY `contact_U_1` (`email`)
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- contact_group
@@ -55,7 +55,7 @@ CREATE TABLE `contact_group`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- contact_contact_group
@@ -80,7 +80,7 @@ CREATE TABLE `contact_contact_group`
 		FOREIGN KEY (`contact_group_id`)
 		REFERENCES `contact_group` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- campaign
@@ -136,7 +136,7 @@ CREATE TABLE `campaign`
 		FOREIGN KEY (`created_by`)
 		REFERENCES `sf_guard_user_profile` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- campaign_contact_group
@@ -159,7 +159,7 @@ CREATE TABLE `campaign_contact_group`
 		FOREIGN KEY (`contact_group_id`)
 		REFERENCES `contact_group` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- campaign_contact
@@ -194,7 +194,7 @@ CREATE TABLE `campaign_contact`
 		FOREIGN KEY (`contact_id`)
 		REFERENCES `contact` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- campaign_contact_element
@@ -219,7 +219,7 @@ CREATE TABLE `campaign_contact_element`
 		FOREIGN KEY (`contact_id`)
 		REFERENCES `contact` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- campaign_contact_bounce
@@ -243,7 +243,7 @@ CREATE TABLE `campaign_contact_bounce`
 		FOREIGN KEY (`campaign_contact_id`)
 		REFERENCES `campaign_contact` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- campaign_template
@@ -266,7 +266,7 @@ CREATE TABLE `campaign_template`
 	`created_at` DATETIME,
 	`updated_at` DATETIME,
 	PRIMARY KEY (`id`)
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- campaign_link
@@ -288,7 +288,7 @@ CREATE TABLE `campaign_link`
 		FOREIGN KEY (`campaign_id`)
 		REFERENCES `campaign` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- campaign_click
@@ -315,7 +315,7 @@ CREATE TABLE `campaign_click`
 		FOREIGN KEY (`campaign_contact_id`)
 		REFERENCES `campaign_contact` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- sf_guard_user_profile
@@ -337,7 +337,7 @@ CREATE TABLE `sf_guard_user_profile`
 		FOREIGN KEY (`user_id`)
 		REFERENCES `sf_guard_user` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 #-----------------------------------------------------------------------------
 #-- landing
@@ -362,7 +362,7 @@ CREATE TABLE `landing`
 		FOREIGN KEY (`created_by`)
 		REFERENCES `sf_guard_user_profile` (`id`)
 		ON DELETE CASCADE
-)Type=InnoDB;
+);
 
 # This restores the fkey checks, after having unset them earlier
 SET FOREIGN_KEY_CHECKS = 1;

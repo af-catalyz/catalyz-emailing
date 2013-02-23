@@ -457,6 +457,9 @@ class Campaign extends BaseCampaign {
 
 		$clicked = array();
 		while($rs = $statement->fetch(PDO::FETCH_NUM)){
+//			echo '<pre>';
+//			var_dump($rs);
+//			echo '</pre>';
 
 			if (empty($clicked[$rs[2]][$rs[0]][$rs[1]])) { // seul 1 click par personne n'est comptabilisé
 

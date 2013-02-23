@@ -14,6 +14,8 @@ url_for('groups/create'), __('Ajouter un groupe'));
 
 		<?php include_partial('global/flashMessage') ?>
 
+		<?php $contact_groupList = $contact_groupList->getRawValue();
+	?>
 		<?php if (count($contact_groupList) == 0): ?>
 			<?php printf('<p>%s</p>', __("Aucun groupe n'a été créé.")) ?>
 		<?php else: ?>
@@ -32,7 +34,7 @@ url_for('groups/create'), __('Ajouter un groupe'));
   <tbody>
     <?php
 
-			foreach ($contact_groupList->getRawValue() as $state => $groupList){
+			foreach ($contact_groupList as $state => $groupList){
 
 
 				foreach ($groupList as/*(ContactGroup)*/ $contact_group){

@@ -87,7 +87,7 @@ echo '</center></div>';
 			//endregion
 
 			//region taux de réactivité
-			printf('<div class="span2 well"><center><h2>%s</h2>taux de réactivité <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clics / Nb ouvertures."><i class="icon-question-sign"></i></a></center></div>', $reactivite);
+			printf('<div class="span2 well"><center><h2>%0.2f%%</h2>taux de réactivité <a rel="tooltip-campaign-comment" href="#" data-original-title="Nb clics / Nb ouvertures."><i class="icon-question-sign"></i></a></center></div>', $reactivite);
 			//endregion
 
 //region désinscription

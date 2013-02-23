@@ -80,7 +80,7 @@ $customFields = CatalyzEmailing::getCustomFields();
 				<?php
 
 				echo '<div class="declenche-resend-modal">';
-				printf('%s', $Campaign->getName());
+				echo link_to($Campaign->getName(), '@campaign_statistics_summary?slug='.$Campaign->getSlug());
 				printf('&nbsp;<a class="btn btn-mini listen_modal" data-toggle="modal" name="%s" rel="%s" href="%s" >renvoyer</a>', $Campaign->getName(), $CampaignContact->getId(), $Campaign->getId());
 				echo '</div>';
 			?>

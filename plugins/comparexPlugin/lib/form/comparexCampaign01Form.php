@@ -17,7 +17,5 @@ class comparexCampaign01Form extends czForm {
         $this->addTextareaField('footer', 'Coordonnées', array('style' => 'width: 700px'));
         $this->addTextField('footer_email', 'Email', array('style' => 'width: 700px'));
         $this->addTextField('footer_url', 'URL', array('style' => 'width: 700px'));
-
-        $this->widgetSchema->setNameFormat('campaign[content][%s]');
     }
 }
