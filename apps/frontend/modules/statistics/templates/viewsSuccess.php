@@ -21,11 +21,11 @@
 
 				<table class="table table-striped table-condensed">
 			<tr>
-					<th class="span1">Statut</th>
+					<th width="100">Statut</th>
 					<th>Contact</th>
-					<th class="span2">Envoi</th>
-					<th class="span2">Ouverture</th>
-					<th class="span2">Clic</th>
+					<th width="100">Envoi</th>
+					<th width="100">Ouverture</th>
+					<th width="100">Clic</th>
 					<?php if(LandingPageUtils::isModuleAvailable()): ?>
 					<th width="100">Conversions</th>
 					<?php endif; ?>

@@ -11,13 +11,13 @@
 				<tr>
 					<th width="100">Statut</th>
 					<th>Contact</th>
+					<th width="100">Bounce</th>
 					<th width="100">Envoi</th>
 					<th width="100">Ouverture</th>
 					<th width="100">Clic</th>
 					<?php if(LandingPageUtils::isModuleAvailable()): ?>
 					<th width="100">Conversions</th>
 					<?php endif; ?>
-					<th width="100">Bounce</th>
 				</tr>
 				<?php foreach($pager->getResults() as /*(CampaignContact)*/$contact):
 					$contactObject = /*(Contact)*/$contact->getContact();
@@ -26,13 +26,13 @@
 				<tr>
 					<td><?php echo $contactObject->getStatusIcon(); ?></td>
 					<td><?php echo $contactObject->getFieldValue('FULL_NAME'); ?></td>
+					<td><?php echo $contact->getBounceLabel(ESC_RAW); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getSentAt())); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getViewAt())); ?></td>
 					<td><?php echo CatalyzDate::formatShort(strtotime($contact->getClickedAt())); ?></td>
 					<?php if(LandingPageUtils::isModuleAvailable()): ?>
 					<td><?php echo $contact->getLandingActionLabel(ESC_RAW); ?></td>
 					<?php endif; ?>
-					<td><?php echo $contact->getBounceLabel(ESC_RAW); ?></td>
 				</tr>
 					<?php endif; ?>
 					<?php endforeach; ?>

@@ -829,7 +829,7 @@ class campaignActions extends sfActions {
         }
 
         $cdm = new CampaignDeliveryManager($CampaignLink->getCampaign());
-    	$url = $cmd->replaceMacrosForEmail($CampaignLink->getTrackedUrl(), $email);
+    	$url = $cdm->replaceMacrosForEmail($CampaignLink->getTrackedUrl(), $email);
     	//$url = $cdm->stripCommandLinePath($url);
 
         $this->redirect($url);
