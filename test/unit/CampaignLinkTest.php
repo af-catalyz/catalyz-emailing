@@ -44,8 +44,8 @@ class CampaignLinkTest extends PHPUnit_Framework_TestCase {
 
 		$parts = $this->campaign_link->parse_url($result);
 		$this->assertEquals($parts['fragment'], 'anchor');
-		$this->assertEquals($parts['query']['key'], '#SPY_KEY#');
-		$this->assertEquals($parts['query']['email'], '#EMAIL#');
+		$this->assertTrue(strpos($result, 'key=#SPY_KEY#') > 0);
+		$this->assertTrue(strpos($result, 'email=#EMAIL#') > 0);
 
 	}
 }

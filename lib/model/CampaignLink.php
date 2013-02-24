@@ -30,7 +30,7 @@ class CampaignLink extends BaseCampaignLink {
 
         foreach($var as $val) {
             $x = explode('=', $val);
-            $arr[$x[0]] = preg_replace('/%24([a-zA-Z0-9_]+)%24/', '#\1#', $x[1]) ; // "%24 = urlencode('$')
+            $arr[$x[0]] = preg_replace('/\$([a-zA-Z0-9_]+)\$/', '#\1#', $x[1]) ; // "%24 = urlencode('$')
         }
         unset($val, $x, $var);
         return $arr;
@@ -112,7 +112,7 @@ class CampaignLink extends BaseCampaignLink {
             $result .= $url_parts['path'];
         }
         if (!empty($url_parts['query']) && (count($url_parts['query']) > 0)) {
-            $url_parts['query'] = http_build_query($url_parts['query']);
+            $url_parts['query'] = str_replace('%23', '#', http_build_query($url_parts['query']));
 
             $result .= '?' . $url_parts['query'];
         }
