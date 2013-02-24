@@ -111,7 +111,7 @@ $parameters = unEscape($parameters);
 	       					</td>
 	       					<td width="400" bgcolor="#FFFFFF">
 	       						<font face="Arial, sans-serif" style="text-align:left; line-height:19px; font-size:15px; font-weight:bold; color:#ff0033">
-	       						<?php echo nl2br(htmlentities(utf8_decode($article['title']))); ?>
+	       						<?php echo nl2br($article['title']); ?>
 								</font>
 	       					</td>
 	       					<td style="line-height:0; font-size: 0;" width="216" bgcolor="#FFFFFF" colspan="2">
@@ -160,7 +160,7 @@ $parameters = unEscape($parameters);
 	       									<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/campaign01/red_box_left.jpg" width="13" height="34" alt="" border="0" />
 	       								</td>
 	       								<td width="151" bgcolor="#ff3333" align="center">
-	       									<font face="Arial, sans-serif" style="text-decoration:underline; text-transform:uppercase; text-align:center; line-height:11px; font-size:9px; font-weight:bold; color:#FFFFFF"><a target="_blank" style="color:#FFFFFF; text-decoration:underline" href="<?php echo czWidgetFormLink::displayLink($article['button_url']) ?>"><?php echo nl2br(htmlentities(utf8_decode($article['button_text']))) ?></a></font>
+	       									<font face="Arial, sans-serif" style="text-decoration:underline; text-transform:uppercase; text-align:center; line-height:11px; font-size:9px; font-weight:bold; color:#FFFFFF"><a target="_blank" style="color:#FFFFFF; text-decoration:underline" href="<?php echo czWidgetFormLink::displayLink($article['button_url']) ?>"><?php echo nl2br($article['button_text']) ?></a></font>
 	       								</td>
 	       		       					<td style="line-height:0; font-size: 0;">
 	       									<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/campaign01/red_box_right.jpg" width="33" height="34" alt="" border="0" />
@@ -241,7 +241,7 @@ $parameters = unEscape($parameters);
 			       					<font face="Arial, sans-serif" style=" text-align:left; line-height:11px; font-size:11px; color:#FFFFFF">
 			       					<?php
     if (!empty($parameters['footer'])) {
-        echo nl2br(htmlentities(utf8_decode($parameters['footer'])));
+        echo nl2br($parameters['footer']);
     }
 
     ?>
