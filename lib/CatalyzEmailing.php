@@ -46,7 +46,11 @@ class CatalyzEmailing {
     }
 
     static function addStatisticsToLinks($content, $CampaignUrls, $clickedLinksPos)
+
     {
+    	var_dump($CampaignUrls);
+    	var_dump($clickedLinksPos);
+
         // $content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
         $content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
         $content = preg_replace('|(</body>)|i', '<script type="text/javascript">$(".add_popover").popover({trigger: "hover", delay: { show: 10, hide: 500 }}); </script>\1', $content);

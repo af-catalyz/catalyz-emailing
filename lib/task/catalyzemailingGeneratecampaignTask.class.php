@@ -30,7 +30,7 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         // add your code here
-        $ProjectName = ucfirst($arguments['customer']);
+        $ProjectName = $arguments['customer'];
         $TemplateName = ucfirst($arguments['template']);
         $projectName = lcfirst($ProjectName);
         $templateName = lcfirst($TemplateName);
@@ -51,11 +51,11 @@ EOF;
         $this->generateForm(sprintf('%s%sForm', $ProjectName, $TemplateName), sprintf('%s/plugins/%sPlugin/lib/form/%s%sForm.php', $root_path, $ProjectName, $ProjectName, $TemplateName));
         $this->generateCampaignTemplateHandler($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/lib/%s%sCampaignTemplateHandler.php', $root_path, $ProjectName, $ProjectName, $TemplateName));
         if ($options['with-initializer']) {
-            $this->generateCampaignTemplateInitializer(sprintf('%s%sCampaignTemplateInitializer', $ProjectName, $TemplateName), sprintf('%s/plugins/%sPlugin/lib/%s%sCampaignTemplateInitializer.php', $root_path, $ProjectName, $ProjectName, $TemplateName));
+            $this->generateCampaignTemplateInitializer($ProjectName, $TemplateName, sprintf('%s%sCampaignTemplateInitializer', $ProjectName, $TemplateName), sprintf('%s/plugins/%sPlugin/lib/%s%sCampaignTemplateInitializer.php', $root_path, $ProjectName, $ProjectName, $TemplateName));
         }
-        $this->generateCampaignTemplateHtml(sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s.php', $root_path, $ProjectName, $ProjectName, $templateName));
-        $this->generateCampaignTemplateText(sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s_text.php', $root_path, $ProjectName, $ProjectName, $templateName));
-        $this->generateCampaignTemplateEdit(sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s_edit.php', $root_path, $ProjectName, $ProjectName, $templateName));
+        $this->generateCampaignTemplateHtml($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s.php', $root_path, $ProjectName, $ProjectName, $templateName));
+        $this->generateCampaignTemplateText($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s_text.php', $root_path, $ProjectName, $ProjectName, $templateName));
+        $this->generateCampaignTemplateEdit($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s_edit.php', $root_path, $ProjectName, $ProjectName, $templateName));
     }
 
     protected function generateForm($className, $filename)
@@ -74,7 +74,7 @@ EOF;
     	file_put_contents($filename, $content);
     }
 
-    public function generateCampaignTemplateInitializer($className, $filename)
+    public function generateCampaignTemplateInitializer($ProjectName, $TemplateName, $className, $filename)
     {
         $this->log(sprintf('Creating %s (%s)', str_replace(sfConfig::get('sf_root_dir') . '/', '', $filename), $className));
     	$content = "<?php \n\n";
@@ -84,21 +84,21 @@ EOF;
 
 	protected $fields = array();
 
-	public function generateCampaignTemplateHtml($filename)
+	public function generateCampaignTemplateHtml($ProjectName, $TemplateName, $filename)
 	{
 		$this->log(sprintf('Creating %s', str_replace(sfConfig::get('sf_root_dir') . '/', '', $filename)));
 		file_put_contents($filename, $this->getPartial('generator/html', array('ProjectName' => $ProjectName, 'TemplateName' => $TemplateName, 'fields' => $this->fields)));
 	}
 
-	public function generateCampaignTemplateText($filename)
+	public function generateCampaignTemplateText($ProjectName, $TemplateName, $filename)
 	{
 		$this->log(sprintf('Creating %s', str_replace(sfConfig::get('sf_root_dir') . '/', '', $filename)));
 		file_put_contents($filename, $this->getPartial('generator/text', array('ProjectName' => $ProjectName, 'TemplateName' => $TemplateName, 'fields' => $this->fields)));
 	}
-	public function generateCampaignTemplateEdit($filename)
+	public function generateCampaignTemplateEdit($ProjectName, $TemplateName, $filename)
     {
         $this->log(sprintf('Creating %s', str_replace(sfConfig::get('sf_root_dir') . '/', '', $filename)));
-		file_put_contents($filename, $this->getPartial('generator/edit', array('ProjectName' => $ProjectName, 'TemplateName' => $TemplateName, 'fields' => $this->fields)));
+		file_put_contents($filename, "<?php \n\n".$this->getPartial('generator/edit', array('ProjectName' => $ProjectName, 'TemplateName' => $TemplateName, 'fields' => $this->fields)));
     }
 
     protected function getPartial($templateName, $vars = array())

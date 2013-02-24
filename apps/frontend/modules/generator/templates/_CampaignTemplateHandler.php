@@ -10,7 +10,7 @@ class <?php echo $ProjectName; ?><?php echo $TemplateName; ?>CampaignTemplateHan
 
 	public function compute($parameters)
 	{
-		sfLoader::loadHelpers('Partial');
+		sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
 		return get_partial('<?php echo $ProjectName; ?>/<?php echo lcfirst($TemplateName); ?>', array('parameters' => $parameters));
 	}
 

@@ -32,7 +32,7 @@ EOF;
         $databaseManager = new sfDatabaseManager($this->configuration);
         $connection = $databaseManager->getDatabase($options['connection'])->getConnection();
         // add your code here
-        $ProjectName = ucfirst($arguments['customer']);
+        $ProjectName = $arguments['customer'];
         $TemplateName = ucfirst($arguments['template']);
         $projectName = lcfirst($ProjectName);
         $templateName = lcfirst($TemplateName);
