@@ -829,13 +829,8 @@ class campaignActions extends sfActions {
         }
 
         $cdm = new CampaignDeliveryManager($CampaignLink->getCampaign());
-        $macros['#EMAIL#'] = $email;
-        $macros['#SPY_KEY#'] = $cdm->getUserKey($email);
-
-        $macroKeywords = array_keys($macros);
-        $macroValues = array_values($macros);
-        $url = str_replace($macroKeywords, $macroValues, $CampaignLink->getTrackedUrl());
-        $url = str_ireplace('./symfony/symfony', '', $url);
+    	$url = $cmd->replaceMacrosForEmail($CampaignLink->getTrackedUrl(), $email);
+    	//$url = $cdm->stripCommandLinePath($url);
 
         $this->redirect($url);
 

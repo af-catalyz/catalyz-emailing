@@ -277,7 +277,7 @@ class CampaignDeliveryManager {
         return sprintf('%s-%d-%s', $email, $this->Campaign->getId(), md5($email . sfConfig::get('app_seed')));
     }
 
-    protected function replaceMacrosForEmail($text, $email, $additionnal = array())
+    public function replaceMacrosForEmail($text, $email, $additionnal = array())
     {
         $macros = $additionnal;
         $macros['#EMAIL#'] = $email;
@@ -298,7 +298,7 @@ class CampaignDeliveryManager {
         $result = $this->replaceMacrosForEmail($content, $email, $additionalMacros);
         return $this->includeViewSpy($email, $result);
     }
-	protected function stripCommandLinePath($value){
+	public function stripCommandLinePath($value){
 		return preg_replace('/^(.*symfony)(.*)$/', '\2', $value);
 	}
 
