@@ -67,6 +67,27 @@ class CampaignLinkTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($url_parts['fragment'], 'anchor');
 
 	}
+
+
+	public function testGoogleAnalyticsTermsContainsHashDoesNotCorruptLinkAnchor()
+	{
+		$this->campaign->setGoogleAnalyticsEnabled(true);
+		$this->campaign->setGoogleAnalyticsSource('source');
+		$this->campaign->setGoogleAnalyticsContent('content');
+		$this->campaign->setGoogleAnalyticsMedium('medium');
+		$this->campaign->setGoogleAnalyticsCampaignContent('campaign');
+
+		$this->campaign_link->setGoogleAnalyticsTerm('foo#bar');
+		$this->campaign_link->setUrl('http://www.google.com/foo/bar?key=#SPY_KEY##anchor');
+
+		$email = 'foo@bar.com';
+
+		$cdm = new CampaignDeliveryManager($this->campaign);
+		$result = $cdm->replaceMacrosForEmail($this->campaign_link->getTrackedUrl(), $email);
+		$url_parts = parse_url($result);
+		$this->assertEquals($url_parts['fragment'], 'anchor');
+
+	}
 }
 
 ?>
