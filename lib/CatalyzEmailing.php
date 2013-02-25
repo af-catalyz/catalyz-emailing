@@ -10,46 +10,11 @@ class CatalyzEmailing {
         return $result;
     }
 
-    static function ValidateEmail($email, $sender = null)
-    {
-        $atom = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]'; // caractères autorisés avant l'arobase
-        $domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // caractères autorisés après l'arobase (nom de domaine)
-        $regex = '/^' . $atom . '+' . // Une ou plusieurs fois les caractères autorisés avant l'arobase
-        '(\.' . $atom . '+)*' . // Suivis par zéro point ou plus
-        // séparés par des caractères autorisés avant l'arobase
-        '@' . // Suivis d'un arobase
-        '(' . $domain . '{1,63}\.)+' . // Suivis par 1 à 63 caractères autorisés pour le nom de domaine
-        // séparés par des points
-        $domain . '{2,63}$/i'; // Suivi de 2 à 63 caractères autorisés pour le nom de domaine
-        if (!preg_match($regex, $email)) {
-            return false;
-        }
-        if (!sfConfig::get('app_options_email_validation')) {
-            return true;
-        }
-        if (function_exists('checkdnsrr')) {
-            $tokens = explode('@', $email);
-            if (!checkdnsrr($tokens[1], 'MX') && !checkdnsrr($tokens[1], 'A')) {
-                return false;
-            }
-        }
-        // if ($sender == null) {
-        // $sender = sfConfig::get('app_mail_from_email');
-        // }
-        // $SMTP_Validator = new SMTP_validateEmail();
-        // $SMTP_Validator->debug = true;
-        // $results = $SMTP_Validator->validate(array($email), $sender);
-        // if (empty($results[$email])) {
-        // return false;
-        // }
-        return true;
-    }
-
     static function addStatisticsToLinks($content, $CampaignUrls, $clickedLinksPos)
 
     {
-    	var_dump($CampaignUrls);
-    	var_dump($clickedLinksPos);
+    //	var_dump($CampaignUrls);
+    //	var_dump($clickedLinksPos);
 
         // $content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
         $content = preg_replace('|(</head>)|i', sprintf('<link rel="stylesheet" href="%1$s/css/popover.css" /><link rel="stylesheet" href="%1$s/css/bootstrap-responsive.css" /><script type="text/javascript" src="%1$s/js/jquery.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-tooltip.js"></script><script type="text/javascript" src="%1$s/js/bootstrap-popover.js"></script>\1', sfConfig::get('app_app_url')), $content);
@@ -668,6 +633,41 @@ class CatalyzEmailing {
 
         return true;
     }
+
+	static function ValidateEmail($email, $sender = null)
+	{
+		$atom = '[-a-z0-9!#$%&\'*+\\/=?^_`{|}~]'; // caractères autorisés avant l'arobase
+		$domain = '([a-z0-9]([-a-z0-9]*[a-z0-9]+)?)'; // caractères autorisés après l'arobase (nom de domaine)
+		$regex = '/^' . $atom . '+' . // Une ou plusieurs fois les caractères autorisés avant l'arobase
+		'(\.' . $atom . '+)*' . // Suivis par zéro point ou plus
+		// séparés par des caractères autorisés avant l'arobase
+		'@' . // Suivis d'un arobase
+		'(' . $domain . '{1,63}\.)+' . // Suivis par 1 à 63 caractères autorisés pour le nom de domaine
+		// séparés par des points
+		$domain . '{2,63}$/i'; // Suivi de 2 à 63 caractères autorisés pour le nom de domaine
+		if (!preg_match($regex, $email)) {
+			return false;
+		}
+		if (!sfConfig::get('app_options_email_validation')) {
+			return true;
+		}
+		if (function_exists('checkdnsrr')) {
+			$tokens = explode('@', $email);
+			if (!checkdnsrr($tokens[1], 'MX') && !checkdnsrr($tokens[1], 'A')) {
+				return false;
+			}
+		}
+		// if ($sender == null) {
+		// $sender = sfConfig::get('app_mail_from_email');
+		// }
+		// $SMTP_Validator = new SMTP_validateEmail();
+		// $SMTP_Validator->debug = true;
+		// $results = $SMTP_Validator->validate(array($email), $sender);
+		// if (empty($results[$email])) {
+		// return false;
+		// }
+		return true;
+	}
 
 }
 
