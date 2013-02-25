@@ -145,6 +145,7 @@ $(document).ready(function() {
 		});
 
 		$('#detailsModal').modal('show');
+		return false;
 	});
 
 
