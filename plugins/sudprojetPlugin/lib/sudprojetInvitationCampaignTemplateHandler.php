@@ -21,14 +21,14 @@ class sudprojetInvitationCampaignTemplateHandler extends CampaignTemplateHandler
         return 'sudprojet/invitation_edit';
     }
 
-    public function computeTextVersion($parameters)
-    {
-        sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
-        return get_partial('sudprojet/invitation_text', array('parameters' => $parameters));
-    }
-
-    public function displayTextTab()
-    {
-        return true;
-    }
+//    public function computeTextVersion($parameters)
+//    {
+//        sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
+//        return get_partial('sudprojet/invitation_text', array('parameters' => $parameters));
+//    }
+//
+//    public function displayTextTab()
+//    {
+//        return true;
+//    }
 }
