@@ -112,7 +112,7 @@ class CampaignLink extends BaseCampaignLink {
             $result .= $url_parts['path'];
         }
         if (!empty($url_parts['query']) && (count($url_parts['query']) > 0)) {
-            $url_parts['query'] = str_replace('%23', '#', http_build_query($url_parts['query']));
+            $url_parts['query'] = preg_replace('/%23([a-zA-Z0-9_]+)%23/', '#\1#', http_build_query($url_parts['query']));
 
             $result .= '?' . $url_parts['query'];
         }
