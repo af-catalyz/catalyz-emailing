@@ -263,7 +263,7 @@
 									<td style="line-height:0; font-size: 0;" width="20">
 										<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/cciFormationPlugin/images/calendrier/sep_blue_dark.gif" width="20" height="1" alt="" border="0" />
 									</td>
-									<td width="214">
+									<td width="213">
 										<?php printf('<font face="Trebuchet MS, Arial, sans-serif" style="line-height:22px; font-size:18px; font-weight:bold; color:#FFFFFF">%s</font>', nl2br(htmlentities($parameters['right_title'], ENT_COMPAT, 'UTF-8'))) ?>
 									</td>
 									<td style="line-height:0; font-size: 0;" width="17">
@@ -435,7 +435,7 @@
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/cciFormationPlugin/images/calendrier/bg_white.jpg" width="1" height="1" alt="" border="0" />
 			</td>
 			<td width="561" height="70" align="center">
-				<font face="Arial, sans-serif" style="font-size: 9px;line-height: 12px;" size="2" color="#666666">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectificationet d'opposition<br/> aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#666666;"
+				<font face="Arial, sans-serif" style="font-size: 9px;line-height: 12px;" size="2" color="#666666">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectification et d'opposition<br/> aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#666666;"
 				href="mailto:xxx@xxx.fr" target="_blank">xxx@xxx.fr</a> ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#666666;">ce lien de d&#233;sinscription</a>
 				</font>
 			</td>

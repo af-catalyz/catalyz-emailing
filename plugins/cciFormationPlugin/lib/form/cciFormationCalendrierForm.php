@@ -22,7 +22,7 @@ class cciFormationCalendrierForm extends sfForm {
 		//top_picture,number,date,subtitle,left_title,left_content,left_bottom,right_title,right_content,download_title,download_text,download_link,download_picture,download_picture,adress,email,phone
 
 		//region top_picture
-		$this->widgetSchema['top_picture'] = new czWidgetFormImage(array('picture.width' => 600, 'picture.height'=> 999), array('label' => 'Illustration', 'style' => 'width: 400px'));
+		$this->widgetSchema['top_picture'] = new czWidgetFormImage(array('picture.width' => 600, 'picture.height'=> 173), array('label' => 'Illustration', 'style' => 'width: 400px'));
 		$this->validatorSchema['top_picture'] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp('top_picture', '');
 		//endregion

@@ -20,7 +20,7 @@ class cciFormationCampaign01Form extends sfForm {
 		parent::configure();
 
 		//region top_picture
-		$this->widgetSchema['top_picture'] = new czWidgetFormImage(array('picture.width' => 600, 'picture.height'=> 999), array('label' => 'Illustration', 'style' => 'width: 400px'));
+		$this->widgetSchema['top_picture'] = new czWidgetFormImage(array('picture.width' => 600, 'picture.height'=> 173), array('label' => 'Illustration', 'style' => 'width: 400px'));
 		$this->validatorSchema['top_picture'] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp('top_picture', '');
 		//endregion

@@ -216,12 +216,14 @@
 
 	$left = $right = array();
 	if (!empty($parameters['others'])) {
-		foreach ($parameters['others'] as $key => $details){
-			if ($key%2 == 0) {
+		$cpt = 0;
+		foreach ($parameters['others'] as $details){
+			if ($cpt%2 == 0) {
 				$left[]=$details;
 			}else{
 				$right[]=$details;
 			}
+			$cpt++;
 		}
 	}
 
@@ -338,7 +340,7 @@
 											<?php if (!empty($right_element['title'])) :?>
 												<tr valign="top">
 												<td bgcolor="#FFFFFF">
-													<?php printf('<font face="Trebuchet MS, Arial, sans-serif" style="line-height:20px; font-size:14px; font-weight:bold; color:#cd2861">%s</font>', htmlentities($left_element['title'], ENT_COMPAT, 'UTF-8')) ?>
+													<?php printf('<font face="Trebuchet MS, Arial, sans-serif" style="line-height:20px; font-size:14px; font-weight:bold; color:#cd2861">%s</font>', htmlentities($right_element['title'], ENT_COMPAT, 'UTF-8')) ?>
 												</td>
 											</tr>
 											<tr valign="top">
@@ -470,7 +472,7 @@
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/cciFormationPlugin/images/invitation/bg_white.jpg" width="1" height="1" alt="" border="0" />
 			</td>
 			<td width="561" height="70" align="center">
-				<font face="Arial, sans-serif" style="font-size: 9px;line-height: 12px;" size="2" color="#666666">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectificationet d'opposition<br/> aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#666666;"
+				<font face="Arial, sans-serif" style="font-size: 9px;line-height: 12px;" size="2" color="#666666">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectification et d'opposition<br/> aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#666666;"
 				href="mailto:xxx@xxx.fr" target="_blank">xxx@xxx.fr</a> ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#666666;">ce lien de d&#233;sinscription</a>
 				</font>
 			</td>
