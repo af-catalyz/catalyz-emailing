@@ -55,7 +55,7 @@ class sudprojetCampaign01Form extends sfForm {
 		//endregion
 
 		//region grey_content
-		$this->widgetSchema['grey_content'] = new sfWidgetFormTextarea(array(),array('label' => 'Contenu'));
+		$this->widgetSchema['grey_content'] = new sfWidgetFormTextarea(array(),array('label' => 'Contenu','style' => 'height: 200px;width: 400px'));
 		$this->validatorSchema['grey_content'] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp('grey_content', '');
 		//endregion

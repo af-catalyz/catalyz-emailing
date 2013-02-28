@@ -111,7 +111,7 @@
 								printf('<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#333333"><br/>%s</font>', nl2br(htmlentities($main['introduction'], ENT_COMPAT, 'utf-8')));
 							}
 							if (!empty($main['link'])) {
-								printf('<font face="Arial" style="line-height: 12px; font-size: 11px;font-weight: bold;" size="2" color="#003366"><br/><br/><a style="color:#669933;" href="%s" target="_blank">%s</a></font>',czWidgetFormLink::displayLink($other['link']),  !empty($other['link_caption'])?$other['link_caption']:'LIEN');
+								printf('<font face="Arial" style="line-height: 12px; font-size: 11px;font-weight: bold;" size="2" color="#003366"><br/><br/><a style="color:#669933;" href="%s" target="_blank">%s</a></font>',czWidgetFormLink::displayLink($main['link']),  !empty($main['link_caption'])?$main['link_caption']:'LIEN');
 							}
 
 							echo '</td></tr>';
@@ -402,7 +402,7 @@
 								printf('<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#333333"><br/>%s</font>', nl2br(htmlentities($main['introduction'], ENT_COMPAT, 'utf-8')));
 							}
 							if (!empty($main['link'])) {
-								printf('<font face="Arial" style="line-height: 12px; font-size: 11px;font-weight: bold;" size="2" color="#003366"><br/><br/><a style="color:#669933;" href="%s" target="_blank">%s</a></font>',czWidgetFormLink::displayLink($other['link']),  !empty($other['link_caption'])?$other['link_caption']:'LIEN');
+								printf('<font face="Arial" style="line-height: 12px; font-size: 11px;font-weight: bold;" size="2" color="#003366"><br/><br/><a style="color:#669933;" href="%s" target="_blank">%s</a></font>',czWidgetFormLink::displayLink($main['link']),  !empty($main['link_caption'])?$main['link_caption']:'LIEN');
 							}
 
 							echo '</td></tr>';

@@ -7,7 +7,7 @@ class sudprojetCampaign01Form_main extends czContentObjectSubForm {
         $this->setWidgets(array(
                 'illustration' => new czWidgetFormImage(array('picture.width' => 122, 'picture.height'=> 137), array('label' => 'Illustration', 'style' => 'width: 400px')),
                 'title' => new sfWidgetFormInput(array(), array('label' => 'Titre', 'style' => 'width: 400px')),
-                'introduction' => new sfWidgetFormTextarea(array()),
+                'introduction' => new sfWidgetFormTextarea(array(),array('style' => 'height: 200px;width: 400px')),
                 'link_caption' => new sfWidgetFormInput(array(), array('label' => 'Intitulé du lien', 'style' => 'width: 400px')),
                 'link' => new czWidgetFormLink(array(), array('label' => 'Lien', 'style' => 'width: 400px'))
                 ));
