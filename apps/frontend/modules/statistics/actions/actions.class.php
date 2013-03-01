@@ -648,7 +648,10 @@ class statisticsActions extends sfActions {
 
     protected function computeChangeRate($value1, $value2, $positiveIsGood = true)
     {
-        $result = sprintf('%s%%', number_format(100 * ($value2 - $value1) / $value1, 0, '.', ' '));
+    	if ($value1 == 0) {
+    		return '-';
+    	}
+    	$result = sprintf('%s%%', number_format(100 * ($value2 - $value1) / $value1, 0, '.', ' '));
         if ($result == 0) {
             return '-';
         }
