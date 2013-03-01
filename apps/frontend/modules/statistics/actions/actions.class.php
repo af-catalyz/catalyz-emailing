@@ -713,8 +713,6 @@ class statisticsActions extends sfActions {
 
 	public function executeExportCampaignStatistics(sfWebRequest $request)
 	{
-		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
-
 		$criteria = new Criteria();
 		$criteria->add(CampaignPeer::STATUS, Campaign::STATUS_COMPLETED);
 
@@ -731,8 +729,8 @@ class statisticsActions extends sfActions {
 		$this->activeSheet->setCellValueExplicit('D1', 'Clicks');
 		$this->activeSheet->setCellValueExplicit('E1', 'Conversions');
 		$this->activeSheet->setCellValueExplicit('F1', 'Désinscriptions');
-		$this->activeSheet->setCellValueExplicit('G1', 'Taux d\'ouverture');
-		$this->activeSheet->setCellValueExplicit('H1', 'Erreurs');
+		$this->activeSheet->setCellValueExplicit('G1', 'Erreurs');
+		$this->activeSheet->setCellValueExplicit('H1', 'Taux d\'ouverture');
 		$this->activeSheet->setCellValueExplicit('I1', 'Taux de clics');
 		$this->activeSheet->setCellValueExplicit('J1', 'Taux de réactivité');
 
@@ -745,12 +743,14 @@ class statisticsActions extends sfActions {
 			$this->activeSheet->setCellValueExplicit('E' . $row, $campaign->getLandingActionCount());
 			$this->activeSheet->setCellValueExplicit('F' . $row, $campaign->getUnsubscribeCount());
 			$this->activeSheet->setCellValueExplicit('G' . $row, $campaign->getAllBouncesCount());
-			$this->activeSheet->setCellValueExplicit('H' . $row, $campaign->getOpenRate(true));
-			$this->activeSheet->setCellValueExplicit('I' . $row, $campaign->getClickRate(true));
-			$this->activeSheet->setCellValueExplicit('B' . $row, $campaign->getReactivityRate(true));
+			$this->activeSheet->setCellValueExplicit('H' . $row, $campaign->getOpenRate());
+			$this->activeSheet->setCellValueExplicit('I' . $row, $campaign->getClickRate());
+			$this->activeSheet->setCellValueExplicit('J' . $row, $campaign->getReactivityRate());
 
 			$row++;
 		}
+
+		sfConfig::get('sf_web_debug', false);
 
 		$objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
 		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
@@ -758,7 +758,7 @@ class statisticsActions extends sfActions {
 
 		$response = $this->getResponse();
 		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-		$response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s', sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()), CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+		$response->setHttpHeader('Content-Disposition', 'attachment; filename=catalyz-emailing.xslx');
 		$response->setHttpHeader('Content-Length', filesize($tempFilename));
 		$response->sendHttpHeaders();
 		readfile($tempFilename);
