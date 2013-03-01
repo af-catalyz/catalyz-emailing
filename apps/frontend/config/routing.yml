@@ -312,6 +312,12 @@ campaign_statistics_do_export_landing:
   url:   /:slug/unsubscribes/export
   param: { module: statistics, action: exportLandingActions }
 
+campaign_statistics_export:
+  url:   /statistics/export
+  param: { module: statistics, action: exportCampaignStatistics }
+
+
+
 #CONTACTS
 contacts:
   url:   /contacts

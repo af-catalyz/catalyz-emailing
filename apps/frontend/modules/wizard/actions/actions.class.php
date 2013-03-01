@@ -45,8 +45,9 @@ class wizardActions extends sfActions {
             $campaignId = $campaignInfos['id'];
             $campaignContent = $campaignInfos['content'];
         } else {
-            $campaignId = $request->getParameter('campaign');;
+            $campaignId = $request->getParameter('campaign');
         }
+
         $campaign =/*(Campaign)*/ CampaignPeer::retrieveByPK($campaignId);
         $this->forward404Unless($campaign);
         if (empty($campaignContent)) {
@@ -59,11 +60,9 @@ class wizardActions extends sfActions {
         $templateHandlerClassName = $campaignTemplate->getClassName();
         $templateHandler = new $templateHandlerClassName($campaign);
 
-        $result = $templateHandler->computeTextVersion($campaignContent);
-        $this->result = preg_replace('/href="([^"]*)"/', 'href="javascript:void();" onclick="alert(\'Lien vers &quot;\1&quot;\'); return false;"', $result);
-
+        $this->result = $templateHandler->computeTextVersion($campaignContent);
+        // $this->result = preg_replace('/href="([^"]*)"/', 'href="javascript:void();" onclick="alert(\'Lien vers &quot;\1&quot;\'); return false;"', $result);
         $this->setLayout('layoutTextPlain');
-
         return sfView::SUCCESS ;
     }
 
@@ -120,19 +119,19 @@ class wizardActions extends sfActions {
             );
         $form->setValidator($random . '_website_link', new sfValidatorPass());
 
-		$choices = array();
+        $choices = array();
         if (LandingPageUtils::isModuleAvailable()) {
             $choices = LandingPeer::getAllOptions();
             if (count($choices) > 0) {
-            	$form->setWidget($random . '_landing_link', new sfWidgetFormChoice(array('choices' => $choices), array(
-            	            'id' => $random . '_landing_link',
-            	            'onclick' => 'document.getElementById(\'' . $random . '_LinkType_landing\').checked = true;', 'style' => 'width: 400px;')));
-            	$form->setValidator($random . '_landing_link', new sfValidatorChoice(array('choices' => array_keys($choices))));
+                $form->setWidget($random . '_landing_link', new sfWidgetFormChoice(array('choices' => $choices), array(
+                            'id' => $random . '_landing_link',
+                            'onclick' => 'document.getElementById(\'' . $random . '_LinkType_landing\').checked = true;', 'style' => 'width: 400px;')));
+                $form->setValidator($random . '_landing_link', new sfValidatorChoice(array('choices' => array_keys($choices))));
 
-            	$form->setWidget($random . '_landing_link_anchor', new sfWidgetFormInput(array(), array(
+                $form->setWidget($random . '_landing_link_anchor', new sfWidgetFormInput(array(), array(
                             'id' => $random . '_landing_link_anchor',
                             'onclick' => 'document.getElementById(\'' . $random . '_LinkType_landing\').checked = true;')));
-            	$form->setValidator($random . '_landing_link_anchor', new sfValidatorPass());
+                $form->setValidator($random . '_landing_link_anchor', new sfValidatorPass());
             }
         }
 
@@ -141,21 +140,21 @@ class wizardActions extends sfActions {
                 $form->setDefault($random . '_file_link', $value);
                 $defaultRadio = 2;
             } else {
-            	$found = false;
-            	foreach($choices as $url => $name){
-            		if(strpos($value, $url) === 0){
-            			$anchor = substr($value, strlen($url) + 1);
-            			$form->setDefault($random . '_landing_link', $value);
-            			$form->setDefault($random . '_landing_link_anchor', $anchor);
-            			$defaultRadio = 1;
-            			$found = true;
-            			break;
-            		}
-            	}
-            	if(!$found){
-            		$form->setDefault($random . '_website_link', $value);
-            		$defaultRadio = 3;
-            	}
+                $found = false;
+                foreach($choices as $url => $name) {
+                    if (strpos($value, $url) === 0) {
+                        $anchor = substr($value, strlen($url) + 1);
+                        $form->setDefault($random . '_landing_link', $value);
+                        $form->setDefault($random . '_landing_link_anchor', $anchor);
+                        $defaultRadio = 1;
+                        $found = true;
+                        break;
+                    }
+                }
+                if (!$found) {
+                    $form->setDefault($random . '_website_link', $value);
+                    $defaultRadio = 3;
+                }
             }
         }
 

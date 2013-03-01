@@ -52,7 +52,9 @@ class ContactProvider_FromDatabase extends ContactProvider {
         $result = array();
         $c = new Criteria();
         $c->add(CampaignContactElementPeer::CAMPAIGN_ID, $campaign->getId());
-        foreach(CampaignContactElementPeer::doSelect($c) as/*(CampaignContactElement)*/ $CampaignContactElement) {
+    	$c->addJoin(CampaignContactElementPeer::CONTACT_ID, ContactPeer::ID);
+    	$c->add(ContactPeer::STATUS, Contact::STATUS_NEW);
+    	foreach(CampaignContactElementPeer::doSelect($c) as/*(CampaignContactElement)*/ $CampaignContactElement) {
             $result[] = $CampaignContactElement->getContactId();
         }
 

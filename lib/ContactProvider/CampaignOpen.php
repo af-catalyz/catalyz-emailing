@@ -81,7 +81,9 @@ class ContactProvider_CampaignOpen extends ContactProvider {
         $c = new Criteria();
         $c->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getProviderSettings($this->getProviderName()), Criteria::IN);
         $c->add(CampaignContactPeer::VIEW_AT, null, Criteria::ISNOTNULL);
-        foreach(CampaignContactPeer::doselect($c) as/*(CampaignContact)*/ $CampaignContact) {
+    	$c->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID);
+    	$c->add(ContactPeer::STATUS, Contact::STATUS_NEW);
+    	foreach(CampaignContactPeer::doselect($c) as/*(CampaignContact)*/ $CampaignContact) {
             $result[] = $CampaignContact->getContactId();
         }
 

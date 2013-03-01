@@ -986,10 +986,33 @@ class Campaign extends BaseCampaign {
 		$click_count = $this->getClickedCount();
 		$result = $view_count != 0?($click_count * 100) / $view_count:0;
 		if($formatted){
-		return sprintf('%0.2f%%', $result);
+			return sprintf('%0.2f%%', $result);
 		}
 		return $result;
 	}
+	public function getOpenRate($formatted = false){
+
+		$view_count = $this->getOpenedCount();
+		$target_count = $this->getPreparedTargetCount();
+		$result = $target_count != 0?($view_count * 100) / $target_count:0;
+		if($formatted){
+			return sprintf('%0.2f%%', $result);
+		}
+		return $result;
+	}
+
+	public function getClickRate($formatted = false){
+
+		$click_count = $this->getClickedCount();
+		$target_count = $this->getPreparedTargetCount();
+		$result = $target_count != 0?($click_count * 100) / $target_count:0;
+		if($formatted){
+			return sprintf('%0.2f%%', $result);
+		}
+		return $result;
+	}
+
+
 } // Campaign
 
 $columns_map = array('from'   => CampaignPeer::NAME,'to'     => CampaignPeer::SLUG);

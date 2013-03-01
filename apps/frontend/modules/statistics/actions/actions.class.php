@@ -33,8 +33,8 @@ class statisticsActions extends sfActions {
 
         $this->reactivite = $this->campaign->getReactivityRate();
 
-        $this->taux_ouverture = $this->prepared_target_count != 0?(($this->view_count * 100) / ($this->prepared_target_count - $this->failed_count)):0;
-        $this->taux_clicks = $this->prepared_target_count != 0?(($this->click_count * 100) / ($this->prepared_target_count - $this->failed_count)):0;
+        $this->taux_ouverture = $this->campaign->getOpenRate();
+        $this->taux_clicks = $this->campaign->getClickRate();
 
         $this->unsubscribe_count = $this->campaign->getUnsubscribeCount();
 
@@ -677,8 +677,12 @@ class statisticsActions extends sfActions {
         $this->evolution['target'] = $this->computeChangeRate($this->campaign->getPreparedTargetCount(), $this->campaign2->getPreparedTargetCount());
         $this->evolution['opened'] = $this->computeChangeRate($this->campaign->getOpenedCount(), $this->campaign2->getOpenedCount());
         $this->evolution['click'] = $this->computeChangeRate($this->campaign->getClickedCount(), $this->campaign2->getClickedCount());
-        $this->evolution['reactivity'] = $this->computeChangeRate($this->campaign->getReactivityRate(), $this->campaign2->getReactivityRate());
+        $this->evolution['landing'] = $this->computeChangeRate($this->campaign->getLandingActionCount(), $this->campaign2->getLandingActionCount());
         $this->evolution['unsubscribe'] = $this->computeChangeRate($this->campaign->getUnsubscribeCount(), $this->campaign2->getUnsubscribeCount(), false);
+        $this->evolution['errors'] = $this->computeChangeRate($this->campaign->getAllBouncesCount(), $this->campaign2->getAllBouncesCount(), false);
+    	$this->evolution['openRate'] = $this->computeChangeRate($this->campaign->getOpenRate(), $this->campaign2->getOpenRate());
+    	$this->evolution['clickRate'] = $this->computeChangeRate($this->campaign->getClickRate(), $this->campaign2->getClickRate());
+    	$this->evolution['reactivity'] = $this->computeChangeRate($this->campaign->getReactivityRate(), $this->campaign2->getReactivityRate());
 
         return sfView::SUCCESS;
     }
@@ -703,4 +707,61 @@ class statisticsActions extends sfActions {
 
         return sfView::SUCCESS;
     }
+
+	public function executeExportCampaignStatistics(sfWebRequest $request)
+	{
+		$this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
+
+		$criteria = new Criteria();
+		$criteria->add(CampaignPeer::STATUS, Campaign::STATUS_COMPLETED);
+
+		$this->spreadsheet = new sfPhpExcel();
+		$this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
+
+		$this->spreadsheet->setActiveSheetIndex(0);
+		$this->activeSheet = $this->spreadsheet->getActiveSheet();
+		$this->activeSheet->setTitle('Statistiques');
+
+		$this->activeSheet->setCellValueExplicit('A1', 'Campagne');
+		$this->activeSheet->setCellValueExplicit('B1', 'Cibles');
+		$this->activeSheet->setCellValueExplicit('C1', 'Ouverture');
+		$this->activeSheet->setCellValueExplicit('D1', 'Clicks');
+		$this->activeSheet->setCellValueExplicit('E1', 'Conversions');
+		$this->activeSheet->setCellValueExplicit('F1', 'Désinscriptions');
+		$this->activeSheet->setCellValueExplicit('G1', 'Taux d\'ouverture');
+		$this->activeSheet->setCellValueExplicit('H1', 'Erreurs');
+		$this->activeSheet->setCellValueExplicit('I1', 'Taux de clics');
+		$this->activeSheet->setCellValueExplicit('J1', 'Taux de réactivité');
+
+		$row = 2;
+		foreach(CampaignPeer::doSelect($criteria) as /*(Campaign)*/$campaign){
+			$this->activeSheet->setCellValueExplicit('A' . $row, $campaign->getName());
+			$this->activeSheet->setCellValueExplicit('B' . $row, $campaign->getPreparedTargetCount());
+			$this->activeSheet->setCellValueExplicit('C' . $row, $campaign->getOpenedCount());
+			$this->activeSheet->setCellValueExplicit('D' . $row, $campaign->getClickedCount());
+			$this->activeSheet->setCellValueExplicit('E' . $row, $campaign->getLandingActionCount());
+			$this->activeSheet->setCellValueExplicit('F' . $row, $campaign->getUnsubscribeCount());
+			$this->activeSheet->setCellValueExplicit('G' . $row, $campaign->getAllBouncesCount());
+			$this->activeSheet->setCellValueExplicit('H' . $row, $campaign->getOpenRate(true));
+			$this->activeSheet->setCellValueExplicit('I' . $row, $campaign->getClickRate(true));
+			$this->activeSheet->setCellValueExplicit('B' . $row, $campaign->getReactivityRate(true));
+
+			$row++;
+		}
+
+		$objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
+		$tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
+		$objWriter->save($tempFilename);
+
+		$response = $this->getResponse();
+		$response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+		$response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s', sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()), CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+		$response->setHttpHeader('Content-Length', filesize($tempFilename));
+		$response->sendHttpHeaders();
+		readfile($tempFilename);
+		unlink($tempFilename);
+		return sfView::NONE;
+	}
+
+
 }

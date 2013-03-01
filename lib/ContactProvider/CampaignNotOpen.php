@@ -91,7 +91,9 @@ class ContactProvider_CampaignNotOpen extends ContactProvider {
         $result = array();
         $c = new Criteria();
         $c->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getProviderSettings($this->getProviderName()), Criteria::IN);
-        $c->add(CampaignContactPeer::CONTACT_ID, $exclude, Criteria::NOT_IN);
+    	$c->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID);
+    	$c->add(ContactPeer::STATUS, Contact::STATUS_NEW);
+    	$c->add(CampaignContactPeer::CONTACT_ID, $exclude, Criteria::NOT_IN);
         foreach(CampaignContactPeer::doselect($c) as/*(CampaignContact)*/ $CampaignContact) {
             $result[] = $CampaignContact->getContactId();
         }
