@@ -445,7 +445,7 @@
 			</td>
 			<td width="561" height="70" align="center">
 				<font face="Arial, sans-serif" style="font-size: 9px;line-height: 12px;" size="2" color="#666666">Conform&#233;ment &#224; la loi Informatique et Libert&#233;s du 06/01/1978, vous disposez d'un droit d'acc&#232;s, de rectification et d'opposition<br/> aux informations vous concernant qui peut s'exercer par e-mail &#224; <a style="color:#666666;"
-				href="mailto:xxx@xxx.fr" target="_blank">xxx@xxx.fr</a> ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#666666;">ce lien de d&#233;sinscription</a>
+				href="mailto:ccif@montauban.cci.fr" target="_blank">ccif@montauban.cci.fr</a> ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#666666;">ce lien de d&#233;sinscription</a>
 				</font>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="17" height="70">
