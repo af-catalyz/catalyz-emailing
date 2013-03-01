@@ -116,13 +116,22 @@
 
 	if (!empty($parameters['left_content'])) {
 		$styles = array();
-		$styles['yellow'] = array('color' => 'color:#efc031;', 'bullet' => 'bullet_orange');
-		$styles['pink'] = array('color' => 'color:#d26095;', 'bullet' => 'bullet_pink');
-		$styles['purple'] = array('color' => 'color:#9c276e;', 'bullet' => 'bullet_purple');
-		$styles['green'] = array('color' => 'color:#9fc54d;', 'bullet' => 'bullet_green');
-		$styles['orange'] = array('color' => 'color:#db812e;', 'bullet' => 'bullet_dark_orange');
-		$styles['brown'] = array('color' => 'color:#6c3a1f;', 'bullet' => 'bullet_brown');
-		$styles['blue'] = array('color' => 'color:#1e71b8;', 'bullet' => 'bullet_blue');
+
+		$styles['direction'] = array('color' => 'color:#ffc10e;', 'bullet' => 'direction');
+		$styles['management'] = array('color' => 'color:#ef5f97;', 'bullet' => 'management');
+		$styles['ressources-humaines'] = array('color' => 'color:#00bff2;', 'bullet' => 'ressources-humaines');
+		$styles['developpement'] = array('color' => 'color:#8bc53f;', 'bullet' => 'developpement');
+		$styles['relation-client'] = array('color' => 'color:#f6921e;', 'bullet' => 'relation-client');
+		$styles['assistant'] = array('color' => 'color:#b62271;', 'bullet' => 'assistant');
+		$styles['qualite'] = array('color' => 'color:#f497b0;', 'bullet' => 'qualite');
+		$styles['comptabilite'] = array('color' => 'color:#b8876e;', 'bullet' => 'comptabilite');
+		$styles['achat'] = array('color' => 'color:#e23d2d;', 'bullet' => 'achat');
+		$styles['import'] = array('color' => 'color:#937390;', 'bullet' => 'import');
+		$styles['prevention'] = array('color' => 'color:#0073ad;', 'bullet' => 'prevention');
+		$styles['formations'] = array('color' => 'color:#929497;', 'bullet' => 'formations');
+		$styles['langues'] = array('color' => 'color:#ec1c24;', 'bullet' => 'langues');
+		$styles['logistique'] = array('color' => 'color:#f26f21;', 'bullet' => 'logistique');
+		$styles['bureautique'] = array('color' => 'color:#737273;', 'bullet' => 'bureautique');
 
 		foreach ($parameters['left_content'] as $left_content){
 
