@@ -10,7 +10,7 @@ class czForm extends sfForm {
 
     protected function addUrlField($fieldName, $label)
     {
-        $this->widgetSchema[$fieldName] = new czWidgetFormLink(array(), array('label' => $label, 'style' => 'width: 400px'));
+        $this->widgetSchema[$fieldName] = new czWidgetFormLink(array(), array('label' => $label, 'style' => 'width: 700px'));
         $this->validatorSchema[$fieldName] = new sfValidatorString(array('required' => false));
         $this->getWidgetSchema()->setHelp($fieldName, '');
     	$this->getWidgetSchema()->setLabel($fieldName, $label);
@@ -28,6 +28,7 @@ class czForm extends sfForm {
     protected function addTextField($fieldName, $label, $options = array())
     {
         $options['label'] = $label;
+        $options['style'] = 'width: 700px';
 		$this->widgetSchema[$fieldName] = new sfWidgetFormInputText(array(), $options);
         $this->validatorSchema[$fieldName] = new sfValidatorString(array('required' => false));
         $this->getWidgetSchema()->setHelp($fieldName, '');
@@ -35,7 +36,10 @@ class czForm extends sfForm {
     }
     protected function addPictureField($fieldName, $label, $pictureWidth, $pictureHeight)
     {
-        $this->widgetSchema[$fieldName] = new czWidgetFormImage(array('picture.width' => $pictureWidth, 'picture.height' => $pictureHeight), array('label' => $label, 'style' => 'width: 400px'));
+    	$options['label'] = $label;
+    	$options['style'] = 'width: 700px';
+
+        $this->widgetSchema[$fieldName] = new czWidgetFormImage(array('picture.width' => $pictureWidth, 'picture.height' => $pictureHeight), $options);
         $this->validatorSchema[$fieldName] = new sfValidatorString(array('required' => false));
         $this->getWidgetSchema()->setHelp($fieldName, '');
     	$this->getWidgetSchema()->setLabel($fieldName, $label);

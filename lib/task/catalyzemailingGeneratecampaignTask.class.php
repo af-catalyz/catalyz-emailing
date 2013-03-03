@@ -48,12 +48,37 @@ EOF;
                 mkdir($full_folder, 0777, true);
             }
         }
-        $this->generateForm(sprintf('%s%sForm', $ProjectName, $TemplateName), sprintf('%s/plugins/%sPlugin/lib/form/%s%sForm.php', $root_path, $ProjectName, $ProjectName, $TemplateName));
-        $this->generateCampaignTemplateHandler($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/lib/%s%sCampaignTemplateHandler.php', $root_path, $ProjectName, $ProjectName, $TemplateName));
+
+    	$campaignTemplateFilename = sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s.php', $root_path, $ProjectName, $ProjectName, $templateName);
+    	if ($options['import']) {
+    		$importer = new CampaignTemplateImporter();
+    		file_put_contents($campaignTemplateFilename, $importer->execute(file_get_contents($options['import']), $ProjectName, $TemplateName));
+    		$this->fields = $importer->getFields();
+    		$templateTitle = $importer->getTitle();
+    	}else{
+    		$this->fields = array();
+    		$campaignTemplateContent = '';
+    		$this->generateCampaignTemplateHtml($ProjectName, $TemplateName, $campaignTemplateFilename);
+    		$templateTitle = '';
+    	}
+
+
+        $formClassName = sprintf('%s%sForm', $ProjectName, $TemplateName);
+    	$filename = sprintf('%s/plugins/%sPlugin/lib/form/%s%sForm.php', $root_path, $ProjectName, $ProjectName, $TemplateName);
+		$this->generateForm($formClassName, $filename);
+    	foreach($this->fields as $fieldName => $fieldProperties){
+    		if($fieldProperties['type'] == 'subform'){
+    			$formClassName = sprintf('%s%sForm_%s', $ProjectName, $TemplateName, $fieldName);
+    			$filename = sprintf('%s/plugins/%sPlugin/lib/form/%s%sForm_%s.php', $root_path, $ProjectName, $ProjectName, $TemplateName, $fieldName);
+    			$this->generateSubForm($formClassName, $filename, $fieldProperties['fields']);
+    		}
+    	}
+
+
+        $this->generateCampaignTemplateHandler($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/lib/%s%sCampaignTemplateHandler.php', $root_path, $ProjectName, $ProjectName, $TemplateName), $templateTitle);
         if ($options['with-initializer']) {
             $this->generateCampaignTemplateInitializer($ProjectName, $TemplateName, sprintf('%s%sCampaignTemplateInitializer', $ProjectName, $TemplateName), sprintf('%s/plugins/%sPlugin/lib/%s%sCampaignTemplateInitializer.php', $root_path, $ProjectName, $ProjectName, $TemplateName));
         }
-        $this->generateCampaignTemplateHtml($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s.php', $root_path, $ProjectName, $ProjectName, $templateName));
         $this->generateCampaignTemplateText($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s_text.php', $root_path, $ProjectName, $ProjectName, $templateName));
         $this->generateCampaignTemplateEdit($ProjectName, $TemplateName, sprintf('%s/plugins/%sPlugin/modules/%s/templates/_%s_edit.php', $root_path, $ProjectName, $ProjectName, $templateName));
     }
@@ -62,15 +87,15 @@ EOF;
     {
         $this->log(sprintf('Creating %s (%s)', str_replace(sfConfig::get('sf_root_dir') . '/', '', $filename), $className));
         $content = "<?php \n\n";
-        $content .= $this->getPartial('generator/Form', array('className' => $className));
+        $content .= $this->getPartial('generator/Form', array('className' => $className, 'fields' => $this->fields));
         file_put_contents($filename, $content);
     }
 
-    public function generateCampaignTemplateHandler($ProjectName, $TemplateName, $filename)
+    public function generateCampaignTemplateHandler($ProjectName, $TemplateName, $filename, $templateTitle)
     {
         $this->log(sprintf('Creating %s', str_replace(sfConfig::get('sf_root_dir') . '/', '', $filename)));
     	$content = "<?php \n\n";
-    	$content .= $this->getPartial('generator/CampaignTemplateHandler', array('ProjectName' => $ProjectName, 'TemplateName' => $TemplateName));
+    	$content .= $this->getPartial('generator/CampaignTemplateHandler', array('ProjectName' => $ProjectName, 'TemplateName' => $TemplateName, 'title'=> $templateTitle));
     	file_put_contents($filename, $content);
     }
 
@@ -116,6 +141,14 @@ EOF;
         $view = new sfPartialView($context, $moduleName, $actionName, '');
         $view->setPartialVars($vars);
 
-        return $view->render();
+        return html_entity_decode($view->render());
     }
+
+	public function generateSubForm($className, $filename, $fields)
+	{
+		$this->log(sprintf('Creating %s (%s)', str_replace(sfConfig::get('sf_root_dir') . '/', '', $filename), $className));
+		$content = "<?php \n\n";
+		$content .= $this->getPartial('generator/SubForm', array('className' => $className, 'fields' => $fields));
+		file_put_contents($filename, $content);
+	}
 }

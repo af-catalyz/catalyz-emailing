@@ -5,7 +5,7 @@ class <?php echo $ProjectName; ?><?php echo $TemplateName; ?>CampaignTemplateIni
     // add your fields initialization here:
     // $result['fieldName'] = 'fieldValue';
     <?php foreach($fields as $fieldName => $fieldInfos){
-	printf("\t\t// $result['%s'] = '';\n", $fieldName);
+	printf("\t\t// \$result['%s'] = '';\n", $fieldName);
     } ?>
     $xml = czWidgetFormWizard::asXml($result);
     $campaign->setContent($xml);
