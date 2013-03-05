@@ -210,4 +210,16 @@ class campaignsActions extends sfActions
 
 		$this->redirect('@campaigns_templates');
 	}
+
+	public function executeExport($request) {
+		$this->form = new CampaignExportStatsForm();
+
+		if ($request->isMethod('post')) {
+			$this->form->bind($request->getParameter($this->form->getName()));
+			if ($this->form->isValid()) {
+				$this->form->doExport();
+			}
+		}
+
+	}
 }

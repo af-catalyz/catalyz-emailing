@@ -49,3 +49,19 @@
 .small_select{
 	width: 80px;
 }
+
+#export_form .checkbox_list{
+	margin: 0;
+	padding: 10px 0 10px 5px;
+}
+
+#export_form .checkbox_list li{
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+#export_form label{
+	display: inline;
+	margin: 0 0 0 10px;
+}

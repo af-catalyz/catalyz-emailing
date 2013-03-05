@@ -84,6 +84,10 @@ campaigns_templates:
   url:   /campaigns/templates
   param: { module: campaigns, action: templates }
 
+campaigns_export:
+  url:   /campaigns/export
+  param: { module: campaigns, action: export }
+
 template_do_archive:
   url:   /campaigns/template/archive/:slug
   param: { module: campaigns, action: templateArchive }

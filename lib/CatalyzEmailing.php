@@ -616,6 +616,7 @@ class CatalyzEmailing {
         //endregion
         if ($sf_user->hasCredential('admin')) {
             $return .= sprintf('<li class="divider"></li><li><a href="%s">%s</a></li>', url_for('@campaigns_templates'), __('Gestion des modèles de campagnes'));;
+            $return .= sprintf('<li><a href="%s">%s</a></li>', url_for('@campaigns_export'), __('Exporter des statistiques'));;
         }
     	$return .= '</ul>';
         return $return;
