@@ -243,55 +243,7 @@ class statisticsActions extends sfActions {
     {
         $this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
-        $criteria = new Criteria();
-        $criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $campaign->getId());
-        $criteria->addJoin(CampaignLinkPeer::ID, CampaignClickPeer::CAMPAIGN_LINK_ID);
-        $criteria->addJoin(CampaignClickPeer::CAMPAIGN_CONTACT_ID, CampaignContactPeer::ID);
-        $criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID);
-
-        $criteria->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
-        $results = CampaignClickPeer::doSelectJoinAll($criteria);
-
-        $returns = array();
-        foreach ($results as/*(CampaignClick)*/ $result) {
-            $CampaignLink =/*(CampaignLink)*/ $result->getCampaignLink();
-            $contact = $result->getCampaignContact()->getContact();
-            if (empty($returns[$result->getCampaignContact()->getContact()->getId()])) {
-                $returns[$contact->getId()] = array('name' => $contact->getFullName(), 'clicks' => array());
-            }
-
-            $returns[$contact->getId()]['clicks'][strtotime($result->getCreatedAt())] = array('name' => $CampaignLink->getGoogleAnalyticsTerm(), 'url' => $CampaignLink->getUrl(), 'date' => CatalyzDate::formatShortWithTime(strtotime($result->getCreatedAt())));
-        }
-
-        $sheetTitle = sprintf('Details des clicks');
-
-        $this->spreadsheet = new sfPhpExcel();
-        $this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
-
-        $this->spreadsheet->setActiveSheetIndex(0);
-        $this->activeSheet = $this->spreadsheet->getActiveSheet();
-        $this->activeSheet->setTitle($sheetTitle);
-
-        $this->activeSheet->setCellValueExplicit('A1', 'Nom');
-        $this->activeSheet->setCellValueExplicit('B1', 'Nom de l\'url');
-        $this->activeSheet->setCellValueExplicit('C1', 'Url');
-        $this->activeSheet->setCellValueExplicit('D1', 'Date');
-
-        $row = 2;
-        foreach ($returns as $return) {
-            $contactName = $return['name'];
-            foreach ($return['clicks'] as $clicks) {
-                $url_name = $clicks['name'];
-                $url_path = $clicks['url'];
-                $date = $clicks['date'];
-
-                $this->activeSheet->setCellValueExplicit('A' . $row, $contactName);
-                $this->activeSheet->setCellValueExplicit('B' . $row, $url_name);
-                $this->activeSheet->setCellValueExplicit('C' . $row, $url_path);
-                $this->activeSheet->setCellValueExplicit('D' . $row, $date);
-                $row++;
-            }
-        }
+    		$this->spreadsheet = CampaignExportStatsForm::getExportClicksSheet(array($campaign->getId()));
 
         $objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
         $tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
@@ -311,38 +263,7 @@ class statisticsActions extends sfActions {
     {
         $this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
-        $criteria = new Criteria();
-        $criteria->setDistinct();
-        $criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getId());
-        $criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID, Criteria::LEFT_JOIN);
-        $criteria->addAscendingOrderByColumn(ContactPeer::LAST_NAME);
-        $results = CampaignContactPeer::doSelectJoinAll($criteria);
-
-        $sheetTitle = sprintf('Details de l\'envoi');
-
-        $this->spreadsheet = new sfPhpExcel();
-        $this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
-
-        $this->spreadsheet->setActiveSheetIndex(0);
-        $this->activeSheet = $this->spreadsheet->getActiveSheet();
-        $this->activeSheet->setTitle($sheetTitle);
-
-        $this->activeSheet->setCellValueExplicit('A1', 'Nom');
-        $this->activeSheet->setCellValueExplicit('B1', 'Envoyé le');
-        $this->activeSheet->setCellValueExplicit('C1', 'Ouvert le');
-        $this->activeSheet->setCellValueExplicit('D1', 'Click le');
-        $this->activeSheet->setCellValueExplicit('E1', 'Bounce');
-
-        $row = 2;
-        foreach ($results as/*(CampaignContact)*/ $CampaignContact) {
-            $contact = $CampaignContact->getContact();
-            $this->activeSheet->setCellValueExplicit('A' . $row, $contact->getFullName());
-            $this->activeSheet->setCellValueExplicit('B' . $row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
-            $this->activeSheet->setCellValueExplicit('C' . $row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
-            $this->activeSheet->setCellValueExplicit('D' . $row, $CampaignContact->getClickedAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getClickedAt())):'');
-            $this->activeSheet->setCellValueExplicit('E' . $row, $CampaignContact->getBounceType() != 1?$CampaignContact->getBounceTypeFmt():'');
-            $row++;
-        }
+        $this->spreadsheet = CampaignExportStatsForm::getExportOpenSheet(array($campaign->getId()));
 
         $objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
         $tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
@@ -362,37 +283,7 @@ class statisticsActions extends sfActions {
     {
         $this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
-        $criteria = new Criteria();
-        $criteria->setDistinct();
-        $criteria->add(CampaignContactPeer::CAMPAIGN_ID, $campaign->getId());
-        $criteria->add(CampaignContactPeer::VIEW_AT, null, Criteria::ISNOTNULL);
-        $criteria->addJoin(CampaignContactPeer::CONTACT_ID, ContactPeer::ID, Criteria::LEFT_JOIN);
-        $criteria->addDescendingOrderByColumn(CampaignContactPeer::VIEW_AT);
-        $results = CampaignContactPeer::doSelectJoinAll($criteria);
-
-        $sheetTitle = sprintf('Details des ouvertures');
-
-        $this->spreadsheet = new sfPhpExcel();
-        $this->spreadsheet->getProperties()->setDescription('Exporté via Catalyz Emailing - www.catalyz.fr');
-
-        $this->spreadsheet->setActiveSheetIndex(0);
-        $this->activeSheet = $this->spreadsheet->getActiveSheet();
-        $this->activeSheet->setTitle($sheetTitle);
-
-        $this->activeSheet->setCellValueExplicit('A1', 'Nom');
-        $this->activeSheet->setCellValueExplicit('B1', 'Envoyé le');
-        $this->activeSheet->setCellValueExplicit('C1', 'Ouvert le');
-        $this->activeSheet->setCellValueExplicit('D1', 'Click le');
-
-        $row = 2;
-        foreach ($results as/*(CampaignContact)*/ $CampaignContact) {
-            $contact = $CampaignContact->getContact();
-            $this->activeSheet->setCellValueExplicit('A' . $row, $contact->getFullName());
-            $this->activeSheet->setCellValueExplicit('B' . $row, $CampaignContact->getSentAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getSentAt())):'');
-            $this->activeSheet->setCellValueExplicit('C' . $row, $CampaignContact->getViewAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getViewAt())):'');
-            $this->activeSheet->setCellValueExplicit('D' . $row, $CampaignContact->getClickedAt()?CatalyzDate::formatShort(strtotime($CampaignContact->getClickedAt())):'');
-            $row++;
-        }
+        $this->spreadsheet = CampaignExportStatsForm::getExportOpenSheet(array($campaign->getId()));
 
         $objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
         $tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
