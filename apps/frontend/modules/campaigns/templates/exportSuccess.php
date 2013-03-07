@@ -6,6 +6,11 @@
 <?php include_partial('global/flashMessage') ?>
 <form id="export_form2" action="<?php echo url_for('@campaigns_export') ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 
+<p>Choisir le type d'export:</p>
+
+					<?php echo $form['type'] ?>
+	<br/>
+
 
 <p>Sélectionnez les campagnes souhaitées dans la liste ci-dessous:</p>
 <?php echo $form['campaigns']->renderError() ?>
@@ -46,7 +51,7 @@ if (!empty($campaigns['archived']) ) {
 
 	$cpt = 1;
 	foreach ($campaigns['archived'] as $month => $details) {
-		printf('<h4 style="margin-top: 10px;"><i class="icon-plus-sign"></i>&nbsp;<a href="javascript://" id="element_%1$d" class="listen">%2$s %3$s</a></h4><div class="listener" id="sub_element_%1$d"  style="display: none; padding: 0 15px;">',$cpt, CatalyzDate::getFrenchMonth((int) date('m', strtotime($month))), date('Y', strtotime($month)) );
+		printf('<h4 style="margin-top: 10px;"><i class="icon-plus-sign"></i>&nbsp;<a href="javascript://" id="element_%1$d" class="listen">%2$s %3$s</a></h4><div class="listener" id="sub_element_%1$d"  style="display: none; padding: 0 15px;">',$cpt, ucfirst(CatalyzDate::getFrenchMonth((int) date('m', strtotime($month)))), date('Y', strtotime($month)) );
 		foreach ($details as $k => $aCampaign){
 			printf('<label class="checkbox"><input type="checkbox" name="campaign_export[campaigns][]" value="%s"/>%s </label>',  $aCampaign->getId(), $aCampaign->getName());
 		}
@@ -64,12 +69,6 @@ else{
 			</div>
 		</div>
 	</div>
-
-	<br/>
-	<p>Choisir le type d'export:</p>
-
-					<?php echo $form['type'] ?>
-
 
 	<div class="form-actions">
 		<?php
