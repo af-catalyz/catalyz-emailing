@@ -161,9 +161,9 @@ if (!empty($parameters['form1_introduction'])) {
                                         <td>
                                             <table width="414" cellspacing="0" cellpadding="0" border="0">
                                                  <tbody><tr valign="top">
-                                                     <td width="10"><input type="checkbox" value="" name="datas[proposition]" class="checkbox"></td>
+                                                     <td width="10"><input type="checkbox" value="oui" name="datas[proposition]" class="checkbox"></td>
                                                      <td width="6"><img width="6" height="1" border="0" alt="" src="/comparexPlugin/images/landing/autodesk/bg_tab.gif"></td>
-                                                     <td width="398" class="p_form">Recevoir une proposition avec l’abonnement </td>
+                                                     <td width="398" class="p_form">Recevoir une proposition avec l’abonnement</td>
                                                 </tr>
                                              </tbody></table>
                                         </td>
@@ -179,7 +179,7 @@ if (!empty($parameters['form1_introduction'])) {
                                                      <td width="115"><input type="submit" value="" name="form_submit" class="form_submit"></td>
                                                      <td width="14"><img width="6" height="1" border="0" alt="" src="/comparexPlugin/images/landing/autodesk/bg_tab.gif"></td>
                                                      <td width="285" bgcolor="#f5f5f5" class="p_form2">
-                                                        <a href="javascript://" style="text-decoration:none; color:#cc0033;">
+                                                        <a href="#bottom" style="text-decoration:none; color:#cc0033;">
                                                         <img width="14" height="16" border="0" alt="" src="/comparexPlugin/images/landing/autodesk/bullet_7.gif">
                                                         Consulter les conditions d'applications de cette offre</a>
                                                     </td>
@@ -322,6 +322,7 @@ if (!empty($parameters['form1_introduction'])) {
                         </tbody></table>
                     </div>
                 </div>
+                <a name="bottom"></a>
                 <?php if (!empty($parameters['bottom_content'])) : ?>
 								<div class="content_long">
                      <div class="content2">
