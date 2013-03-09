@@ -12,14 +12,14 @@ class catalyzemailingGeneratecampaignTask extends sfBaseTask {
         $this->addOption('with-initializer', null, sfCommandOption::PARAMETER_NONE);
         $this->addOption('import', null, sfCommandOption::PARAMETER_REQUIRED);
 
-        $this->namespace = 'catalyz-emailing';
+        $this->namespace = 'cze';
         $this->name = 'generate-campaign';
         $this->briefDescription = '';
         $this->detailedDescription = <<<EOF
-The [catalyz-emailing:generate-campaign|INFO] task does things.
+The [cze:generate-campaign|INFO] task does things.
 Call it with:
 
-  [php symfony catalyz-emailing:generate-campaign|INFO]
+  [php symfony cze:generate-campaign|INFO]
 EOF;
     }
 
@@ -40,7 +40,7 @@ EOF;
         $folders = array();
         $folders[] = sprintf('plugins/%sPlugin/lib/form', $ProjectName);
         $folders[] = sprintf('plugins/%sPlugin/modules/%s/templates', $ProjectName, $ProjectName);
-        $folders[] = sprintf('plugins/%sPlugin/web/images', $ProjectName);
+        $folders[] = sprintf('plugins/%sPlugin/web/images/%s', $ProjectName, $templateName);
         foreach($folders as $folder) {
             $full_folder = $root_path . '/' . $folder;
             if (!file_exists($full_folder)) {
@@ -54,6 +54,7 @@ EOF;
     		$importer = new CampaignTemplateImporter();
     		file_put_contents($campaignTemplateFilename, $importer->execute(file_get_contents($options['import']), $ProjectName, $TemplateName));
     		$this->fields = $importer->getFields();
+    		print_r($this->fields);
     		$templateTitle = $importer->getTitle();
     	}else{
     		$this->fields = array();

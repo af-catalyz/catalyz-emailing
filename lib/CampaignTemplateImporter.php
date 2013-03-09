@@ -32,7 +32,7 @@ class CampaignTemplateImporter {
         $currentOffset = 0;
         $result = '<?php $parameters = unEscape($parameters); ?>';
 
-        if (preg_match_all('|<!-- cze:subform((\s+[a-zA-Z0-9]+="[^"]+")*) -->(.*)<!-- /cze:subform -->|msU', $content, $tokens, PREG_OFFSET_CAPTURE)) {
+        if (preg_match_all('|<!--\s*cze:subform((\s+[a-zA-Z0-9]+="[^"]+")*)\s*-->(.*)<!--\s*/cze:subform\s*-->|msU', $content, $tokens, PREG_OFFSET_CAPTURE)) {
             foreach($tokens[0] as $subformIndex => $subforms) {
                 $attributes = $this->extractAttributes($tokens[1][$subformIndex][0]);
                  //print_r($tokens);
@@ -80,7 +80,7 @@ class CampaignTemplateImporter {
         // printf("fields(%s)\n\n%s\n\n", $prefix, $content);
         $result = '';
         $currentOffset = 0;
-        if (preg_match_all('|<!-- cze:field((\s+[a-zA-Z0-9]+="[^"]+")+) -->(.*)<!-- /cze:field -->|msU', $content, $tokens, PREG_OFFSET_CAPTURE)) {
+        if (preg_match_all('|<!--\s*cze:field((\s+[a-zA-Z0-9]+="[^"]+")+)\s*-->(.*)<!--\s*/cze:field\s*-->|msU', $content, $tokens, PREG_OFFSET_CAPTURE)) {
             // print_r($tokens);
             foreach($tokens[0] as $fieldIndex => $field) {
                 $defaultValue = $tokens[3][$fieldIndex][0];

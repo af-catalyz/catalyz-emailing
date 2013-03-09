@@ -83,6 +83,33 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('text', $fields['subform1']['fields']['field1']['type']);
 		$this->assertEquals('text', $fields['subform2']['fields']['field2']['type']);
 	}
+	public function testMultipleSubformsWithOtherFieldsAreTransformed()
+	{
+		$content = '
+<!-- cze:subform name="subform1" -->
+	<!-- cze:field name="field1" label="Field 1" type="text" -->field 1<!-- /cze:field -->
+	<!-- cze:field name="field2" label="Field 2" type="text" -->field 2<!-- /cze:field -->
+<!-- /cze:subform -->
+
+	<!-- cze:field name="field1" label="Field 1" type="text" -->field 1<!-- /cze:field -->
+	<!-- cze:field name="field2" label="Field 2" type="text" -->field 2<!-- /cze:field -->
+
+<!-- cze:subform name="subform2" -->
+	<!-- cze:field name="field1" label="Field 1" type="text" -->field 1<!-- /cze:field -->
+	<!-- cze:field name="field2" label="Field 2" type="text" -->field 2<!-- /cze:field -->
+<!-- /cze:subform -->
+';
+		$updatedContent = $this->importer->execute($content);
+
+		$this->assertNotEquals($content, $updatedContent);
+		$fields = $this->importer->getFields();
+		//print_r($fields);
+		$this->assertCount(4, $fields);
+		$this->assertCount(2, $fields['subform1']['fields'], 'subform1');
+		$this->assertCount(2, $fields['subform2']['fields'], 'subform2');
+		$this->assertEquals('text', $fields['subform1']['fields']['field1']['type']);
+		$this->assertEquals('text', $fields['subform2']['fields']['field2']['type']);
+	}
 	public function testUnknownFieldTypeIsTransformed()
 	{
 		$content = '<!-- cze:field name="field1" label="Field 1" type="misteriousType" -->...<!-- /cze:field -->';

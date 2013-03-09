@@ -13,14 +13,14 @@ class catalyzemailingImporttemplateTask extends sfBaseTask {
         $this->addOption('with-initializer', null, sfCommandOption::PARAMETER_NONE);
         $this->addOption('import', null, sfCommandOption::PARAMETER_REQUIRED);
 
-        $this->namespace = 'catalyz-emailing';
+        $this->namespace = 'cze';
         $this->name = 'import-template';
         $this->briefDescription = '';
         $this->detailedDescription = <<<EOF
-The [catalyz-emailing:import-template|INFO] task does things.
+The [cze:import-template|INFO] task does things.
 Call it with:
 
-  [php symfony catalyz-emailing:import-template|INFO]
+  [php symfony cze:import-template|INFO]
 EOF;
     }
 
