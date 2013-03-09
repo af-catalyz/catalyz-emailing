@@ -44,15 +44,12 @@
 				<table width="265" cellspacing="0" cellpadding="0" border="0">
 					<tr>
 						<td width="265" colspan="2">
-							<font face="Arial" style="font-weight:bold; font-size: 24px; line-height: 20px;" size="2" color="#a2c037"><?php if(isset($parameters["title"])){ ?>
-								Info Prévention Santé
-						<?php } ?>	</font>
+							<font face="Arial" style="font-weight:bold; font-size: 24px; line-height: 20px;" size="2" color="#a2c037"><?php if(isset($parameters["title"])){ echo $parameters["title"]; } ?>	</font>
 						</td>
 					</tr>
 					<tr>
 						<td width="205" align="right">
-							<font face="Arial" style="font-weight:bold; font-size: 10px;line-height: 9px;" size="2" color="#999999"><?php if(isset($parameters["edition"])){ ?>
-							 #1 // mars 2013<?php } ?>
+							<font face="Arial" style="font-weight:bold; font-size: 10px;line-height: 9px;" size="2" color="#999999"><?php if(isset($parameters["edition"])){ echo $parameters["edition"]; } ?>
 						  </font>
 						</td>
 						<td width="60" bgcolor="#FFFFFF">
@@ -95,8 +92,7 @@
 					<tr valign="top">
 						<td width="495">
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_1.gif" width="19" height="12" alt="" border="0" />
-						<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037"><?php if(isset($edito["title"])){ ?>
-									Édito<?php } ?>
+						<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037"><?php if(isset($edito["title"])){ echo $edito["title"]; } ?>
 							</font>
 						</td>
 					</tr>

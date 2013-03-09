@@ -57,9 +57,9 @@ class CampaignTemplateImporter {
                 $this->fields[$name]['mapper'] = new CampaignTemplateImporter_TypeMapper_Subform($name, sprintf('%s%sForm_%s', $ProjectName, $TemplateName, $name), $this->fields[$name]['label'], $attributes);
 
                 $result .= $this->processFields(substr($content, $currentOffset, $subforms[1] - $currentOffset));
-                $result .= sprintf('<?php if (isset($parameters["%1$s"]) && is_array($parameters["%1$s"])): foreach($parameters["%1$s"] as $%1$s): ?>', $name);
+                $result .= sprintf('<?php if (isset($parameters["%1$s"]) && is_array($parameters["%1$s"])):?><?php foreach($parameters["%1$s"] as $%1$s): ?>', $name);
                 $result .= $this->processSubForm($name, $subFormContent);
-                $result .= '<?php endforeach; endif; ?>';
+                $result .= '<?php endforeach;?><?php endif; ?>';
 
                 $currentOffset = $subforms[1] + strlen($subforms[0]);
             }
