@@ -218,7 +218,7 @@
    					<tr valign="top">
 						<td width="495">
 							<font face="Arial" style="font-weight:bold; line-height: 18px; font-size: 14px;" size="2" color="#669900">
-								<?php if(isset($book["subtitle"])){ ?>« Lombalgies : Bouger pour guérir plus vite »<?php } ?><br />
+								<?php if(isset($book["subtitle"])){ echo $book["subtitle"]; } ?><br />
 							</font>
 							<?php if(isset($book["source"])){ ?>
 								<font face="Arial" style="line-height: 13px; font-size: 10px;" size="2" color="#999999">
@@ -265,7 +265,7 @@
 						<td width="495">
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_1.gif" width="19" height="12" alt="" border="0" />
 							<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037">
-								<?php if(isset($parameters["infos_title"])){ ?>Infos Pratiques<?php } ?>
+								<?php if(isset($parameters["infos_title"])){ echo $parameters["infos_title"]; } ?>
 							</font>
 						</td>
 					</tr>
@@ -292,7 +292,7 @@
 												</td>
 												<td width="345">
 													<font face="Arial" style="font-weight:bold; font-size: 14px;line-height:16px;" size="2" color="#669900">
-														<?php if(isset($informations["name"])){ ?>Risques psychosociaux, travail, organisations <?php } ?>
+														<?php if(isset($informations["name"])){ echo $informations["name"]; } ?>
 													</font>
 													<font face="Arial" style="line-height: 14px; font-size: 10px;" size="2" color="#333333">
 														<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_2.gif" width="8" height="7" alt="" border="0" />
