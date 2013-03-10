@@ -24,7 +24,9 @@
        				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/bg_dark.jpg" width="30" height="1" alt="" border="0" />
            	</td>
            	<td width="452" bgcolor="#0F0E0A">
-           		<?php if (!empty($parameters["edito"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#FFFFFF", "line-height:11px; font-size:10px; color:#FFFFFF"); echo $renderer->renderWysiwyg(utf8_decode($parameters["edito"]), "#FFFFFF"); } ?>
+           		<?php if (!empty($parameters["edito"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#FFFFFF", "line-height:11px; font-size:10px; color:#FFFFFF");
+           			echo $renderer->renderWysiwyg($parameters["edito"], "#FFFFFF");
+				 } ?>
 	           </td>
 	           <td style="line-height:0; font-size: 0;" width="207" bgcolor="#0F0E0A">
        				<?php if(!empty($parameters["video_link"])){ ?>
