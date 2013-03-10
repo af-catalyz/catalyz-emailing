@@ -2,7 +2,7 @@
 
 $formatter = new CatalyzFormFormatter3($form);
 
-$formatter->startTabs('Haut de page', 'Colonne de gauche', 'Colonne de gauche', 'Bas de page', 'Contact');
+$formatter->startTabs('Haut de page', 'Colonne de gauche', 'Colonne de droite', 'Bas de page', 'Contact');
 $formatter->renderField('edito');
 $formatter->renderField('video_link');
 $formatter->renderField('title');

@@ -136,7 +136,7 @@
 								</tr>
 							</table>
 
-							<?php if (!empty($parameters["left_bottom_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height:12px; font-size:11px; color:#666666"); echo $renderer->renderWysiwyg(utf8_decode($parameters["left_bottom_content"]), "#666666"); } ?>
+							<?php if (!empty($parameters["left_bottom_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height:12px; font-size:11px; color:#666666"); echo $renderer->renderWysiwyg($parameters["left_bottom_content"], "#666666"); } ?>
 	       		</td>
 	       		<td style="line-height:0; font-size: 0;" width="90">
 	       			<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/bg_white.jpg" width="90" height="1" alt="" border="0" />
@@ -146,7 +146,7 @@
 								<img src="<?php echo $parameters["right_top_picture"]; ?>" width="235" height="84" alt="" border="0"/>
 							<?php } ?>
 
-	       			<?php if (!empty($parameters["right_bottom_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height:12px; font-size:11px; color:#666666"); echo $renderer->renderWysiwyg(utf8_decode($parameters["right_bottom_content"]), "#666666"); } ?>
+	       			<?php if (!empty($parameters["right_bottom_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height:12px; font-size:11px; color:#666666"); echo $renderer->renderWysiwyg($parameters["right_bottom_content"], "#666666"); } ?>
 	       		</td>
 	       		<td style="line-height:0; font-size: 0;" width="27" bgcolor="#FFFFFF">
 	       			<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/bg_white.jpg" width="27" height="1" alt="" border="0" />
@@ -166,7 +166,7 @@
 	       			<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/bg_white.jpg" width="15" height="1" alt="" border="0" />
 	       		</td>
 	       		<td width="666" bgcolor="#FFFFFF">
-	       			<?php if (!empty($parameters["bottom_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height:12px; font-size:11px; color:#666666"); echo $renderer->renderWysiwyg(utf8_decode($parameters["bottom_content"]), "#666666"); } ?>
+	       			<?php if (!empty($parameters["bottom_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height:12px; font-size:11px; color:#666666"); echo $renderer->renderWysiwyg($parameters["bottom_content"], "#666666"); } ?>
 	       		</td>
 	       		<td style="line-height:0; font-size: 0;" width="15" bgcolor="#FFFFFF">
 	       			<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/bg_white.jpg" width="15" height="1" alt="" border="0" />
