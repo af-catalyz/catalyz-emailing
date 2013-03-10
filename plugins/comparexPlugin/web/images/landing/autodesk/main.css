@@ -90,6 +90,15 @@ h3{
 	font-weight: bold;
 
 }
+#form1 h3{
+	margin-top:0;
+	color:#ffffff;
+	font-size:16px;
+	line-height:20px;
+	text-transform: uppercase;
+	font-weight: bold;
+
+}
 h4{
 	margin-top:0;
 	color:#666666;
@@ -97,6 +106,14 @@ h4{
 	line-height:15px;
 }
 .h4{
+	margin-top:0;
+	color:#ffffff;
+	font-size:11px;
+	line-height:15px;
+
+}
+
+h4{
 	margin-top:0;
 	color:#ffffff;
 	font-size:11px;

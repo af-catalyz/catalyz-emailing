@@ -1,5 +1,5 @@
 <?php $parameters = unEscape($parameters); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
 	<title>#SUBJECT#</title>
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
@@ -39,7 +39,7 @@
        			<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/bg_dark.jpg" width="13" height="1" alt="" border="0" />
            	 </td>
        		</tr>
-       		<tr valign="top">
+       		<tr valign="top" bgcolor="#FFFFFF">
        			<td style="line-height:0; font-size: 0;" width="30">
        				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/header_bot_left.jpg" width="30" height="49" alt="" border="0" />
            	</td>
