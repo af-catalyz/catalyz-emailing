@@ -42,13 +42,11 @@ p{
 }
 
 .form_submit{
- 	background-image: url("form1_submit.gif");
  	font-size:11px;
   	width: 115px;
     height: 22px;
 	border:none;
 	padding:0 5px;
-    background-repeat: no-repeat;
 }
 .form_submit:hover{
  	background-position: 0 100%;
