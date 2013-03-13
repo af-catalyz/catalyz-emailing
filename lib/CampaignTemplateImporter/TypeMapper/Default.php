@@ -43,7 +43,7 @@ class CampaignTemplateImporter_TypeMapper_Default {
         $result = str_replace('#VALUE#', $value, $this->defaultValue);
         // print_r($result);
         $result = preg_replace('/#VALUE\(([a-zA-Z0-9_]+)\)#/', '<?php echo ' . $this->getAccessorName() . '["\1"]; ?>', $result);
-        $result = preg_replace('/#VALUE\(([a-zA-Z0-9_]+).([a-zA-Z0-9_]+)\)#/', '<?php echo $\1["\2"]; ?>', $result);
+        $result = preg_replace('/#VALUE\(([a-zA-Z0-9_]+)\.([a-zA-Z0-9_]+)\)#/', '<?php echo $\1["\2"]; ?>', $result);
         // print_r($result);
         return $result;
     }
