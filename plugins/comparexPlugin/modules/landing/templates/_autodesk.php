@@ -177,7 +177,7 @@ if (!empty($parameters['form1_introduction'])) {
                                             <table width="414" cellspacing="0" cellpadding="0" border="0">
                                                  <tbody><tr valign="top">
                                                      <td width="115"><input type="image" name="form_submit" class="form_submit" src="/comparexPlugin/images/landing/autodesk/form1_submit.gif"></td>
-                                                     <td width="14"><img width="6" height="1" border="0" alt="" src="/comparexPlugin/images/landing/autodesk/fbg_tab.gif"></td>
+                                                     <td width="14"><img width="6" height="1" border="0" alt="" src="/comparexPlugin/images/landing/autodesk/bg_tab.gif"></td>
                                                      <td width="285" bgcolor="#f5f5f5" class="p_form2">
                                                         <a href="#bottom" style="text-decoration:none; color:#cc0033;">
                                                         <img width="14" height="16" border="0" alt="" src="/comparexPlugin/images/landing/autodesk/bullet_7.gif">
