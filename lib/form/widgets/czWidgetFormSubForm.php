@@ -32,6 +32,7 @@ class czWidgetFormSubForm extends sfWidgetForm {
         $this->addRequiredOption('fieldName');
         $this->addRequiredOption('formClass');
         $this->addRequiredOption('contentObjectClass');
+        $this->addOption('contentObjectClassSuffix');
         $this->addOption('label.add', sfContext::getInstance()->getI18N()->__('Add an item', null, 'catalyz'));
         $this->addOption('title', 'title');
 
@@ -91,10 +92,13 @@ class czWidgetFormSubForm extends sfWidgetForm {
 				sfContext::getInstance()->getConfiguration()->loadHelpers('Text');
 
 
-        $id = $this->generateId($name);
-        $fieldName = $this->getOption('fieldName');
-        $formClass = $this->getOption('formClass');
+    	$id = $this->generateId($name);
+    	$fieldName = $this->getOption('fieldName');
+    	$formClass = $this->getOption('formClass');
         $contentObjectClass = $this->getOption('contentObjectClass');
+    //	$contentObjectClassSuffix = $this->getOption('contentObjectClassSuffix', '');
+
+    	//var_dump($contentObjectClass);
 
         if (is_string($value)) {
             $value = self::asArray($value);
@@ -124,8 +128,8 @@ class czWidgetFormSubForm extends sfWidgetForm {
                 }
 
 
-                $form->getWidgetSchema()->setNameFormat('[' . $fieldName . '][' . $fieldId . '][%s]');
-                $form->getWidgetSchema()->addOption('form', $form);
+//                $form->getWidgetSchema()->setNameFormat('[' . $fieldName . '][' . $fieldId . ']'.$contentObjectClassSuffix.'[%s]');
+//                $form->getWidgetSchema()->addOption('form', $form);
                 foreach($item as $subFieldName => $subFieldValue) {
                     $form->setDefault($subFieldName, $subFieldValue);
                 }
@@ -169,7 +173,7 @@ class czWidgetFormSubForm extends sfWidgetForm {
 
 
     	$url = url_for(sprintf('@catalyz-ajax-add-field?FormType=%s&ContentObjectClass=%s&FieldName=%s&selectedField=%s&formId=%s&selected=%s',
-    		$formClass, $contentObjectClass, $fieldName, $selectedField, $id, $this->getOption('title')));
+    		$formClass, $name, $fieldName, $selectedField, $id, $this->getOption('title')));
 
 
         $result .= sprintf('<p><a href="#" class="add_list_element btn btn-success" onclick="$.get(\'%s\', function(data){$(\'#fields_%s\').append(data);}); return false;"><i class="icon-plus-sign icon-white"></i>&nbsp;%s</a></p><br />',

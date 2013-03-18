@@ -1,13 +1,13 @@
 <?php
 
-class smti82ExterneForm_book extends czForm {
+class smti82ExterneForm_item extends czForm {
 
 	public function configure()
 	{
 		parent::configure();
 
 		//subtitle - CampaignTemplateImporter_TypeMapper_Text
-		$this->addTextField("subtitle", "Titre", array());
+		$this->addTextField("title", "Titre", array());
 		//source - CampaignTemplateImporter_TypeMapper_Url
 		$this->addTextField("source", "Source", array());
 		//resume - CampaignTemplateImporter_TypeMapper_Wysiwyg

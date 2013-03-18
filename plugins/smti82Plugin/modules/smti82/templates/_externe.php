@@ -1,4 +1,7 @@
-<?php $parameters = unEscape($parameters); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php $parameters = unEscape($parameters);
+
+
+?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<title>#SUBJECT#</title>
@@ -43,17 +46,14 @@
 			<td width="265">
 				<table width="265" cellspacing="0" cellpadding="0" border="0">
 					<tr>
-						<td width="265" colspan="2">
+						<td width="265" colspan="2" align="right">
 							<font face="Arial" style="font-weight:bold; font-size: 24px; line-height: 20px;" size="2" color="#a2c037"><?php if(isset($parameters["title"])){ echo $parameters["title"]; } ?>	</font>
 						</td>
 					</tr>
 					<tr>
-						<td width="205" align="right">
+						<td width="265" align="right" bgcolor="#FFFFFF">
 							<font face="Arial" style="font-weight:bold; font-size: 10px;line-height: 9px;" size="2" color="#999999"><?php if(isset($parameters["edition"])){ echo $parameters["edition"]; } ?>
 						  </font>
-						</td>
-						<td width="60" bgcolor="#FFFFFF">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="60" height="1" alt="" border="0" />
 						</td>
 					</tr>
 				</table>
@@ -71,165 +71,65 @@
 
 <table width="652" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 
-        <?php if (isset($parameters["edito"]) && is_array($parameters["edito"])): foreach($parameters["edito"] as $edito): ?>
-        <tr valign="top">
-        	<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td style="line-height:0; font-size: 0;" width="15">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="15" height="1" alt="" style="display:block;" border="0" />
-			</td>
 
-            <td style="line-height:0; font-size: 0;" width="100">
-    			<?php if(isset($edito["picture"])){ ?><img src="<?php echo $edito["picture"]; ?>" width="100" height="92" /><?php } ?>
-			</td>
-
-			<td style="line-height:0; font-size: 0;" width="25">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="25" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td width="495">
-				<table width="495" cellspacing="0" cellpadding="0" border="0">
-					<tr valign="top">
-						<td width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_1.gif" width="19" height="12" alt="" border="0" />
-						<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037"><?php if(isset($edito["title"])){ echo $edito["title"]; } ?>
-							</font>
-						</td>
-					</tr>
-					<tr valign="top">
-						<td height="1" width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_long_grey.gif" width="495" height="1" alt="" border="0" />
-						</td>
-					</tr>
-					<tr valign="top">
-						<td width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="7" alt="" border="0" />
-						</td>
-					</tr>
-
-
-                    <tr valign="top">
-						<td width="495">
-							<?php if (!empty($edito["content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans serif", "#7d952d", "line-height:14px; font-size:11px; color:#333333"); echo $renderer->renderWysiwyg(utf8_decode($edito["content"]), "#7d952d"); } ?>
-                         </td>
-					</tr>
-
-				</table>
-			</td>
-			<td style="line-height:0; font-size: 0;" width="15">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="15" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
-			</td>
-		</tr>
-        <?php endforeach; endif; ?>
-
-		<!-- cze:subform name="article" label="Ajouter un article"  -->
+		<?php if (isset($parameters["article"]) && is_array($parameters["article"])): foreach($parameters["article"] as $article): ?>
 		<tr valign="top">
-			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080">
+			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080" rowspan="3">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
 			</td>
-			<td style="line-height:0; font-size: 0;" width="15">
+			<td style="line-height:0; font-size: 0;" width="15" rowspan="3">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="15" height="1" alt="" style="display:block;" border="0" />
 			</td>
 
-            <td width="100">
-				<?php if(isset($parameters["picture"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="25" alt="" border="0" />
-				<img src="<?php echo $parameters["picture"]; ?>" style="border-top: 5px solid #9c9b9b" width="100" height="120" alt="" border="0" />
+            <td width="100" rowspan="3">
+				<?php if(!empty($article["picture"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="25" alt="" border="0" />
+				<?php echo thumbnail_tag($article["picture"], 100, 120, array('style' => 'border-top: 5px solid #9c9b9b', 'border' => 0, 'alt' => '')); ?>
 			<?php } ?></td>
 
 
-            <td style="line-height:0; font-size: 0;" width="25">
+            <td style="line-height:0; font-size: 0;" width="25" rowspan="3">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="25" height="1" alt="" style="display:block;" border="0" />
 			</td>
 			<td width="495">
-				<table width="495" cellspacing="0" cellpadding="0" border="0">
-					<tr valign="top">
-						<td width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_1.gif" width="19" height="12" alt="" border="0" />
-							<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037"><?php echo $parameters["main_title"]; ?>
-							</font>
-						</td>
-					</tr>
-					<tr valign="top">
-						<td height="1" width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_long_grey.gif" width="495" height="1" alt="" border="0" />
-						</td>
-					</tr>
-					<tr valign="top">
-						<td width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="7" alt="" border="0" />
-						</td>
-					</tr>
-					<tr valign="top">
-						<td width="495">
-							 <?php if (!empty($parameters["content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans serif", "#7d952d", "line-height:14px; font-size:11px; color:#333333"); echo $renderer->renderWysiwyg(utf8_decode($parameters["content"]), "#7d952d"); } ?></td>
+				<?php if(!empty($article["title"])){ ?>
+					<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_1.gif" alt="" border="0" width="19" height="12">
+					<font style="line-height: 24px; font-size: 22px;" color="#a2c037" size="2" face="Times New Roman">
+						<?php echo $article["title"];?>
+					</font>
+				<?php } ?>
 
-					</tr>
-				</table>
 			</td>
-			<td style="line-height:0; font-size: 0;" width="15">
+			<td style="line-height:0; font-size: 0;" width="15" rowspan="3">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="15" height="1" alt="" style="display:block;" border="0" />
 			</td>
-			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080">
+			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080" rowspan="3">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
 			</td>
 		</tr>
-        <!-- /cze:subform -->
-
-
-        <tr valign="top">
-			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td style="line-height:0; font-size: 0;" width="15">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="15" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td style="line-height:0; font-size: 0;" width="100">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="25" alt="" style="display:block;" border="0" />
-				<?php if(isset($parameters["read_picture"])){ ?><img src="<?php echo $parameters["read_picture"]; ?>" width="100" height="78" alt="" style="display:block;" border="0" /><?php } ?>
-			</td>
-			<td style="line-height:0; font-size: 0;" width="25">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="25" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td width="495">
-				<table width="495" cellspacing="0" cellpadding="0" border="0">
-					<tr valign="top">
-						<td width="495">
-							<?php if(isset($parameters["read_title"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_1.gif" width="19" height="12" alt="" border="0" />
-							<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037">
-								Lu pour vous
-							</font><?php } ?>
-						</td>
-					</tr>
-					<tr valign="top">
+		<tr valign="top">
 						<td height="1" width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_long_grey.gif" width="495" height="1" alt="" border="0" />
+							<img height="1" width="495" border="0" alt="" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_long_grey.gif">
 						</td>
 					</tr>
-					<tr valign="top">
-						<td width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="7" alt="" border="0" />
-						</td>
-					</tr>
-
-                    <?php if (isset($parameters["book"]) && is_array($parameters["book"])): foreach($parameters["book"] as $book): ?>
+		<tr>
+		<td width="495">
+				<table width="495" cellspacing="0" cellpadding="0" border="0">
+                    <?php if (isset($article["items"]) && is_array($article["items"])): foreach($article["items"] as $item): ?>
    					<tr valign="top">
 						<td width="495">
-							<font face="Arial" style="font-weight:bold; line-height: 18px; font-size: 14px;" size="2" color="#669900">
-								<?php if(isset($book["subtitle"])){ echo $book["subtitle"]; } ?><br />
-							</font>
-							<?php if(isset($book["source"])){ ?>
+							<?php if(!empty($item["title"])){ ?><font face="Arial" style="font-weight:bold; line-height: 18px; font-size: 14px;" size="2" color="#669900">
+								<?php echo $item["title"];?><br />
+							</font><?php } ?>
+							<?php if(!empty($item["source"])){ ?>
 								<font face="Arial" style="line-height: 13px; font-size: 10px;" size="2" color="#999999">
-								(source : <?php echo $book["source"]; ?>)
+								(source : <?php echo $item["source"]; ?>)
 								</font>
 							<?php } ?>
-						  <?php if (!empty($book["resume"])) { $renderer = new CatalyzEmailRenderer("Arial", "#7d952d", "line-height: 14px; font-size: 11px; color:#999999"); echo $renderer->renderWysiwyg(utf8_decode($book["resume"]), "#7d952d"); } ?>
+						  <?php if (!empty($item["resume"])) { $renderer = new CatalyzEmailRenderer("Arial", "#7d952d", "line-height: 14px; font-size: 11px; color:#333333"); echo $renderer->renderWysiwyg(utf8_decode($item["resume"]), "#7d952d"); } ?>
 
-								<?php if(isset($book["link_title"])){ ?>
+								<?php if(!empty($item["link_title"])){ ?>
                              <img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_2.gif" width="8" height="7" alt="" border="0" />
-								<font face="Arial" style="line-height: 14px; font-size: 10px;" size="2" color="#333333"><a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo $book["link"]; ?>" target="_blank"><?php echo $book["link_title"]; ?></a></font><br /><br /><?php } ?>
+								<font face="Arial" style="line-height: 14px; font-size: 10px;" size="2" color="#333333"><a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo $item["link"]; ?>" target="_blank"><?php echo $item["link_title"]; ?></a></font><br /><br /><?php } ?>
 
 						</td>
 					</tr>
@@ -237,90 +137,14 @@
 
 
                 </table>
-			</td>
-			<td style="line-height:0; font-size: 0;" width="15">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="15" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
+
+
 			</td>
 		</tr>
-				<tr valign="top">
-			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td style="line-height:0; font-size: 0;" width="15">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="15" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td style="line-height:0; font-size: 0;" width="100">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="25" alt="" style="display:block;" border="0" />
-				<?php if(isset($parameters["read_picture"])){ ?><img src="<?php echo $parameters["read_picture"]; ?>" width="100" height="56" alt="" style="display:block;" border="0" /><?php } ?>
-			</td>
-			<td style="line-height:0; font-size: 0;" width="25">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="25" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td width="495">
-				<table width="495" cellspacing="0" cellpadding="0" border="0">
-					<tr valign="top">
-						<td width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_1.gif" width="19" height="12" alt="" border="0" />
-							<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037">
-								<?php if(isset($parameters["infos_title"])){ echo $parameters["infos_title"]; } ?>
-							</font>
-						</td>
-					</tr>
-					<tr valign="top">
-						<td height="1" width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_long_grey.gif" width="495" height="1" alt="" border="0" />
-						</td>
-					</tr>
-					<tr valign="top">
-						<td width="495">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="7" alt="" border="0" />
-						</td>
-					</tr>
-					<tr valign="top">
-						<td width="495">
-							<table width="495" cellspacing="0" cellpadding="0" border="0">
-											<?php if (isset($parameters["informations"]) && is_array($parameters["informations"])): foreach($parameters["informations"] as $informations): ?>
-   											<tr valign="top">
-												<td style="line-height:0; font-size: 0;" width="18">
-													<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_3.gif" width="18" height="20" alt="" style="display:block;" border="0" />
-												</td>
-												<td style="line-height:0; font-size: 0;" width="7">
-													<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="7" height="1" alt="" style="display:block;" border="0" />
-												</td>
-												<td width="345">
-													<font face="Arial" style="font-weight:bold; font-size: 14px;line-height:16px;" size="2" color="#669900">
-														<?php if(isset($informations["name"])){ echo $informations["name"]; } ?>
-													</font>
-													<font face="Arial" style="line-height: 14px; font-size: 10px;" size="2" color="#333333">
-														<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_2.gif" width="8" height="7" alt="" border="0" />
-														<?php if(isset($informations["url"])){ ?><a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo czWidgetFormLink::displayLink($informations["url"]); ?>" target="_blank">En savoir plus</a><?php } ?><br />
-													</font>
-												</td>
-											</tr>
-
-											<tr valign="top">
-												<td style="line-height:0; font-size: 0;" width="495" colspan="3">
-													<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="8" alt="" style="display:block;" border="0" />
-												</td>
-											</tr>
-                                            <?php endforeach; endif; ?>
+        <?php endforeach; endif; ?>
 
 
-										</table>
-						</td>
-					</tr>
-				</table>
-			</td>
-			<td style="line-height:0; font-size: 0;" width="15">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="15" height="1" alt="" style="display:block;" border="0" />
-			</td>
-			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
-			</td>
-		</tr>
+
 	</table>
 
 	<table width="652" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">

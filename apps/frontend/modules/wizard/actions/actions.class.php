@@ -78,7 +78,7 @@ class wizardActions extends sfActions {
         $selected = $request->getParameter('selected');
 
         $form =/*(sfForm)*/ new $formName(array(), array('delay' => true));
-        $form->getWidgetSchema()->setNameFormat($ContentObjectClass . '[' . $fieldName . '][' . $fieldId . '][%s]');
+        $form->getWidgetSchema()->setNameFormat($ContentObjectClass . "[$fieldId][%s]");
         $form->getWidgetSchema()->addOption('form', $form);
         $form->getWidgetSchema()->addOption('delay', true);
 
