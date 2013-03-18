@@ -63,7 +63,7 @@
 			</td>
 
 
-           <?php if(isset($parameters["picture"])){ ?>
+           <?php if(!empty($parameters["picture"])){ ?>
             <td style="line-height:0; font-size: 0;" width="225">
             <img src="<?php echo $parameters["picture"]; ?>" width="225" height="546"/>
             </td>
@@ -75,7 +75,7 @@
 			</td>
 			<td  width="424">
 
-				<table width="<?php if(isset($parameters["picture"])){ echo '649'; }else{echo '424'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
+				<table width="<?php if(!empty($parameters["picture"])){ echo '649'; }else{echo '424'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
 					<tr valign="top">
 						<td style="line-height:0; font-size: 0;" width="424" colspan="3">
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif" width="1" height="20" alt="" style="display:block;" border="0" />
@@ -85,26 +85,26 @@
 						<td style="line-height:0; font-size: 0;" width="14">
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif" width="1" height="1" alt="" style="display:block;" border="0" />
 						</td>
-						<td width="<?php if(isset($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>">
+						<td width="<?php if(!empty($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>">
 
-							<table width="<?php if(isset($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
+							<table width="<?php if(!empty($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
 
 								<tr valign="top">
-									<td width="<?php if(isset($parameters["picture"])){ echo '620'; }else{echo '395'; } ?>">
-                                    <?php if(isset($parameters["sup_title"])){ ?>
+									<td width="<?php if(!empty($parameters["picture"])){ echo '620'; }else{echo '395'; } ?>">
+                                    <?php if(!empty($parameters["sup_title"])){ ?>
 									<font face="Arial" style="font-weight:bold; font-size: 14px;line-height:16px;" size="2" color="#a2c037"><?php echo $parameters["sup_title"]; ?><br /></font>
                                     <?php } ?>
-                                    <?php if(isset($parameters["title"])){ ?>
+                                    <?php if(!empty($parameters["title"])){ ?>
 									<font face="Times New Roman" style="font-size: 36px;line-height:40px;" size="2" color="#7d952d"><?php echo $parameters["title"]; ?></font>
                                     <?php } ?>
-                                    <?php if(isset($parameters["when"])){ ?>
+                                    <?php if(!empty($parameters["when"])){ ?>
                                     <font face="Arial" style="font-size: 12px;line-height:16px;" size="2" color="#666666"><br /><br />
-                                    JEUDI 18 OCTOBRE 2013 DÈS 17H30 À MONTAUBAN*<br />
+                                    <?php echo $parameters["when"] ?><br />
                                     <br />
                                     </font>
                                     <?php } ?>
-									<table width="<?php if(isset($parameters["picture"])){ echo '620'; }else{echo '395'; } ?>" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
-                                    <?php if (isset($parameters["programme"]) && is_array($parameters["programme"])): foreach($parameters["programme"] as $programme): ?>
+									<table width="<?php if(!empty($parameters["picture"])){ echo '620'; }else{echo '395'; } ?>" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
+                                    <?php if (!empty($parameters["programme"]) && is_array($parameters["programme"])): foreach($parameters["programme"] as $programme): ?>
                                       <tr valign="top">
                                         <td style="line-height:0; font-size: 0;" width="18"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/bullet_1.gif" width="18" height="20" alt="" style="display:block;" border="0" /></td>
                                         <td style="line-height:0; font-size: 0;" width="7"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif" width="7" height="1" alt="" style="display:block;" border="0" /></td>
@@ -176,7 +176,7 @@
 		<tr>
 			<td style="line-height:0; font-size: 0;" width="85"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif" width="85" height="1" alt="" style="display:block;" border="0" /></td>
 			<td width="470" align="center">
-				<font face="Tahoma" style="font-size: 9px;line-height: 12px;" size="2" color="#999999">Conformément à la loi Informatique et Libertés du 06/01/1978, vous disposez d'un droit d'accès, de rectification<br/>et d'opposition aux informations vous concernant qui peut s'exercer par e-mail à <?php if(isset($parameters["unsubscribe_email"])){ ?><a style="text-decoration:none; color:#999999;" href="mailto:<?php echo $parameters["unsubscribe_email"]; ?>" target="_blank"><?php echo $parameters["unsubscribe_email"]; ?></a><?php } ?><br/>ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style=" color:#999999;">ce lien de désinscription</a>
+				<font face="Tahoma" style="font-size: 9px;line-height: 12px;" size="2" color="#999999">Conformément à la loi Informatique et Libertés du 06/01/1978, vous disposez d'un droit d'accès, de rectification<br/>et d'opposition aux informations vous concernant qui peut s'exercer par e-mail à <?php if(!empty($parameters["unsubscribe_email"])){ ?><a style="text-decoration:none; color:#999999;" href="mailto:<?php echo $parameters["unsubscribe_email"]; ?>" target="_blank"><?php echo $parameters["unsubscribe_email"]; ?></a><?php } ?><br/>ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style=" color:#999999;">ce lien de désinscription</a>
 				</font>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="85"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif" width="85" height="1" alt="" style="display:block;" border="0" /></td>
