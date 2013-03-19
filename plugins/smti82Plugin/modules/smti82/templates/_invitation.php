@@ -104,7 +104,7 @@
                                     <br />
                                     </font>
                                     <?php } ?>
-									<table width="<?php if(!empty($parameters["picture"])){ echo '620'; }else{echo '395'; } ?>" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
+									<table width="<?php if(empty($parameters["picture"])){ echo '620'; }else{echo '395'; } ?>" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
                                     <?php if (!empty($parameters["programme"]) && is_array($parameters["programme"])): foreach($parameters["programme"] as $programme): ?>
                                       <tr valign="top">
                                         <td style="line-height:0; font-size: 0;" width="18"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/bullet_1.gif" width="18" height="20" alt="" style="display:block;" border="0" /></td>
