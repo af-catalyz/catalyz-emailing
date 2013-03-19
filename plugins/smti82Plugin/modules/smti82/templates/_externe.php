@@ -72,7 +72,8 @@
 <table width="652" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 
 
-		<?php if (isset($parameters["article"]) && is_array($parameters["article"])): foreach($parameters["article"] as $article): ?>
+		<?php if (!empty($parameters["article"]) && is_array($parameters["article"])): foreach($parameters["article"] as $article): ?>
+
 		<tr valign="top">
 			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080" rowspan="3">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_grey.gif" width="1" height="1" alt="" style="display:block;" border="0" />
@@ -83,7 +84,12 @@
 
             <td width="100" rowspan="3">
 				<?php if(!empty($article["picture"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="25" alt="" border="0" />
-				<?php echo thumbnail_tag($article["picture"], 100, 120, array('style' => 'border-top: 5px solid #9c9b9b', 'border' => 0, 'alt' => '')); ?>
+				<?php
+				$options = array('border' => 0, 'alt' => '');
+					if(!empty($article["picture_border"])){
+						$options['style'] = 'border-top: 5px solid #9c9b9b';
+					}
+				echo thumbnail_tag($article["picture"], 100, 120, $options); ?>
 			<?php } ?></td>
 
 
