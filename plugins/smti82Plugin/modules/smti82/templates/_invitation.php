@@ -88,10 +88,10 @@
 						</td>
 						<td width="<?php if(empty($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>">
 
-							<table width="<?php if(!empty($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
+							<table width="<?php if(empty($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
 
 								<tr valign="top">
-									<td width="<?php if(!empty($parameters["picture"])){ echo '620'; }else{echo '395'; } ?>">
+									<td width="<?php if(empty($parameters["picture"])){ echo '620'; }else{echo '395'; } ?>">
                                     <?php if(!empty($parameters["sup_title"])){ ?>
 									<font face="Arial" style="font-weight:bold; font-size: 14px;line-height:16px;" size="2" color="#a2c037"><?php echo $parameters["sup_title"]; ?><br /></font>
                                     <?php } ?>
