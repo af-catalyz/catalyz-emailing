@@ -44,14 +44,14 @@
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/header_left.png" width="259" height="71" alt="" border="0" />
 			</td>
 			<td width="265">
-				<table width="265" cellspacing="0" cellpadding="0" border="0">
+				<table cellspacing="0" cellpadding="0" border="0">
 					<tr>
-						<td width="265" colspan="2" align="right">
+						<td colspan="2">
 							<font face="Arial" style="font-weight:bold; font-size: 24px; line-height: 20px;" size="2" color="#a2c037"><?php if(isset($parameters["title"])){ echo $parameters["title"]; } ?>	</font>
 						</td>
 					</tr>
 					<tr>
-						<td width="265" align="right" bgcolor="#FFFFFF">
+						<td align="right" bgcolor="#FFFFFF">
 							<font face="Arial" style="font-weight:bold; font-size: 10px;line-height: 9px;" size="2" color="#999999"><?php if(isset($parameters["edition"])){ echo $parameters["edition"]; } ?>
 						  </font>
 						</td>

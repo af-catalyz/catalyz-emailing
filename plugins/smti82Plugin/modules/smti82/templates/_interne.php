@@ -41,16 +41,16 @@
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/header_left.png" width="259" height="71" alt="" border="0" />
 			</td>
 			<td width="265">
-				<table width="265" cellspacing="0" cellpadding="0" border="0">
+				<table cellspacing="0" cellpadding="0" border="0">
 					<tr>
-						<td width="265" colspan="2" align="right">
+						<td colspan="2">
 							<font face="Arial" style="font-weight:bold; font-size: 24px; line-height: 20px;" size="2" color="#a2c037">
 								<?php if(!empty($parameters["email_title"])){ ?><?php echo $parameters["email_title"]; ?><?php } ?>
 							</font>
 						</td>
 					</tr>
 					<tr>
-						<td width="265" align="right">
+						<td align="right">
 							<font face="Arial" style="font-weight:bold; font-size: 10px;line-height: 9px;" size="2" color="#999999">
 							  		<?php if(!empty($parameters["edition"])){ ?><?php echo $parameters["edition"]; ?><?php } ?>
 							</font>
@@ -505,7 +505,7 @@
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/sep_green.gif" width="1" height="1" alt="" style="display:block;" border="0" />
 			</td>
 			<td width="550" bgcolor="#A3C200" align="center">
-				<font face="Tahoma" style="font-style:italic; font-size: 11px;line-height:13px;" size="2" color="#ffffff"><?php if (!empty($parameters["footer"])) { $renderer = new CatalyzEmailRenderer("Tahoma, sans-serif", "", "line-height:13px; font-size:11px; color=#ffffff"); echo $renderer->renderWysiwyg(utf8_decode($parameters["footer"]), ""); } ?></font>
+				<?php if (!empty($parameters["footer"])) { $renderer = new CatalyzEmailRenderer("Tahoma, sans-serif", "#ffffff", "line-height:13px; font-size:11px; color=#ffffff"); echo $renderer->renderWysiwyg(utf8_decode($parameters["footer"]), ""); } ?>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="50" bgcolor="#A3C200">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/sep_green.gif" width="1" height="1" alt="" style="display:block;" border="0" />
