@@ -442,7 +442,7 @@
 															<br /><?php if(!empty($bottom_actu["title"])){ ?><?php echo $bottom_actu["title"]; ?><?php } ?><br />
 															</font>
 															<font face="Arial" style="line-height: 13px; font-size: 11px;" size="2" color="#333333">
-			     											<?php echo nl2br(htmlentities($bottom_actu["content"])); ?><br /><br />
+			     											<?php echo nl2br(htmlentities(utf8_decode($bottom_actu["content"]))); ?><br /><br />
 			     											</font>
 			     										</td>
 													</tr>

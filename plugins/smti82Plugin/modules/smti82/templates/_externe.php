@@ -72,7 +72,7 @@
 <table width="652" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 
 
-		<?php if (!empty($parameters["article"]) && is_array($parameters["article"])): foreach($parameters["article"] as $article): ?>
+		<?php for ($i = 1; $i <= 7; $i++) { if (!empty($parameters["title$i"])): ?>
 
 		<tr valign="top">
 			<td style="line-height:0; font-size: 0;" width="1" bgcolor="#808080" rowspan="3">
@@ -83,13 +83,13 @@
 			</td>
 
             <td width="100" rowspan="3">
-				<?php if(!empty($article["picture"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="25" alt="" border="0" />
+				<?php if(!empty($parameters["picture$i"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="1" height="25" alt="" border="0" />
 				<?php
 				$options = array('border' => 0, 'alt' => '');
-					if(!empty($article["picture_border"])){
+					if(!empty($parameters["picture_border$i"])){
 						$options['style'] = 'border-top: 5px solid #9c9b9b';
 					}
-				echo thumbnail_tag($article["picture"], 100, 120, $options); ?>
+				echo thumbnail_tag($parameters["picture$i"], 100, 120, $options); ?>
 			<?php } ?></td>
 
 
@@ -97,10 +97,10 @@
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/sep_w.gif" width="25" height="1" alt="" style="display:block;" border="0" />
 			</td>
 			<td width="495">
-				<?php if(!empty($article["title"])){ ?>
+				<?php if(!empty($parameters["title$i"])){ ?>
 					<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_1.gif" alt="" border="0" width="19" height="12">
 					<font style="line-height: 24px; font-size: 22px;" color="#a2c037" size="2" face="Times New Roman">
-						<?php echo $article["title"];?>
+						<?php echo $parameters["title$i"];?>
 					</font>
 				<?php } ?>
 
@@ -120,7 +120,7 @@
 		<tr>
 		<td width="495">
 				<table width="495" cellspacing="0" cellpadding="0" border="0">
-                    <?php if (isset($article["items"]) && is_array($article["items"])): foreach($article["items"] as $item): ?>
+                    <?php if (isset($parameters["items$i"]) && is_array($parameters["items$i"])): foreach($parameters["items$i"] as $item): ?>
    					<tr valign="top">
 						<td width="495">
 							<?php if(!empty($item["title"])){ ?><font face="Arial" style="font-weight:bold; line-height: 18px; font-size: 14px;" size="2" color="#669900">
@@ -147,7 +147,7 @@
 
 			</td>
 		</tr>
-        <?php endforeach; endif; ?>
+        <?php  endif; }?>
 
 
 

@@ -3,19 +3,28 @@
 
 $formatter = new CatalyzFormFormatter3($form);
 
-$formatter->startTabs('Haut de page', 'Contenu', 'Bas de page');
+$tabs = array();
+$tabs[] = 'Haut de page';
+for ($i = 1; $i <= 7; $i++) {
+    $tabs[] = "Contenu $i";
+}
+$tabs[] = 'Bas de page';
+call_user_func_array(array($formatter, 'startTabs'), $tabs);
+
 
 $formatter->renderField('title');
 $formatter->renderField('edition');
 
-$formatter->nextTab();
-$formatter->renderField('article');
-
+for ($i = 1; $i <= 7; $i++) {
+    $formatter->nextTab();
+    $formatter->renderField("title$i");
+    $formatter->renderField("picture$i");
+    $formatter->renderField("picture_border$i");
+    $formatter->renderField("items$i");
+}
 $formatter->nextTab();
 $formatter->renderField('footer');
 $formatter->renderField('fb_page');
 $formatter->renderField('unsubscribe_email');
-
 // move fields here
-
 $formatter->endTabs();
