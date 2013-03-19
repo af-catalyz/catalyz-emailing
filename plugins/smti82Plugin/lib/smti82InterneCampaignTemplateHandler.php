@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class smti82InterneCampaignTemplateHandler extends CampaignTemplateHandler {
 	public function createEditWidget()

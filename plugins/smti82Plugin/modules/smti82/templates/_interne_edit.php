@@ -2,7 +2,7 @@
 
 $formatter = new CatalyzFormFormatter3($form);
 
-$formatter->startTabs('Haut de page', 'Actualités', 'Evénements', 'Bibliothèque', 'Lu pour vous', 'Formations', 'Actualités interne', 'Bas de page');
+$formatter->startTabs('Haut de page', 'Actualités', 'Evénements', 'Bibliothèque', 'Lu pour vous', 'Formations', 'Actualités internes', 'Bas de page');
 $formatter->renderField('email_title');
 $formatter->renderField('edition');
 

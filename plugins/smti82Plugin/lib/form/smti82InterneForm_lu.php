@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class smti82InterneForm_lu extends czForm {
 
@@ -13,6 +13,8 @@ class smti82InterneForm_lu extends czForm {
 		//content - CampaignTemplateImporter_TypeMapper_Textarea
 		$this->addTextareaField("content", "Contenu", array('style' => 'width: 700px'));
 		//link - CampaignTemplateImporter_TypeMapper_Url
+		$this->addTextField("link_caption", "Titre du lien", array());
+
 		$this->addUrlField("link", "Lien", array());
 	}
 }

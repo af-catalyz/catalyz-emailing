@@ -1,5 +1,5 @@
 <?php $parameters = unEscape($parameters); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -42,7 +42,7 @@
 			</td>
 			<td width="272">
 				<font face="Arial" style="font-weight:bold; font-size: 24px; line-height: 20px;" size="2" color="#a2c037">
-					<?php echo $parameters["header_title"]; ?>
+					<?php if(!empty($parameters["header_title"])){echo $parameters["header_title"];} ?>
 				</font>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="125">
@@ -67,15 +67,16 @@
             <td style="line-height:0; font-size: 0;" width="225">
             <img src="<?php echo $parameters["picture"]; ?>" width="225" height="546"/>
             </td>
-            <?php } ?>
+
 
 
             <td  style="line-height:0; font-size: 0;" width="1" bgcolor="#a2c037">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_green.gif" width="1" height="1" alt="" style="display:block;" border="0" />
 			</td>
+			<?php } ?>
 			<td  width="424">
 
-				<table width="<?php if(!empty($parameters["picture"])){ echo '649'; }else{echo '424'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
+				<table width="<?php if(empty($parameters["picture"])){ echo '649'; }else{echo '424'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
 					<tr valign="top">
 						<td style="line-height:0; font-size: 0;" width="424" colspan="3">
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif" width="1" height="20" alt="" style="display:block;" border="0" />
@@ -85,7 +86,7 @@
 						<td style="line-height:0; font-size: 0;" width="14">
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif" width="1" height="1" alt="" style="display:block;" border="0" />
 						</td>
-						<td width="<?php if(!empty($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>">
+						<td width="<?php if(empty($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>">
 
 							<table width="<?php if(!empty($parameters["picture"])){ echo '626'; }else{echo '401'; } ?>" bgcolor="#ffffff" cellspacing="0" cellpadding="0" border="0">
 
@@ -116,7 +117,7 @@
                                     <?php endforeach; endif; ?>
                                     </table>
 
-                                    <?php if (!empty($parameters["content"])) { $renderer = new CatalyzEmailRenderer("Arial", "#7d952d", "line-height:16px; font-size: 12px; color:#333333"); echo $renderer->renderWysiwyg(utf8_decode($parameters["content"]), "#7d952d"); } ?>
+                                    <?php if (!empty($parameters["content"])) { $renderer = new CatalyzEmailRenderer("Arial", "#7d952d", "line-height:16px; font-size: 12px; color:#333333"); echo $renderer->renderWysiwyg($parameters["content"], "#7d952d"); } ?>
 
 								</td>
 								</tr>
@@ -126,6 +127,53 @@
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif" width="14" height="1" alt="" style="display:block;" border="0" />
 						</td>
 					</tr>
+						<?php if(!empty($parameters["title2"]) || (trim(strip_tags($parameters["content2"])) != '')){ ?><tr valign="top">
+						<td width="424" colspan="3" style="line-height:0; font-size: 0;">
+							<img height="22" width="424" border="0" style="display:block;" alt="" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/ombre.gif">
+						</td>
+					</tr>
+					<tr valign="top">
+						<td width="424" colspan="3" style="line-height:0; font-size: 0;">
+							<img height="20" width="1" border="0" style="display:block;" alt="" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif">
+						</td>
+					</tr>
+
+					<tr valign="top">
+						<td width="14" style="line-height:0; font-size: 0;">
+							<img height="1" width="1" border="0" style="display:block;" alt="" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif">
+						</td>
+						<td width="401">
+
+							<table width="401" cellspacing="0" cellpadding="0" border="0" bgcolor="#ffffff">
+
+								<tbody><tr valign="top">
+									<td width="395">
+									<?php if(!empty($parameters["title2"])){ ?>
+									<font face="Arial" size="2" color="#669900" style="font-weight:bold; font-size: 14px;line-height:18px;"><?php echo $parameters["title2"]; ?><br></font>
+                                    <?php } ?>
+										<?php if (!empty($parameters["content2"])) { $renderer = new CatalyzEmailRenderer("Arial", "#7d952d", "line-height:16px; font-size: 12px; color:#333333"); echo $renderer->renderWysiwyg($parameters["content2"], "#7d952d"); } ?>
+
+									</td>
+								</tr>
+							</tbody></table>
+						</td>
+						<td width="14" style="line-height:0; font-size: 0;">
+							<img height="1" width="14" border="0" style="display:block;" alt="" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/invitation/sep_w.gif">
+						</td>
+					</tr>
+				<?php } ?>
+				<?php if (!empty($parameters["actions"])) { ?>
+				<tr valign="middle">
+						<td width="424" align="center" colspan="3" style="line-height:0; font-size: 0;">
+
+										<?php
+					$renderer = new CatalyzEmailRenderer("Arial", "#7d952d", "line-height:16px; font-size: 12px; color:#333333");
+					echo $renderer->renderWysiwyg($parameters["actions"], "#7d952d"); ?>
+
+
+
+						</td>
+					</tr><?php } ?>
 
 
 					<tr valign="top">

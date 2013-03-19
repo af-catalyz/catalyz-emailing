@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class smti82InvitationCampaignTemplateHandler extends CampaignTemplateHandler {
 	public function createEditWidget()
@@ -21,7 +21,7 @@ class smti82InvitationCampaignTemplateHandler extends CampaignTemplateHandler {
 	}
 
 	static function getCampaignName(){
-		$name = 'SMTI82 Invitation';
+		$name = 'SMTI82 Vierge';
 		return empty($name)?CampaignTemplateHandler::getCampaignName():$name;
 	}
 }

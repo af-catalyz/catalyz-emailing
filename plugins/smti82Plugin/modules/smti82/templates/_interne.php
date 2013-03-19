@@ -1,5 +1,5 @@
 <?php $parameters = unEscape($parameters); ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
 <head>
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -81,12 +81,12 @@
 
 
 				<table width="378" cellspacing="0" cellpadding="0" border="0">
-
+<?php if(!empty($parameters["news_title"])){ ?>
                     <tr valign="top">
 						<td width="378">
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_1.gif" width="19" height="12" alt="" border="0" />
-							<?php if(!empty($parameters["news_title"])){ ?><font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037">
-								<?php echo $parameters["news_title"]; ?>	</font><?php } ?>
+							<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037">
+								<?php echo $parameters["news_title"]; ?>	</font>
 						</td>
 					</tr>
 					<tr valign="top">
@@ -129,7 +129,7 @@
 											<?php if(!empty($actus["read_more"])){ ?>
 											<font face="Arial" style="line-height: 14px; font-size: 10px;" size="2" color="#7d952d">
 											<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_2.gif" width="8" height="7" alt="" border="0" />
-											<a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo czWidgetFormLink::displayLink($actus["read_more"]); ?>" target="_blank">En savoir plus</a><br /><br /><br />
+											<a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo czWidgetFormLink::displayLink($actus["read_more"]); ?>" target="_blank"><?php if(!empty($actus['read_more_caption'])) {echo $actus['read_more_caption'];}else{echo 'En savoir plus';} ?></a><br /><br /><br />
 											</font>
 											<?php } ?>
 
@@ -145,13 +145,13 @@
 							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/sep_w.gif" width="1" height="7" alt="" border="0" />
 						</td>
 					</tr><?php endforeach; endif; ?>
-
-
+<?php } ?>
+<?php if(!empty($parameters["events_title"])){ ?>
 					<tr valign="top">
 						<td width="378">
 							<br /><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_1.gif" width="19" height="12" alt="" border="0" />
 							<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037">
-								<?php if(!empty($parameters["events_title"])){ ?><?php echo $parameters["events_title"]; ?><?php } ?>
+								<?php echo $parameters["events_title"]; ?>
 							</font>
 						</td>
 					</tr>
@@ -211,7 +211,7 @@
 										<?php if(!empty($dates["read_more"])){ ?>
 										<font face="Arial" style="line-height: 14px; font-size: 10px;" size="2" color="#333333">
 											<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_2.gif" width="8" height="7" alt="" border="0" />
-											<a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo czWidgetFormLink::displayLink($dates["read_more"]); ?>" target="_blank">Pour plus d'informations</a><br /><br />
+											<a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo czWidgetFormLink::displayLink($dates["read_more"]); ?>" target="_blank"><?php if(!empty($dates['read_more_caption'])) {echo $dates['read_more_caption'];}else{echo 'Pour plus d\'informations';} ?></a><br /><br />
 										</font>
 										<?php } ?>
 									</td>
@@ -222,12 +222,13 @@
 							</table>
 						</td>
 					</tr>
-
+<?php } ?>
+<?php if(!empty($parameters["content_title"])){ ?>
                     <tr valign="top">
 						<td width="378">
 							<br /><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_1.gif" width="19" height="12" alt="" border="0" />
 							<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#a2c037">
-								<?php if(!empty($parameters["content_title"])){ ?><?php echo $parameters["content_title"]; ?><?php } ?>
+								<?php echo $parameters["content_title"]; ?>
 							</font>
 						</td>
 					</tr>
@@ -245,14 +246,14 @@
 
 					<tr valign="top">
 						<td width="378">
-						<?php if (!empty($parameters["library_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:11px; font-size:11px; color=#333333"); echo $renderer->renderWysiwyg(utf8_decode($parameters["library_content"]), ""); } ?>
+						<?php if (!empty($parameters["library_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:11px; font-size:11px; color=#333333"); echo $renderer->renderWysiwyg($parameters["library_content"], ""); } ?>
 
 
 
 						</td>
 
 					</tr>
-				</table>
+<?php } ?>				</table>
 
 
 
@@ -268,11 +269,12 @@
 			</td>
 			<td width="228" bgcolor="#f7f7f7">
 				<table width="228" cellspacing="0" cellpadding="0" border="0">
+				<?php if(!empty($parameters["lu_title"])){ ?>
 						<tr valign="top">
 							<td width="228">
 								<br /><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_4.gif" width="18" height="11" alt="" border="0" />
 								<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#333333">
-									<?php if(!empty($parameters["lu_title"])){ ?><?php echo $parameters["lu_title"]; ?><?php } ?>
+									<?php echo $parameters["lu_title"]; ?>
 								</font>
 							</td>
 						</tr>
@@ -289,19 +291,27 @@
 						<?php if (!empty($parameters["lu"]) && is_array($parameters["lu"])): foreach($parameters["lu"] as $lu): ?>
   <tr valign="top">
 							<td width="228">
+								<?php if(!empty($lu["title"])): ?>
 								<font face="Arial" style="font-weight:bold; line-height: 15px; font-size: 14px;" size="2" color="#669900">
-											<br /><?php if(!empty($lu["title"])){ ?><?php echo $lu["title"]; ?><?php } ?> <br />
+											<br /><?php echo $lu["title"]; ?> <br />
 								</font>
-								<font face="Arial" style="line-height: 15px; font-size: 13px;" size="2" color="#669900"><?php echo nl2br(htmlentities(utf8_decode($lu["subtitle"]))); ?>
+								<?php endif; ?>
+								<?php if(!empty($lu["subtitle"])): ?>
+								<font face="Arial" style="line-height: 15px; font-size: 13px;" size="2" color="#669900"><?php echo nl2br(htmlentities(utf8_decode($lu["subtitle"]))); ?><br />
 								</font>
+								<?php endif; ?>
+								<?php if(!empty($lu["content"])): ?>
 								<font face="Arial" style="line-height: 14px; font-size: 11px;" size="2" color="#333333">
 											<?php echo nl2br(htmlentities(utf8_decode($lu["content"]))); ?><br />
 								</font>
+								<?php endif; ?>
+								<?php if(!empty($lu["link"])): ?>
 								<font face="Arial" style="line-height: 14px; font-size: 10px;" size="2" color="#333333">
 											<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_2.gif" width="8" height="7" alt="" border="0" />
                                             <?php if(!empty($lu["link"])){ ?>
-											<a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo czWidgetFormLink::displayLink($lu["link"]); ?>" target="_blank">Lire +</a><?php } ?><br /><br />
+											<a style="text-decoration:underline; font-weight:bold; color:#7d952d;" href="<?php echo czWidgetFormLink::displayLink($lu["link"]); ?>" target="_blank"><?php if(!empty($lu['link_caption'])){echo $lu['link_caption'];}else{echo 'Lire +';} ?></a><?php } ?><br /><br />
 								</font>
+								<?php endif; ?>
 							</td>
 						</tr>
 						<tr valign="top">
@@ -316,11 +326,12 @@
 								<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/ombre.gif" width="228" height="25" alt="" border="0" />
 							</td>
 						</tr>
-
+<?php } ?>
+<?php if(!empty($parameters["formations"])){ ?>
 						<tr valign="top">
 							<td width="228">
 								<br /><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_4.gif" width="18" height="11" alt="" border="0" />
-								<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#333333"><?php if(!empty($parameters["formations"])){ ?><?php echo $parameters["formations"]; ?><?php } ?><br />
+								<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#333333"><?php echo $parameters["formations"]; ?><br />
 								</font>
 							</td>
 						</tr>
@@ -348,10 +359,11 @@
 						</tr>
 						<?php if (!empty($parameters["formation"]) && is_array($parameters["formation"])):?><?php foreach($parameters["formation"] as $formation): ?><tr valign="top">
 							<td width="228">
-								<font face="Arial" style="font-style:italic; font-weight:bold; line-height: 14px; font-size: 12px;" size="2" color="#669900">
+								<?php if(!empty($formation["title"])){ ?><font face="Arial" style="font-style:italic; font-weight:bold; line-height: 14px; font-size: 12px;" size="2" color="#669900">
 									<br /><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_2.gif" width="8" height="7" alt="" border="0" />
-										<?php if(!empty($formation["title"])){ ?><?php echo $formation["title"]; ?><?php } ?>
+										<?php echo $formation["title"]; ?>
 								</font>
+								<?php } ?>
 								<font face="Arial" style="line-height: 14px; font-size: 12px;" size="2" color="#666666">
 										<?php if(!empty($formation["date_formation"])){ ?><?php echo $formation["date_formation"]; ?><?php } ?> <?php if(!empty($formation["organisme_nom"])){ ?>(<?php echo $formation["organisme_nom"]; ?>) <?php } ?><br /><br />
 								</font>
@@ -363,6 +375,7 @@
 								<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/sep_dotted.gif" width="228" height="1" alt="" border="0" />
 							</td>
 						</tr>
+<?php } ?>
 						<tr valign="top">
 							<td width="228">
 							<?php if (!empty($parameters["logos_formations"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:14px; font-size:11px; color:#333333"); echo $renderer->renderWysiwyg(utf8_decode($parameters["logos_formations"]), ""); } ?>
@@ -415,22 +428,23 @@
 														</td>
 													</tr>
 
-													<?php foreach($parameters["bottom_actu"] as $bottom_actu): ?>
+													<?php foreach($parameters["bottom_actu"] as $position => $bottom_actu): ?>
+<?php if($position>0): ?>
+													<tr valign="top">
+														<td width="214">
+													<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/sep_dotted.gif" width="214" height="1" alt="" border="0" /><br />
+													</td>
+													</tr>
+													<?php endif; ?>
 <tr valign="top">
 														<td width="214">
 															<font face="Arial" style="font-weight:bold; line-height: 16px; font-size: 14px;" size="2" color="#669900">
 															<br /><?php if(!empty($bottom_actu["title"])){ ?><?php echo $bottom_actu["title"]; ?><?php } ?><br />
 															</font>
 															<font face="Arial" style="line-height: 13px; font-size: 11px;" size="2" color="#333333">
-			     											<?php echo nl2br(htmlentities(utf8_decode($bottom_actu["content"]))); ?><br /><br />
+			     											<?php echo nl2br(htmlentities($bottom_actu["content"])); ?><br /><br />
 			     											</font>
 			     										</td>
-													</tr>
-
-													<tr valign="top">
-														<td width="214">
-													<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/sep_dotted.gif" width="214" height="1" alt="" border="0" /><br />
-													</td>
 													</tr>
                                                     <?php endforeach;?>
 													<tr valign="top">

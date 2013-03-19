@@ -24,5 +24,10 @@ class smti82InvitationForm extends czForm {
 		$this->addWysiwygField("footer", "Contenu", array("height" => 300), array());
 		//unsubscribe_email - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("unsubscribe_email", "Email de désabonnement", array());
+
+		$this->addTextField("title2", "Titre", array());
+		$this->addWysiwygField("content2", "Contenu", array("height" => 300), array());
+		$this->addWysiwygField("actions", "Invitation à l'action", array("height" => 300), array());
+
 	}
 }

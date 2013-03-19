@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class smti82InterneForm_dates extends czForm {
 
@@ -13,6 +13,7 @@ class smti82InterneForm_dates extends czForm {
 		//date_content - CampaignTemplateImporter_TypeMapper_Textarea
 		$this->addTextareaField("date_content", "Contenu", array('style' => 'width: 700px'));
 		//read_more - CampaignTemplateImporter_TypeMapper_Url
+		$this->addTextField("read_more_caption", "Titre du lien", array());
 		$this->addUrlField("read_more", "Cible du lien", array());
 	}
 }

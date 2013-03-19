@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class smti82InterneForm_actus extends czForm {
 
@@ -15,6 +15,7 @@ class smti82InterneForm_actus extends czForm {
 		//content - CampaignTemplateImporter_TypeMapper_Wysiwyg
 		$this->addWysiwygField("content", "Contenu", array("height" => 300), array());
 		//read_more - CampaignTemplateImporter_TypeMapper_Url
+		$this->addTextField("read_more_caption", "Titre du lien", array());
 		$this->addUrlField("read_more", "Cible du lien", array());
 	}
 }
