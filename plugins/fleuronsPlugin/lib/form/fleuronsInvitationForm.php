@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class fleuronsInvitationForm extends czForm {
 
@@ -29,7 +29,7 @@ class fleuronsInvitationForm extends czForm {
 		//signature - CampaignTemplateImporter_TypeMapper_Wysiwyg
 		$this->addWysiwygField("signature", "Signature", array("height" => 300), array());
 		//baseline - CampaignTemplateImporter_TypeMapper_Url
-		$this->addUrlField("baseline", "Lien sur image 'Votre spécialiste du cabeau gourmand'", array());
+		$this->addUrlField("baseline", "Lien sur image 'Votre spécialiste du cadeau gourmand'", array());
 		//fb_page - CampaignTemplateImporter_TypeMapper_Url
 		$this->addUrlField("fb_page", "Adresse de votre page Facebook", array());
 		//website - CampaignTemplateImporter_TypeMapper_Text
