@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class lcfCampaign01Form_articles extends czForm {
 
@@ -13,8 +13,11 @@ class lcfCampaign01Form_articles extends czForm {
 		//content - CampaignTemplateImporter_TypeMapper_Wysiwyg
 		$this->addWysiwygField("content", "Contenu", array("height" => 300), array());
 		//link_url - CampaignTemplateImporter_TypeMapper_Url
-		$this->addUrlField("link_url", "URL lien", array());
-		//link_title - CampaignTemplateImporter_TypeMapper_Text
-		$this->addTextField("link_title", "Titre du lien", array());
+		$this->addTextField("link_title", "Titre du lien 1", array());
+		$this->addUrlField("link_url", "URL", array());
+
+		$this->addTextField("link2_title", "Titre du lien 2", array());
+		$this->addUrlField("link2_url", "URL", array());
+
 	}
 }
