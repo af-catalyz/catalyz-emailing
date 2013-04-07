@@ -131,7 +131,7 @@
 								(source : <?php echo $item["source"]; ?>)
 								</font>
 							<?php } ?>
-						  <?php if (!empty($item["resume"])) { $renderer = new CatalyzEmailRenderer("Arial", "#7d952d", "line-height: 14px; font-size: 11px; color:#333333"); echo $renderer->renderWysiwyg($item["resume"], "#7d952d"); } ?>
+						  <?php if (!empty($item["resume"])) { $renderer = new CatalyzEmailRenderer("Arial", "#7d952d", "line-height: 14px; font-size: 11px; color:#333333"); echo $renderer->renderWysiwyg(html_entity_decode($item["resume"]), "#7d952d"); } ?>
 
 								<?php if(!empty($item["link_title"])){ ?>
                              <img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/bullet_2.gif" width="8" height="7" alt="" border="0" />
@@ -164,7 +164,7 @@
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/footer_left.gif" width="32" height="53" alt="" border="0" />
 			</td>
 			<td width="453" bgcolor="#A3C200" height="53">
-				<?php if (!empty($parameters["footer"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#ffffff", "line-height:9px; font-size:11px; color:#ffffff"); echo $renderer->renderWysiwyg($parameters["footer"], "#ffffff"); } ?>
+				<?php if (!empty($parameters["footer"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#ffffff", "line-height:9px; font-size:11px; color:#ffffff"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["footer"]), "#ffffff"); } ?>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="167" bgcolor="#A3C200">
 				<?php if(!empty($parameters["fb_page"])){ ?><a target="_blank" href="<?php echo czWidgetFormLink::displayLink($parameters["fb_page"]); ?>"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/externe/footer_right.gif" width="167" height="53" alt="" border="0" /></a><?php } ?>

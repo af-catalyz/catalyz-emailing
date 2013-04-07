@@ -24,6 +24,7 @@ $formatter->renderField('lu');
 
 $formatter->nextTab();
 $formatter->renderField('formations');
+$formatter->renderField('formations_url');
 $formatter->renderField('intro_formation');
 $formatter->renderField('formation');
 $formatter->renderField('logos_formations');

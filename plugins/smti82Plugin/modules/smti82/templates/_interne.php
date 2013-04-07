@@ -125,7 +125,7 @@
 											<font face="Arial" style="line-height: 11px; font-size: 10px;" size="2" color="#999999">(source : <?php echo $actus["source"]; ?>)</font><br />
 										<?php } ?>
 
-										<?php if (!empty($actus["content"])) { $renderer = new CatalyzEmailRenderer("Arial", "#333333", "line-height: 14px; font-size: 11px; color: #333333"); echo $renderer->renderWysiwyg(utf8_decode($actus["content"]), "#333333"); } ?>
+										<?php if (!empty($actus["content"])) { $renderer = new CatalyzEmailRenderer("Arial", "#333333", "line-height: 14px; font-size: 11px; color: #333333"); echo $renderer->renderWysiwyg(html_entity_decode($actus["content"]), "#333333"); } ?>
 											<?php if(!empty($actus["read_more"])){ ?>
 											<font face="Arial" style="line-height: 14px; font-size: 10px;" size="2" color="#7d952d">
 											<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_2.gif" width="8" height="7" alt="" border="0" />
@@ -246,7 +246,7 @@
 
 					<tr valign="top">
 						<td width="378">
-						<?php if (!empty($parameters["library_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:11px; font-size:11px; color=#333333"); echo $renderer->renderWysiwyg($parameters["library_content"], ""); } ?>
+						<?php if (!empty($parameters["library_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:11px; font-size:11px; color=#333333"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["library_content"]), ""); } ?>
 
 
 
@@ -331,7 +331,13 @@
 						<tr valign="top">
 							<td width="228">
 								<br /><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_4.gif" width="18" height="11" alt="" border="0" />
-								<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#333333"><?php echo $parameters["formations"]; ?><br />
+								<font face="Times New Roman" style="line-height: 24px; font-size: 22px;" size="2" color="#333333"><?php
+									if(!empty($parameters["formations_url"])){
+										printf('<a href="%s">%s</a>', czWidgetFormLink::displayLink($parameters["formations_url"]), $parameters["formations"]);
+									}else{
+								echo $parameters["formations"];
+									}
+								 ?><br />
 								</font>
 							</td>
 						</tr>
@@ -349,7 +355,7 @@
 
 				  <tr valign="top">
 							<td width="228">
-							<?php if (!empty($parameters["intro_formation"])) { $renderer = new CatalyzEmailRenderer("Arial", "#333333", "line-height: 14px; font-size: 11px; color: #333333"); echo $renderer->renderWysiwyg(utf8_decode($parameters["intro_formation"]), "#333333"); } ?>
+							<?php if (!empty($parameters["intro_formation"])) { $renderer = new CatalyzEmailRenderer("Arial", "#333333", "line-height: 14px; font-size: 11px; color: #333333"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["intro_formation"]), "#333333"); } ?>
 					</td>
 						</tr>
 						<tr valign="top">
@@ -378,7 +384,7 @@
 <?php } ?>
 						<tr valign="top">
 							<td width="228">
-							<?php if (!empty($parameters["logos_formations"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:14px; font-size:11px; color:#333333"); echo $renderer->renderWysiwyg(utf8_decode($parameters["logos_formations"]), ""); } ?>
+							<?php if (!empty($parameters["logos_formations"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:14px; font-size:11px; color:#333333"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["logos_formations"]), ""); } ?>
 							</td>
 						</tr>
 
@@ -505,7 +511,7 @@
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/sep_green.gif" width="1" height="1" alt="" style="display:block;" border="0" />
 			</td>
 			<td width="550" bgcolor="#A3C200" align="center">
-				<?php if (!empty($parameters["footer"])) { $renderer = new CatalyzEmailRenderer("Tahoma, sans-serif", "#ffffff", "line-height:13px; font-size:11px; color=#ffffff"); echo $renderer->renderWysiwyg(utf8_decode($parameters["footer"]), ""); } ?>
+				<?php if (!empty($parameters["footer"])) { $renderer = new CatalyzEmailRenderer("Tahoma, sans-serif", "#ffffff", "line-height:13px; font-size:11px; color=#ffffff"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["footer"]), ""); } ?>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="50" bgcolor="#A3C200">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/sep_green.gif" width="1" height="1" alt="" style="display:block;" border="0" />

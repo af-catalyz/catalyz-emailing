@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class smti82InterneForm extends czForm {
 
@@ -30,6 +30,7 @@ class smti82InterneForm extends czForm {
 		$this->addSubformField("formation", "Ajouter une formation", "smti82InterneForm_formation", "title", array());
 		//formations - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("formations", "Titre", array());
+		$this->addUrlField("formations_url", "Url");
 		//intro_formation - CampaignTemplateImporter_TypeMapper_Wysiwyg
 		$this->addWysiwygField("intro_formation", "Introduction", array("height" => 300), array());
 		//bottom_actu - CampaignTemplateImporter_TypeMapper_Subform
