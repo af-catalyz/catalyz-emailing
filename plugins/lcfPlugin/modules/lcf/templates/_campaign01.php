@@ -68,7 +68,7 @@
        	  <td width="155" bgcolor="#f7fcfe">
             <table cellspacing="0" cellpadding="0" border="0">
             <tr valign="top">
-                	<td width="155" bgcolor="#f7fcfe"><?php if(isset($articles["illustration"])){ ?><img src="<?php echo $articles["illustration"]; ?>" width="155" height="61" alt="" border="0" /><?php } ?></td>
+                	<td width="155" bgcolor="#f7fcfe"><?php if(isset($articles["illustration"])){ echo thumbnail_tag($articles["illustration"], 155, false); } ?></td>
               </tr>
             <tr valign="top">
                 	<td width="155" height="25" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
