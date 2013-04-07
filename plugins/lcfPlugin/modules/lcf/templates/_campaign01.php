@@ -27,7 +27,7 @@
         	<td width="1" bgcolor="#ffffff"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_white.jpg" width="1" height="1" alt="" border="0" /></td>
           	  <td width="10" bgcolor="#527461"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_green.jpg" width="1" height="1" alt="" border="0" /></td>
           		  <td width="580" bgcolor="#527461">
-          		  <?php if (!empty($parameters["top_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#ffffff", "line-height: 16px; font-size: 12px; color:#ffffff"); echo $renderer->renderWysiwyg(utf8_decode($parameters["top_content"]), "#ffffff"); } ?>
+          		  <?php if (!empty($parameters["top_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#ffffff", "line-height: 16px; font-size: 12px; color:#ffffff"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["top_content"]), "#ffffff"); } ?>
           			  </td>
           		<?php if(isset($parameters["top_include_made_in_france"])){ ?>
           			<td width="110" bgcolor="#527461" align="right"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/fabrication_fr.jpg" width="100" height="41" alt="" border="0" /></td>
@@ -53,7 +53,7 @@
          <tr valign="top">
         	<td width="15" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
         		<td bgcolor="#f7fcfe">
-                <?php if (!empty($parameters["header_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 12px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(utf8_decode($parameters["header_content"]), "#666666"); } ?>
+                <?php if (!empty($parameters["header_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 12px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["header_content"]), "#666666"); } ?>
           	  </td>
 
               <?php if(isset($parameters["header_include_made_in_france"])){ ?><td width="114" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/fabrication_fr_light.jpg" width="100" height="45" alt="" border="0" /></td><?php } ?>
@@ -84,7 +84,7 @@
                     </tr>
                 	<tr valign="top">
                    	  <td colspan="3">
-                        	<?php if (!empty($articles["content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(utf8_decode($articles["content"]), "#666666"); } ?>
+                        	<?php if (!empty($articles["content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(html_entity_decode($articles["content"]), "#666666"); } ?>
                         </td>
                     </tr>
                     <tr valign="top">
@@ -135,7 +135,7 @@
                         </tr>
                    	<tr valign="top">
                     	<td bgcolor="#ffffff">
-                        <?php if (!empty($parameters["left_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(utf8_decode($parameters["left_content"]), "#666666"); } ?>
+                        <?php if (!empty($parameters["left_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["left_content"]), "#666666"); } ?>
                      <?php if (isset($parameters["left_links"]) && is_array($parameters["left_links"])): foreach($parameters["left_links"] as $left_links): ?>
            			 <table width="272" align="center" cellspacing="0" cellpadding="0" border="0">
                      <tr valign="top">
@@ -180,7 +180,7 @@
                         </tr>
                    	<tr valign="top">
                     	<td bgcolor="#ffffff">
-                         <?php if (!empty($parameters["right_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(utf8_decode($parameters["right_content"]), "#666666"); } ?>
+                         <?php if (!empty($parameters["right_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["right_content"]), "#666666"); } ?>
                             <br /><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_white.jpg" width="272" height="15" alt="" border="0" />
                       <?php if (isset($parameters["right_links"]) && is_array($parameters["right_links"])): foreach($parameters["right_links"] as $right_links): ?>
                       <table width="272" align="center" cellspacing="0" cellpadding="0" border="0">
@@ -210,7 +210,15 @@
                     </tr>
                     <tr valign="middle">
                     	<td height="88" bgcolor="#527461">
-                        <?php if (!empty($parameters["footer"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#ffffff", "margin-left:10px; line-height: 16px; font-size: 12px; text-align:center; color:#ffffff"); echo $renderer->renderWysiwyg(utf8_decode($parameters["footer"]), "#ffffff"); } ?>
+                    	<table cellpadding="0" cellspacing="0" border="0">
+                    	<tr>
+                    		<td width="10">&nbsp;</td>
+                    		<td>
+                    			<?php if (!empty($parameters["footer"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#ffffff", "line-height: 16px; font-size: 12px; text-align:center; color:#ffffff"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["footer"]), "#ffffff"); } ?>
+							</td>
+                    	</tr>
+						</table>
+
 						</td>
                     </tr>
                      <tr valign="top">
