@@ -31,6 +31,7 @@ class lcfCampaign01Form extends czForm {
 		$this->addTextField("right_title", "Titre", array());
 		//right_content - CampaignTemplateImporter_TypeMapper_Wysiwyg
 		$this->addWysiwygField("right_content", "Contenu", array("height" => 300), array());
+		$this->addPictureField("right_illustration", "Illustration", 272, 146);
 		//footer - CampaignTemplateImporter_TypeMapper_Wysiwyg
 		$this->addWysiwygField("footer", "Contact", array("height" => 300), array());
 		//unsubscribe_email - CampaignTemplateImporter_TypeMapper_Text

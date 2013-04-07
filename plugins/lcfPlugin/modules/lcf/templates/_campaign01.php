@@ -159,7 +159,7 @@
                     </tr>
                    <tr valign="top">
                     	<td align="center" bgcolor="#ffffff">
-                        <?php if(isset($parameters["left_illustration"])){ ?><img src="<?php echo $parameters["left_illustration"]; ?>" width="236" height="152" alt="" border="0" /><?php } ?>
+                        <?php if(isset($parameters["left_illustration"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl().thumbnail_path($parameters["left_illustration"], 236, false); ?>" width="236" alt="" border="0" /><?php } ?>
                         </td>
                     </tr>
                 </table>
@@ -200,9 +200,11 @@
                          <?php endforeach; endif; ?>
                      </td>
                       </tr>
+                      <?php if(!empty($parameters["right_illustration"])): ?>
                     <tr valign="top">
-                    	<td><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/revendeur_img4.jpg" width="272" height="146" alt="" border="0" /></td>
+                    	<td><img src="<?php echo CatalyzEmailing::getApplicationUrl().thumbnail_path($parameters["right_illustration"], 272, false); ?>" width="272" alt="" border="0" /></td>
                     </tr>
+                    <?php endif; ?>
                      <tr valign="top">
                     	<td><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/pros_sep_img.jpg" width="272" height="24" alt="" border="0" /></td>
                     </tr>
