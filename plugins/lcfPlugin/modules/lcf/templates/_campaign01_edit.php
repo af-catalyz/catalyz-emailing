@@ -23,6 +23,7 @@ $formatter->nextTab();
 $formatter->renderField('right_links');
 $formatter->renderField('right_title');
 $formatter->renderField('right_content');
+$formatter->renderField('right_illustration');
 $formatter->renderField('footer');
 
 $formatter->nextTab();
