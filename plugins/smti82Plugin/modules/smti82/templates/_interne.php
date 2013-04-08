@@ -367,7 +367,13 @@
 							<td width="228">
 								<?php if(!empty($formation["title"])){ ?><font face="Arial" style="font-style:italic; font-weight:bold; line-height: 14px; font-size: 12px;" size="2" color="#669900">
 									<br /><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/bullet_2.gif" width="8" height="7" alt="" border="0" />
-										<?php echo $formation["title"]; ?>
+										<?php
+										if(!empty($formation["url"])){
+											printf('<a href="%s">%s</a>', czWidgetFormLink::displayLink($formation["url"]), $formation["title"]);
+										}else{
+											echo $formation["title"];
+										}
+										  ?>
 								</font>
 								<?php } ?>
 								<font face="Arial" style="line-height: 14px; font-size: 12px;" size="2" color="#666666">

@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 class smti82InterneForm_formation extends czForm {
 
@@ -8,6 +8,7 @@ class smti82InterneForm_formation extends czForm {
 
 		//title - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("title", "Titre", array());
+		$this->addUrlField("url", "URL");
 		//date_formation - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("date_formation", "Date", array());
 		//organisme_nom - CampaignTemplateImporter_TypeMapper_Text
