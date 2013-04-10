@@ -332,7 +332,7 @@ class CampaignDeliveryManager {
 
     public function sendTo($emails, $additionalMacros = array())
     {
-        if (is_string($emails)) {
+        if (!is_array($emails)) {
             $emails = $this->extractEmails($emails);
         }
 
