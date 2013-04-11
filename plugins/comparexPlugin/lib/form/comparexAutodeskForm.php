@@ -14,6 +14,7 @@ class comparexAutodeskForm extends czForm {
 		$this->addTextField("title", "Titre", array());
 		//left_top_picture - CampaignTemplateImporter_TypeMapper_Picture
 		$this->addPictureField("left_top_picture", "Illustration", 45, 58);
+		$this->addPictureField("banner", "Bandeau", 702, 174);
 		//left_top_content - CampaignTemplateImporter_TypeMapper_Textarea
 		$this->addTextField("left_top_content", "Légende de l'image", array());
 		//left_bottom_content - CampaignTemplateImporter_TypeMapper_Wysiwyg

@@ -16,7 +16,11 @@
 		<table width="702" align="center" cellspacing="0" cellpadding="0" border="0">
        		<tr valign="top">
        			<td style="line-height:0; font-size: 0;" width="702" colspan="4">
+       			<?php if(!empty($parameters["banner"])): ?>
+       				<img src="<?php echo CatalyzEmailing::getApplicationUrl().thumbnail_path($parameters["banner"], 702, false); ?>" width="702" height="174" alt="" border="0" />
+       				<?php else: ?>
        				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/header_top.jpg" width="702" height="174" alt="" border="0" />
+       				<?php endif; ?>
            	</td>
        		</tr>
        		<tr valign="bottom">
@@ -143,7 +147,7 @@
 	       		</td>
 	       		<td width="282">
 	       			<?php if(isset($parameters["right_top_picture"])){ ?>
-								<img src="<?php echo $parameters["right_top_picture"]; ?>" width="235" height="84" alt="" border="0"/>
+								<img src="<?php echo thumbnail_path($parameters["right_top_picture"], 235, false); ?>" width="235" alt="" border="0"/>
 							<?php } ?>
 
 	       			<?php if (!empty($parameters["right_bottom_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height:12px; font-size:11px; color:#666666"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["right_bottom_content"]), "#666666"); } ?>
