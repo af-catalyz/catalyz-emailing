@@ -38,7 +38,7 @@ $parameters = unEscape($parameters);
        						$renderer = new CatalyzEmailRenderer('Arial, sans-serif', '#FFFFFF', 'text-align:left; line-height:16px; font-size:11px; color:#FFFFFF');
        						$renderer->addRule('titre-blanc', 'Arial, sans-serif', 'text-align:left; line-height:18px; font-size:14px; font-weight:bold; color:#FFFFFF', '#FFFFFF');
        						$renderer->addRule('titre-rouge', 'Arial, sans-serif', 'text-align:left; line-height:24px; font-size:18px; font-weight:bold; color:#FF0033', '#FF0033', 4);
-       						echo $renderer->renderWysiwyg(utf8_decode($parameters['edito']), '#FFFFFF');
+       						echo $renderer->renderWysiwyg(html_entity_decode($parameters['edito']), '#FFFFFF');
        					}
 
 ?>
@@ -138,7 +138,7 @@ $parameters = unEscape($parameters);
         $renderer->addRule('texte-noir', 'Arial, sans-serif', 'text-align:left; line-height:15px; font-size:11px; font-weight:bold; color:#000000', '#000000');
         $renderer->addRule('texte-rouge', 'Arial, sans-serif', 'text-align:left; line-height:15px; font-size:11px; font-weight:bold; color:#ff0000', '#ff0000');
 
-        echo $renderer->renderWysiwyg(utf8_decode($article['content']), '#666666');
+        echo $renderer->renderWysiwyg(html_entity_decode($article['content']), '#666666');
     }
 
     ?>
@@ -198,7 +198,7 @@ $parameters = unEscape($parameters);
 	       							<?php
     if (!empty($parameters['bottom_text'])) {
         $renderer = new CatalyzEmailRenderer('Arial, sans-serif', '#333333', 'text-align:left; line-height:15px; font-size:11px; color:#333333');
-        echo $renderer->renderWysiwyg(utf8_decode($parameters['bottom_text']), '#333333');
+        echo $renderer->renderWysiwyg(html_entity_decode($parameters['bottom_text']), '#333333');
     }
 
     ?>
