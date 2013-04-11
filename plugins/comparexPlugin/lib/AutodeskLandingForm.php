@@ -5,6 +5,8 @@ class AutodeskLandingForm extends czLandingForm {
     {
         parent::configure();
 
+
+    		$this->addPictureField('banner', 'Bannière', 900, 133);
         $this->addSubformField('top_menu', 'Ajouter un élément de menu', 'comparexLandingForm_menu');
         $this->addSubformField('menu', 'Ajouter un élément de menu', 'comparexLandingForm_menu');
 

@@ -5,15 +5,16 @@ class comparexLandingForm extends czLandingForm {
     {
         parent::configure();
 
-        $this->addSubformField('top_menu', 'Ajouter un élément de menu', 'comparexLandingForm_menu');
+        $this->addPictureField('banner', 'Bannière', 900, 133);
+				$this->addSubformField('top_menu', 'Ajouter un élément de menu', 'comparexLandingForm_menu');
         $this->addSubformField('menu', 'Ajouter un élément de menu', 'comparexLandingForm_menu');
 
         $this->addTextField('box1_title', 'Titre', array('style' => 'width: 700px'));
         $this->addWysiwygField('box1_content', 'Contenu', array('height' => 200));
 
-    	$this->addWysiwygField('video', 'Vidéo', array('height' => 500));
+   		 	$this->addWysiwygField('video', 'Vidéo', array('height' => 500));
 
-		$this->addTextField('box2_title', 'Titre', array('style' => 'width: 700px'));
+				$this->addTextField('box2_title', 'Titre', array('style' => 'width: 700px'));
         $this->addWysiwygField('box2_content', 'Contenu', array('height' => 200));
 
         $this->addTextField('box3_title', 'Titre', array('style' => 'width: 700px'));

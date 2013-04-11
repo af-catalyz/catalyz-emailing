@@ -6,6 +6,7 @@ $formatter->renderField('top_menu');
 
 $formatter->nextTab();
 $formatter->renderField('menu');
+$formatter->renderField('banner');
 
 $formatter->nextTab();
 $formatter->startGroup('Boite 1');

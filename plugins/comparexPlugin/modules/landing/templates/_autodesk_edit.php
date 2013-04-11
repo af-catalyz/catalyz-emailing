@@ -8,8 +8,9 @@ $formatter->nextTab();
 $formatter->renderField('menu');
 
 $formatter->nextTab();
-$formatter->renderField('title');
 $formatter->renderField('banner');
+$formatter->renderField('title');
+
 
 $formatter->startGroup('Contenu de droite');
 $formatter->renderField('right_image');

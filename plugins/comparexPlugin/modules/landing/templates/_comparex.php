@@ -84,7 +84,16 @@ $parameters = $parameters->getRawValue();
 							</table>
 							<div class="red_sep"></div>
 						</div>
-					<div class="header_img"></div>
+					<div class="header_img">
+					<?php
+
+if (!empty($parameters['banner']) && is_file(sfConfig::get('sf_web_dir').$parameters['banner'])) {
+	echo thumbnail_tag($parameters['banner'], 900, 133);
+}else{
+	echo '<img src="/comparexPlugin/images/landing/comparex/header_img.jpg" width="900" height="133" alt="" border="0" />';
+}
+					 ?>
+					</div>
      	 		</div>
      	 	</div>
 				<div id="content">

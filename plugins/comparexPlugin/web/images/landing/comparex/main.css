@@ -207,7 +207,7 @@ p{
 	margin: 0;
 }
 .header_img {
-	background : url("header_img.jpg") no-repeat scroll 0 0;
+	/*background : url("header_img.jpg") no-repeat scroll 0 0;*/
 	height : 127px;
 	width:900px;
 	position:relative;
