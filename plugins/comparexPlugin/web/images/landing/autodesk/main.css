@@ -255,7 +255,7 @@ h5{
 }
 .header_img {
 /*	background : url("header_img.jpg") no-repeat scroll 0 0;*/
-	height : 133px;
+	/*height : 133px;*/
 	width:900px;
 	position:relative;
 	padding: 0;

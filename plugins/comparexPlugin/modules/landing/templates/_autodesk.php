@@ -70,7 +70,7 @@ $parameters = $parameters->getRawValue();
 						<?php
 
 						if (!empty($parameters['banner']) && is_file(sfConfig::get('sf_web_dir').$parameters['banner'])) {
-							echo thumbnail_tag($parameters['banner'], 900, 133);
+							echo thumbnail_tag($parameters['banner'], 900, 500);
 						}else{
 							echo '<img src="/comparexPlugin/images/landing/autodesk/header_img.jpg" width="900" height="133" alt="" border="0" />';
 						}
