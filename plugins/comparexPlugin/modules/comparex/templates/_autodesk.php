@@ -63,7 +63,7 @@
 	          	<?php if(!empty($parameters["video_link"])){ ?>
 								<a target="_blank" style="text-decoration:none; color:#FFFFFF" href="<?php echo czWidgetFormLink::displayLink($parameters["video_link"]); ?>">
 	       					<img src="<?php echo CatalyzEmailing::getApplicationUrl();
-	          		if(!empty($parameters["video_picture1"])){
+	          		if(!empty($parameters["video_picture2"])){
 	          			echo thumbnail_path($parameters["video_picture2"], 207, 40);
 	          		}else{
 	          			echo '/comparexPlugin/images/autodesk/btn5.jpg';
