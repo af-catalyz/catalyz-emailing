@@ -10,6 +10,8 @@ class comparexAutodeskForm extends czForm {
 		$this->addWysiwygField("edito", "Edito", array("height" => 300), array());
 		//video_link - CampaignTemplateImporter_TypeMapper_Url
 		$this->addUrlField("video_link", "Lien sur la vidéo", array());
+		$this->addPictureField("video_picture1", "Image 1", 207, 149);
+		$this->addPictureField("video_picture2", "Image 2", 207, 40);
 		//title - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("title", "Titre", array());
 		//left_top_picture - CampaignTemplateImporter_TypeMapper_Picture

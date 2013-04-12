@@ -35,7 +35,14 @@
 	           <td style="line-height:0; font-size: 0;" width="207" bgcolor="#0F0E0A">
        				<?php if(!empty($parameters["video_link"])){ ?>
 								<a target="_blank" style="text-decoration:none; color:#FFFFFF" href="<?php echo czWidgetFormLink::displayLink($parameters["video_link"]); ?>">
-	       					<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/header_video.jpg" width="207" height="149" alt="" border="0" />
+	       					<img src="<?php echo CatalyzEmailing::getApplicationUrl();
+       					if(!empty($parameters["video_picture1"])){
+       						echo thumbnail_path($parameters["video_picture1"], 207, 149);
+       					}else{
+       						echo '/comparexPlugin/images/autodesk/header_video.jpg';
+       					}
+
+						 ?>" width="207" height="149" alt="" border="0" />
 	       				</a>
 							<?php }else{
 							printf('<img src="%s/comparexPlugin/images/autodesk/header_black.png" width="207" height="149" alt="" border="0" />',  CatalyzEmailing::getApplicationUrl());
@@ -55,7 +62,13 @@
 	          <td width="207">
 	          	<?php if(!empty($parameters["video_link"])){ ?>
 								<a target="_blank" style="text-decoration:none; color:#FFFFFF" href="<?php echo czWidgetFormLink::displayLink($parameters["video_link"]); ?>">
-	       					<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/comparexPlugin/images/autodesk/btn5.jpg" width="207" height="40" alt="" border="0" />
+	       					<img src="<?php echo CatalyzEmailing::getApplicationUrl();
+	          		if(!empty($parameters["video_picture1"])){
+	          			echo thumbnail_path($parameters["video_picture2"], 207, 40);
+	          		}else{
+	          			echo '/comparexPlugin/images/autodesk/btn5.jpg';
+	          		}
+	          		?>" width="207" height="40" alt="" border="0" />
 	       				</a>
 							<?php }else{
 								printf('<img src="%s/comparexPlugin/images/autodesk/btn5_blank.png" width="207" height="44" alt="" border="0" />',  CatalyzEmailing::getApplicationUrl());
