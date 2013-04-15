@@ -4,7 +4,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<link type="text/css" rel="stylesheet" href="/comparexPlugin/images/landing/comparex/main.css" />
-	<title>Comparex Landing Page</title>
+	<title><?php echo $landing->getName() ?></title>
 </head>
 <body>
 

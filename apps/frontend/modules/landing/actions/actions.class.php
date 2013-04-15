@@ -111,7 +111,7 @@ class landingActions extends sfActions {
 
     public function executeShow(sfWebRequest $request)
     {
-        $this->forward404Unless($landing = LandingPeer::retrieveBySlug($request->getParameter('slug')));
+        $this->forward404Unless($landing = /*(Landing)*/LandingPeer::retrieveBySlug($request->getParameter('slug')));
 
         $parameters = czWidgetFormWizard::asArray((string)$landing->getContent());
         return $this->renderPartial(sprintf('landing/%s', $landing->getTemplateClass()), array('parameters' => $parameters, 'landing' => $landing));
