@@ -81,13 +81,17 @@ class CampaignSpyFilterTest extends PHPUnit_Framework_TestCase {
 
         $this->assertCount(0, $result);
     }
-	public function testExtractLinksMakeRelativeAssetLinksAbsolutes()
+	public function testExtractRelativeAssetLinks()
 	{
 		$content = '<a href="/uploads/assets/foo.pdf">google</a>';
 
 		$result = $this->filter->getLinkList($content);
 		$this->assertCount(1, $result);
-		$this->assertEquals(array_shift($result), sprintf('%s/uploads/assets/foo.pdf', $this->root_url));
+		$this->assertEquals(array_shift($result), '/uploads/assets/foo.pdf');
+
+		$result = $this->filter->execute($content);
+		$this->assertEquals($result, sprintf('<a href="%s/campaign/link/key/#EMAIL#-0-1">google</a>', $this->root_url));
+
 	}
 }
 

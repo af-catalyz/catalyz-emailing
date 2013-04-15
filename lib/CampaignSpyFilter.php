@@ -31,6 +31,7 @@ class CampaignSpyFilter {
         $serialized_map = $this->CampaignLinkSerializer->serialize($links);
         $result = '';
         $currentOffset = 0;
+   // 	print_r($links);
         foreach($links as $linkOffset => $linkUrl) {
             $result .= substr($content, $currentOffset, $linkOffset - $currentOffset);
             $result .= $this->getSpyLink($linkUrl);
@@ -61,9 +62,9 @@ class CampaignSpyFilter {
                     unset($result[$resultKey]);
                 }elseif (preg_match('|^(/?uploads/repository.+)$|', $resultItem) || preg_match('|^(/?uploads/assets.+)$|', $resultItem)) {
             		if ($resultItem[1] != '/') {
-            			$result[$resultKey] = $this->root_url . $resultItem;
+            			$result[$resultKey] = /*$this->root_url . */$resultItem;
             		} else {
-            			$result[$resultKey] = $this->root_url . substr($resultItem, 1);
+            			$result[$resultKey] = /*$this->root_url . */substr($resultItem, 1);
             		}
             	}
             }

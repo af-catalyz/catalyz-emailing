@@ -12,7 +12,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 <!-- cze:subform name="subform1" -->
 	<!-- cze:field name="field1" label="Field 1" type="text" -->field 1<!-- /cze:field -->
 <!-- /cze:subform -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -24,7 +24,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	public function testMissingNameInSubform()
 	{
 		$content = '<!-- cze:subform --><!-- /cze:subform -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 		$errors = $this->importer->getErrors();
 		$this->assertNotCount(0, $errors);
 	}
@@ -49,7 +49,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	<!-- cze:field name="field1" label="Field 1" type="text" -->field 1<!-- /cze:field -->
 	<!-- cze:field name="field2" label="Field 2" type="text" -->field 2<!-- /cze:field -->
 <!-- /cze:subform -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -72,7 +72,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	<!-- cze:field name="field2" label="Field 2" type="text" -->field 2<!-- /cze:field -->
 <!-- /cze:subform -->
 ';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -99,7 +99,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	<!-- cze:field name="field2" label="Field 2" type="text" -->field 2<!-- /cze:field -->
 <!-- /cze:subform -->
 ';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -113,7 +113,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	public function testUnknownFieldTypeIsTransformed()
 	{
 		$content = '<!-- cze:field name="field1" label="Field 1" type="misteriousType" -->...<!-- /cze:field -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -125,7 +125,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	public function testMissingFieldTypeIsStoredAsTextType()
 	{
 		$content = '<!-- cze:field name="field1" -->...<!-- /cze:field -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -136,7 +136,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	public function testMissingLabelIsGuessedFromName()
 	{
 		$content = '<!-- cze:field name="field1" type="text" -->...<!-- /cze:field -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -147,7 +147,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	public function testMissingLabelIsGuessedFromName2()
 	{
 		$content = '<!-- cze:field name="SomeSampleFieldName" type="text" -->...<!-- /cze:field -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -158,7 +158,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	public function testMissingLabelIsGuessedFromName3()
 	{
 		$content = '<!-- cze:field name="SomeSampleFieldName123" type="text" -->...<!-- /cze:field -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
@@ -169,7 +169,7 @@ class CampaignTemplateImporterTest extends PHPUnit_Framework_TestCase {
 	public function testTextFieldTypeIsTransformed()
 	{
 		$content = '<!-- cze:field name="field1" label="Field 1" type="text" -->...<!-- /cze:field -->';
-		$updatedContent = $this->importer->execute($content);
+		$updatedContent = $this->importer->execute($content, 'ProjectName', 'TemplateName');
 
 		$this->assertNotEquals($content, $updatedContent);
 		$fields = $this->importer->getFields();
