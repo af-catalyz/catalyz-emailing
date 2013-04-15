@@ -37,7 +37,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="line-height:0; font-size: 0;" width="71">
+			<td style="line-height:0; font-size: 0;" width="259">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/header_left.png" width="259" height="71" alt="" border="0" />
 			</td>
 			<td width="265">
@@ -58,7 +58,7 @@
 					</tr>
 				</table>
 			</td>
-			<td style="line-height:0; font-size: 0;" width="71">
+			<td style="line-height:0; font-size: 0;" width="128">
 				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/smti82Plugin/images/interne/header_right.png" width="128" height="71" alt="" border="0" />
 			</td>
 		</tr>
