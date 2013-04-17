@@ -100,8 +100,8 @@
 						</td>
 					</tr>
 
-					<tr valign="top">
-						<?php if (!empty($parameters["actus"]) && is_array($parameters["actus"])): foreach($parameters["actus"] as $actus): ?><td width="378">
+					<?php if (!empty($parameters["actus"]) && is_array($parameters["actus"])): foreach($parameters["actus"] as $actus): ?><tr valign="top">
+						<td width="378">
 							<?php if(!empty($actus["title"])){ ?><font face="Arial" style="font-weight:bold; line-height: 15px; font-size: 14px;" size="2" color="#669900">
 								<?php echo $actus["title"]; ?><br /><br />
 							</font><?php } ?>
