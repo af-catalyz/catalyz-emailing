@@ -12,7 +12,7 @@ class astiaNewsletter2012CampaignTemplateHandler extends CampaignTemplateHandler
 
 	public function compute($parameters)
 	{
-		sfLoader::loadHelpers('Partial');
+	sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
 		return get_partial('astia/newsletter2012', array('parameters' => $parameters));
 	}
 
@@ -21,7 +21,7 @@ class astiaNewsletter2012CampaignTemplateHandler extends CampaignTemplateHandler
 	}
 
 	public function computeTextVersion($parameters){
-		sfLoader::loadHelpers('Partial');
+	sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
 		return get_partial('astia/newsletter2012_text', array('parameters' => $parameters));
 	}
 

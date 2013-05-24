@@ -34,10 +34,10 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 							<td width="117" align="right" valign="bottom">
 								<?php
 								if (!empty($parameters['number'])) {
-									printf('<font face="Tahoma, Geneva, sans-serif" style="line-height: 16px; font-size: 16px;" size="2" color="#FFFFFF">%s</font>', htmlentities($parameters['number'], ENT_COMPAT, 'utf-8'));
+									printf('<font face="Tahoma, Geneva, sans-serif" style="line-height: 16px; font-size: 16px;" size="2" color="#FFFFFF">%s</font>', $parameters['number']);
 								}
 								if (!empty($parameters['date'])) {
-									printf('<font face="Tahoma, Geneva, sans-serif" style="line-height: 13px; font-size: 13px;" size="2" color="#b1d3d4"><br/>%s</font>', htmlentities($parameters['date'], ENT_COMPAT, 'utf-8'));
+									printf('<font face="Tahoma, Geneva, sans-serif" style="line-height: 13px; font-size: 13px;" size="2" color="#b1d3d4"><br/>%s</font>', $parameters['date']);
 								}
 								?>
 							</td>
@@ -70,7 +70,7 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 									<tr valign="top">
 										<td style="line-height: 0; font-size: 0;" width="8"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/sep_w.gif" width="8" height="1" alt="" border="0" /></td>
 										<td width="418" align="left">
-											<?php $renderer->renderWysiwyg( $parameters['edito'],'#1c4575'); ?>
+											<?php $renderer->renderWysiwyg(html_entity_decode($parameters['edito'], ENT_COMPAT, 'utf-8'),'#1c4575'); ?>
 										</td>
 										<td style="line-height: 0; font-size: 0;" width="8"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/sep_w.gif" width="8" height="1" alt="" border="0" /></td>
 									</tr>
@@ -87,7 +87,7 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 										<td style="line-height: 0; font-size: 0;" width="11"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/sep_l_brown.gif" width="11" height="1" alt="" border="0" /></td>
 										<td width="312" valign="middle" align="left">
 											<?php if (!empty($parameters['zone_actu_title'])) {
-												printf('<font face="Arial, Arial, Helvetica, sans-serif" style="line-height: 19px; font-size: 15px;" size="2" color="#FFFFFF">%s</font>', htmlentities($parameters['zone_actu_title'], ENT_COMPAT, 'utf-8'));
+												printf('<font face="Arial, Arial, Helvetica, sans-serif" style="line-height: 19px; font-size: 15px;" size="2" color="#FFFFFF">%s</font>', $parameters['zone_actu_title']);
 											} ?>
 										</td>
 										<td style="line-height: 0; font-size: 0;" width="10" valign="top" align="right"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/title_round_corner_brown.gif" width="10" height="9" alt="" border="0" /></td>
@@ -126,7 +126,7 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 																<img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/bullet_1.gif" width="15" height="14" alt="" border="0" />
 															</td>
 															<td width="192" align="left">
-																<?php printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 12px;" size="2" color="#1f4344">%s</font>', nl2br(htmlentities($actu['title'], ENT_COMPAT, 'utf-8'))); ?>
+																<?php printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 12px;" size="2" color="#1f4344">%s</font>', nl2br($actu['title'])); ?>
 															</td>
 														</tr>
 														<tr style="line-height: 0; font-size: 0;" valign="top">
@@ -165,7 +165,7 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 										<td style="line-height: 0; font-size: 0;" width="11"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/sep_annexe_light.gif" width="11" height="1" alt="" border="0" /></td>
 										<td width="312" valign="middle" align="left">
 											<?php
-												printf('<font face="Arial, Arial, Helvetica, sans-serif" style="line-height: 19px; font-size: 15px;" size="2" color="#FFFFFF">%s</font>', htmlentities($parameters['zone_annexe_title'], ENT_COMPAT, 'utf-8'));
+												printf('<font face="Arial, Arial, Helvetica, sans-serif" style="line-height: 19px; font-size: 15px;" size="2" color="#FFFFFF">%s</font>', $parameters['zone_annexe_title']);
 											 ?>
 										</td>
 										<td style="line-height: 0; font-size: 0;" width="10" valign="top" align="right"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/title_round_corner_annexe.gif" width="10" height="9" alt="" border="0" /></td>
@@ -183,7 +183,7 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 										<td style="line-height: 0; font-size: 0;" width="7"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/sep_w.gif" width="7" height="1" alt="" border="0" /></td>
 										<td width="401" align="left">
 											<?php if (!empty($parameters['zone_annexe_content'])) {
-												printf('<p><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 12px;" size="2" color="#444444">%s</font></p>', nl2br(htmlentities($parameters['zone_annexe_content'], ENT_COMPAT, 'utf-8')));
+												printf('<p><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 12px;" size="2" color="#444444">%s</font></p>', nl2br($parameters['zone_annexe_content']));
 											}
 
 											if (!empty($parameters['zone_annexe_link'])) {
@@ -206,7 +206,7 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 									<tr valign="top" bgcolor="#004142">
 										<td style="line-height: 0; font-size: 0;" width="11"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/sep_experience_light.gif" width="11" height="1" alt="" border="0" /></td>
 										<td width="312" valign="middle" align="left">
-											<?php printf('<font face="Arial, Arial, Helvetica, sans-serif" style="line-height: 19px; font-size: 15px;" size="2" color="#FFFFFF">%s</font>', htmlentities($parameters['zone_experiences_title'], ENT_COMPAT, 'utf-8')); ?>
+											<?php printf('<font face="Arial, Arial, Helvetica, sans-serif" style="line-height: 19px; font-size: 15px;" size="2" color="#FFFFFF">%s</font>', $parameters['zone_experiences_title']); ?>
 										</td>
 										<td style="line-height: 0; font-size: 0;" width="10" valign="top" align="right"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/title_round_corner_experience.gif" width="10" height="9" alt="" border="0" /></td>
 										<td width="101" bgcolor="#FFFFFF"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/sep_w.gif" width="101" height="1" alt="" border="0" /></td>
@@ -243,10 +243,10 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 										<td width="116" align="left">
 										<?php
 										if (!empty($a_left['title'])) {
-											printf('<font face="Arial, Arial, Helvetica, sans-serif" style="font-weight:bold; line-height: 13px; font-size: 11px;" size="2" color="#1f4344">%s<br/></font>', nl2br(htmlentities($a_left['title'], ENT_COMPAT, 'utf-8')));
+											printf('<font face="Arial, Arial, Helvetica, sans-serif" style="font-weight:bold; line-height: 13px; font-size: 11px;" size="2" color="#1f4344">%s<br/></font>', nl2br($a_left['title']));
 										}
 										if (!empty($a_left['contenu'])) {
-											printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#444444">%s</font>', nl2br(htmlentities($a_left['contenu'], ENT_COMPAT, 'utf-8')));
+											printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#444444">%s</font>', nl2br($a_left['contenu']));
 										}
 									 ?>
 										</td>
@@ -258,10 +258,10 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 										<td width="118" align="left">
 										<?php
 											if (!empty($a_right['title'])) {
-												printf('<font face="Arial, Arial, Helvetica, sans-serif" style="font-weight:bold; line-height: 13px; font-size: 11px;" size="2" color="#1f4344">%s<br/></font>', nl2br(htmlentities($a_right['title'], ENT_COMPAT, 'utf-8')));
+												printf('<font face="Arial, Arial, Helvetica, sans-serif" style="font-weight:bold; line-height: 13px; font-size: 11px;" size="2" color="#1f4344">%s<br/></font>', nl2br($a_right['title']));
 											}
 											if (!empty($a_right['contenu'])) {
-												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#444444">%s</font>', nl2br(htmlentities($a_right['contenu'], ENT_COMPAT, 'utf-8')));
+												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#444444">%s</font>', nl2br($a_right['contenu']));
 											}
 										 ?>
 										</td>
@@ -308,10 +308,10 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 										<td width="324" align="left">
 										<?php
 										if (!empty($experience['title'])) {
-											printf('<font face="Arial, Arial, Helvetica, sans-serif" style="font-weight:bold; line-height: 13px; font-size: 11px;" size="2" color="#1f4344">%s<br/></font>', nl2br(htmlentities($experience['title'], ENT_COMPAT, 'utf-8')));
+											printf('<font face="Arial, Arial, Helvetica, sans-serif" style="font-weight:bold; line-height: 13px; font-size: 11px;" size="2" color="#1f4344">%s<br/></font>', nl2br($experience['title']));
 										}
 										if (!empty($experience['contenu'])) {
-											printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#444444">%s</font>', nl2br(htmlentities($experience['contenu'], ENT_COMPAT, 'utf-8')));
+											printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#444444">%s</font>', nl2br($experience['contenu']));
 										}
 										 ?>
 										</td>
@@ -360,10 +360,10 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 												<td style="line-height: 0; font-size: 0;" width="15" valign="top" align="left"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/bullet_2.gif" width="15" height="11" alt="" border="0" /></td>
 												<td width="235" align="left">
 													<?php if (!empty($breve['link'])) {
-														printf('<a style="color:#669933;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669933">%s</font></a>', czWidgetFormLink::displayLink($breve['link']) , nl2br(htmlentities($breve['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<a style="color:#669933;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669933">%s</font></a>', czWidgetFormLink::displayLink($breve['link']) , nl2br($breve['title']) );
 													}
 													else{
-														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669933">%s</font>', nl2br(htmlentities($breve['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669933">%s</font>', nl2br($breve['title']) );
 													}
 													 ?>
 												</td>
@@ -388,13 +388,13 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 												<td width="235" align="left">
 													<?php
 													if (!empty($agenda['date'])) {
-														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 13px; font-size: 11px;" size="2" color="#724617">%s<br/></font>', nl2br(htmlentities($agenda['date'], ENT_COMPAT, 'utf-8')) );
+														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 13px; font-size: 11px;" size="2" color="#724617">%s<br/></font>', nl2br($agenda['date']) );
 													}
 													if (!empty($agenda['link'])) {
-														printf('<a style="color:#cc9933;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#cc9933">%s</font></a>', czWidgetFormLink::displayLink($agenda['link']) , nl2br(htmlentities($agenda['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<a style="color:#cc9933;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#cc9933">%s</font></a>', czWidgetFormLink::displayLink($agenda['link']) , nl2br($agenda['title']) );
 													}
 													else{
-														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#cc9933">%s</font>', nl2br(htmlentities($agenda['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#cc9933">%s</font>', nl2br($agenda['title']) );
 													}
 													 ?>
 												</td>
@@ -419,10 +419,10 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 												<td width="139" align="left">
 													<?php
 													if (!empty($zoom['link'])) {
-														printf('<a style="color:#669999;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669999">%s</font></a>', czWidgetFormLink::displayLink($zoom['link']) , nl2br(htmlentities($zoom['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<a style="color:#669999;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669999">%s</font></a>', czWidgetFormLink::displayLink($zoom['link']) , nl2br($zoom['title']) );
 													}
 													else{
-														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669999">%s</font>', nl2br(htmlentities($zoom['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669999">%s</font>', nl2br($zoom['title']) );
 													}
 													 ?>
 												</td>
@@ -452,10 +452,10 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 												<td width="139" align="left">
 													<?php
 													if (!empty($savoir['link'])) {
-														printf('<a style="color:#669900;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669900">%s</font></a>', czWidgetFormLink::displayLink($savoir['link']) , nl2br(htmlentities($savoir['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<a style="color:#669900;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669900">%s</font></a>', czWidgetFormLink::displayLink($savoir['link']) , nl2br($savoir['title']) );
 													}
 													else{
-														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669900">%s</font>', nl2br(htmlentities($savoir['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#669900">%s</font>', nl2br($savoir['title']) );
 													}
 													 ?>
 
@@ -484,17 +484,17 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 											<tr valign="top">
 												<td width="82" align="right">
 													<?php if (!empty($chiffre['number'])) {
-														printf('<font face="Trebuchet MS, Trebuchet MS, sans-serif" style="line-height: 25px; font-size: 25px;" size="2" color="#a17926">%s</font>', htmlentities($chiffre['number'], ENT_COMPAT, 'utf-8'));
+														printf('<font face="Trebuchet MS, Trebuchet MS, sans-serif" style="line-height: 25px; font-size: 25px;" size="2" color="#a17926">%s</font>', $chiffre['number']);
 													} ?>
 												</td>
 												<td style="line-height: 0; font-size: 0;" width="16"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/astiaPlugin/images/newsletter2012/sep_w.gif" width="16" height="1" alt="" border="0" /></td>
 												<td width="144" align="left">
 													<?php
 													if (!empty($chiffre['link'])) {
-														printf('<a style="color:#cc6633;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#cc6633">%s</font></a>', czWidgetFormLink::displayLink($chiffre['link']) , nl2br(htmlentities($chiffre['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<a style="color:#cc6633;" href="%s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#cc6633">%s</font></a>', czWidgetFormLink::displayLink($chiffre['link']) , nl2br($chiffre['title']) );
 													}
 													else{
-														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#cc6633">%s</font>', nl2br(htmlentities($chiffre['title'], ENT_COMPAT, 'utf-8')) );
+														printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 13px; font-size: 11px;" size="2" color="#cc6633">%s</font>', nl2br($chiffre['title']) );
 													}
 													 ?>
 												</td>
@@ -529,7 +529,7 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 										<td colspan="3" width="527" align="left">
 											<?php
 											if (!empty($parameters['footer_title'])) {
-												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 11px;" size="2" color="#2d6375">%s</font>', htmlentities($parameters['footer_title'], ENT_COMPAT, 'utf-8'));
+												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 11px;" size="2" color="#2d6375">%s</font>', $parameters['footer_title']);
 											}
 											?>
 										</td>
@@ -542,7 +542,7 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 									<?php if (!empty($parameters['adress'])): ?>
 									<tr valign="top">
 										<td colspan="3" width="527" align="left">
-											<?php printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 10px;" size="2" color="#2d6375">SIÈGE ADMINISTRATIF - </font><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 10px;" size="2" color="#2d6375">%s</font>', htmlentities($parameters['adress'], ENT_COMPAT, 'utf-8')) ?>
+											<?php printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 10px;" size="2" color="#2d6375">SIÈGE ADMINISTRATIF - </font><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 10px;" size="2" color="#2d6375">%s</font>', $parameters['adress']) ?>
 										</td>
 									</tr>
 									<?php endif ?>
@@ -550,21 +550,21 @@ Si vous avez des difficultés pour visualiser ce message et ses images, <a style
 										<td width="134" align="left">
 											<?php
 											if (!empty($parameters['phone'])) {
-												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 10px;" size="2" color="#669933">Tél. :</font><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 10px;" size="2" color="#2d6375">%s</font>', htmlentities($parameters['phone'], ENT_COMPAT, 'utf-8'));
+												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 10px;" size="2" color="#669933">Tél. :</font><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 10px;" size="2" color="#2d6375">%s</font>', $parameters['phone']);
 											}
 											 ?>
 										</td>
 										<td width="132" align="left">
 											<?php
 											if (!empty($parameters['fax'])) {
-												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 10px;" size="2" color="#669933">Fax :</font><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 10px;" size="2" color="#2d6375">%s</font>', htmlentities($parameters['fax'], ENT_COMPAT, 'utf-8'));
+												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 10px;" size="2" color="#669933">Fax :</font><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 10px;" size="2" color="#2d6375">%s</font>', $parameters['fax']);
 											}
 											?>
 										</td>
 										<td width="261" align="left">
 											<?php
 											if (!empty($parameters['email'])) {
-												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 10px;" size="2" color="#669933">Email :</font><a style="color:#2d6375;" href="mailto:%1$s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 10px;" size="2" color="#2d6375">%1$s</font></a>', htmlentities($parameters['email'], ENT_COMPAT, 'utf-8'));
+												printf('<font face="Verdana, Verdana, Geneva, sans-serif" style="font-weight: bold; line-height: 15px; font-size: 10px;" size="2" color="#669933">Email :</font><a style="color:#2d6375;" href="mailto:%1$s" target="_blank"><font face="Verdana, Verdana, Geneva, sans-serif" style="line-height: 15px; font-size: 10px;" size="2" color="#2d6375">%1$s</font></a>', $parameters['email']);
 											}
 											?>
 										</td>
