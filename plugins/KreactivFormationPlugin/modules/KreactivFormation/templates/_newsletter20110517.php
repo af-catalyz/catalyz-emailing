@@ -24,16 +24,16 @@ body {
     <td width="27" height="0" align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
   <tr>
-    <td height="0" colspan="4" align="left" valign="top" bgcolor="#EFECDA"><img src="/KreactivFormation/images/newsletter20110517/header.png" width="600" height="232" /></td>
+    <td height="0" colspan="4" align="left" valign="top" bgcolor="#EFECDA"><img src="/KreactivFormationPlugin/images/newsletter20110517/header.png" width="600" height="232" /></td>
   </tr>
   <tr>
-    <td width="40" rowspan="2" align="left" valign="top" bgcolor="#EFECDA"><img src="/KreactivFormation/images/newsletter20110517/side1.png" width="40" height="278" /></td>
+    <td width="40" rowspan="2" align="left" valign="top" bgcolor="#EFECDA"><img src="/KreactivFormationPlugin/images/newsletter20110517/side1.png" width="40" height="278" /></td>
     <td height="0" colspan="2" align="center" valign="top" bgcolor="#EFECDA">
 	    <font face="Arial" style="line-height: 14px; font-size: 12px;font-weight: bold;" size="2" color="#000000">
 		    		Toute l’équipe de  Kreactiv <br />(Jean-Jacques, Frédérique, Elodie, Rui, Paul et Emmanuelle) <br />vous remercie chaleureusement pour votre présence, physique ou par la pensée.<br /><br />
 			</font>
     </td>
-    <td width="27" rowspan="2" align="left" valign="top" bgcolor="#EFECDA"><img src="/KreactivFormation/images/newsletter20110517/side2.png" width="30" height="278" /></td>
+    <td width="27" rowspan="2" align="left" valign="top" bgcolor="#EFECDA"><img src="/KreactivFormationPlugin/images/newsletter20110517/side2.png" width="30" height="278" /></td>
   </tr>
   <tr>
     <td height="329" colspan="2" align="left" valign="top" bgcolor="#EFECDA">
@@ -50,7 +50,7 @@ body {
   <tr>
     <td height="411" colspan="4" align="left" valign="top" bgcolor="#EFECDA"><table width="600" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="103" rowspan="6" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/quotes1.png" width="103" height="411" /></td>
+        <td width="103" rowspan="6" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/quotes1.png" width="103" height="411" /></td>
         <td colspan="2" align="left" valign="top">
            <table width="100%" cellpadding="0" cellspacing="0" border="0">
 	        	<tr>
@@ -65,7 +65,7 @@ body {
 					</table>
 
         </td>
-        <td width="85" rowspan="6" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/quotes2.png" width="89" height="411" /></td>
+        <td width="85" rowspan="6" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/quotes2.png" width="89" height="411" /></td>
       </tr>
       <tr>
         <td height="39" colspan="2" align="right" valign="top">
@@ -122,47 +122,47 @@ body {
     </table></td>
   </tr>
   <tr>
-    <td height="0" colspan="4" align="left" valign="top" bgcolor="#FFFFFF"><img src="/KreactivFormation/images/newsletter20110517/degrade.png" width="600" height="32" /></td>
+    <td height="0" colspan="4" align="left" valign="top" bgcolor="#FFFFFF"><img src="/KreactivFormationPlugin/images/newsletter20110517/degrade.png" width="600" height="32" /></td>
   </tr>
     <tr>
     <td height="0" colspan="4" align="left" valign="top" bgcolor="#FFFFFF">
     <table width="600" border="0" cellspacing="0" cellpadding="0">
       <tr>
-        <td width="40" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer1.png" width="40" height="107" /></td>
-        <td width="167" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td width="16" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
-        <td width="167" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td width="10" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
-        <td width="97" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer4.png" width="29" height="107" /></td>
+        <td width="40" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer1.png" width="40" height="107" /></td>
+        <td width="167" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td width="16" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
+        <td width="167" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td width="10" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
+        <td width="97" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer4.png" width="29" height="107" /></td>
       </tr>
       <tr>
-        <td colspan="7" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer1.png" width="40" height="10" /></td>
+        <td colspan="7" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer1.png" width="40" height="10" /></td>
       </tr>
       <tr>
-        <td width="40" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer1.png" width="40" height="107" /></td>
-        <td width="167" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td width="16" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
-        <td width="167" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td width="10" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
-        <td width="97" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer4.png" width="29" height="107" /></td>
+        <td width="40" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer1.png" width="40" height="107" /></td>
+        <td width="167" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td width="16" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
+        <td width="167" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td width="10" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
+        <td width="97" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer4.png" width="29" height="107" /></td>
       </tr>
       <tr>
-        <td colspan="7" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer1.png" width="40" height="10" /></td>
+        <td colspan="7" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer1.png" width="40" height="10" /></td>
       </tr>
       <tr>
-        <td width="40" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer1.png" width="40" height="107" /></td>
-        <td width="167" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td width="16" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
-        <td width="167" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td width="10" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
-        <td width="97" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
-        <td align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer4.png" width="29" height="107" /></td>
+        <td width="40" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer1.png" width="40" height="107" /></td>
+        <td width="167" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td width="16" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
+        <td width="167" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td width="10" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer2.png" width="15" height="107" /></td>
+        <td width="97" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/blank-photo.png" width="167" height="107" /></td>
+        <td align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer4.png" width="29" height="107" /></td>
       </tr>
 
       <tr>
-        <td colspan="7" align="left" valign="top"><img src="/KreactivFormation/images/newsletter20110517/spacer1.png" width="40" height="10" /></td>
+        <td colspan="7" align="left" valign="top"><img src="/KreactivFormationPlugin/images/newsletter20110517/spacer1.png" width="40" height="10" /></td>
       </tr>
     </table>
       </td>
@@ -181,7 +181,7 @@ body {
     <td height="0" align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
   <tr>
-    <td height="0" colspan="4" align="left" valign="top" bgcolor="#FFFFFF"><img src="/KreactivFormation/images/newsletter20110517/divider2.png" width="600" height="14" /></td>
+    <td height="0" colspan="4" align="left" valign="top" bgcolor="#FFFFFF"><img src="/KreactivFormationPlugin/images/newsletter20110517/divider2.png" width="600" height="14" /></td>
   </tr>
   <tr>
     <td width="40" height="0" align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
@@ -199,7 +199,7 @@ body {
     <td width="27" height="0" align="left" valign="top" bgcolor="#FFFFFF">&nbsp;</td>
   </tr>
   <tr>
-    <td height="0" colspan="4" align="left" valign="top" bgcolor="#FFFFFF"><img src="/KreactivFormation/images/newsletter20110517/footer.png" width="600" height="137" /></td>
+    <td height="0" colspan="4" align="left" valign="top" bgcolor="#FFFFFF"><img src="/KreactivFormationPlugin/images/newsletter20110517/footer.png" width="600" height="137" /></td>
   </tr>
 </table>
 </body>

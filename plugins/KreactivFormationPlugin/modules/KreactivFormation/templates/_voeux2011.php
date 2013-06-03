@@ -13,7 +13,7 @@
 <META NAME="language" content="french, français"/>
 <META NAME="location" content="Labastide Saint Pierre, France"/>
 
-	<link rel="shortcut icon" type="images/x-icon" href="http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/logo.ico" />
+	<link rel="shortcut icon" type="images/x-icon" href="http://emailing.kreactiv-formation.com/KreactivFormationPlugin/images/voeux2011/logo.ico" />
   	<link href="http://emailing.kreactiv-formation.com/KreactivFormation/css/styleKS.css" rel="stylesheet" type="text/css" />
 
 	<!--[if lte IE 6]>
@@ -31,7 +31,7 @@
 <div id="middle">
     <div id="top"><div id="logo"></div></div>
     <div id="mention">
-   	  <p><a href="http://emailing.kreactiv-formation.com/KreactivFormation/voeux2011.html"><img src="http://emailing.kreactiv-formation.com/KreactivFormation/images/voeux2011/voeux_2011.jpg" width="650" height="495" /></a></p>
+   	  <p><a href="http://emailing.kreactiv-formation.com/KreactivFormation/voeux2011.html"><img src="http://emailing.kreactiv-formation.com/KreactivFormationPlugin/images/voeux2011/voeux_2011.jpg" width="650" height="495" /></a></p>
     </div>
     <div id="footer"> 10 Place Nationale - 82000 MONTAUBAN - Tél. : 05 63 66 71 52 -  <a href="mailto:contact@kreactiv.fr">contact@kreactiv.fr</a></div>
 </div>

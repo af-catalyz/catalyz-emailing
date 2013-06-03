@@ -14,7 +14,7 @@
     </tr>
     <tr>
 		<td colspan="3" width="601" height="93">
-			<img id="logo_catalyz_emailing" src="/KreactivFormation/images/catalyzEmailing/logo_catalyz_emailing.jpg" width="601" height="93" alt="" /></td>
+			<img id="logo_catalyz_emailing" src="/KreactivFormationPlugin/images/catalyzEmailing/logo_catalyz_emailing.jpg" width="601" height="93" alt="" /></td>
 	</tr>
 	<tr>
 		<td height="95" colspan="3" valign="top">
@@ -23,7 +23,7 @@
   </tr>
 	<tr>
 		<td width="152" height="119">
-			<img id="lettre" src="/KreactivFormation/images/catalyzEmailing/lettre.jpg" width="152" height="119" alt="" /></td>
+			<img id="lettre" src="/KreactivFormationPlugin/images/catalyzEmailing/lettre.jpg" width="152" height="119" alt="" /></td>
 		<td width="297" height="119" align="center" valign="top">
        	<b style=" font-size: 16pt; color: #b4ba31; font-family: Arial, Helvetica, sans-serif;"><br/>
    	  Qui a reçu votre email ?<br/>
@@ -37,7 +37,7 @@
   </tr>
 	<tr>
 		<td colspan="3" width="601" height="15">
-			<img id="etoiles" src="/KreactivFormation/images/catalyzEmailing/etoiles.jpg" width="601" height="15" alt="" /></td>
+			<img id="etoiles" src="/KreactivFormationPlugin/images/catalyzEmailing/etoiles.jpg" width="601" height="15" alt="" /></td>
 	</tr>
 	<tr>
 		<td colspan="3" height="90">
@@ -45,7 +45,7 @@
 	</tr>
 	<tr>
 		<td colspan="3" width="601" height="267">
-	      <a href="http://www.kreactiv.fr/catalyz-emailing.html" target="_blank"><img src="/KreactivFormation/images/catalyzEmailing/Robot.jpg" alt="" name="Robot" width="601" height="267" border="none" id="Robot" /></a></td>
+	      <a href="http://www.kreactiv.fr/catalyz-emailing.html" target="_blank"><img src="/KreactivFormationPlugin/images/catalyzEmailing/Robot.jpg" alt="" name="Robot" width="601" height="267" border="none" id="Robot" /></a></td>
   </tr>
 	<tr>
 		<td width="601" height="81" colspan="3" align="center" bgcolor="#dbdbdb">

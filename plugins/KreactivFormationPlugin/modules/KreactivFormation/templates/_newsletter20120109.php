@@ -15,7 +15,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/sep.gif" width="1" height="100" alt="" border="0" /></td>
+			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/sep.gif" width="1" height="100" alt="" border="0" /></td>
 			<td align="right">
 					<font face="Arial, Helvetica, sans-serif;" style="font-weight: bold; line-height: 60px; font-size: 56px;" size="2" color="#9F1920">
 						INVITATION
@@ -31,19 +31,19 @@
 					</font>
 
 			</td>
-			<td width="61"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/sep.gif" width="1" height="100" alt="" border="0" /></td>
+			<td width="61"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/sep.gif" width="1" height="100" alt="" border="0" /></td>
 		</tr>
 		<tr>
-			<td colspan="3"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/graphic.jpg" height="260" width="600" alt="" /></td>
+			<td colspan="3"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/graphic.jpg" height="260" width="600" alt="" /></td>
 		</tr>
 	</table>
 
 	<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#BD1723">
 		<tr>
-			<td colspan="3"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/red.gif" height="10" width="1" alt=""/></td>
+			<td colspan="3"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/red.gif" height="10" width="1" alt=""/></td>
 		</tr>
 		<tr valign="top">
-			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/red.gif" width="87" height="1" alt="" border="0" /></td>
+			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/red.gif" width="87" height="1" alt="" border="0" /></td>
 			<td width="426">
 				<?php
 
@@ -54,19 +54,19 @@
 				}
 				?>
 			</td>
-			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/red.gif" width="87" height="1" alt="" border="0" /></td>
+			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/red.gif" width="87" height="1" alt="" border="0" /></td>
 		</tr>
 		<tr>
-			<td colspan="3"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/red.gif" height="10" width="1" alt="" /></td>
+			<td colspan="3"><img style="display: block;" src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/red.gif" height="10" width="1" alt="" /></td>
 		</tr>
 	</table>
 
 	<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#868A8D">
 		<tr>
-			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/grey.gif" width="1" height="10" alt="" border="0" /></td>
+			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/grey.gif" width="1" height="10" alt="" border="0" /></td>
 		</tr>
 		<tr align="center">
-			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/grey.gif" width="1" height="1" alt="" border="0" /></td>
+			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/grey.gif" width="1" height="1" alt="" border="0" /></td>
 			<td width="426">
 					<?php
 					if (!empty($parameters['bottom_content'])) {
@@ -74,19 +74,19 @@
 					}
 					?>
 			</td>
-			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/grey.gif" width="1" height="1" alt="" border="0" /></td>
+			<td width="87"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/grey.gif" width="1" height="1" alt="" border="0" /></td>
 		</tr>
 		<tr>
-			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/grey.gif" width="1" height="10" alt="" border="0" /></td>
+			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/grey.gif" width="1" height="10" alt="" border="0" /></td>
 		</tr>
 	</table>
 
 	<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
 		<tr>
-			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/sep.gif" width="1" height="10" alt="" border="0" /></td>
+			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/sep.gif" width="1" height="10" alt="" border="0" /></td>
 		</tr>
 		<tr align="center">
-			<td width="40"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/sep.gif" width="1" height="1" alt="" border="0" /></td>
+			<td width="40"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/sep.gif" width="1" height="1" alt="" border="0" /></td>
 			<td width="520">
 					<font face="Arial, Helvetica, sans-serif;" style="line-height: 13px; font-size: 10px;" size="2" color="#868A8D">
 						Conform&eacute;ment &agrave; la loi Informatique et Libert&eacute;s du 06/01/1978, vous disposez d'un droit d'acc&egrave;s,<br />
@@ -95,10 +95,10 @@
 						Si vous souhaitez vous d&eacute;sinscrire, <a style="color: #868a8d;" href="#UNSUBSCRIBE#">cliquez ici</a>.
 					</font>
 			</td>
-			<td width="40"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/sep.gif" width="1" height="1" alt="" border="0" /></td>
+			<td width="40"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/sep.gif" width="1" height="1" alt="" border="0" /></td>
 		</tr>
 		<tr>
-			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20120109/sep.gif" width="1" height="10" alt="" border="0" /></td>
+			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20120109/sep.gif" width="1" height="10" alt="" border="0" /></td>
 		</tr>
 	</table>
 

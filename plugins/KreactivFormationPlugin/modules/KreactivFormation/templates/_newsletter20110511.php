@@ -19,21 +19,21 @@
 	</table>
 	<table width="600" bgcolor="#b6ae92" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr>
-			<td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/header_top.gif" alt="" width="600" height="109" border="0" /></td>
+			<td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/header_top.gif" alt="" width="600" height="109" border="0" /></td>
 		</tr>
 		<tr>
-			<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_top.gif" alt="" width="5" height="1" border="0" /></td>
+			<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_top.gif" alt="" width="5" height="1" border="0" /></td>
 			<td width="158">
 				<?php if (isset($parameters['title'])) {
 					printf('<font face="Arial" style="line-height: 15px; font-size: 11px; " size="2" color="#212221">%s</font>', $parameters['title']);
 				} ?>
 			</td>
-			<td width="437"><img src="/KreactivFormation/images/newsletter20110511/header_bottom_right.gif" alt="" width="437" height="41" border="0" /></td>
+			<td width="437"><img src="/KreactivFormationPlugin/images/newsletter20110511/header_bottom_right.gif" alt="" width="437" height="41" border="0" /></td>
 		</tr>
 	</table>
 	<table width="600" bgcolor="#FFFFFF" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr>
-			<td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep.gif" alt="" width="1" height="1" border="0" /></td>
+			<td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep.gif" alt="" width="1" height="1" border="0" /></td>
 		</tr>
 		<tr valign="top">
 			<!-- PREMIERE COLONNE  MARRON CLAIR -->
@@ -41,26 +41,26 @@
 				<?php if (isset($parameters['main_content'])) : ?>
 				<table width="100%" cellspacing="0" cellpadding="0" border="0">
 				<?php foreach($parameters['main_content'] as $article): ?>
-					<tr><td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="2" height="5" border="0" /></td></tr>
+					<tr><td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="2" height="5" border="0" /></td></tr>
 					<tr>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="2" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="2" height="1" border="0" /></td>
 						<td width="334">
 							<font face="Arial" style="line-height: 28px; font-size: 24px; " size="2" color="#fffce2">
-								<?php echo $article['section'] ?><img src="/KreactivFormation/images/newsletter20110511/swirls_light.gif" alt="" width="35" height="19" border="0" />
+								<?php echo $article['section'] ?><img src="/KreactivFormationPlugin/images/newsletter20110511/swirls_light.gif" alt="" width="35" height="19" border="0" />
 							</font>
 						</td>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="2" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="2" height="1" border="0" /></td>
 					</tr>
-					<tr><td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="2" height="5" border="0" /></td></tr>
+					<tr><td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="2" height="5" border="0" /></td></tr>
 					<tr>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="2" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="2" height="1" border="0" /></td>
 						<td width="334">
 							<table width="100%" cellspacing="0" cellpadding="0" border="0">
 								<tr valign="top">
 									<td width="105"><?php if($article['illustration']){
 											echo thumbnail_tag($article['illustration'], 105, 200, array('border' => 0, 'alt' => ''));
 									} ?></td>
-									<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="2" height="1" border="0" /></td>
+									<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="2" height="1" border="0" /></td>
 									<td width="224">
 
 										<font face="Arial" style="line-height: 22px; font-size: 18px; " size="2" color="#222221">
@@ -81,49 +81,49 @@
 								</tr>
 							</table>
 						</td>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="5" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="5" height="1" border="0" /></td>
 					</tr>
-					<tr><td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="2" height="5" border="0" /></td></tr>
+					<tr><td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="2" height="5" border="0" /></td></tr>
 					<tr>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="5" height="1" border="0" /></td>
-						<td width="334"><img src="/KreactivFormation/images/newsletter20110511/filet.gif" alt="" width="334" height="1" border="0" /></td>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="5" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="5" height="1" border="0" /></td>
+						<td width="334"><img src="/KreactivFormationPlugin/images/newsletter20110511/filet.gif" alt="" width="334" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="5" height="1" border="0" /></td>
 					</tr>
-					<tr><td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep_light.gif" alt="" width="2" height="5" border="0" /></td></tr>
+					<tr><td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_light.gif" alt="" width="2" height="5" border="0" /></td></tr>
 					<?php endforeach; ?>
 
 				</table>
 				<?php endif ?>
 			</td>
 			<!-- FILET BLANC-->
-			<td width="1"><img src="/KreactivFormation/images/newsletter20110511/sep.gif" alt="" width="1" height="1" border="0" /></td>
+			<td width="1"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep.gif" alt="" width="1" height="1" border="0" /></td>
 
 
 			<!-- DEUXIEME COLONNE MARRON FONCE-->
 			<td valign="top" bgcolor="#5e584a" width="255">
 				<?php if (isset($parameters['case_study'])) : ?>
 				<table width="100%" cellspacing="0" cellpadding="0" border="0">
-					<tr><td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="5" border="0" /></td></tr>
+					<tr><td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="5" border="0" /></td></tr>
 					<tr>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
 						<td width="245">
 							<font face="Arial" style="line-height: 28px; font-size: 24px; " size="2" color="#fffce2">
-								Réalisations<img src="/KreactivFormation/images/newsletter20110511/swirls_dark.gif" alt="" width="35" height="19" border="0" />
+								Réalisations<img src="/KreactivFormationPlugin/images/newsletter20110511/swirls_dark.gif" alt="" width="35" height="19" border="0" />
 							</font>
 						</td>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
 					</tr>
 					<?php foreach($parameters['case_study'] as $casestudy): ?>
-					<tr><td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="5" border="0" /></td></tr>
+					<tr><td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="5" border="0" /></td></tr>
 					<tr>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
 						<td colspan="2"><?php if($casestudy['illustration']){
 							echo thumbnail_tag($casestudy['illustration'], 249, 249, array('border' => 0, 'alt' => ''));
 						} ?></td>
 					</tr>
-					<tr><td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="5" border="0" /></td></tr>
+					<tr><td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="5" border="0" /></td></tr>
 					<tr>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
 						<td width="245">
 							<font face="Arial" style="line-height: 22px; font-size: 18px; " size="2" color="#b1ab8f">
 								<?php echo $casestudy['title'] ?>
@@ -137,7 +137,7 @@
 							}
 							?>
 						</td>
-						<td width="5"><img src="/KreactivFormation/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
+						<td width="5"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep_dark.gif" alt="" width="2" height="1" border="0" /></td>
 					</tr>
 					<?php endforeach; ?>
 				</table>
@@ -145,12 +145,12 @@
 			</td>
 		</tr>
 		<tr>
-			<td colspan="3"><img src="/KreactivFormation/images/newsletter20110511/sep.gif" alt="" width="1" height="1" border="0" /></td>
+			<td colspan="3"><img src="/KreactivFormationPlugin/images/newsletter20110511/sep.gif" alt="" width="1" height="1" border="0" /></td>
 		</tr>
 	</table>
 	<table width="600" bgcolor="#fffce2" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr>
-			<td><img src="/KreactivFormation/images/newsletter20110511/footer_top.gif" alt="" width="600" height="51" border="0" /></td>
+			<td><img src="/KreactivFormationPlugin/images/newsletter20110511/footer_top.gif" alt="" width="600" height="51" border="0" /></td>
 		</tr>
 		<tr align="center">
 			<td>

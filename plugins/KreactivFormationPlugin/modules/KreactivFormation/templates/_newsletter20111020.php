@@ -16,12 +16,12 @@
 		</tr>
 		<tr>
 			<td colspan="2" style="font-size: 0; line-height: 0;">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/img_01.png" width="599" height="113" alt="" border="0" />
+				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/img_01.png" width="599" height="113" alt="" border="0" />
 			</td>
 		</tr>
 		<tr>
 			<td colspan="2" style="font-size: 0; line-height: 0;">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/img_02.jpg" width="599" height="190" alt="" border="0" />
+				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/img_02.jpg" width="599" height="190" alt="" border="0" />
 			</td>
 		</tr>
 		<tr bgcolor="#bb8f46">
@@ -31,19 +31,19 @@
 				} ?>
 			</td>
 			<td width="216" style="font-size: 0; line-height: 0;" valign="top" align="right">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/img_03.png" width="216" height="38" alt="" border="0" />
+				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/img_03.png" width="216" height="38" alt="" border="0" />
 			</td>
 		</tr>
 	</table>
 	<table width="599" bgcolor="#FFFFFF" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr>
 			<td>
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_w.gif" width="1" height="15" alt="" border="0" />
+				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_w.gif" width="1" height="15" alt="" border="0" />
 			</td>
 		</tr>
 		<tr valign="top">
 			<td width="15" style="font-size: 0; line-height: 0;">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_w.gif" width="15" height="1" alt="" border="0" />
+				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_w.gif" width="15" height="1" alt="" border="0" />
 			</td>
 			<td width="305">
 				<?php if (!empty($parameters['page_content'])) {
@@ -51,20 +51,20 @@
 				} ?>
 			</td>
 			<td width="15" style="font-size: 0; line-height: 0;">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_w.gif" width="15" height="1" alt="" border="0" />
+				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_w.gif" width="15" height="1" alt="" border="0" />
 			</td>
 			<td valign="top" width="264" bgcolor="#e5e5e5">
 				<table width="264" bgcolor="#e5e5e5" align="center" cellspacing="0" cellpadding="0" border="0">
 					<tr>
 						<td colspan="3" width="264" style="font-size: 0; line-height: 0;">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/img_04.png" width="264" height="52" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/img_04.png" width="264" height="52" alt="" border="0" />
 							<br/>
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
 						</td>
 					</tr>
 					<tr>
 						<td width="10">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="1" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="1" alt="" border="0" />
 						</td>
 						<td width="247" align="center">
 							<?php
@@ -84,22 +84,22 @@
 						 ?>
 						</td>
 						<td width="7">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="7" height="1" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="7" height="1" alt="" border="0" />
 						</td>
 					</tr>
 					<tr>
 						<td colspan="3" width="264" style="font-size: 0; line-height: 0;">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
 							<br/>
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/img_06.png" width="264" height="10" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/img_06.png" width="264" height="10" alt="" border="0" />
 							<br/>
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
 
 						</td>
 					</tr>
 					<tr>
 						<td width="10">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="1" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="1" alt="" border="0" />
 						</td>
 						<td width="247" align="center">
 							<?php
@@ -119,22 +119,22 @@
 							 ?>
 						</td>
 						<td width="7">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="7" height="1" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="7" height="1" alt="" border="0" />
 						</td>
 					</tr>
 					<tr>
 						<td colspan="3" width="264" style="font-size: 0; line-height: 0;">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
 							<br/>
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/img_06.png" width="264" height="10" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/img_06.png" width="264" height="10" alt="" border="0" />
 							<br/>
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
 
 						</td>
 					</tr>
 					<tr>
 						<td width="10">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="1" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="1" alt="" border="0" />
 						</td>
 						<td width="247" align="center">
 							<?php
@@ -144,14 +144,14 @@
 							?>
 						</td>
 						<td width="7">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="7" height="1" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="7" height="1" alt="" border="0" />
 						</td>
 					</tr>
 					<tr>
 						<td colspan="3" width="264" style="font-size: 0; line-height: 0;">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_g.gif" width="10" height="10" alt="" border="0" />
 							<br/>
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/img_05.png" width="264" height="52" alt="" border="0" />
+							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/img_05.png" width="264" height="52" alt="" border="0" />
 						</td>
 					</tr>
 				</table>
@@ -161,7 +161,7 @@
 	<table width="599" bgcolor="#FFFFFF" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr  style="font-size: 0; line-height: 0;">
 			<td>
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormation/images/newsletter20111020/sep_w.gif" width="1" height="20" alt="" border="0" />
+				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/KreactivFormationPlugin/images/newsletter20111020/sep_w.gif" width="1" height="20" alt="" border="0" />
 			</td>
 		</tr>
 		<tr>
