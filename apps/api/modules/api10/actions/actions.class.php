@@ -4,10 +4,10 @@ class api10Actions extends sfActions {
     protected $outputFormat = null;
     protected $outputSerializer = null;
 
-		const STATUS_SAVE = 'save';
-		const STATUS_SCHEDULE = 'schedule';
-		const STATUS_SENDING = 'sending';
-		const STATUS_SENT = 'sent';
+    const STATUS_SAVE = 'save';
+    const STATUS_SCHEDULE = 'schedule';
+    const STATUS_SENDING = 'sending';
+    const STATUS_SENT = 'sent';
 
     public function executeIndex($request)
     {
@@ -92,7 +92,7 @@ class api10Actions extends sfActions {
         $criteria->addAscendingOrderByColumn(ContactGroupPeer::NAME);
 
         $result = array();
-        foreach(ContactGroupPeer::doSelect($criteria) as /*(ContactGroup)*/$group) {
+        foreach(ContactGroupPeer::doSelect($criteria) as/*(ContactGroup)*/ $group) {
             $item = array();
             $item['id'] = $group->getId();
             $item['name'] = $group->getName();
@@ -135,8 +135,6 @@ class api10Actions extends sfActions {
         }
 
         $this->logCall(sprintf('listSubscribe(%d, %s, %s)', $id, $email_address, $this->arrayToString($attributes)));
-
-
 
         $group = ContactGroupPeer::retrieveByPK($id);
         if (null == $group) {
@@ -221,58 +219,58 @@ class api10Actions extends sfActions {
     {
         $this->logCall('campaigns()');
 
-	    	//region arguments
-	    	$start = $request->getParameter('start', 0);
-	    	$filters = $request->getParameter('filters', array());
-	    	$limit = $request->getParameter('limit', false);
-	    	//endregion
+        //region arguments
+        $start = $request->getParameter('start', 0);
+        $filters = $request->getParameter('filters', array());
+        $limit = $request->getParameter('limit', false);
+        //endregion
 
         $criteria = new Criteria();
         $criteria->addSelectColumn(CampaignPeer::ID);
         $criteria->addSelectColumn(CampaignPeer::NAME);
-    		$criteria->addSelectColumn(CampaignPeer::STATUS);
-    		$criteria->addJoin( CampaignContactPeer::CAMPAIGN_ID, CampaignPeer::ID, criteria::RIGHT_JOIN);
-    		$criteria->addSelectColumn(CampaignContactPeer::SENT_AT);
+        $criteria->addSelectColumn(CampaignPeer::STATUS);
+        $criteria->addJoin(CampaignContactPeer::CAMPAIGN_ID, CampaignPeer::ID, criteria::RIGHT_JOIN);
+        $criteria->addSelectColumn(CampaignContactPeer::SENT_AT);
         $criteria->addDescendingOrderByColumn(CampaignContactPeer::SENT_AT);
-				$criteria->addGroupByColumn(CampaignPeer::ID);
-    		$criteria->setOffset($start);
+        $criteria->addGroupByColumn(CampaignPeer::ID);
+        $criteria->setOffset($start);
 
-    		if (!empty($filters['status'])) {
-    			$status = array();
-    			foreach ($filters['status'] as $statusId){
-    				switch($statusId){
-    					case self::STATUS_SAVE:
-    						$status[]= Campaign::STATUS_DRAFT;
-    						break;
-    					case self::STATUS_SCHEDULE:
-    						$status[]= Campaign::STATUS_SCHEDULED;
-    						break;
-    					case self::STATUS_SENDING:
-    						$status[]= Campaign::STATUS_SENDING;
-    						break;
-    					case self::STATUS_SENT:
-    						$status[]= Campaign::STATUS_COMPLETED;
-    						break;
-    				} // switch
-    			}
+        if (!empty($filters['status'])) {
+            $status = array();
+            foreach ($filters['status'] as $statusId) {
+                switch ($statusId) {
+                    case self::STATUS_SAVE:
+                        $status[] = Campaign::STATUS_DRAFT;
+                        break;
+                    case self::STATUS_SCHEDULE:
+                        $status[] = Campaign::STATUS_SCHEDULED;
+                        break;
+                    case self::STATUS_SENDING:
+                        $status[] = Campaign::STATUS_SENDING;
+                        break;
+                    case self::STATUS_SENT:
+                        $status[] = Campaign::STATUS_COMPLETED;
+                        break;
+                } // switch
+            }
 
-    			if (!empty($status)) {
-    				$criteria->add(CampaignPeer::STATUS, $status, Criteria::IN);
-    			}
-    		}
+            if (!empty($status)) {
+                $criteria->add(CampaignPeer::STATUS, $status, Criteria::IN);
+            }
+        }
 
-    		if ($limit) {
-    			$criteria->setLimit($limit);
-    		}
+        if ($limit) {
+            $criteria->setLimit($limit);
+        }
 
         $result = array();
-        foreach(CampaignPeer::doSelectRS($criteria) as $id => $campaign) {
-						$item = array();
+        foreach(CampaignPeer::doSelectStmt($criteria) as $id => $campaign) {
+            $item = array();
             $item['id'] = $campaign[0];
             $item['name'] = $campaign[1];
             $item['status'] = $campaign[2];
             $item['sent_at'] = $campaign[3];
-            $item['view_url'] = sprintf('/campaign/view/%s',  $campaign[0]);
+            $item['view_url'] = sprintf('/campaign/view/%s', $campaign[0]);
             $result[$item['id']] = $item;
         }
         return $result;
