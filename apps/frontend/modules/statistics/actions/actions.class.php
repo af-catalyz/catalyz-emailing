@@ -251,7 +251,7 @@ class statisticsActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s', sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()), CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+        $response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s', sprintf('%s_%s_%s_clics.xlsx', CatalyzEmailing::slug($campaign->getName()), CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
         $response->setHttpHeader('Content-Length', filesize($tempFilename));
         $response->sendHttpHeaders();
         readfile($tempFilename);
@@ -263,7 +263,7 @@ class statisticsActions extends sfActions {
     {
         $this->forward404Unless($campaign =/*(Campaign)*/ CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
-        $this->spreadsheet = CampaignExportStatsForm::getExportOpenSheet(array($campaign->getId()));
+        $this->spreadsheet = CampaignExportStatsForm::getExportTargetSheet(array($campaign->getId()));
 
         $objWriter = new PHPExcel_Writer_Excel2007($this->spreadsheet);
         $tempFilename = tempnam(sfConfig::get('sf_app_cache_dir'), 'export');
@@ -271,7 +271,7 @@ class statisticsActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s', sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()), CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+        $response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s', sprintf('%s_%s_%s_cibles.xlsx', CatalyzEmailing::slug($campaign->getName()), CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
         $response->setHttpHeader('Content-Length', filesize($tempFilename));
         $response->sendHttpHeaders();
         readfile($tempFilename);
@@ -291,7 +291,7 @@ class statisticsActions extends sfActions {
 
         $response = $this->getResponse();
         $response->setContentType('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s', sprintf('%s_%s_%s.xlsx', CatalyzEmailing::slug($campaign->getName()), CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
+        $response->setHttpHeader('Content-Disposition', sprintf('attachment; filename=%s', sprintf('%s_%s_%s_ouvertures.xlsx', CatalyzEmailing::slug($campaign->getName()), CatalyzEmailing::slug($sheetTitle), date('Ymd'))));
         $response->setHttpHeader('Content-Length', filesize($tempFilename));
         $response->sendHttpHeaders();
         readfile($tempFilename);
