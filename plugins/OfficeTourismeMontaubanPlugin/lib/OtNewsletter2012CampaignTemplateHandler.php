@@ -12,12 +12,12 @@ class OtNewsletter2012CampaignTemplateHandler extends CampaignTemplateHandler {
 
 	public function compute($parameters)
 	{
-		sfLoader::loadHelpers('Partial');
-		return get_partial('OfficeTourismeMontaubanPlugin/newsletter2012', array('parameters' => $parameters));
+		sfContext::getInstance()->getConfiguration()->loadHelpers('Partial');
+		return get_partial('OfficeTourismeMontauban/newsletter2012', array('parameters' => $parameters));
 	}
 
 	public function getEditPartialName(){
-		return 'OfficeTourismeMontaubanPlugin/newsletter2012_edit';
+		return 'OfficeTourismeMontauban/newsletter2012_edit';
 	}
 }
 

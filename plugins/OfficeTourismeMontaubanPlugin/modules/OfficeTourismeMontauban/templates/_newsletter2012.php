@@ -4,6 +4,11 @@
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=iso-8859-1" />
 </head>
+<?php
+$parameters = unEscape($parameters);
+$renderer = new CatalyzEmailRenderer('Arial','#669933','line-height: 16px; font-size: 12px;');
+?>
+
 <body link="#FFFFFF">
 	<table width="848" bgcolor="#ebede2" align="center" cellspacing="0" cellpadding="0" border="0" style="page-break-inside : avoid;">
 		<tr>
@@ -44,7 +49,7 @@
 						<td width="150" align="center">
 							<?php
 							if (!empty($parameters['date'])) {
-								printf('<font face="Arial" style="font-size: 11px;font-weight:bold;line-height: 12px;" size="2" color="#FFFFFF">%s</font>', $parameters['date']);
+								printf('<font face="Arial" style="font-size: 11px;font-weight:bold;line-height: 12px;" size="2" color="#FFFFFF">%s</font>', htmlentities($parameters['date'], ENT_COMPAT, 'utf-8'));
 							}
 							?>
 						</td>
@@ -107,9 +112,7 @@
 					<tr>
 						<td width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep.gif" alt="" width="14" height="1" border="0" /></td>
 						<td width="772">
-							<?php
-								printf('<font face="Arial" style="font-size: 12px;" size="2" color="#FFFFFF">%s</font>', $parameters['zoom_content']);
-							?>
+							<?php $renderer->renderWysiwyg( utf8_decode($parameters['zoom_content']),'#FFFFFF'); ?>
 						</td>
 						<td width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep.gif" alt="" width="14" height="1" border="0" /></td>
 						<td width="1" bgcolor="#4c5133"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep_color.gif" alt="" width="1" height="1" border="0" /></td>
@@ -131,6 +134,9 @@
 	<?php endif ?>
 
 	<?php
+
+	$renderer->setColor('#FFFFFF');
+
 	$style = array();
 	$style['manifestation'] = array('color' => '#091e2b', 'image' => '/OfficeTourismeMontaubanPlugin/images/newsletter2012/img_03.gif');
 	$style['musique'] = array('color' => '#610812', 'image' => '/OfficeTourismeMontaubanPlugin/images/newsletter2012/img_04.gif');
@@ -278,7 +284,7 @@
 						<td align="left">
 							<?php
 							if ($left != NULL) {
-								printf('<font face="Arial" style="font-size: 12px;" size="2" color="#FFFFFF">%s</font>', $left['content']);
+								$renderer->renderWysiwyg( utf8_decode($left['content']),'#FFFFFF');
 							}
 							?>
 						</td>
@@ -295,7 +301,7 @@
 						<td align="left">
 							<?php
 							if ($right != NULL) {
-								printf('<font face="Arial" style="font-size: 12px;" size="2" color="#FFFFFF">%s</font>', $right['content']);
+								$renderer->renderWysiwyg( utf8_decode($right['content']),'#FFFFFF');
 							}
 							?>
 						</td>
@@ -350,7 +356,7 @@
 						<td width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep.gif" alt="" width="14" height="1" border="0" /></td>
 						<td width="772">
 							<?php
-								printf('<font face="Arial" style="font-size: 12px;" size="2" color="#FFFFFF">%s</font>', $parameters['visites']);
+								$renderer->renderWysiwyg( utf8_decode($parameters['visites']),'#FFFFFF');
 							?>
 						</td>
 						<td width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep.gif" alt="" width="14" height="1" border="0" /></td>
@@ -416,9 +422,9 @@
 
 							<?php
 
-							$renderer = new CatalyzEmailRenderer('Arial','#FFFFFF','line-height: 16px; font-size: 12px;');
-							$renderer->renderWysiwyg($parameters['contact_content'],'#FFFFFF');
 
+
+								$renderer->renderWysiwyg( utf8_decode($parameters['contact_content']),'#FFFFFF');
 
 							 ?>
 
