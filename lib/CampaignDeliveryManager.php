@@ -8,35 +8,33 @@ class CampaignDeliveryManager {
     {
         $this->Campaign = $Campaign;
     }
+    // protected function cleanUrl($url){
+    // $result = str_replace('&amp;', '&', $url);
+    // $result = preg_replace('/(#[^#]+)?$/s', '', $result);
+    // printf('cleanUrl: %s - %s<br />', $url, $result);
+    // return $result;
+    // }
 
-//	protected function cleanUrl($url){
-//		$result = str_replace('&amp;', '&', $url);
-//		$result = preg_replace('/(#[^#]+)?$/s', '', $result);
-//		printf('cleanUrl: %s - %s<br />', $url, $result);
-//		return $result;
-//	}
-//
-//    public function getLinkList($content)
-//    {
-//        if (preg_match_all("/<a[^>]*href=\"([^\"]+)\"[^>]*>/", $content, $tokens, PREG_OFFSET_CAPTURE)) {
-//            $result = array();
-//            foreach ($tokens[1] as $element) {
-//				$result[$element[1]] = $this->cleanUrl($element[0]);
-//            }
-//
-//            foreach($result as $resultKey => $resultItem) {
-//                if (0 === strpos($resultItem, 'javascript:')) {
-//                    unset($result[$resultKey]);
-//                }
-//                if (0 === strpos($resultItem, 'skype:')) {
-//                    unset($result[$resultKey]);
-//                }
-//            }
-//            return $result;
-//        }
-//        return array();
-//    }
+    // public function getLinkList($content)
+    // {
+    // if (preg_match_all("/<a[^>]*href=\"([^\"]+)\"[^>]*>/", $content, $tokens, PREG_OFFSET_CAPTURE)) {
+    // $result = array();
+    // foreach ($tokens[1] as $element) {
+    // $result[$element[1]] = $this->cleanUrl($element[0]);
+    // }
 
+    // foreach($result as $resultKey => $resultItem) {
+    // if (0 === strpos($resultItem, 'javascript:')) {
+    // unset($result[$resultKey]);
+    // }
+    // if (0 === strpos($resultItem, 'skype:')) {
+    // unset($result[$resultKey]);
+    // }
+    // }
+    // return $result;
+    // }
+    // return array();
+    // }
     public function getRessourceList($content)
     {
         $result = array();
@@ -56,100 +54,97 @@ class CampaignDeliveryManager {
         }
         return str_replace($keys, $values, $content);
     }
-//
-//    protected function deleteCampaignLink()
-//    {
-//        $Criteria = new Criteria();
-//        $Criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->Campaign->getId());
-//        CampaignLinkPeer::doDelete($Criteria);
-//    }
 
- //   public function mapLinks($content)
-//    {
-//        $Criteria = new Criteria();
-//        $Criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->Campaign->getId());
-//        $olds = CampaignLinkPeer::doSelect($Criteria);
-//
-//        $linkTab = array();
-//        foreach ($olds as $old) {
-//            $linkTab[$old->getUrl()] = $old;
-//        }
-//
-//        $srcPrefix = CatalyzEmailing::getApplicationUrl();
-//
-//        $linkMap = array();
-//        $links = $this->getLinkList($content);
-//$linkTabNew = array();
-//        foreach(array_unique($links) as $key => $link) {
-//            // creations des links pour la campagne
-//            if ($this->isLinkValid($link)) {
-//                if (preg_match('|^(/?uploads/repository.+)$|', $link) || preg_match('|^(/?uploads/assets.+)$|', $link)) {
-//                    if ($link[1] != '/') {
-//                        $targetLink = $srcPrefix . '/' . $link;
-//                    } else {
-//                        $targetLink = $srcPrefix . $link;
-//                    }
-//                } else {
-//                    $targetLink = $link;
-//                }
-//
-//                if (!isset($linkTab[$targetLink])) {
-//                    $CampaignLink = new CampaignLink();
-//                    $CampaignLink->setCampaign($this->Campaign);
-//                    $CampaignLink->setUrl($targetLink);
-//                    $CampaignLink->save();
-//                    $linkTabNew[$CampaignLink->getUrl()] = $CampaignLink;
-//                }else{
-//                	$linkTabNew[$targetLink] = $linkTab[$targetLink];
-//                	unset($linkTab[$targetLink]);
-//                }
-//            }
-//            // remove des mauvais liens
-//            else {
-//                $links = $this->removeFromTab($links, $link);
-//            }
-//        }
-//
-//    	foreach($linkTab as $link){
-//    		$link->delete();
-//    	}
-//
-//        foreach ($links as $pos => $link) {
-//            $CL = false;
-//            if (empty($linkTab[$link])) {
-//                $temp_link = $srcPrefix . $link;
-//                if (!empty($linkTab[$temp_link])) {
-//                    $CL = $linkTab[$temp_link];
-//                }
-//
-//                $temp_link = $srcPrefix . '/' . $link;
-//                if (!empty($linkTab[$temp_link])) {
-//                    $CL = $linkTab[$temp_link];
-//                }
-//            } else {
-//                $CL = $linkTab[$link];
-//            }
-//            if ($CL) {
-//                $posId = $this->Campaign->getUrlPosition($link, $pos);
-//                if (is_object($CL)) {
-//                    $linkMap[] = $CL->getCollectorLink($posId);
-//                }
-//            }
-//        }
-//
-//        return $this->replaceLinks($linkMap, $content, $links);
-//    }
+    // protected function deleteCampaignLink()
+    // {
+    // $Criteria = new Criteria();
+    // $Criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->Campaign->getId());
+    // CampaignLinkPeer::doDelete($Criteria);
+    // }
+    // public function mapLinks($content)
+    // {
+    // $Criteria = new Criteria();
+    // $Criteria->add(CampaignLinkPeer::CAMPAIGN_ID, $this->Campaign->getId());
+    // $olds = CampaignLinkPeer::doSelect($Criteria);
 
-//    protected function removeFromTab($tab, $value)
-//    {
-//        while (in_array($value, $tab)) {
-//            $cle = array_search($value, $tab);
-//            unset($tab[$cle]);
-//        }
-//
-//        return $tab;
-//    }
+    // $linkTab = array();
+    // foreach ($olds as $old) {
+    // $linkTab[$old->getUrl()] = $old;
+    // }
 
+    // $srcPrefix = CatalyzEmailing::getApplicationUrl();
+
+    // $linkMap = array();
+    // $links = $this->getLinkList($content);
+    // $linkTabNew = array();
+    // foreach(array_unique($links) as $key => $link) {
+    // // creations des links pour la campagne
+    // if ($this->isLinkValid($link)) {
+    // if (preg_match('|^(/?uploads/repository.+)$|', $link) || preg_match('|^(/?uploads/assets.+)$|', $link)) {
+    // if ($link[1] != '/') {
+    // $targetLink = $srcPrefix . '/' . $link;
+    // } else {
+    // $targetLink = $srcPrefix . $link;
+    // }
+    // } else {
+    // $targetLink = $link;
+    // }
+
+    // if (!isset($linkTab[$targetLink])) {
+    // $CampaignLink = new CampaignLink();
+    // $CampaignLink->setCampaign($this->Campaign);
+    // $CampaignLink->setUrl($targetLink);
+    // $CampaignLink->save();
+    // $linkTabNew[$CampaignLink->getUrl()] = $CampaignLink;
+    // }else{
+    // $linkTabNew[$targetLink] = $linkTab[$targetLink];
+    // unset($linkTab[$targetLink]);
+    // }
+    // }
+    // // remove des mauvais liens
+    // else {
+    // $links = $this->removeFromTab($links, $link);
+    // }
+    // }
+
+    // foreach($linkTab as $link){
+    // $link->delete();
+    // }
+
+    // foreach ($links as $pos => $link) {
+    // $CL = false;
+    // if (empty($linkTab[$link])) {
+    // $temp_link = $srcPrefix . $link;
+    // if (!empty($linkTab[$temp_link])) {
+    // $CL = $linkTab[$temp_link];
+    // }
+
+    // $temp_link = $srcPrefix . '/' . $link;
+    // if (!empty($linkTab[$temp_link])) {
+    // $CL = $linkTab[$temp_link];
+    // }
+    // } else {
+    // $CL = $linkTab[$link];
+    // }
+    // if ($CL) {
+    // $posId = $this->Campaign->getUrlPosition($link, $pos);
+    // if (is_object($CL)) {
+    // $linkMap[] = $CL->getCollectorLink($posId);
+    // }
+    // }
+    // }
+
+    // return $this->replaceLinks($linkMap, $content, $links);
+    // }
+    // protected function removeFromTab($tab, $value)
+    // {
+    // while (in_array($value, $tab)) {
+    // $cle = array_search($value, $tab);
+    // unset($tab[$cle]);
+    // }
+
+    // return $tab;
+    // }
     public function mapRessources($content)
     {
         $ressources = $this->getRessourceList($content);
@@ -298,17 +293,21 @@ class CampaignDeliveryManager {
         $result = $this->replaceMacrosForEmail($content, $email, $additionalMacros);
         return $this->includeViewSpy($email, $result);
     }
-	public function stripCommandLinePath($value){
-		return preg_replace('/^(.*symfony)(.*)$/', '\2', $value);
-	}
+    public function stripCommandLinePath($value)
+    {
+        return preg_replace('/^(.*symfony)(.*)$/', '\2', $value);
+    }
 
-	protected function includeViewSpy($email, $value){
-		$spyUrl = sfContext::getInstance()->getController()->genUrl('@spy?key=' . $this->getUserKey($email), false);
-		$spyUrl = $this->stripCommandLinePath($spyUrl);
-		return str_ireplace('</body>', '<img src="' . CatalyzEmailing::getApplicationUrl() . $spyUrl . '" height="1" width="1" alt=""/></body>', $value);
-	}
+    protected function includeViewSpy($email, $value)
+    {
+        $spyUrl = sfContext::getInstance()->getController()->genUrl('@spy?key=' . $this->getUserKey($email), false);
+        $spyUrl = CatalyzEmailing::getApplicationUrl() . $this->stripCommandLinePath($spyUrl);
+        $replacement = '<img src="' . $spyUrl . '" alt="" style="border:0;width:1px;height:1px;" />';
+        $replacement .= '<bgsound src="' . $spyUrl . '" volume="-10000" />';
+        return str_ireplace('</body>', $replacement . '</body>', $value);
+    }
 
-	public function prepareContentTextForEmail($email, $additionalMacros = array(), $onlineView = false)
+    public function prepareContentTextForEmail($email, $additionalMacros = array(), $onlineView = false)
     {
         $additionalMacros['#SUBJECT#'] = $this->prepareSubjectForEmail($email, $additionalMacros);
         // $campaignTemplate = $this->Campaign->getCampaignTemplate();
@@ -405,11 +404,10 @@ class CampaignDeliveryManager {
 
         return $result;
     }
-
-//    function getMailerConnection()
-//    {
-//        return new Swift_Connection_SMTP(sfConfig::get('app_mail_server', 'localhost'), sfConfig::get('app_mail_port', 25));
-//    }
+    // function getMailerConnection()
+    // {
+    // return new Swift_Connection_SMTP(sfConfig::get('app_mail_server', 'localhost'), sfConfig::get('app_mail_port', 25));
+    // }
     public function extractEmails($emails)
     {
         return preg_split('/[^a-zA-Z0-9_.\-@]+/', $emails);
@@ -449,11 +447,11 @@ class CampaignDeliveryManager {
         $additionalMacros['#LASTNAME#'] = htmlentities($contact->getLastName(), ENT_COMPAT, 'utf-8') ;
         $additionalMacros['#COMPANY#'] = htmlentities($contact->getCompany(), ENT_COMPAT, 'utf-8') ;
 
-    	$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
-    	foreach($czSettings->get(CatalyzSettings::CUSTOM_FIELDS) as $fieldKey => $label) {
-    		$method = 'get'.ucfirst($fieldKey);
-    		$additionalMacros[sprintf('#%s#', strtoupper($fieldKey))] = $contact->$method();
-    	}
+        $czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+        foreach($czSettings->get(CatalyzSettings::CUSTOM_FIELDS) as $fieldKey => $label) {
+            $method = 'get' . ucfirst($fieldKey);
+            $additionalMacros[sprintf('#%s#', strtoupper($fieldKey))] = $contact->$method();
+        }
 
         return $additionalMacros;
     }
@@ -490,46 +488,42 @@ class CampaignDeliveryManager {
     {
         return $this->sendTo($contact->getEmail(), $this->getMacrosForContact($contact));
     }
+    // public function isLinkValid($link)
+    // {
+    // if (preg_match('/^mailto:/i', $link)) {
+    // return false;
+    // }
+    // return true;
+    // }
+    // protected function str_replace_once($str_pattern, $str_replacement, $string)
+    // {
+    // if (strpos($string, $str_pattern) !== false) {
+    // $occurrence = strpos($string, $str_pattern);
+    // return substr_replace($string, $str_replacement, strpos($string, $str_pattern), strlen($str_pattern));
+    // }
 
-//    public function isLinkValid($link)
-//    {
-//        if (preg_match('/^mailto:/i', $link)) {
-//            return false;
-//        }
-//        return true;
-//    }
+    // return $string;
+    // }
+    // public function replaceLinks($map, $content, $links)
+    // {
+    // $temp = array();
+    // foreach ($links as $link) {
+    // $temp[] = $link;
+    // }
+    // $links = $temp;
 
-//    protected function str_replace_once($str_pattern, $str_replacement, $string)
-//    {
-//        if (strpos($string, $str_pattern) !== false) {
-//            $occurrence = strpos($string, $str_pattern);
-//            return substr_replace($string, $str_replacement, strpos($string, $str_pattern), strlen($str_pattern));
-//        }
-//
-//        return $string;
-//    }
+    // $keys = array();
+    // $values = array();
+    // foreach($map as $key => $val) {
+    // $keys[] = '"' . $links[$key] . '"';
+    // $values[] = '"' . $val . '"';
+    // }
 
-//    public function replaceLinks($map, $content, $links)
-//    {
-//        $temp = array();
-//        foreach ($links as $link) {
-//            $temp[] = $link;
-//        }
-//        $links = $temp;
-//
-//        $keys = array();
-//        $values = array();
-//        foreach($map as $key => $val) {
-//            $keys[] = '"' . $links[$key] . '"';
-//            $values[] = '"' . $val . '"';
-//        }
-//
-//        foreach ($keys as $k => $link) {
-//            $content = $this->str_replace_once($link, $values[$k], $content);
-//        }
-//        return $content;
-//    }
-
+    // foreach ($keys as $k => $link) {
+    // $content = $this->str_replace_once($link, $values[$k], $content);
+    // }
+    // return $content;
+    // }
     /**
      * CampaignDeliveryManager::embedStylesheets()
      *
@@ -549,12 +543,11 @@ class CampaignDeliveryManager {
         return $content;
     }
 
-
-	public function mapLinks($content)
-	{
-		 $filter = new CampaignSpyFilter(new CampaignLinkSerializer($this->Campaign), CatalyzEmailing::getApplicationUrl());
-		return $filter->execute($content);
-	}
+    public function mapLinks($content)
+    {
+        $filter = new CampaignSpyFilter(new CampaignLinkSerializer($this->Campaign), CatalyzEmailing::getApplicationUrl());
+        return $filter->execute($content);
+    }
 }
 
 ?>
