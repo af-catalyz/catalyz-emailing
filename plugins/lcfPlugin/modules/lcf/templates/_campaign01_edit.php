@@ -20,9 +20,10 @@ $formatter->renderField('left_content');
 $formatter->renderField('left_links');
 
 $formatter->nextTab();
-$formatter->renderField('right_links');
+
 $formatter->renderField('right_title');
 $formatter->renderField('right_content');
+$formatter->renderField('right_links');
 $formatter->renderField('right_illustration');
 $formatter->renderField('footer');
 

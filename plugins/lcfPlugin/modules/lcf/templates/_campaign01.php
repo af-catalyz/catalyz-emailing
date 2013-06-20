@@ -138,9 +138,9 @@
                         	<font face="Arial, sans-serif" style="text-transform:uppercase; line-height:16px; font-weight:bold; font-size: 12px;text-align:center; color:#527461"><?php echo $parameters["left_title"]; ?></font>
                         </td>
                     </tr>
-                  	 <tr valign="top">
+                  	 <!--tr valign="top">
                             <td height="10" bgcolor="#ffffff"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_white.jpg" width="1" height="1" alt="" border="0" /></td>
-                        </tr>
+                        </tr-->
                    	<tr valign="top">
                     	<td bgcolor="#ffffff">
                         <?php if (!empty($parameters["left_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["left_content"]), "#666666"); } ?>
@@ -165,27 +165,43 @@
                             <?php endforeach; endif; ?>
 						</td>
                     </tr>
+                    <?php if(!empty($parameters["left_illustration"])): ?>
+                    <?php if(empty($parameters["left_content"]) && empty($parameters["left_links"])): ?>
+
+                    <tr valign="top">
+                    	<td bgcolor="#ffffff"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_white.jpg" width="1" height="25" alt="" border="0" /></td>
+                    </tr>
+                    <?php endif ?>
                    <tr valign="top">
                     	<td align="center" bgcolor="#ffffff">
-                        <?php if(isset($parameters["left_illustration"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl().thumbnail_path($parameters["left_illustration"], 236, false); ?>" width="236" alt="" border="0" /><?php } ?>
+                        <img src="<?php echo CatalyzEmailing::getApplicationUrl().thumbnail_path($parameters["left_illustration"], 236, false); ?>" width="236" alt="" border="0" />
                         </td>
                     </tr>
+                    <?php endif ?>
                 </table>
             </td>
             <td width="32" bgcolor="#ffffff"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/sep_vertical.jpg" width="32" height="100%" alt="" border="0" /></td>
-          	  <td width="272">
+          	  <td width="272" bgcolor="#ffffff">
             	  <table width="272" align="center" cellspacing="0" cellpadding="0" border="0">
                		 <tr valign="top">
                     	<td height="27" bgcolor="#ffffff"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_white.jpg" width="1" height="1" alt="" border="0" /></td>
                     </tr>
+
+
+                    <?php if (
+                    !empty($parameters["right_content"]) ||
+                    !empty($parameters["right_links"]) ||
+                    !empty($parameters["right_illustration"])
+										) : ?>
+
                 	<tr valign="top">
                     	<td bgcolor="#ffffff">
                         	<font face="Arial, sans-serif" style="text-transform:uppercase; line-height: 16px; font-size:12px; font-weight:bold;text-align:center; color:#527461"><?php echo $parameters["right_title"]; ?></font>
                         </td>
                     </tr>
-                      	 <tr valign="top">
+                      	 <!--tr valign="top">
                             <td height="10" bgcolor="#ffffff"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_white.jpg" width="1" height="1" alt="" border="0" /></td>
-                        </tr>
+                        </tr-->
                    	<tr valign="top">
                     	<td bgcolor="#ffffff">
                          <?php if (!empty($parameters["right_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(html_entity_decode($parameters["right_content"]), "#666666"); } ?>
@@ -213,6 +229,9 @@
                     	<td><img src="<?php echo CatalyzEmailing::getApplicationUrl().thumbnail_path($parameters["right_illustration"], 272, false); ?>" width="272" alt="" border="0" /></td>
                     </tr>
                     <?php endif; ?>
+
+                    <?php endif ?>
+
                      <tr valign="top">
                     	<td><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/pros_sep_img.jpg" width="272" height="24" alt="" border="0" /></td>
                     </tr>
