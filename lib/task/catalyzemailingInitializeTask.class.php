@@ -434,6 +434,14 @@ EOF;
                 $template->setInitializer('sudprojetCampaign01TemplateInitializer');
                 $template->setTemplate(false);
                 $template->save();
+
+		        		$template = new CampaignTemplate();
+		        		$template->setName('Invitation');
+		        		$template->setClassName('sudprojetInvitationCampaignTemplateHandler');
+		        		$template->setPreviewFilename('/sudprojetPlugin/images/invitation.jpg');
+		        		$template->setInitializer('sudprojetInvitationTemplateInitializer');
+		        		$template->setTemplate(false);
+		        		$template->save();
         				break;
         	case 'comparex':
         		$template = new CampaignTemplate();
