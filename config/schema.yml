@@ -7,7 +7,7 @@ propel:
     company:            {type: varchar(255) }
     email:              {type: varchar(255), required: true, index: unique }
     status:             {type: integer }
-    external_reference: {type: integer }
+    external_reference: {type: varchar(22) }
     custom1:            {type: varchar(255) }
     custom2:            {type: varchar(255) }
     custom3:            {type: varchar(255) }

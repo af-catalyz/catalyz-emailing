@@ -19,7 +19,7 @@ CREATE TABLE `contact`
 	`company` VARCHAR(255),
 	`email` VARCHAR(255)  NOT NULL,
 	`status` INTEGER,
-	`external_reference` INTEGER,
+	`external_reference` VARCHAR(22),
 	`custom1` VARCHAR(255),
 	`custom2` VARCHAR(255),
 	`custom3` VARCHAR(255),

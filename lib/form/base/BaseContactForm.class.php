@@ -47,7 +47,7 @@ abstract class BaseContactForm extends BaseFormPropel
       'company'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'email'                         => new sfValidatorString(array('max_length' => 255)),
       'status'                        => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
-      'external_reference'            => new sfValidatorInteger(array('min' => -2147483648, 'max' => 2147483647, 'required' => false)),
+      'external_reference'            => new sfValidatorString(array('max_length' => 22, 'required' => false)),
       'custom1'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'custom2'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
       'custom3'                       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
