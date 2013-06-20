@@ -63,15 +63,34 @@
 
 <table width="611" align="center" cellspacing="0" cellpadding="0" border="0">
 <?php if (isset($parameters["articles"]) && is_array($parameters["articles"])): foreach($parameters["articles"] as $articles): ?>
-        <tr valign="top">
+        <?php if (!empty($articles["title"])) : ?>
+
+				<tr valign="top">
+        	<td width="16" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
+       	  <td width="155" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
+            <td width="15" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
+		  <td width="427" bgcolor="#f7fcfe">
+                    <table width="427" align="center" cellspacing="0" cellpadding="0" border="0">
+                    <tr valign="top">
+                   	  <td ><font face="Arial, sans-serif" style="text-transform:uppercase; line-height: 16px; font-size: 12px;text-align:center; font-weight:bold; color:#527461"><?php echo $articles["title"]; ?></font></td>
+                    </tr>
+                    </table>
+          </td>
+        </tr>
+        <?php endif ?>
+
+     		<tr valign="top">
         	<td width="16" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
        	  <td width="155" bgcolor="#f7fcfe">
-            <table cellspacing="0" cellpadding="0" border="0">
-            <tr valign="top">
-                	<td width="155" bgcolor="#f7fcfe"><?php if(isset($articles["illustration"])){ echo thumbnail_tag($articles["illustration"], 155, false); } ?></td>
+            <table width="155" bgcolor="#f7fcfe" cellspacing="0" cellpadding="0" border="0">
+            	<tr valign="top">
+                	<td width="155"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="18" alt="" border="0" /></td>
               </tr>
-            <tr valign="top">
-                	<td width="155" height="25" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
+							<tr valign="top">
+                	<td width="155"><?php if(isset($articles["illustration"])){ echo thumbnail_tag($articles["illustration"], 155, false); } ?></td>
+              </tr>
+            	<tr valign="top">
+                	<td width="155" height="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
               </tr>
             </table>
 
@@ -79,9 +98,6 @@
             <td width="15" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
 		  <td width="427" bgcolor="#f7fcfe">
                     <table width="427" align="center" cellspacing="0" cellpadding="0" border="0">
-                    <tr valign="top">
-                   	  <td colspan="3"><font face="Arial, sans-serif" style="text-transform:uppercase; line-height: 16px; font-size: 12px;text-align:center; font-weight:bold; color:#527461"><?php echo $articles["title"]; ?></font></td>
-                    </tr>
                 	<tr valign="top">
                    	  <td colspan="3">
                         	<?php if (!empty($articles["content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "#666666", "line-height: 14px; font-size: 10px; color:#666666"); echo $renderer->renderWysiwyg(html_entity_decode($articles["content"]), "#666666"); } ?>
@@ -114,7 +130,10 @@
                     </tr>
                     </table>
           </td>
-        </tr><?php endforeach; endif; ?>
+        </tr>
+
+
+				<?php endforeach; endif; ?>
         </table>
         <table width="611" align="center" cellspacing="0" cellpadding="0" border="0">
    		   <tr>
