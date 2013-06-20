@@ -1,5 +1,5 @@
 <?php
-class sudprojetCampaign01Form extends sfForm {
+class sudprojetCampaign01Form extends czForm {
 	protected function createWidget($attributes = array())
 	{
 		return new sfWidgetFormTextareaTinyMCE(
@@ -19,8 +19,6 @@ class sudprojetCampaign01Form extends sfForm {
 	{
 		parent::configure();
 
-		//number,edito,main_content,grey_title,grey_content,grey_link,grey_picture,other_articles,adress,email,website_adress,zip,city,phone,fax
-
 		//region number
 		$this->widgetSchema['number'] = new sfWidgetFormInput(array(),array('label' => 'Numéro/date','style'=>"width:400px"));
 		$this->validatorSchema['number'] = new sfValidatorString(array('required' => false));
@@ -28,9 +26,7 @@ class sudprojetCampaign01Form extends sfForm {
 		//endregion
 
 		//region edito
-		$this->widgetSchema['edito'] =  $this->createWidget(array('label' => 'Edito')) ;
-		$this->validatorSchema['edito'] = new sfValidatorString(array('required' => false));
-		$this->getWidgetSchema()->setHelp('edito', '');
+		$this->addWysiwygField('edito', 'Edito');
 		//endregion
 
 		//region main_content
