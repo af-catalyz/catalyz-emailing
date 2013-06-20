@@ -1,7 +1,7 @@
 SET AUTOCOMMIT=0;
 START TRANSACTION;
 
-UPDATE `af_catalyz3_emailingV14`.`campaign_template` SET `template` = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+UPDATE `campaign_template` SET `template` = '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 		"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 	<title>#SUBJECT#</title>
