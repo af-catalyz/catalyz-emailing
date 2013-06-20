@@ -90,16 +90,24 @@
                     <tr valign="top">
                		  <td colspan="3" height="10" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
                     </tr>
+                    <?php if (!empty($articles['link_url'])) : ?>
                     <tr valign="top">
                            	 <td width="16" bgcolor="#f7fcfe"><?php if(isset($articles["link_url"])){ ?><a style="margin-top:5px; margin-right:5px;" href="<?php echo czWidgetFormLink::displayLink($articles["link_url"]); ?>" target="_blank"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bullet_1.jpg" width="16" height="16" alt="" border="0" /></a><?php } ?></td>
                                 <td width="8" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
                                 <td width="403" bgcolor="#f7fcfe"><?php if(isset($articles["link_title"])){ ?><font face="Arial, sans-serif" style="text-transform:uppercase; line-height: 14px; font-size: 10px; color:#527461"><a style="color:#527461; text-decoration:none;" href="<?php echo $articles["link_url"]; ?>" target="_blank"><?php echo $articles["link_title"]; ?></a></font><?php } ?></td>
                       </tr>
-                      <tr valign="top">
+                    <?php endif ?>
+
+                    <?php if (!empty($articles['link2_url'])) : ?>
+                    <tr valign="top">
                            	 <td width="16" bgcolor="#f7fcfe"><?php if(isset($articles["link2_url"])){ ?><a style="margin-top:5px; margin-right:5px;" href="<?php echo czWidgetFormLink::displayLink($articles["link2_url"]); ?>" target="_blank"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bullet_1.jpg" width="16" height="16" alt="" border="0" /></a><?php } ?></td>
                                 <td width="8" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
                                 <td width="403" bgcolor="#f7fcfe"><?php if(isset($articles["link2_title"])){ ?><font face="Arial, sans-serif" style="text-transform:uppercase; line-height: 14px; font-size: 10px; color:#527461"><a style="color:#527461; text-decoration:none;" href="<?php echo $articles["link2_url"]; ?>" target="_blank"><?php echo $articles["link2_title"]; ?></a></font><?php } ?></td>
                       </tr>
+                    <?php endif ?>
+
+
+
 
                     <tr valign="top">
                    		 <td height="10" bgcolor="#f7fcfe"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/lcfPlugin/images/campaign01/bg_light_green.jpg" width="1" height="1" alt="" border="0" /></td>
