@@ -764,6 +764,15 @@
 		<tr>
 			<td colspan="5"><img src="/OfficeTourismeMontaubanPlugin/images/newsletter2011/sep.gif" alt="" width="801" height="25" border="0" /></td>
 		</tr>
+
+		<tr>
+			<td colspan="5" align="center">
+				<font face="Arial" style="font-size: 10px; line-height: 14px;" size="2" color="#000000">Conformément à la loi Informatique et Libertés du 06/01/1978, vous disposez d'un droit d'accès, de rectification et d'opposition aux informations<br/>vous concernant qui peut s'exercer par e-mail à
+<a style="color: #000000;" href="mailto:info@montauban-tourisme.com">info@montauban-tourisme.com</a> ou en cliquant sur ce lien de
+<a style="color: #000000;" href="#UNSUBSCRIBE#">désinscription</a>.
+</font></td>
+		</tr>
+
 	</table>
 
 </body>
