@@ -102,11 +102,11 @@ $parameters = unEscape($parameters);
 										<table bgcolor="#ededed" width="156" cellpadding="0" cellspacing="0" border="0">
 											<tr valign="top">
 												<td bgcolor="#ededed" style="line-height:0; font-size: 0;" width="14">
-													<img src="<?php echo CatalyzEmailing::getApplicationUrl(); ?>/sudprojetPlugin/images/invitation/bullet_2.gif" width="9" height="9" alt="" border="0" />
+													<img src="<?php echo CatalyzEmailing::getApplicationUrl(); ?>/sudprojetPlugin/images/invitation/bullet_2.gif" width="9" height="11" alt="" border="0" />
 												</td>
 												<td width="142">
 													<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#003366">
-														<?php if(isset($programme['time'])){ echo $programme['time'];} ?> <img src="<?php echo CatalyzEmailing::getApplicationUrl(); ?>/sudprojetPlugin/images/invitation/bullet_3.gif" width="4" height="4" alt="" border="0" /> <?php if(isset($programme['title'])){ echo $programme['title'];} ?>
+														<?php if(isset($programme['time'])){ echo $programme['time'];} ?> <img src="<?php echo CatalyzEmailing::getApplicationUrl(); ?>/sudprojetPlugin/images/invitation/bullet_3.gif" width="4" height="6" alt="" border="0" /> <?php if(isset($programme['title'])){ echo $programme['title'];} ?>
 													</font>
 													<?php if(isset($programme['sub_title'])): ?>
 														<br />
