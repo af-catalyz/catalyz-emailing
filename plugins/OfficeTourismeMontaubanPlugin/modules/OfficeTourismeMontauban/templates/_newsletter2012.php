@@ -112,7 +112,7 @@ $renderer = new CatalyzEmailRenderer('Arial','#669933','line-height: 16px; font-
 					<tr>
 						<td width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep.gif" alt="" width="14" height="1" border="0" /></td>
 						<td width="772">
-							<?php $renderer->renderWysiwyg( utf8_decode($parameters['zoom_content']),'#FFFFFF'); ?>
+							<?php $renderer->renderWysiwyg( $parameters['zoom_content'],'#FFFFFF'); ?>
 						</td>
 						<td width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep.gif" alt="" width="14" height="1" border="0" /></td>
 						<td width="1" bgcolor="#4c5133"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep_color.gif" alt="" width="1" height="1" border="0" /></td>
@@ -284,7 +284,7 @@ $renderer = new CatalyzEmailRenderer('Arial','#669933','line-height: 16px; font-
 						<td align="left">
 							<?php
 							if ($left != NULL) {
-								$renderer->renderWysiwyg( utf8_decode($left['content']),'#FFFFFF');
+								$renderer->renderWysiwyg( $left['content'],'#FFFFFF');
 							}
 							?>
 						</td>
@@ -301,7 +301,7 @@ $renderer = new CatalyzEmailRenderer('Arial','#669933','line-height: 16px; font-
 						<td align="left">
 							<?php
 							if ($right != NULL) {
-								$renderer->renderWysiwyg( utf8_decode($right['content']),'#FFFFFF');
+								$renderer->renderWysiwyg( $right['content'],'#FFFFFF');
 							}
 							?>
 						</td>
@@ -356,7 +356,7 @@ $renderer = new CatalyzEmailRenderer('Arial','#669933','line-height: 16px; font-
 						<td width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep.gif" alt="" width="14" height="1" border="0" /></td>
 						<td width="772">
 							<?php
-								$renderer->renderWysiwyg( utf8_decode($parameters['visites']),'#FFFFFF');
+								$renderer->renderWysiwyg( $parameters['visites'],'#FFFFFF');
 							?>
 						</td>
 						<td width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/OfficeTourismeMontaubanPlugin/images/newsletter2012/sep.gif" alt="" width="14" height="1" border="0" /></td>
@@ -424,7 +424,7 @@ $renderer = new CatalyzEmailRenderer('Arial','#669933','line-height: 16px; font-
 
 
 
-								$renderer->renderWysiwyg( utf8_decode($parameters['contact_content']),'#FFFFFF');
+								$renderer->renderWysiwyg( $parameters['contact_content'],'#FFFFFF');
 
 							 ?>
 
