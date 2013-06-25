@@ -140,7 +140,7 @@
 							      </table>
 							  	<table width="335" cellspacing="0" cellpadding="0" border="0">
                                     <tr valign="top">
-							       		<td width="335" height="203" valign="middle">
+							       		<td width="318" height="203" valign="middle">
 							       			<?php if (!empty($parameters["intro_card"])) { $renderer = new CatalyzEmailRenderer("Arial", "", "line-height:12px; font-size:12px; color:#3f3033"); echo $renderer->renderWysiwyg($parameters["intro_card"], "#3f3033"); } ?>
 				       			<?php if (isset($parameters["card"]) && is_array($parameters["card"])):?><?php foreach($parameters["card"] as $card): ?>
 
@@ -155,6 +155,7 @@
    											</font>
 
                                       <?php endforeach;?><?php endif; ?><br /><br />  </td>
+                                      <td width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/bg_w.gif" width="17" height="1" alt="" border="0" /></td>
 							       	</tr>
 							    </table>
 			      		 </td>
@@ -242,7 +243,7 @@
    					<br /><?php echo nl2br(htmlentities(utf8_decode($parameters["adresse"]))); ?><br />
    				</font>
 				<font face="Arial" style="line-height:13px; font-size:11px;" size="2" color="#ffffff">
-					Tel : <?php if(isset($parameters["tel"])){ ?><?php echo $parameters["tel"]; ?><?php } ?> - Email : <?php if(isset($parameters["email"])){ ?><a href="mailto:<?php echo $parameters["email"]; ?>" style="text-decoration:none; color:#ffffff;">magmoissac@fleuronsdelomagne.com</a><?php } ?>
+					Tel : <?php if(isset($parameters["tel"])){ ?><?php echo $parameters["tel"]; ?><?php } ?> - Email : <?php if(isset($parameters["email"])){ ?><a href="mailto:<?php echo $parameters["email"]; ?>" style="text-decoration:none; color:#ffffff;"><?php echo $parameters["email"]; ?></a><?php } ?>
    				</font>
       		 </td>
       		 <td style="line-height:0; font-size: 0;" width="67">

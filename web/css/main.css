@@ -65,3 +65,7 @@
 	display: inline;
 	margin: 0 0 0 10px;
 }
+
+#groups_holder .label{
+	white-space: pre-wrap;
+}
