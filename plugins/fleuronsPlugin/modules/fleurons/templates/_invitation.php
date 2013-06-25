@@ -54,7 +54,9 @@
    				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/bg.gif" width="35" height="1" alt="" border="0" />
       		 </td>
        		<td width="527">
-       			<?php if (!empty($parameters["top_letter_content"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:16px; font-size:12px; color:#ffffff"); echo $renderer->renderWysiwyg(utf8_decode($parameters["top_letter_content"]), ""); } ?>
+       			<?php if (!empty($parameters["top_letter_content"])) {
+       				$renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:16px; font-size:12px; color:#ffffff");
+       				echo $renderer->renderWysiwyg($parameters["top_letter_content"], "#ffffff"); } ?>
       		 </td>
       		 <td style="line-height:0; font-size: 0;" width="38">
    				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/bg.gif" width="38" height="1" alt="" border="0" />
@@ -139,7 +141,7 @@
 							  	<table width="335" cellspacing="0" cellpadding="0" border="0">
                                     <tr valign="top">
 							       		<td width="335" height="203" valign="middle">
-							       			<?php if (!empty($parameters["intro_card"])) { $renderer = new CatalyzEmailRenderer("Arial", "", "line-height:12px; font-size:12px; color:#3f3033"); echo $renderer->renderWysiwyg(utf8_decode($parameters["intro_card"]), ""); } ?>
+							       			<?php if (!empty($parameters["intro_card"])) { $renderer = new CatalyzEmailRenderer("Arial", "", "line-height:12px; font-size:12px; color:#3f3033"); echo $renderer->renderWysiwyg($parameters["intro_card"], "#3f3033"); } ?>
 				       			<?php if (isset($parameters["card"]) && is_array($parameters["card"])):?><?php foreach($parameters["card"] as $card): ?>
 
                                             <?php if(isset($card["event_name"])){ ?>
@@ -179,7 +181,7 @@
    				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/signature.jpg" width="235" height="58" alt="" border="0" />
       		 </td>
        		<td width="250">
-       			<?php if (!empty($parameters["signature"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:14px; font-size:12px; color:#ffffff"); echo $renderer->renderWysiwyg(utf8_decode($parameters["signature"]), ""); } ?></td>
+       			<?php if (!empty($parameters["signature"])) { $renderer = new CatalyzEmailRenderer("Arial, sans-serif", "", "line-height:14px; font-size:12px; color:#ffffff"); echo $renderer->renderWysiwyg($parameters["signature"], "#ffffff"); } ?></td>
       		 <td style="line-height:0; font-size: 0;" width="28">
    				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/bg.gif" width="28" height="1" alt="" border="0" />
       		 </td>
