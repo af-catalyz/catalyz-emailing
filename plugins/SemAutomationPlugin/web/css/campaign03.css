@@ -1,0 +1,31 @@
+h1{
+	color: #006666;
+}
+
+h2{
+	color: #3b3b3b;
+}
+
+.box_orange{
+	color: #FFFFFF;
+	background-color: #ff9900;
+	padding: 9px 14px 9px 17px;
+	border-radius:5px;
+}
+
+.box_grey{
+	background-color: #cccccc;
+	padding: 10px 21px;
+	border-radius:5px;
+}
+
+.more{
+	padding: 0 0 0 16px;
+	display: block;
+	background: white url('/SemAutomationplugin/images/campaign03/bullet_a.gif') no-repeat 0 0;
+
+	line-height: 18px;
+	font-size: 12px;
+	font-weight:bold;
+	color: #006666;
+}

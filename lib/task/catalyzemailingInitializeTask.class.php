@@ -367,14 +367,14 @@ EOF;
             case 'elaul':
                 $template = new CampaignTemplate();
                 $template->setName('Campagne 1');
-                $template->setPreviewFilename('/elaul/images/campaign02.jpg');
+                $template->setPreviewFilename('/elaulPlugin/images/campaign02.jpg');
                 $template->setTemplate($this->getPartial('elaul/campaign02'));
                 $template->save();
 
                 $template = new CampaignTemplate();
                 $template->setName('Campagne 1 (assistée)');
                 $template->setClassName('elaulCampaign01CampaignTemplateHandler');
-                $template->setPreviewFilename('/elaul/images/campaign01.jpg');
+                $template->setPreviewFilename('/elaulPlugin/images/campaign01.jpg');
                 $template->setInitializer('elaulCampaign01TemplateInitializer');
                 $template->setTemplate(false);
                 $template->save();
