@@ -7,6 +7,8 @@ class fleuronsImportTask extends sfBaseTask {
 	const UPDATE_CONTACT = 2;
 	const OUT_OF_DATE_STEP = 365;
 
+	private $groups = array();
+
 	protected function configure()
 	{
 		$this->namespace = 'fleurons';
@@ -27,8 +29,8 @@ EOF;
 		// add other arguments here
 		$this->addOption('env', null, sfCommandOption::PARAMETER_REQUIRED, 'The environment', 'af');
 		$this->addOption('connection', null, sfCommandOption::PARAMETER_REQUIRED, 'The connection name', 'propel');
-		$this->addOption('cells_to_parse', null, sfCommandOption::PARAMETER_OPTIONAL, 'Cells we use', 'ID|Contact - Nom|Contact - Prénom|Société|Contact - Email 1|Type Contact|Type de Tiers');
-		$this->addOption('emails', null, sfCommandOption::PARAMETER_OPTIONAL, 'emails to sent report', 'af@catalyz.fr|ferrere.arnaud@gmail.com');
+		$this->addOption('cells_to_parse', null, sfCommandOption::PARAMETER_OPTIONAL, 'Cells we use', 'ID|Contact - Nom|Contact - Prénom|Société|Contact - Email 1|Type Contact|Type de Tiers|Contact - Date de naissance|Contact - N°Téléphone');
+		$this->addOption('emails', null, sfCommandOption::PARAMETER_OPTIONAL, 'emails to sent report', 'af@catalyz.fr');
 	}
 
 	protected function execute($arguments = array(), $options = array()) {
@@ -40,6 +42,8 @@ EOF;
 
 		$path = $arguments['path'];
 		$report_details = array();
+
+		$this->initGroupList();
 
 		if (!is_dir($path)) { // envoyer un mail d'erreur ?
 			$this->logSection('Email', sprintf("%s is not a dir", $path), null, ERROR);
@@ -142,10 +146,61 @@ EOF;
 		if (!empty($data['Type de Tiers'])) {
 			$contact->setCustom3($data['Type de Tiers']);
 		}
+
+		if (!empty($data['Contact - Date de naissance'])) {
+			$contact->setCustom4($data['Contact - Date de naissance']);
+		}
+
+		if (!empty($data['Contact - N°Téléphone'])) {
+			$contact->setCustom5($data['Contact - N°Téléphone']);
+		}
 		//endregion
 
 		try {
 			$contact->save();
+
+			//create group if not exist
+			$group_name = array();
+			if (trim($contact->getCustom1()) != '') {
+				$group_name[] = trim($contact->getCustom1());
+			}
+			if (trim($contact->getCustom2()) != '') {
+				$group_name[] = trim($contact->getCustom2());
+			}
+			if (trim($contact->getCustom3()) != '') {
+				$group_name[] = trim($contact->getCustom3());
+			}
+
+		if (!empty($group_name)) {
+			$group_name = implode(' ', $group_name);
+
+			if (empty($this->groups[$group_name])) {
+				$group = new ContactGroup();
+				$group->setName($group_name);
+				$group->setIsArchived(false);
+				$group->setIsTestGroup(false);
+				$group->save();
+
+				$this->groups[$group_name] = $group->getId();
+			}
+
+
+			//find contact and check if is in group
+			$criteria = new Criteria();
+			$criteria->add(ContactContactGroupPeer::CONTACT_GROUP_ID, $this->groups[$group_name]);
+			$criteria->add(ContactContactGroupPeer::CONTACT_ID, $contact->getId());
+			$is_linked = ContactContactGroupPeer::doSelectOne($criteria);
+
+			if ($is_linked == NULL) {
+				$link = new ContactContactGroup();
+				$link->setContactId($contact->getId());
+				$link->setContactGroupId($this->groups[$group_name]);
+				$link->save();
+			}
+
+		}
+
+
 			return $action;
 		}
 		catch(Exception $e) {
@@ -328,6 +383,20 @@ EOF;
 		return true;
 	}
 
+	private function initGroupList(){
+		$criteria = new Criteria();
+		$criteria->add(ContactGroupPeer::IS_ARCHIVED, 0);
+		$groups = ContactGroupPeer::doSelect($criteria);
+
+		$return = array();
+		foreach ($groups as /*(ContactGroup)*/$group){
+			$return[$group->getName()] =  $group->getId();
+		}
+
+		$this->groups = $return;
+
+		return count($this->groups);
+	}
 }
 
 ?>
