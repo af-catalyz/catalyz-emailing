@@ -33,7 +33,7 @@ class czWidgetFormSubForm extends sfWidgetForm {
         $this->addRequiredOption('formClass');
         $this->addRequiredOption('contentObjectClass');
         $this->addOption('contentObjectClassSuffix');
-        $this->addOption('label.add', sfContext::getInstance()->getI18N()->__('Add an item', null, 'catalyz'));
+        $this->addOption('label.add', 'Ajouter un élément');
         $this->addOption('title', 'title');
 
         parent::__construct($options, $attributes);

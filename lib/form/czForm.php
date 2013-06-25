@@ -64,9 +64,12 @@ class czForm extends sfForm {
             'fieldName' => $fieldName,
             'formClass' => $subFormClass,
             'contentObjectClass' => sprintf('%s[content]', $this->getFormType()),
-            'title' => $itemTitleFieldName,
-            'label.add' => $label,
+            'title' => $itemTitleFieldName
             );
+
+    		if ($label != null) {
+    			$_options['label.add'] = $label;
+    		}
 
         $this->widgetSchema[$fieldName] = new czWidgetFormSubForm($_options, array('label' => false));
         $this->validatorSchema[$fieldName] = new czValidatorSubForm(array('formClass' => $subFormClass));

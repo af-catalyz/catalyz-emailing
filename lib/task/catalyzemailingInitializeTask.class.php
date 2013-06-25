@@ -497,6 +497,22 @@ EOF;
         		$template->save();
         		break;
 
+        	case 'dpi':
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 1 (avec assistant)');
+        		$template->setClassName('dpiCampaign01WizzardCampaignTemplateHandler');
+        		$template->setPreviewFilename('/dpiPlugin/images/campaign01Wizzard.jpg');
+        		$template->setInitializer('dpiCampaign01WizzardCampaignTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 1');
+        		$template->setPreviewFilename('/dpiPlugin/images/campaign01.jpg');
+        		$template->setTemplate($this->getPartial('dpi/campaign01'));
+        		$template->save();
+        		break;
+
         } // switch
     }
 
