@@ -511,6 +511,20 @@ EOF;
         		$template->setPreviewFilename('/dpiPlugin/images/campaign01.jpg');
         		$template->setTemplate($this->getPartial('dpi/campaign01'));
         		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 2 (avec assistant)');
+        		$template->setClassName('dpiCampaign02WizzardCampaignTemplateHandler');
+        		$template->setPreviewFilename('/dpiPlugin/images/campaign02Wizzard.jpg');
+        		$template->setInitializer('dpiCampaign02WizzardCampaignTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 2');
+        		$template->setPreviewFilename('/dpiPlugin/images/campaign02.jpg');
+        		$template->setTemplate($this->getPartial('dpi/campaign02'));
+        		$template->save();
         		break;
 
         } // switch
