@@ -177,14 +177,14 @@ EOF;
             case 'asfo':
                 $template = new CampaignTemplate();
                 $template->setName('Modele 1');
-                $template->setPreviewFilename('/asfo/images/campaign01.jpg');
+                $template->setPreviewFilename('/asfoPlugin/images/campaign01.jpg');
                 $template->setTemplate($this->getPartial('asfo/campaign01'));
                 // $template->setInitializer('KreactivCampaignTemplateInitializer');
                 $template->save();
 
                 $template = new CampaignTemplate();
                 $template->setName('Modele 2');
-                $template->setPreviewFilename('/asfo/images/campaign02.jpg');
+                $template->setPreviewFilename('/asfoPlugin/images/campaign02.jpg');
                 $template->setTemplate($this->getPartial('asfo/campaign02'));
                 // $template->setInitializer('KreactivCampaignTemplateInitializer');
                 $template->save();
@@ -192,35 +192,35 @@ EOF;
                 $template = new CampaignTemplate();
                 $template->setName('Newsletter "Développement panier client"');
                 $template->setClassName('AsfoDeveloppementCampaignTemplateHandler');
-                $template->setPreviewFilename('/asfo/images/asfoDeveloppement.jpg');
+                $template->setPreviewFilename('/asfoPlugin/images/asfoDeveloppement.jpg');
                 $template->setTemplate(false);
                 $template->save();
 
                 $template = new CampaignTemplate();
                 $template->setName('Newsletter "Promotion"');
                 $template->setClassName('AsfoPromotionCampaignTemplateHandler');
-                $template->setPreviewFilename('/asfo/images/asfoPromotion.jpg');
+                $template->setPreviewFilename('/asfoPlugin/images/asfoPromotion.jpg');
                 $template->setTemplate(false);
                 $template->save();
 
                 $template = new CampaignTemplate();
                 $template->setName('Newsletter "Calendrier"');
                 $template->setClassName('AsfoCalendrierCampaignTemplateHandler');
-                $template->setPreviewFilename('/asfo/images/asfoCalendrier.jpg');
+                $template->setPreviewFilename('/asfoPlugin/images/asfoCalendrier.jpg');
                 $template->setTemplate(false);
                 $template->save();
 
                 $template = new CampaignTemplate();
                 $template->setName('Newsletter "Calendrier 2"');
                 $template->setClassName('AsfoCalendrier2CampaignTemplateHandler');
-                $template->setPreviewFilename('/asfo/images/asfoCalendrier2.jpg');
+                $template->setPreviewFilename('/asfoPlugin/images/asfoCalendrier2.jpg');
                 $template->setTemplate(false);
                 $template->save();
 
                 $template = new CampaignTemplate();
                 $template->setName('Voeux 2012');
                 $template->setClassName('AsfoVoeux2012CampaignTemplateHandler');
-                $template->setPreviewFilename('/asfo/images/asfoVoeux2012.jpg');
+                $template->setPreviewFilename('/asfoPlugin/images/asfoVoeux2012.jpg');
                 $template->setTemplate(false);
                 $template->save();
 
@@ -525,6 +525,57 @@ EOF;
         		$template->setPreviewFilename('/dpiPlugin/images/campaign02.jpg');
         		$template->setTemplate($this->getPartial('dpi/campaign02'));
         		$template->save();
+        		break;
+        	case 'asfo':
+        		$template = new CampaignTemplate();
+        		$template->setName('Modele 1');
+        		$template->setPreviewFilename('/asfoPlugin/images/campaign01.jpg');
+        		$template->setTemplate($this->getPartial('asfo/campaign01'));
+        		// $template->setInitializer('KreactivCampaignTemplateInitializer');
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Modele 2');
+        		$template->setPreviewFilename('/asfoPlugin/images/campaign02.jpg');
+        		$template->setTemplate($this->getPartial('asfo/campaign02'));
+        		// $template->setInitializer('KreactivCampaignTemplateInitializer');
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter "Développement panier client"');
+        		$template->setClassName('AsfoDeveloppementCampaignTemplateHandler');
+        		$template->setPreviewFilename('/asfoPlugin/images/asfoDeveloppement.jpg');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter "Promotion"');
+        		$template->setClassName('AsfoPromotionCampaignTemplateHandler');
+        		$template->setPreviewFilename('/asfoPlugin/images/asfoPromotion.jpg');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter "Calendrier"');
+        		$template->setClassName('AsfoCalendrierCampaignTemplateHandler');
+        		$template->setPreviewFilename('/asfoPlugin/images/asfoCalendrier.jpg');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter "Calendrier 2"');
+        		$template->setClassName('AsfoCalendrier2CampaignTemplateHandler');
+        		$template->setPreviewFilename('/asfoPlugin/images/asfoCalendrier2.jpg');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Voeux 2012');
+        		$template->setClassName('AsfoVoeux2012CampaignTemplateHandler');
+        		$template->setPreviewFilename('/asfoPlugin/images/asfoVoeux2012.jpg');
+        		$template->setTemplate(false);
+        		$template->save();
+
         		break;
 
         } // switch
