@@ -109,10 +109,10 @@ class CampaignLink extends BaseCampaignLink {
         }
 
         if (!empty($url_parts['path'])) {
-            $result .= $url_parts['path'];
+            $result .= preg_replace('/\$([a-zA-Z0-9_]+)\$/', '#\1#', $url_parts['path']);
         }
         if (!empty($url_parts['query']) && (count($url_parts['query']) > 0)) {
-        	$url_parts['query'] = preg_replace('/%23([a-zA-Z0-9_]+)%23/', '#\1#', http_build_query($url_parts['query']));
+            $url_parts['query'] = preg_replace('/%23([a-zA-Z0-9_]+)%23/', '#\1#', http_build_query($url_parts['query']));
 
             $result .= '?' . $url_parts['query'];
         }

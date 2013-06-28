@@ -6,7 +6,7 @@ class CampaignSpyFilterTest extends PHPUnit_Framework_TestCase {
     protected $root_url;
     protected function setUp()
     {
-		$this->root_url = 'http://local.catalyz-emailing.com';
+		$this->root_url = 'http://local.catalyz-emailing.com/';
 
     	// Create a stub for the SomeClass class.
     	$stub = $this->getMockBuilder('CampaignLinkSerializer')
@@ -87,12 +87,28 @@ class CampaignSpyFilterTest extends PHPUnit_Framework_TestCase {
 
 		$result = $this->filter->getLinkList($content);
 		$this->assertCount(1, $result);
-		$this->assertEquals(array_shift($result), '/uploads/assets/foo.pdf');
+		$this->assertEquals(array_shift($result), '/uploads/assets/foo.pdf', 'bla bla 1');
+
+		$result = $this->filter->execute($content);
+
+		$this->assertEquals($result,  sprintf('<a href="%s/campaign/link/key/#EMAIL#-0-1">google</a>', $this->root_url), 'bla bla 2	');
+
+	}
+
+	public function testExtractRelativeAssetLinksWithAnchors()
+	{
+		$content = '<a href="/uploads/assets/foo.pdf#page=2">google</a>';
+
+		$result = $this->filter->getLinkList($content);
+		$this->assertCount(1, $result);
+		$this->assertEquals(array_shift($result), '/uploads/assets/foo.pdf#page=2');
 
 		$result = $this->filter->execute($content);
 		$this->assertEquals($result, sprintf('<a href="%s/campaign/link/key/#EMAIL#-0-1">google</a>', $this->root_url));
 
 	}
+
+
 }
 
 ?>

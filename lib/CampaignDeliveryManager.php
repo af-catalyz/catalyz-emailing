@@ -280,10 +280,6 @@ class CampaignDeliveryManager {
         $macros['#VIEW_ONLINE#'] = $this->getViewOnlineLink($email);
         $macros['#PRINT#'] = $this->getPrintLink($email);
         $macros['#SPY_KEY#'] = $this->getUserKey($email);
-
-    		//add this macro because of CampaignLink::parse_query($val)
-    		$macros['$PRINT$'] = $this->getPrintLink($email);
-
         $macroKeywords = array_keys($macros);
         $macroValues = array_values($macros);
         return str_replace($macroKeywords, $macroValues, $text);

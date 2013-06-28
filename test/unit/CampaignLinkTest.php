@@ -88,6 +88,8 @@ class CampaignLinkTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals($url_parts['fragment'], 'anchor');
 
 	}
+
+
 }
 
 ?>

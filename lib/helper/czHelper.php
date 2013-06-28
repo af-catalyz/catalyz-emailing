@@ -184,6 +184,7 @@ function thumbnail_path($source, $width, $height, $absolute = false)
 	$thumb = $thumb_dir . '/' . $thumb_name;
 	$img_to = sfConfig::get('sf_web_dir') . $thumb;
 
+
 	if (!is_dir(dirname($img_to))) {
 		if (!mkdir(dirname($img_to), 0777, true)) {
 			throw new Exception('Cannot create directory for thumbnail : ' . $img_to);
@@ -196,7 +197,9 @@ function thumbnail_path($source, $width, $height, $absolute = false)
 		$thumbnail->save($img_to);
 	}
 
-	return image_path($thumb, $absolute);
+	return str_replace($_SERVER['PHP_SELF'], '', image_path($thumb, $absolute));
+	//return preg_replace('|^'.$_SERVER['PHP_SELF'].'(.*)$|', '\2', );
+
 }
 
 function thumbnail_tag($source, $width, $height, $options = array())
