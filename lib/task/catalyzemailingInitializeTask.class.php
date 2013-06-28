@@ -586,6 +586,21 @@ EOF;
         		$template->save();
 
         		break;
+        	case 'kogys':
+        		$template = new CampaignTemplate();
+        		$template->setName('Actualités');
+        		$template->setPreviewFilename('/KogysPlugin/images/news.jpg');
+        		$template->setTemplate($this->getPartial('Kogys/news'));
+        		// $template->setInitializer('KreactivCampaignTemplateInitializer');
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Prix');
+        		$template->setPreviewFilename('/KogysPlugin/images/prices.jpg');
+        		$template->setTemplate($this->getPartial('Kogys/prices'));
+        		// $template->setInitializer('KreactivCampaignTemplateInitializer');
+        		$template->save();
+        		break;
 
         } // switch
     }

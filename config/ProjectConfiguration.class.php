@@ -35,6 +35,7 @@ class ProjectConfiguration extends sfProjectConfiguration {
         $this->enablePlugins('fleuronsPlugin');
         $this->enablePlugins('asfoPlugin');
         $this->enablePlugins('cimlecPlugin');
+        $this->enablePlugins('KogysPlugin');
     }
 }
 
