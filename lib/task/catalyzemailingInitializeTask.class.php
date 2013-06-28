@@ -577,6 +577,15 @@ EOF;
         		$template->save();
 
         		break;
+        	case 'cimlec':
+        		$template = new CampaignTemplate();
+        		$template->setName('Voeux 2012');
+        		$template->setClassName('CimlecCampaign01CampaignTemplateHandler');
+        		$template->setPreviewFilename('/cimlecPlugin/images/campaign01.jpg');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		break;
 
         } // switch
     }

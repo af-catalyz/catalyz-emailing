@@ -1,6 +1,11 @@
 <?php
+if (PHP_OS == 'WINNT') {
+	require_once 'C:/Program Files/WaterProof/PHPEdit/4.0.5/Extensions/Symfony/distribution/1.4/lib/autoload/sfCoreAutoload.class.php';
 
-require_once '/home/sites/symfony/1.4/lib/autoload/sfCoreAutoload.class.php';
+} else {
+	require_once '/home/share/symfony/1.4/lib/autoload/sfCoreAutoload.class.php';
+}
+
 sfCoreAutoload::register();
 
 class ProjectConfiguration extends sfProjectConfiguration {
@@ -21,6 +26,16 @@ class ProjectConfiguration extends sfProjectConfiguration {
 //        $this->enablePlugins('staPlugin');
 //        $this->enablePlugins('sudprojetPlugin');
 //        $this->enablePlugins('cciFormationPlugin');
-        $this->enablePlugins('comparexPlugin');
+//        $this->enablePlugins('comparexPlugin');
+        $this->enablePlugins('OfficeTourismeMontaubanPlugin');
+        $this->enablePlugins('lcfPlugin');
+        $this->enablePlugins('elaulPlugin');
+        $this->enablePlugins('SemAutomationPlugin');
+        $this->enablePlugins('dpiPlugin');
+        $this->enablePlugins('fleuronsPlugin');
+        $this->enablePlugins('asfoPlugin');
+        $this->enablePlugins('cimlecPlugin');
     }
 }
+
+
