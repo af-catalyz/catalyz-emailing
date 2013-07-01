@@ -26,6 +26,6 @@ $formatter->renderField('phone');
 
 $formatter->renderGroup('Site internet', array('website_caption','website_link'));
 $formatter->renderField('adress_content');
-//$formatter->renderField('facebook_link');
+$formatter->renderField('facebook_link');
 
 $formatter->endTabs();

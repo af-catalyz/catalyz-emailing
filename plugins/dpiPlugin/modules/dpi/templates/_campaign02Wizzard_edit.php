@@ -20,5 +20,6 @@ $formatter->renderGroup('Coordonnées', array('phone','fax'));
 $formatter->renderGroup('Site 1', array('website1_caption','website1_link'));
 $formatter->renderGroup('Site 2', array('website2_caption','website2_link'));
 $formatter->renderGroup('Adresse', array('adress_content'));
-//$formatter->renderField('facebook_link');
+$formatter->renderField('facebook_link');
+
 $formatter->endTabs();
