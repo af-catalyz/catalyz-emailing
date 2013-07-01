@@ -635,6 +635,19 @@ EOF;
         		$template->save();
 
         		break;
+        	case 'nutritis':
+        		$template = new CampaignTemplate();
+        		$template->setName('Voeux 2011 - Français');
+        		$template->setPreviewFilename('/nutritisPlugin/images/voeux2011.jpg');
+        		$template->setTemplate($this->getPartial('nutritis/voeux2011'));
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Voeux 2011 - Anglais');
+        		$template->setPreviewFilename('/nutritisPlugin/images/wishes2011.jpg');
+        		$template->setTemplate($this->getPartial('nutritis/wishes2011'));
+        		$template->save();
+        		break;
 
         } // switch
     }
