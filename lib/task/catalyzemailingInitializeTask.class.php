@@ -619,6 +619,23 @@ EOF;
 
         		break;
 
+        	case 'be3c':
+        		$template = new CampaignTemplate();
+        		$template->setName('Voeux 2012');
+        		$template->setPreviewFilename('/be3cPlugin/images/be3cVoeux2012.jpg');
+        		$template->setTemplate($this->getPartial('be3c/be3cVoeux2012'));
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Invitation');
+        		$template->setClassName('be3cCampaign01CampaignTemplateHandler');
+        		$template->setPreviewFilename('/be3cPlugin/images/campaign01.jpg');
+        		$template->setInitializer('be3cCampaign01TemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		break;
+
         } // switch
     }
 
