@@ -602,6 +602,23 @@ EOF;
         		$template->save();
         		break;
 
+        	case 'vigouroux':
+        		$template = new CampaignTemplate();
+        		$template->setName('Modèle 1');
+        		$template->setClassName('VigourouxCampaign01CampaignTemplateHandler');
+        		$template->setPreviewFilename('/vigourouxPlugin/images/campaign01.jpg');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Modèle 2');
+        		$template->setClassName('VigourouxCampaign02CampaignTemplateHandler');
+        		$template->setPreviewFilename('/vigourouxPlugin/images/campaign02.jpg');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		break;
+
         } // switch
     }
 
