@@ -4,7 +4,7 @@
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
-<body alink="#669933" vlink="#669933" link="#669933">
+<body bgcolor="#ffffff" alink="#669933" vlink="#669933" link="#669933">
 	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr valign="top">
 			<td align="center">
