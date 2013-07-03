@@ -44,7 +44,5 @@
 	    </footer>
 	</div> <!-- /container -->
 			<?php include_partial('global/js') ?>
-
-			<script type="text/javascript" src="http://catalyz-emailing.toulouse/t.js"></script>
   </body>
 </html>
