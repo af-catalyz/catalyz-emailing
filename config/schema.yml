@@ -155,22 +155,27 @@ propel:
 # -- Tracking module
   web_visitor:
     id:
-    contact_id:               { type: integer, foreignTable: contact, foreignReference: id, onDelete: cascade }
+    contact_id:               { type: integer } #, foreignTable: contact, foreignReference: id, onDelete: cascade
+    uid:                      { type: varchar(20) }
     created_at:
 
   web_session:
     id:
     web_visitor_id:           { type: integer, foreignTable: web_visitor, foreignReference: id, onDelete: cascade }
+    created_at:
 
   web_page:
     id:
-    name:                     { type: varchar(255) }
-    url:                      { type: clob }
+    scheme:                   { type: varchar(10) }
+    host:                     { type: varchar(255) }
+    path:                     { type: clob }
     created_at:
 
   web_page_access:
     id:
     web_session_id:           { type: integer, foreignTable: web_session, foreignReference: id, onDelete: cascade }
+    web_page_id:              { type: integer, foreignTable: web_page, foreignReference: id, onDelete: cascade }
     ip:                       { type: varchar(15) }
     user_agent:               { type: varchar(255) }
+    query:                    { type: clob }
     created_at:

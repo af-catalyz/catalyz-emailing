@@ -16,16 +16,20 @@ abstract class BaseWebPageAccessForm extends BaseFormPropel
     $this->setWidgets(array(
       'id'             => new sfWidgetFormInputHidden(),
       'web_session_id' => new sfWidgetFormPropelChoice(array('model' => 'WebSession', 'add_empty' => true)),
+      'web_page_id'    => new sfWidgetFormPropelChoice(array('model' => 'WebPage', 'add_empty' => true)),
       'ip'             => new sfWidgetFormInputText(),
       'user_agent'     => new sfWidgetFormInputText(),
+      'query'          => new sfWidgetFormTextarea(),
       'created_at'     => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'             => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
       'web_session_id' => new sfValidatorPropelChoice(array('model' => 'WebSession', 'column' => 'id', 'required' => false)),
+      'web_page_id'    => new sfValidatorPropelChoice(array('model' => 'WebPage', 'column' => 'id', 'required' => false)),
       'ip'             => new sfValidatorString(array('max_length' => 15, 'required' => false)),
       'user_agent'     => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'query'          => new sfValidatorString(array('required' => false)),
       'created_at'     => new sfValidatorDateTime(array('required' => false)),
     ));
 

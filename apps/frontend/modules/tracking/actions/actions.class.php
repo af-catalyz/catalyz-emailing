@@ -9,49 +9,30 @@
  * @version SVN: $Id: actions.class.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
 class trackingActions extends sfActions {
-	protected function getVisitor($request, $response){
-		$visitor = false;
-		if ($request->getCookie('catalyz-emailing-tracking')) {
-			$visitor = WebVisitorPeer::retrieveByPk($request->getCookie('catalyz-emailing-tracking'));
-		}
-		if (!$visitor) {
-			// create a new visitor id
-			$visitor = new WebVisitor();
-			$visitor->save();
-		}
-		$response->setCookie('catalyz-emailing-tracking', $visitor->getId());
-	}
+    public function executeIndex(sfWebRequest $request)
+    {
+        $criteria = new Criteria();
+        $criteria->addDescendingOrderByColumn(WebPageAccessPeer::CREATED_AT);
+        $criteria->addJoin(WebSessionPeer::ID, WebPageAccessPeer::WEB_SESSION_ID);
+        $criteria->setOffset(0);
+        $criteria->setLimit(10);
+        $criteria->setDistinct();
+        $this->sessions = WebSessionPeer::doSelect($criteria);
 
-    /**
-     * Executes index action
-     *
-     * @param sfRequest $request A request object
-     */
+        return sfView::SUCCESS;
+    }
     public function executeAgent(sfWebRequest $request)
     {
-    	$response =/*(sfWebResponse)*/ $this->getResponse();
+        $response =/*(sfWebResponse)*/ $this->getResponse();
 
-        $visitor = $this->getVisitor($request, $response);
-		$contact_id = $this->getContactId();
-
-    	$refererInfos = parse_url($_SERVER['HTTP_REFERER']);
-    	parse_str($refererInfos['query'], $result);
-    	print_r($refererInfos);
-    	if(isset($result['czet'])){
-    			$contact = ContactPeer::retrieveByPk($result['czet']);
-    	}else{
-    		$contact = false;
-    	}
-
-    	$webPageAccess = new WebPageAccess();
-    	$webPageAccess->setWebSessionId();
-    	$webPageAccess->setIp($_SERVER['REMOTE_ADDR']);
-    	$webPageAccess->setUserAgent($_SERVER['HTTP_USER_AGENT']);
-
-
-
-
+        WebTracker::execute($request, $response);
+        $response->setContent('/* Catalyz Emailing Web Tracker */');
+        sfConfig::set('sf_web_debug', false);
         return sfView::NONE;
     }
 
+    public function executeSettings(sfWebRequest $request)
+    {
+        return sfView::SUCCESS;
+    }
 }

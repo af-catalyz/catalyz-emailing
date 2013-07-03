@@ -462,10 +462,16 @@ landing_action:
 
 # -- Tracking
 tracking_agent:
-  url:   /tracking.js
+  url:   /t.js
   param: { module: tracking, action: agent }
 
+tracking:
+  url:   /tracking
+  param: { module: tracking, action: index }
 
+tracking_configuration:
+  url:   /settings/tracking
+  param: { module: tracking, action: settings }
 
 
 # generic rules

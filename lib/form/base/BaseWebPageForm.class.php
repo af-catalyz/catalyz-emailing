@@ -15,15 +15,17 @@ abstract class BaseWebPageForm extends BaseFormPropel
   {
     $this->setWidgets(array(
       'id'         => new sfWidgetFormInputHidden(),
-      'name'       => new sfWidgetFormInputText(),
-      'url'        => new sfWidgetFormTextarea(),
+      'scheme'     => new sfWidgetFormInputText(),
+      'host'       => new sfWidgetFormInputText(),
+      'path'       => new sfWidgetFormTextarea(),
       'created_at' => new sfWidgetFormDateTime(),
     ));
 
     $this->setValidators(array(
       'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
-      'name'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
-      'url'        => new sfValidatorString(array('required' => false)),
+      'scheme'     => new sfValidatorString(array('max_length' => 10, 'required' => false)),
+      'host'       => new sfValidatorString(array('max_length' => 255, 'required' => false)),
+      'path'       => new sfValidatorString(array('required' => false)),
       'created_at' => new sfValidatorDateTime(array('required' => false)),
     ));
 

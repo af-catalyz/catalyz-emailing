@@ -22,10 +22,13 @@
 		    	<?php if(LandingPageUtils::isModuleAvailable() && $sf_user->hasCredential('admin')): ?>
               <li<?php if($sf_context->getModuleName() == 'landing'){echo ' class="active"';}?>><a href="<?php echo url_for('@landing'); ?>">Page d'atterrissage</a></li>
               <?php endif; ?>
+		    	<?php if(WebTracker::isModuleAvailable()): ?>
+              <li<?php if($sf_context->getModuleName() == 'tracking' && $sf_context->getActionName() != 'settings'){echo ' class="active"';}?>><a href="<?php echo url_for('@tracking'); ?>">Tracking</a></li>
+              <?php endif; ?>
               <li<?php if($sf_context->getModuleName() == 'contacts'){echo ' class="active"';}?>><a href="<?php echo url_for('@contacts'); ?>">Contacts</a></li>
 		    <?php if($sf_user->hasCredential('admin')): ?>
     		<li<?php if($sf_context->getModuleName() == 'fees'){echo ' class="active"';}?>><a href="<?php echo url_for('fees/index'); ?>">Routage</a></li>
-     		  <li class="dropdown<?php if(in_array($sf_context->getModuleName(), array('settings'))){echo ' active';}?>"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
+     		  <li class="dropdown<?php if($sf_context->getModuleName() == 'settings' || ($sf_context->getModuleName() == 'tracking' && $sf_context->getActionName() == 'settings')){echo ' active';}?>"><a href="#" class="dropdown-toggle" data-toggle="dropdown">
 		    			Configuration
 		    			<b class="caret"></b>
 		    		</a>
@@ -33,6 +36,9 @@
 			    		<li><a href="<?php echo url_for('@settings'); ?>">Utilisateurs</a></li>
 			    		<li><a href="<?php echo url_for('@settings_custom_fields'); ?>">Champs personnalisés</a></li>
 			    		<li><a href="<?php echo url_for('@settings_unsubscribe'); ?>">Processus de désabonnement</a></li>
+		    	<?php if(WebTracker::isModuleAvailable()): ?>
+              <li><a href="<?php echo url_for('@tracking_configuration'); ?>">Tracking</a></li>
+              <?php endif; ?>
 			    	</ul></li>
 		    	<?php endif; ?>
 
