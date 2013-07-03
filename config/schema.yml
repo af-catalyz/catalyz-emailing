@@ -151,3 +151,26 @@ propel:
     created_at:
     created_by:               { type: integer, foreignTable: sf_guard_user_profile, foreignReference: id, onDelete: cascade }
     updated_at:
+
+# -- Tracking module
+  web_visitor:
+    id:
+    contact_id:               { type: integer, foreignTable: contact, foreignReference: id, onDelete: cascade }
+    created_at:
+
+  web_session:
+    id:
+    web_visitor_id:           { type: integer, foreignTable: web_visitor, foreignReference: id, onDelete: cascade }
+
+  web_page:
+    id:
+    name:                     { type: varchar(255) }
+    url:                      { type: clob }
+    created_at:
+
+  web_page_access:
+    id:
+    web_session_id:           { type: integer, foreignTable: web_session, foreignReference: id, onDelete: cascade }
+    ip:                       { type: varchar(15) }
+    user_agent:               { type: varchar(255) }
+    created_at:

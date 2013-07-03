@@ -460,6 +460,13 @@ landing_action:
   url:   /landing/action/:slug/:type
   param: { module: landing, action: action }
 
+# -- Tracking
+tracking_agent:
+  url:   /tracking.js
+  param: { module: tracking, action: agent }
+
+
+
 
 # generic rules
 # please, remove them by adding more specific rules

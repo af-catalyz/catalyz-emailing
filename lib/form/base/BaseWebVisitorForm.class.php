@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * WebVisitor form base class.
+ *
+ * @method WebVisitor getObject() Returns the current form's model object
+ *
+ * @package    catalyz_emailing
+ * @subpackage form
+ * @author     Your name here
+ */
+abstract class BaseWebVisitorForm extends BaseFormPropel
+{
+  public function setup()
+  {
+    $this->setWidgets(array(
+      'id'         => new sfWidgetFormInputHidden(),
+      'contact_id' => new sfWidgetFormPropelChoice(array('model' => 'Contact', 'add_empty' => true)),
+      'created_at' => new sfWidgetFormDateTime(),
+    ));
+
+    $this->setValidators(array(
+      'id'         => new sfValidatorChoice(array('choices' => array($this->getObject()->getId()), 'empty_value' => $this->getObject()->getId(), 'required' => false)),
+      'contact_id' => new sfValidatorPropelChoice(array('model' => 'Contact', 'column' => 'id', 'required' => false)),
+      'created_at' => new sfValidatorDateTime(array('required' => false)),
+    ));
+
+    $this->widgetSchema->setNameFormat('web_visitor[%s]');
+
+    $this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);
+
+    parent::setup();
+  }
+
+  public function getModelName()
+  {
+    return 'WebVisitor';
+  }
+
+
+}
