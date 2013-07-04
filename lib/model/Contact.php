@@ -165,7 +165,18 @@ class Contact extends BaseContact {
 			return $this->getLastName();
 	}
 
-
+	public function getWebTrackerSessions($start = 0, $limit = 10){
+		$criteria = new Criteria();
+		$criteria->add(WebVisitorPeer::CONTACT_ID, $this->getId());
+		$criteria->addDescendingOrderByColumn(WebPageAccessPeer::CREATED_AT);
+		$criteria->addJoin(WebSessionPeer::ID, WebPageAccessPeer::WEB_SESSION_ID);
+		$criteria->addJoin(WebPageAccessPeer::WEB_SESSION_ID, WebSessionPeer::WEB_VISITOR_ID);
+		$criteria->addJoin(WebSessionPeer::WEB_VISITOR_ID, WebVisitorPeer::ID);
+		$criteria->setOffset($start);
+		$criteria->setLimit($limit);
+		$criteria->setDistinct();
+		return WebSessionPeer::doSelect($criteria);
+	}
 } // Contact
 
 $columns_map = array('from'   => 'slugPattern','to'     => ContactPeer::SLUG);

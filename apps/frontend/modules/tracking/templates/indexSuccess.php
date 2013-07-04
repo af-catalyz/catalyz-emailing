@@ -8,7 +8,7 @@
 <thead>
 	<tr>
 		<th>Date</th>
-		<th>Utilisateur</th>
+		<th>Contact</th>
 		<th>Historique</th>
 	</tr>
 </thead>
@@ -17,9 +17,9 @@
 <tr>
 	<td><?php echo $session->getCreatedAt('d/m/Y H:i:s') ?></td>
 	<td><?php
-	$contact = $session->getWebVisitor()->getContactId();
+	$contact = $session->getWebVisitor()->getContact();
 	if($contact){
-		echo $contact;
+		printf('<a href="%s">%s</a>', url_for('@contact_show?slug='.$contact->getSlug()), $contact->getFullName());
 	}
 	?></td>
 	<td>

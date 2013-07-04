@@ -1,5 +1,8 @@
 <?php
 
+
+$web_tracker_sessions = WebTracker::isModuleAvailable()?$contact->getWebTrackerSessions():array();
+
 echo '<div class="page-header">';
 //region first line
 echo '<h1>';
@@ -42,6 +45,9 @@ $customFields = CatalyzEmailing::getCustomFields();
 	<ul class="nav nav-tabs">
     <li class="active"><a href="#1" data-toggle="tab">Historique</a></li>
     <li><a href="#2" data-toggle="tab">Informations détaillées</a></li>
+    <?php if(count($web_tracker_sessions)): ?>
+    <li><a href="#3" data-toggle="tab">Tracking</a></li>
+    <?php endif; ?>
    </ul>
 
 
@@ -168,6 +174,34 @@ $customFields = CatalyzEmailing::getCustomFields();
 
 
 
+    <?php if(count($web_tracker_sessions)): ?>
+	<div class="tab-pane" id="3">
+
+	<table class="table">
+<thead>
+	<tr>
+		<th>Date</th>
+		<th>Historique</th>
+	</tr>
+</thead>
+<tbody>
+	<?php foreach($web_tracker_sessions as $session): ?>
+<tr>
+	<td><?php echo $session->getCreatedAt('d/m/Y H:i:s') ?></td>
+	<td>
+		<ul><?php
+			foreach($session->getWebPageAccesss() as /*(WebPageAccess)*/$webPageAccess){
+				printf('<li>%s <a href="">%s</a></li>',$webPageAccess->getCreatedAt('d/m/Y H:i:s'), $webPageAccess->getWebPage()->getPath());
+			}
+			?></ul>
+	</td>
+</tr>
+			<?php endforeach; ?>
+</tbody>
+</table>
+
+	</div>
+	<?php endif; ?>
     </div>
   </div>
 

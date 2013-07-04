@@ -12,8 +12,11 @@ class trackingActions extends sfActions {
     public function executeIndex(sfWebRequest $request)
     {
         $criteria = new Criteria();
+    	$criteria->add(WebVisitorPeer::CONTACT_ID, 0, Criteria::GREATER_THAN);
         $criteria->addDescendingOrderByColumn(WebPageAccessPeer::CREATED_AT);
         $criteria->addJoin(WebSessionPeer::ID, WebPageAccessPeer::WEB_SESSION_ID);
+        $criteria->addJoin(WebPageAccessPeer::WEB_SESSION_ID, WebSessionPeer::WEB_VISITOR_ID);
+        $criteria->addJoin(WebSessionPeer::WEB_VISITOR_ID, WebVisitorPeer::ID);
         $criteria->setOffset(0);
         $criteria->setLimit(10);
         $criteria->setDistinct();
