@@ -42,23 +42,26 @@ class CampaignLink extends BaseCampaignLink {
 
         $campaign =/*(Campaign)*/ $this->getCampaign();
 
-        if (!$campaign->getGoogleAnalyticsEnabled()) {
-            return $url;
-        }
         $url_parts = $this->parse_url($url);
 
         $possible_parameters = array();
-        $possible_parameters['utm_source'] = $campaign->getGoogleAnalyticsSource();
-        $possible_parameters['utm_content'] = $campaign->getGoogleAnalyticsContent();
-        $possible_parameters['utm_medium'] = $campaign->getGoogleAnalyticsMedium();
-        if ($campaign->getGoogleAnalyticsCampaignType() == Campaign::ANALYTICS_CAMPAIGN_NAME) {
-            $possible_parameters['utm_campaign'] = $campaign->getName();
-        } elseif ($campaign->getGoogleAnalyticsCampaignType() == Campaign::ANALYTICS_CAMPAIGN_SUBJECT) {
-            $possible_parameters['utm_campaign'] = $campaign->getSubject();
-        } else {
-            $possible_parameters['utm_campaign'] = $campaign->getGoogleAnalyticsCampaignContent();
+
+        if ($campaign->getGoogleAnalyticsEnabled()) {
+            $possible_parameters['utm_source'] = $campaign->getGoogleAnalyticsSource();
+            $possible_parameters['utm_content'] = $campaign->getGoogleAnalyticsContent();
+            $possible_parameters['utm_medium'] = $campaign->getGoogleAnalyticsMedium();
+            if ($campaign->getGoogleAnalyticsCampaignType() == Campaign::ANALYTICS_CAMPAIGN_NAME) {
+                $possible_parameters['utm_campaign'] = $campaign->getName();
+            } elseif ($campaign->getGoogleAnalyticsCampaignType() == Campaign::ANALYTICS_CAMPAIGN_SUBJECT) {
+                $possible_parameters['utm_campaign'] = $campaign->getSubject();
+            } else {
+                $possible_parameters['utm_campaign'] = $campaign->getGoogleAnalyticsCampaignContent();
+            }
+            $possible_parameters['utm_term'] = $this->getGoogleAnalyticsTerm();
         }
-        $possible_parameters['utm_term'] = $this->getGoogleAnalyticsTerm();
+    	if($campaign->getWebTrackingEnabled()){
+    		$possible_parameters['czet'] = '#EMAIL#';
+    	}
 
         foreach ($possible_parameters as $key => $value) {
             if (!empty($value)) {

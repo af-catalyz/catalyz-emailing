@@ -40,7 +40,7 @@ echo '</div>';
     	printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'index'?'class="active"':'', url_for('@campaign_index?slug='.$campaign->getSlug()), $tabsIcons['enveloppe'],__('Enveloppe'));
     	printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'edit'?'class="active"':'', url_for('@campaign_edit_content?slug='.$campaign->getSlug()), $tabsIcons['message'],__('Message'));
 			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'links'?'class="active"':'', url_for('@campaign_edit_links?slug='.$campaign->getSlug()), $tabsIcons['links'], __('Liens'));
-			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'googleAnalytics'?'class="active"':'', url_for('@campaign_edit_analytics?slug='.$campaign->getSlug()), $tabsIcons['googleAnalytics'], __('Google Analytics'));
+			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'tracking'?'class="active"':'', url_for('@campaign_edit_tracking?slug='.$campaign->getSlug()), $tabsIcons['tracker'], __('Tracking'));
 	//		echo '<li><a href="#5" data-toggle="tab"><i class="icon-remove"></i> Anti-spam/Contrôle visuel</a></li>';
 			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'targets'|| $sf_context->getActionName() == 'targetAdd'|| $sf_context->getActionName() == 'targetAddProvider'?'class="active"':'', url_for('@campaign_edit_targets?slug='.$campaign->getSlug()), $tabsIcons['destinataire'], __('Destinataires'));
 			printf('<li %s><a href="%s">%s %s</a></li>', $sf_context->getActionName() == 'returnErrors'?'class="active"':'', url_for('@campaign_edit_return_errors?slug='.$campaign->getSlug()), $tabsIcons['returnErrors'], __('Gestion des erreurs'));

@@ -149,9 +149,9 @@ campaign_edit_content:
   url:   /campaign/edit/content/:slug
   param: { module: campaign, action: edit }
 
-campaign_edit_analytics:
-  url:   /campaign/edit/googleAnalytics/:slug
-  param: { module: campaign, action: googleAnalytics }
+campaign_edit_tracking:
+  url:   /campaign/edit/tracking/:slug
+  param: { module: campaign, action: tracking }
 
 campaign_edit_links:
   url:   /campaign/edit/links/:slug

@@ -90,6 +90,7 @@ class Campaign extends BaseCampaign {
 		$this->setScheduleType(self::SCHEDULING_NONE);
 		// $this->setTargetType(self::TARGET_ALL);
 		$this->setTestType(self::OPTION_TEST_USER);
+		$this->setWebTrackerEnabled(WebTracker::isModuleAvailable());
 	}
 
 	public function sendToTestGroups()
@@ -903,7 +904,7 @@ class Campaign extends BaseCampaign {
 		$tab['enveloppe'] = $icon_false;
 		$tab['message'] = $icon_true;
 		$tab['links'] = $icon_false;
-		$tab['googleAnalytics'] = $icon_false;
+		$tab['tracker'] = $icon_false;
 		$tab['anti_spam'] = $icon_false;
 		$tab['controle'] = $icon_false;
 		$tab['destinataire'] = $icon_true;
@@ -943,9 +944,9 @@ class Campaign extends BaseCampaign {
 		}
 		//endregion
 
-		//region googleAnalytics
-		if ($this->getGoogleAnalyticsEnabled()	&& $this->getGoogleAnalyticsSource() != NULL && $this->getGoogleAnalyticsMedium() != NULL ) {
-			$tab['googleAnalytics'] = $icon_true;
+		//region tracker
+		if ($this->getWebTrackerEnabled() || ($this->getGoogleAnalyticsEnabled()	&& $this->getGoogleAnalyticsSource() != NULL && $this->getGoogleAnalyticsMedium() != NULL )) {
+			$tab['tracker'] = $icon_true;
 		}
 		//endregion
 

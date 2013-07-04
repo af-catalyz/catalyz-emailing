@@ -226,7 +226,7 @@ class campaignActions extends sfActions {
         return sfView::NONE;
     }
 
-    public function executeGoogleAnalytics($request)
+    public function executeTracking($request)
     {
         $this->forward404Unless($this->campaign = CampaignPeer::retrieveBySlug($request->getParameter('slug')));
 
@@ -239,7 +239,17 @@ class campaignActions extends sfActions {
         $this->form = new CampaignAnalyticsForm($this->campaign);
 
         $defaults = array();
-        foreach (array('id' => 'getId', 'google_analytics_enabled' => 'getGoogleAnalyticsEnabled', 'google_analytics_source' => 'getGoogleAnalyticsSource', 'google_analytics_medium' => 'getGoogleAnalyticsMedium', 'google_analytics_campaign_type' => 'getGoogleAnalyticsCampaignType') as $caption => $field) {
+        $fields = array();
+        $fields['id'] = 'getId';
+        $fields['google_analytics_enabled'] = 'getGoogleAnalyticsEnabled';
+        $fields['google_analytics_source'] = 'getGoogleAnalyticsSource';
+        $fields['google_analytics_medium'] = 'getGoogleAnalyticsMedium';
+        $fields['google_analytics_campaign_type'] = 'getGoogleAnalyticsCampaignType';
+        if (WebTracker::isModuleAvailable()) {
+            $fields['web_tracker_enabled'] = 'getWebTrackerEnabled';
+        }
+
+        foreach ($fields as $caption => $field) {
             if ($this->campaign->$field() != null) {
                 $defaults[$caption] = $this->campaign->$field();
             }
@@ -258,6 +268,9 @@ class campaignActions extends sfActions {
                     $values = $request->getParameter('campaign');
 
                     $values['google_analytics_enabled'] = (bool)isset($values['google_analytics_enabled']);
+                    if (WebTracker::isModuleAvailable()) {
+                        $values['web_tracker_enabled'] = (bool)isset($values['web_tracker_enabled']);
+                    }
                     $this->campaign->fromArray($values, BasePeer::TYPE_FIELDNAME);
                     $this->campaign->save();
 
@@ -267,7 +280,7 @@ class campaignActions extends sfActions {
             }
         }
 
-        $title = sprintf('%s - Intégration Google Analytics %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
+        $title = sprintf('%s - Tracking %s', $this->campaign->getName(), sfConfig::get('app_settings_default_suffix'));
         $this->getResponse()->setTitle($title);
         return sfView::SUCCESS;
     }
@@ -829,9 +842,8 @@ class campaignActions extends sfActions {
         }
 
         $cdm = new CampaignDeliveryManager($CampaignLink->getCampaign());
-    	$url = $cdm->replaceMacrosForEmail($CampaignLink->getTrackedUrl(), $email);
-    	//$url = $cdm->stripCommandLinePath($url);
-
+        $url = $cdm->replaceMacrosForEmail($CampaignLink->getTrackedUrl(), $email);
+        // $url = $cdm->stripCommandLinePath($url);
         $this->redirect($url);
 
         $this->setLayout(false);

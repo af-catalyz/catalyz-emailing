@@ -54,6 +54,13 @@ class CampaignAnalyticsForm extends BaseCampaignForm {
 		$validators['google_analytics_campaign_content'] = new sfValidatorString(array('required' => FALSE));
 		//endregion
 
+		//region web_tracker_enabled
+		if(WebTracker::isModuleAvailable()){
+			$widgets['web_tracker_enabled'] = new sfWidgetFormInputCheckbox();
+			$validators['web_tracker_enabled'] = new sfValidatorBoolean(array('required' => FALSE));
+			$defaults['web_tracker_enabled'] =  (bool) $this->getDefault('web_tracker_enabled');;
+		}
+		//endregion
 
 		$this->setWidgets($widgets);
 		$this->setValidators($validators);
@@ -65,6 +72,9 @@ class CampaignAnalyticsForm extends BaseCampaignForm {
 		'google_analytics_content' => '<p class="help-block hint">Ce texte sera utilisé pour le paramètre utm_content. Si vous n\'effectuez pas de campagne de type A/B, laisser ce paramètre vide.</p>',
 		'google_analytics_campaign_type' => '<p class="help-block hint">Ce texte sera utilisé pour le paramètre utm_campaign</p>'
 	));
+
+
+
 
 		$this->widgetSchema->setNameFormat('campaign[%s]');
 		$this->errorSchema = new sfValidatorErrorSchema($this->validatorSchema);

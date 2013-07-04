@@ -49,13 +49,15 @@ class WebTracker {
             $visitor->setUid(self::generateUid());
         }
         if (!empty($result['czet'])) {
-            $contact = ContactPeer::retrieveByPk($result['czet']);
+        	$criteria = new Criteria();
+        	$criteria->add(ContactPeer::EMAIL, $result['czet']);
+            $contact = ContactPeer::doSelectOne($criteria);
         	if($contact){
         		$visitor->setContactId($contact->getId());
         	}
         }
         $visitor->save();
-        $response->setCookie(self::COOKIE_NAME_VISITOR, $visitor->getId(), strtotime('+3 years'));
+        $response->setCookie(self::COOKIE_NAME_VISITOR, $visitor->getId(), strtotime('+10 years'));
         //endregion
 
         //region Session
@@ -105,7 +107,7 @@ class WebTracker {
     }
     static function isModuleAvailable()
     {
-        return false;
+        return sfConfig::get('app_webtracker_enabled', false);
     }
 }
 

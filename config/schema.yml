@@ -63,13 +63,14 @@ propel:
     return_path_login:        { type: varchar(255) }
     return_path_password:     { type: varchar(255) }
     is_archived:              { type: integer, default: 0 }
-    google_analytics_enabled:   {type: boolean, default: 0 }
-    google_analytics_source:    { type: varchar(255) }
-    google_analytics_medium:    { type: varchar(255) }
+    google_analytics_enabled: { type: boolean, default: 0 }
+    google_analytics_source:  { type: varchar(255) }
+    google_analytics_medium:  { type: varchar(255) }
     google_analytics_campaign_type:  { type: integer }
     google_analytics_campaign_content:  { type: varchar(255) }
-    google_analytics_content:   { type: varchar(255) }
-    litmus_test_id:             { type: varchar(255) }
+    google_analytics_content: { type: varchar(255) }
+    litmus_test_id:           { type: varchar(255) }
+    web_tracker_enabled:      { type: integer }
     created_at:
     created_by:               { type: integer, foreignTable: sf_guard_user_profile, foreignReference: id, onDelete: cascade }
     updated_at:

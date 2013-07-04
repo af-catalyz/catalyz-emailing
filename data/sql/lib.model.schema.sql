@@ -122,6 +122,7 @@ CREATE TABLE `campaign`
 	`google_analytics_campaign_content` VARCHAR(255),
 	`google_analytics_content` VARCHAR(255),
 	`litmus_test_id` VARCHAR(255),
+	`web_tracker_enabled` INTEGER,
 	`created_at` DATETIME,
 	`created_by` INTEGER,
 	`updated_at` DATETIME,

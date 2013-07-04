@@ -19,8 +19,16 @@ $errors = $form->getErrorSchema();
 
 ?>
 
-<form  class="form-horizontal" action="<?php echo url_for('@campaign_edit_analytics?slug='.$campaign->getSlug()) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
+<form  class="form-horizontal" action="<?php echo url_for('@campaign_edit_tracking?slug='.$campaign->getSlug()) ?>" method="post" <?php $form->isMultipart() and print 'enctype="multipart/form-data" ' ?>>
 <?php  $form= /*(CampaignAnalyticsForm)*/ $form; ?>
+
+<?php if(WebTracker::isModuleAvailable()): ?>
+<label class="checkbox">
+	<?php echo (string)$form['web_tracker_enabled'] ?> Inclure dans les URL un paramètre permettant le suivi via le module de tracking
+</label>
+<br />
+<br />
+<?php endif; ?>
 
 <label class="checkbox">
 	<?php echo (string)$form['google_analytics_enabled'] ?> Activer l'intégration avec Google Analytics
