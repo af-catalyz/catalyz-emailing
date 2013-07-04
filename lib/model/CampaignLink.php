@@ -59,7 +59,7 @@ class CampaignLink extends BaseCampaignLink {
             }
             $possible_parameters['utm_term'] = $this->getGoogleAnalyticsTerm();
         }
-    	if($campaign->getWebTrackingEnabled()){
+    	if($campaign->getWebTrackerEnabled()){
     		$possible_parameters['czet'] = '#EMAIL#';
     	}
 
