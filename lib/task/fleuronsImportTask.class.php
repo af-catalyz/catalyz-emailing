@@ -300,6 +300,18 @@ EOF;
 			}
 		}
 
+
+
+		$parsed_path = $infos['dirname'] . '/parsed';
+
+		if (!is_dir($parsed_path)) {
+			mkdir($parsed_path, 0777, true);
+		}
+
+		if (copy($path, $parsed_path . '/' . $infos['basename'])) {
+			unlink($path);
+		}
+
 		return array('created_contact' => $created_contact, 'updated_contact' => $updated_contact, 'row_whithout_email' => $row_whithout_email, 'duplicate_email' => $duplicate_email, 'invalid_email' => $invalid_email);
 	}
 
