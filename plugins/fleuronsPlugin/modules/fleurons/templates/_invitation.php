@@ -84,27 +84,58 @@
 						      		 </td>
 						      	</tr>
 			       				<tr valign="top">
-						       		<td style="line-height:0; font-size: 0;" width="46"><?php if(isset($parameters["picture1"])){ ?>
-						   				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/img1.jpg" width="46" height="224" alt="" border="0" />
-						      		 <?php } ?></td>
+						       		<td style="line-height:0; font-size: 0;" width="46">
+						       		<?php
+if(!empty($parameters["picture1"]) && is_file(sfConfig::get('sf_web_dir').$parameters["picture1"])){
+	printf('<img src="%s%s" alt="" border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["picture1"], 46, 224));
+}else{
+	printf('<img src="%s/fleuronsPlugin/images/invitation/img1.jpg" width="46" height="224" alt="" border="0" />', CatalyzEmailing::getApplicationUrl());
+}
+												?>
+
+						      		</td>
 						      		 <td style="line-height:0; font-size: 0;" width="7">
 						   				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/bg_w.gif" width="7" height="1" alt="" border="0" />
 						      		 </td>
 						      		 <td style="line-height:0; font-size: 0;" width="46">
-						   				<?php if(isset($parameters["picture2"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/img2.jpg" width="46" height="224" alt="" border="0" />
-						      		<?php } ?> </td>
+						   				<?php
+   					if(!empty($parameters["picture2"]) && is_file(sfConfig::get('sf_web_dir').$parameters["picture2"])){
+   						printf('<img src="%s%s" alt="" border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["picture2"], 46, 224));
+   					}else{
+   						printf('<img src="%s/fleuronsPlugin/images/invitation/img2.jpg" width="46" height="224" alt="" border="0" />', CatalyzEmailing::getApplicationUrl());
+   					}
+
+   					?>
+
+						      		</td>
 						      		 <td style="line-height:0; font-size: 0;" width="7">
 						   				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/bg_w.gif" width="7" height="1" alt="" border="0" />
 						      		 </td>
 						      		 <td style="line-height:0; font-size: 0;" width="46">
-						   				<?php if(isset($parameters["picture3"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/img3.jpg" width="46" height="224" alt="" border="0" />
-						      		 </td>
+						   				<?php
+   					if(!empty($parameters["picture3"]) && is_file(sfConfig::get('sf_web_dir').$parameters["picture3"])){
+   						printf('<img src="%s%s" alt="" border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["picture3"], 46, 224));
+   					}else{
+   						printf('<img src="%s/fleuronsPlugin/images/invitation/img3.jpg" width="46" height="224" alt="" border="0" />', CatalyzEmailing::getApplicationUrl());
+   					}
+
+   					?>
+
+						      		</td>
 						      		 <td style="line-height:0; font-size: 0;" width="7">
 						   				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/bg_w.gif" width="7" height="1" alt="" border="0" />
-						      		<?php } ?> </td>
+						      		 </td>
 						      		 <td style="line-height:0; font-size: 0;" width="46">
-						   				<?php if(isset($parameters["picture4"])){ ?><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/invitation/img4.jpg" width="46" height="224" alt="" border="0" />
-						      		 <?php } ?></td>
+						      		 <?php
+   					if(!empty($parameters["picture4"]) && is_file(sfConfig::get('sf_web_dir').$parameters["picture4"])){
+   						printf('<img src="%s%s" alt="" border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["picture4"], 46, 224));
+   					}else{
+   						printf('<img src="%s/fleuronsPlugin/images/invitation/img4.jpg" width="46" height="224" alt="" border="0" />', CatalyzEmailing::getApplicationUrl());
+   					}
+
+   					?>
+
+						      	</td>
 						      	</tr>
 						      	<tr valign="top">
 						       		<td style="line-height:0; font-size: 0;" width="205" colspan="7">
