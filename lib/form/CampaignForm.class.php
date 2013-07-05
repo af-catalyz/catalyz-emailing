@@ -17,7 +17,7 @@ class CampaignForm extends BaseCampaignForm
 		$choices = array();
 		$criteria = new Criteria();
 		$criteria->add(CampaignTemplatePeer::IS_ARCHIVED, false);
-		$criteria->addAscendingOrderByColumn(CampaignTemplatePeer::NAME);
+		$criteria->addDescendingOrderByColumn(CampaignTemplatePeer::UPDATED_AT);
 		$templates = CampaignTemplatePeer::doSelect($criteria);
 		foreach($templates as/*(CampaignTemplate)*/ $template) {
 
