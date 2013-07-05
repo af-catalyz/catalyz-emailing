@@ -91,10 +91,10 @@
 					</tr>
 					<tr valign="top">
 						<td style="line-height:0; font-size: 0;" width="11"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="11" height="1" alt="" border="0" /></td>
+						<?php if ( !empty($main_articles["main_articles_picture"]) && is_file(sfConfig::get('sf_web_dir').$main_articles["main_articles_picture"])) : ?>
 						<td style="line-height:0; font-size: 0;" width="151">
-							<?php if(!empty($main_articles["main_articles_picture"])){
+							<?php
 								printf('<img src="%s%s" alt="" border="0" />', CatalyzEmailing::getApplicationUrl(),thumbnail_path($main_articles["main_articles_picture"], 137, 137));
-							}
 							?>
 
 						</td>
@@ -105,10 +105,26 @@
 
 							<?php if(!empty($main_articles["main_articles_link"])){
 								printf('<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#669933"><br/><br/><img src="%s/dpiPlugin/images/campaign01Wizzard/bullet_02.gif" width="9" height="8" alt="" border="0" /><a style="color:#669933;" href="%s" target="_blank">%s</a></font>',CatalyzEmailing::getApplicationUrl(), czWidgetFormLink::displayLink($main_articles["main_articles_link"]), !empty($main_articles["main_articles_caption"])?$main_articles["main_articles_caption"]:'Lien');
-								}
-								?>
+							}
+							?>
 
 						</td>
+						<?php else: ?>
+
+						<td width="367" colspan="2">
+							<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#333333">
+							<?php echo nl2br(htmlentities(utf8_decode($main_articles["main_articles_content"]))); ?>
+							</font>
+
+							<?php if(!empty($main_articles["main_articles_link"])){
+								printf('<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#669933"><br/><br/><img src="%s/dpiPlugin/images/campaign01Wizzard/bullet_02.gif" width="9" height="8" alt="" border="0" /><a style="color:#669933;" href="%s" target="_blank">%s</a></font>',CatalyzEmailing::getApplicationUrl(), czWidgetFormLink::displayLink($main_articles["main_articles_link"]), !empty($main_articles["main_articles_caption"])?$main_articles["main_articles_caption"]:'Lien');
+							}
+							?>
+
+						</td>
+						<?php endif ?>
+
+
 						<td style="line-height:0; font-size: 0;" width="10"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="10" height="1" alt="" border="0" /></td>
 					</tr>
 
@@ -126,29 +142,6 @@
 
 					<?php endforeach;?><?php endif; ?>
 
-
-					<!--tr valign="top">
-						<td style="line-height:0; font-size: 0;" width="11"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="11" height="1" alt="" border="0" /></td>
-						<td colspan="2" width="367">
-							<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/bullet_01.gif" width="19" height="13" alt="" border="0" />
-							<font face="Trebuchet MS" style="line-height: 20px; font-size: 18px;font-weight: bold;" size="2" color="#003366">
-								 ACTUALITÉ DE L’ENTREPRISE
-							</font>
-						</td>
-						<td style="line-height:0; font-size: 0;" width="10"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="10" height="1" alt="" border="0" /></td>
-					</tr>
-					<tr style="line-height:0; font-size: 0;" valign="top">
-						<td colspan="4"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="1" height="25" alt="" border="0" /></td>
-					</tr>
-					<tr valign="top">
-						<td style="line-height:0; font-size: 0;" width="11"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="11" height="1" alt="" border="0" /></td>
-						<td style="line-height:0; font-size: 0;" width="151"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/img_02.jpg" width="137" height="137" alt="" border="0" /></td>
-						<td width="216">
-							<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#333333">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex eacommodo consequat.</font>
-							<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#669933"><br/><br/><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/bullet_02.gif" width="9" height="8" alt="" border="0" /><a style="color:#669933;" href="javascript://" target="_blank">Lien</a></font>
-						</td>
-						<td style="line-height:0; font-size: 0;" width="10"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="10" height="1" alt="" border="0" /></td>
-					</tr-->
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="4"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="1" height="20" alt="" border="0" /></td>
 					</tr>
@@ -177,10 +170,12 @@
 					<?php if (isset($parameters["revue_articles"]) && is_array($parameters["revue_articles"])):?><?php foreach($parameters["revue_articles"] as $revue_articles): ?>
 					<tr valign="top">
 						<td style="line-height:0; font-size: 0;" width="11"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="11" height="1" alt="" border="0" /></td>
+
+						<?php if ( !empty($revue_articles["revue_articles_picture"]) && is_file(sfConfig::get('sf_web_dir').$revue_articles["revue_articles_picture"])) : ?>
+
 						<td style="line-height:0; font-size: 0;" width="151">
-							<?php if(!empty($revue_articles["revue_articles_picture"])){
+							<?php
 								printf('<img src="%s%s" alt="" border="0" />', CatalyzEmailing::getApplicationUrl(),thumbnail_path($revue_articles["revue_articles_picture"], 137, 137));
-							}
 							?>
 						</td>
 						<td width="216">
@@ -192,9 +187,28 @@
 
 									printf('<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#669933"><br/><br/><img src="%s/dpiPlugin/images/campaign01Wizzard/bullet_02.gif" width="9" height="8" alt="" border="0" /><a style="color:#669933;" href="%s" target="_blank">Lire l\'article</a></font>',CatalyzEmailing::getApplicationUrl(), czWidgetFormLink::displayLink($revue_articles["revue_articles_link"]));
 
-									} ?>
+								} ?>
 
 						</td>
+
+						<?php else: ?>
+
+						<td style="line-height:0; font-size: 0;" width="367" colspan="2">
+
+							<font face="Arial" style="line-height: 15px; font-size: 11px;" size="2" color="#666666"><?php if(isset($revue_articles["revue_articles_date"])){ ?><?php echo $revue_articles["revue_articles_date"]; ?><?php } ?><br/></font>
+							<font face="Arial" style="line-height: 17px; font-size: 13px;font-weight:bold;" size="2" color="#006699"><?php echo nl2br(htmlentities(utf8_decode($revue_articles["revue_articles_titre"]))); ?><br/></font>
+							<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#333333"><?php echo nl2br(htmlentities(utf8_decode($revue_articles["revue_articles_content"]))); ?></font>
+
+								<?php if(!empty($revue_articles["revue_articles_link"])){
+
+									printf('<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#669933"><br/><br/><img src="%s/dpiPlugin/images/campaign01Wizzard/bullet_02.gif" width="9" height="8" alt="" border="0" /><a style="color:#669933;" href="%s" target="_blank">Lire l\'article</a></font>',CatalyzEmailing::getApplicationUrl(), czWidgetFormLink::displayLink($revue_articles["revue_articles_link"]));
+
+								} ?>
+
+						</td>
+
+						<?php endif ?>
+
 						<td style="line-height:0; font-size: 0;" width="10"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="10" height="1" alt="" border="0" /></td>
 					</tr>
 
@@ -203,21 +217,7 @@
 					</tr>
 					<?php endforeach;?><?php endif; ?>
 
-					<!--tr valign="top">
-						<td style="line-height:0; font-size: 0;" width="11"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="11" height="1" alt="" border="0" /></td>
-						<td style="line-height:0; font-size: 0;" width="151"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/img_04.jpg" width="137" height="70" alt="" border="0" /></td>
-						<td width="216">
-							<font face="Arial" style="line-height: 15px; font-size: 11px;" size="2" color="#666666">Date<br/></font>
-							<font face="Arial" style="line-height: 17px; font-size: 13px;font-weight:bold;" size="2" color="#006699">Lorem ipsum dolor sit amet,<br/>consectetur adipisicing elit<br/></font>
-							<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#333333">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </font>
-							<font face="Arial" style="line-height: 16px; font-size: 12px;" size="2" color="#669933"><br/><br/><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/bullet_02.gif" width="9" height="8" alt="" border="0" /><a style="color:#669933;" href="javascript://" target="_blank">Lire l’article</a></font>
-						</td>
-						<td style="line-height:0; font-size: 0;" width="10"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="10" height="1" alt="" border="0" /></td>
-					</tr>
 
-					<tr style="line-height:0; font-size: 0;" valign="top">
-						<td colspan="4"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="1" height="20" alt="" border="0" /></td>
-					</tr-->
 				</table>
 				<?php endif ?>
 
@@ -261,15 +261,17 @@ if (!empty($evenements['evenements_link'])) {
 					</tr>
 					<tr valign="top">
 						<td style="line-height:0; font-size: 0;" width="11"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_g.gif" width="11" height="1" alt="" border="0" /></td>
+
+						<?php if ( !empty($evenements["evenements_picture"]) && is_file(sfConfig::get('sf_web_dir').$evenements["evenements_picture"])) : ?>
 						<td style="line-height:0; font-size: 0;" width="98">
 
-						<?php if(!empty($evenements["evenements_picture"])){
+						<?php
 							if ($event_link) {
 								printf('<a href="%s" target="_blank"><img src="%s%s" alt="" border="0" /></a>', $event_link,CatalyzEmailing::getApplicationUrl(),thumbnail_path($evenements["evenements_picture"], 90, 90));
 							}else{
 								printf('<img src="%s%s" alt="" border="0" />', CatalyzEmailing::getApplicationUrl(),thumbnail_path($evenements["evenements_picture"], 90, 90));
 							}
-						}
+
 							?>
 						</td>
 						<td width="131">
@@ -283,6 +285,21 @@ if (!empty($evenements['evenements_link'])) {
 							 ?>
 							</font>
 						</td>
+						<?php else : ?>
+						<td colspan="2" width="229">
+							<font face="Arial" style="line-height: 15px; font-size: 11px;" size="2" color="#333333"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/bullet_02.gif" width="9" height="8" alt="" border="0" />
+							<?php
+							if ($event_link) {
+								printf('<a style="color:#333333;" href="%s" target="_blank">%s</a>', $event_link, nl2br(htmlentities(utf8_decode($evenements["evenements_content"]))));
+							}else{
+								echo nl2br(htmlentities(utf8_decode($evenements["evenements_content"])));
+							}
+							 ?>
+							</font>
+						</td>
+						<?php endif ?>
+
+
 						<td style="line-height:0; font-size: 0;" width="13"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_g.gif" width="13" height="1" alt="" border="0" /></td>
 					</tr>
 					<?php endforeach;?><?php endif; ?>
@@ -318,19 +335,21 @@ if (!empty($evenements['evenements_link'])) {
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_g.gif" width="1" height="16" alt="" border="0" /></td>
 					</tr>
+					<?php if(!empty($nouveautes["nouveautes_picture"])): ?>
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td width="11"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="11" height="1" alt="" border="0" /></td>
 						<td width="229" align="center">
-							<?php if(!empty($nouveautes["nouveautes_picture"])){
+							<?php
 								printf('<img src="%s%s" alt="" border="0" />', CatalyzEmailing::getApplicationUrl(),thumbnail_path($nouveautes["nouveautes_picture"], 229, 229));
-							}
 							?>
 						</td>
 						<td width="13"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_w.gif" width="13" height="1" alt="" border="0" /></td>
 					</tr>
+
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_g.gif" width="1" height="13" alt="" border="0" /></td>
 					</tr>
+					<?php endif ?>
 					<tr valign="top">
 						<td style="line-height:0; font-size: 0;" width="11"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign01Wizzard/sep_g.gif" width="11" height="1" alt="" border="0" /></td>
 						<td width="229">
@@ -344,8 +363,6 @@ if (!empty($evenements['evenements_link'])) {
 										}
 											?>
 
-
-										</font>
 										<font face="Arial" style="line-height: 15px; font-size: 11px;font-weight:bold;" size="2" color="#336699"><br/><br/>
 										<?php echo nl2br(htmlentities(utf8_decode($nouveautes["nouveautes_content"]))); ?>
 										</font>
