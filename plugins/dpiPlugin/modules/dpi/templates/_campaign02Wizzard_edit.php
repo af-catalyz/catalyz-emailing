@@ -15,6 +15,7 @@ $formatter->nextTab();
 $formatter->renderField('red_content');
 $formatter->nextTab();
 $formatter->renderField('options');
+$formatter->renderField('picture');
 $formatter->nextTab();
 $formatter->renderGroup('Coordonnées', array('phone','fax'));
 $formatter->renderGroup('Site 1', array('website1_caption','website1_link'));

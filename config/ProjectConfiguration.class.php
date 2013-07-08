@@ -36,6 +36,9 @@ class ProjectConfiguration extends sfProjectConfiguration {
         $this->enablePlugins('asfoPlugin');
         $this->enablePlugins('cimlecPlugin');
         $this->enablePlugins('KogysPlugin');
+        $this->enablePlugins('vigourouxPlugin');
+        $this->enablePlugins('be3cPlugin');
+        $this->enablePlugins('nutritisPlugin');
     }
 }
 

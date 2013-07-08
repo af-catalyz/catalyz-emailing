@@ -383,7 +383,6 @@ if (!empty($evenements['evenements_link'])) {
 				<?php if (
 				!empty($parameters['talk_title']) ||
 				!empty($parameters['talks'])
-
 				): ?>
 				<table width="253" bgcolor="#f6f6f6" cellspacing="0" cellpadding="0" border="0">
 					<tr style="line-height:0; font-size: 0;" valign="top">

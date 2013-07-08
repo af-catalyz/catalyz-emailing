@@ -46,8 +46,11 @@ class dpiCampaign02WizzardForm extends czForm {
 		$this->getWidgetSchema()->setHelp("red_content", '');
 		$this->getWidgetSchema()->setLabel("red_content", false);
 
+		//picture - CampaignTemplateImporter_TypeMapper_Text
+		$this->addPictureField("picture", "Illustration", 548, 201);
+
 		//phone - CampaignTemplateImporter_TypeMapper_Text
-		$this->addTextField("phone", "Numéro de téléhone", array());
+		$this->addTextField("phone", "Numéro de téléphone", array());
 		//fax - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("fax", "Numéro de fax", array());
 		//website1_caption - CampaignTemplateImporter_TypeMapper_Text

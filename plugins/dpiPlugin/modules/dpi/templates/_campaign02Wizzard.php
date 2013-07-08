@@ -122,7 +122,7 @@
 					<tr valign="top"  bgcolor="#c30c26">
 						<td style="line-height:0; font-size: 0;" width="60"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="60" height="1" alt="" border="0" /></td>
 						<td width="428" align="center">
-							<?php $renderer = new CatalyzEmailRenderer("Arial", "#FFFFFF", "font-size: 12px;line-height: 15px;"); echo $renderer->renderWysiwyg($parameters["red_content"], "#FFFFFF");  ?>
+							<?php $renderer = new CatalyzEmailRenderer("Arial", "#FFFFFF", "font-size: 12px;line-height: 25px;"); echo $renderer->renderWysiwyg($parameters["red_content"], "#FFFFFF");  ?>
 						</td>
 						<td style="line-height:0; font-size: 0;" bgcolor="#c30c26" width="60"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="60" height="1" alt="" border="0" /></td>
 					</tr>
@@ -158,7 +158,19 @@
 						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="1" height="10" alt="" border="0" /></td>
 					</tr>
 					<tr style="line-height:0; font-size: 0;" valign="top">
-						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/trucks.jpg" width="548" height="201" alt="" border="0" /></td>
+						<td colspan="3" align="center">
+							<?php
+							$path = '/dpiPlugin/images/campaign02Wizzard/trucks.jpg';
+
+							if (!empty($parameters["picture"]) && is_file(sfConfig::get('sf_web_dir').$parameters["picture"])) {
+								$path = $parameters["picture"];
+							}
+
+							$path_infos =   getimagesize(sfConfig::get('sf_web_dir').thumbnail_path($path, 548, 201));
+							printf('<img src="%s" alt="" %s border="0" />', thumbnail_path($path, 548, 201), $path_infos[3]);
+
+							?>
+						</td>
 					</tr>
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/border_xl.gif" width="548" height="1" alt="" border="0" /></td>
