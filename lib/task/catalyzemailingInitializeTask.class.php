@@ -25,7 +25,7 @@ EOF;
         $connection = Propel::getConnection($options['connection'] ? $options['connection'] : '');
         sfContext::createInstance($this->configuration, 'default');
         // add code here
-        // CampaignTemplatePeer::doDeleteAll();
+         //CampaignTemplatePeer::doDeleteAll();
         switch (sfConfig::get('sf_environment')) {
             case 'ot':
                 $template = new CampaignTemplate();
@@ -524,6 +524,20 @@ EOF;
         		$template->setName('Newsletter 2');
         		$template->setPreviewFilename('/dpiPlugin/images/campaign02.jpg');
         		$template->setTemplate($this->getPartial('dpi/campaign02'));
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 3 (avec assistant)');
+        		$template->setClassName('dpiCampaign03WizzardCampaignTemplateHandler');
+        		$template->setPreviewFilename('/dpiPlugin/images/campaign03Wizzard.jpg');
+        		$template->setInitializer('dpiCampaign03WizzardCampaignTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Newsletter 3');
+        		$template->setPreviewFilename('/dpiPlugin/images/campaign03.jpg');
+        		$template->setTemplate($this->getPartial('dpi/campaign03'));
         		$template->save();
         		break;
         	case 'asfo':

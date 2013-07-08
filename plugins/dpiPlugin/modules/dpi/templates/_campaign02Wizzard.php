@@ -251,7 +251,7 @@
 		<tr valign="top">
 			<td style="line-height:0; font-size: 0;" width="30"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="30" height="1" alt="" style="display:block;" border="0" /></td>
 			<td width="603" align="center">
-				<font face="Tahoma" style="font-size: 9px;line-height: 12px;" size="2" color="#999999">Conformément à la loi Informatique et Libertés du 06/01/1978, vous disposez d'un droit d'accès, de rectification<br/>et d'opposition aux informations vous concernant qui peut s'exercer par e-mail à <a style="color:#999999;" href="mailto:XXX@gtradial.fr" target="_blank">XXX@gtradial.fr</a><br/>ou en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#999999;">ce lien de désinscription</a></font>
+				<font face="Tahoma" style="font-size: 9px;line-height: 12px;" size="2" color="#999999">Conformément à la loi Informatique et Libertés du 06/01/1978, vous disposez d'un droit d'accès, de rectification<br/>et d'opposition aux informations vous concernant qui peut s'exercer en cliquant sur <a target="_blank" href="#UNSUBSCRIBE#" style="color:#999999;">ce lien de désinscription</a>.</font>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="30"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="30" height="1" alt="" style="display:block;" border="0" /></td>
 		</tr>
