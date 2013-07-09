@@ -24,7 +24,13 @@ class dpiCampaign02WizzardCampaignTemplateInitializer extends CampaignTemplateIn
   	$result['adress_content'] = "DOUMERC PNEUS INTERNATIONAL - D P I\n43 Impasse DOUMERC - 82700 Montbartier";
   	$result['facebook_link'] = 'http://www.facebook.com/pages/GT-Radial-France/328827503865164';
 
-    $xml = czWidgetFormWizard::asXml($result);
+		$result['header_picture1'] = '/dpiPlugin/images/campaign02Wizzard/header1.jpg';
+  	$result['header_picture2'] = '/dpiPlugin/images/campaign02Wizzard/header2.jpg';
+  	$result['operation_picture'] = '/dpiPlugin/images/campaign02Wizzard/red_left.jpg';
+  	$result['picture'] = '/dpiPlugin/images/campaign02Wizzard/trucks.jpg';
+  	$result['style'] = 'default';
+
+  	$xml = czWidgetFormWizard::asXml($result);
     $campaign->setContent($xml);
   }
 }

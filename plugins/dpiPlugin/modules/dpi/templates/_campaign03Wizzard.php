@@ -59,7 +59,7 @@
 			<td colspan="5"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign03Wizzard/footer_1.jpg" width="662" height="32" alt="" border="0" /></td>
 		</tr>
 		<tr valign="top">
-			<td style="line-height:0; font-size: 0;" width="15"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign03Wizzard/sep_b.gif" width="44" height="1" alt="" style="display:block;" border="0" /></td>
+			<td style="line-height:0; font-size: 0;" width="15"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign03Wizzard/sep_b.gif" width="15" height="1" alt="" style="display:block;" border="0" /></td>
 			<td align="center" width="242">
 				<font face="Arial" style="font-size: 11px; line-height: 15px;" size="2" color="#ffffff">
 					<?php echo nl2br(htmlentities(utf8_decode($parameters["adress"]))); ?>
@@ -82,7 +82,7 @@
 				</a>
 				<?php } ?>
 			</td>
-			<td style="line-height:0; font-size: 0;" width="15"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign03Wizzard/sep_b.gif" width="44" height="1" alt="" style="display:block;" border="0" /></td>
+			<td style="line-height:0; font-size: 0;" width="15"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign03Wizzard/sep_b.gif" width="15" height="1" alt="" style="display:block;" border="0" /></td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;" valign="top">
 			<td colspan="5"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign03Wizzard/footer_2.jpg" width="662" height="44" alt="" border="0" /></td>

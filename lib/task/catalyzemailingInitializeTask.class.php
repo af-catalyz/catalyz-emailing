@@ -513,7 +513,7 @@ EOF;
         		$template->save();
 
         		$template = new CampaignTemplate();
-        		$template->setName('Newsletter 2 (avec assistant)');
+        		$template->setName('Push Promo (avec assistant)');
         		$template->setClassName('dpiCampaign02WizzardCampaignTemplateHandler');
         		$template->setPreviewFilename('/dpiPlugin/images/campaign02Wizzard.jpg');
         		$template->setInitializer('dpiCampaign02WizzardCampaignTemplateInitializer');
@@ -521,7 +521,7 @@ EOF;
         		$template->save();
 
         		$template = new CampaignTemplate();
-        		$template->setName('Newsletter 2');
+        		$template->setName('Push Promo');
         		$template->setPreviewFilename('/dpiPlugin/images/campaign02.jpg');
         		$template->setTemplate($this->getPartial('dpi/campaign02'));
         		$template->save();

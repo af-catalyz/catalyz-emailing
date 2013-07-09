@@ -13,13 +13,13 @@
 		</tr>
 	</table>
 
-	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="601" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr style="line-height:0; font-size: 0;" valign="top">
 			<td width="179"><img src="/dpiPlugin/images/campaign02/header1.jpg" width="179" height="114" alt="" border="0" /></td>
 			<td width="246">
 				<a target="_blank" href="http://www.gtradial.fr"><img src="/dpiPlugin/images/campaign02/logo.png" width="246" height="114" alt="gt-radial" border="0" /></a>
 			</td>
-			<td width="144"><img src="/dpiPlugin/images/campaign02/header2.jpg" width="176" height="114" alt="" border="0" /></td>
+			<td width="176"><img src="/dpiPlugin/images/campaign02/header2.jpg" width="176" height="114" alt="" border="0" /></td>
 		</tr>
 	</table>
 

@@ -25,9 +25,9 @@ class dpiCampaign02WizzardForm extends czForm {
 		//options - CampaignTemplateImporter_TypeMapper_Subform
 		$this->addSubformField("options", "Options", "dpiCampaign02WizzardForm_options", "title", array());
 		//operation_type - CampaignTemplateImporter_TypeMapper_Textarea
-		$this->addTextareaField("operation_type", "Type d'opération", array('style' => 'width: 700px'));
+		$this->addTextareaField("operation_type", "Type", array('style' => 'width: 700px'));
 		//operation_caption - CampaignTemplateImporter_TypeMapper_Textarea
-		$this->addTextareaField("operation_caption", "Nom de l'opération", array('style' => 'width: 700px'));
+		$this->addTextareaField("operation_caption", "Nom", array('style' => 'width: 700px'));
 		//event_start - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("event_start", "Date de début", array());
 		//event_end - CampaignTemplateImporter_TypeMapper_Text
@@ -66,5 +66,18 @@ class dpiCampaign02WizzardForm extends czForm {
 		$this->addTextareaField("adress_content", false, array('style' => 'width: 700px'));
 		//facebook_link - CampaignTemplateImporter_TypeMapper_Url
 		$this->addUrlField("facebook_link", "Lien facebook", array());
+
+		$this->addPictureField("header_picture1", "Illustration de gauche", 179, 114);
+		$this->addPictureField("header_picture2", "Illustration de droite", 176, 114);
+		$this->addPictureField("operation_picture", "Illustration", 238, 96);
+
+		$choices = array();
+		$choices['default'] = 'Defaut';
+		$choices['hiver'] = 'Hiver';
+
+		$this->widgetSchema["style"] = new sfWidgetFormChoice(array('choices' => $choices,'label' => false));;
+		$this->validatorSchema["style"] = new sfValidatorChoice(array('required' => true, 'choices' => array_keys($choices)));
+		$this->getWidgetSchema()->setHelp("style", '');
+
 	}
 }

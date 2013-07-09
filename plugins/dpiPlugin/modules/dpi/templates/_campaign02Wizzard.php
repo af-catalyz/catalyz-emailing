@@ -4,6 +4,23 @@
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
+
+<?php
+
+
+if ($parameters["style"] == 'default') {
+	$color = '#c30c26';
+	$sep_gif = '/dpiPlugin/images/campaign02Wizzard/sep_r.gif';
+	$header3 = '/dpiPlugin/images/campaign02Wizzard/header3.png';
+	$top_angle = '/dpiPlugin/images/campaign02Wizzard/top_angle.gif';
+
+}else{
+	$color = '#488ccb';
+	$sep_gif = '/dpiPlugin/images/campaign02Wizzard/sep_winter.gif';
+	$header3 = '/dpiPlugin/images/campaign02Wizzard/header3_winter.png';
+	$top_angle = '/dpiPlugin/images/campaign02Wizzard/top_angle_winter.gif';
+} ?>
+
 <body bgcolor="#ffffff" alink="#666666" vlink="#666666" link="#666666">
 	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr valign="top">
@@ -13,20 +30,34 @@
 		</tr>
 	</table>
 
-	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="601" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr style="line-height:0; font-size: 0;" valign="top">
-			<td width="179"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/header1.jpg" width="179" height="114" alt="" border="0" /></td>
+			<td width="179">
+				<?php
+				if (!empty($parameters["header_picture1"]) && is_file(sfConfig::get('sf_web_dir').$parameters["header_picture1"])) {
+					$path_infos =   getimagesize(sfConfig::get('sf_web_dir').thumbnail_path($parameters["header_picture1"], 179, 114));
+					printf('<img src="%s%s" alt="" %s border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["header_picture1"], 179, 114), $path_infos[3]);
+				}
+				?>
+			</td>
 			<td width="246">
 				<a target="_blank" href="http://www.gtradial.fr"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/logo.png" width="246" height="114" alt="gt-radial" border="0" /></a>
 			</td>
-			<td width="144"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/header2.jpg" width="176" height="114" alt="" border="0" /></td>
+			<td width="176">
+			<?php
+					if (!empty($parameters["header_picture2"]) && is_file(sfConfig::get('sf_web_dir').$parameters["header_picture2"])) {
+						$path_infos =   getimagesize(sfConfig::get('sf_web_dir').thumbnail_path($parameters["header_picture2"], 176, 114));
+						printf('<img src="%s%s" alt="" %s border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["header_picture2"], 176, 114), $path_infos[3]);
+					}
+					?>
+			</td>
 		</tr>
 	</table>
 
-	<table width="600" bgcolor="#c30c26" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="600" bgcolor="<?php echo $color ?>" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr valign="top">
-			<td style="line-height:0; font-size: 0;" width="375"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/header3.png" width="375" height="18" alt="" border="0" /></td>
-			<td style="line-height:0; font-size: 0;" width="16"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/top_angle.gif" width="16" height="18" alt="" border="0" /></td>
+			<td style="line-height:0; font-size: 0;" width="375"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $header3 ?>" width="375" height="18" alt="" border="0" /></td>
+			<td style="line-height:0; font-size: 0;" width="16"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $top_angle ?>" width="16" height="18" alt="" border="0" /></td>
 			<td style="line-height:0; font-size: 0;" width="15" bgcolor="#2c4390"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_top.gif" width="15" height="1" alt="" border="0" /></td>
 			<td valign="middle" width="179" align="center" bgcolor="#2c4390">
 				<font face="Arial" style="font-size: 11px;line-height: 26px;font-weight: bold;" size="2" color="#fefefe">
@@ -37,20 +68,25 @@
 		</tr>
 	</table>
 
-	<table width="600" bgcolor="#c30c26" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="600" bgcolor="<?php echo $color ?>" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr style="line-height:0; font-size: 0;" valign="top">
-			<td width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="25" height="1" alt="" border="0" /></td>
+			<td width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="25" height="1" alt="" border="0" /></td>
 			<td bgcolor="#FFFFFF" width="1"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="1" height="1" alt="" border="0" /></td>
-			<td width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="17" height="1" alt="" border="0" /></td>
-			<td width="319"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="1" height="5" alt="" border="0" /></td>
-			<td valign="bottom" width="238" rowspan="4">
-				<img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/red_left.jpg" width="238" height="96" alt="" border="0" />
+			<td width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="17" height="1" alt="" border="0" /></td>
+			<td width="319"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="1" height="5" alt="" border="0" /></td>
+			<td align="right" valign="bottom" width="238" rowspan="4">
+				<?php
+				if (!empty($parameters["operation_picture"]) && is_file(sfConfig::get('sf_web_dir').$parameters["operation_picture"])) {
+					$path_infos =   getimagesize(sfConfig::get('sf_web_dir').thumbnail_path($parameters["operation_picture"], 238, 96));
+					printf('<img src="%s%s" alt="" %s border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["operation_picture"], 238, 96), $path_infos[3]);
+				}
+				?>
 			</td>
 		</tr>
 		<tr valign="middle">
-			<td style="line-height:0; font-size: 0;" width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="25" height="1" alt="" border="0" /></td>
+			<td style="line-height:0; font-size: 0;" width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="25" height="1" alt="" border="0" /></td>
 			<td style="line-height:0; font-size: 0;" bgcolor="#FFFFFF" width="1"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="1" height="1" alt="" border="0" /></td>
-			<td style="line-height:0; font-size: 0;" width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="17" height="1" alt="" border="0" /></td>
+			<td style="line-height:0; font-size: 0;" width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="17" height="1" alt="" border="0" /></td>
 			<td width="319">
 				<font face="Arial" style="font-size: 28px;line-height: 30px;font-weight: bold;" size="2" color="#fefefe">
 				<?php echo nl2br(htmlentities(utf8_decode($parameters["operation_caption"]))); ?>
@@ -58,16 +94,16 @@
 			</td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;" valign="top">
-			<td width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="25" height="1" alt="" border="0" /></td>
+			<td width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="25" height="1" alt="" border="0" /></td>
 			<td bgcolor="#FFFFFF" width="1"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="1" height="1" alt="" border="0" /></td>
-			<td width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="17" height="1" alt="" border="0" /></td>
-			<td width="319"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="1" height="5" alt="" border="0" /></td>
+			<td width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="17" height="1" alt="" border="0" /></td>
+			<td width="319"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="1" height="5" alt="" border="0" /></td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;" valign="top">
-			<td width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="25" height="1" alt="" border="0" /></td>
-			<td width="1"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="1" height="1" alt="" border="0" /></td>
-			<td width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="17" height="1" alt="" border="0" /></td>
-			<td width="319"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="1" height="10" alt="" border="0" /></td>
+			<td width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="25" height="1" alt="" border="0" /></td>
+			<td width="1"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="1" height="1" alt="" border="0" /></td>
+			<td width="17"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="17" height="1" alt="" border="0" /></td>
+			<td width="319"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="1" height="10" alt="" border="0" /></td>
 		</tr>
 	</table>
 
@@ -119,12 +155,12 @@
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="1" height="10" alt="" border="0" /></td>
 					</tr>
-					<tr valign="top"  bgcolor="#c30c26">
-						<td style="line-height:0; font-size: 0;" width="60"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="60" height="1" alt="" border="0" /></td>
+					<tr valign="top"  bgcolor="<?php echo $color ?>">
+						<td style="line-height:0; font-size: 0;" width="60"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="60" height="1" alt="" border="0" /></td>
 						<td width="428" align="center">
 							<?php $renderer = new CatalyzEmailRenderer("Arial", "#FFFFFF", "font-size: 12px;line-height: 25px;"); echo $renderer->renderWysiwyg($parameters["red_content"], "#FFFFFF");  ?>
 						</td>
-						<td style="line-height:0; font-size: 0;" bgcolor="#c30c26" width="60"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="60" height="1" alt="" border="0" /></td>
+						<td style="line-height:0; font-size: 0;" width="60"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="60" height="1" alt="" border="0" /></td>
 					</tr>
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="1" height="10" alt="" border="0" /></td>
@@ -157,21 +193,16 @@
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_w.gif" width="1" height="10" alt="" border="0" /></td>
 					</tr>
+					<?php if (!empty($parameters["picture"]) && is_file(sfConfig::get('sf_web_dir').$parameters["picture"])): ?>
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="3" align="center">
 							<?php
-							$path = '/dpiPlugin/images/campaign02Wizzard/trucks.jpg';
-
-							if (!empty($parameters["picture"]) && is_file(sfConfig::get('sf_web_dir').$parameters["picture"])) {
-								$path = $parameters["picture"];
-							}
-
-							$path_infos =   getimagesize(sfConfig::get('sf_web_dir').thumbnail_path($path, 548, 201));
-							printf('<img src="%s" alt="" %s border="0" />', thumbnail_path($path, 548, 201), $path_infos[3]);
-
+							$path_infos =   getimagesize(sfConfig::get('sf_web_dir').thumbnail_path($parameters["picture"], 548, 201));
+							printf('<img src="%s" alt="" %s border="0" />', thumbnail_path($parameters["picture"], 548, 201), $path_infos[3]);
 							?>
 						</td>
 					</tr>
+					<?php endif ?>
 					<tr style="line-height:0; font-size: 0;" valign="top">
 						<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/border_xl.gif" width="548" height="1" alt="" border="0" /></td>
 					</tr>
@@ -223,11 +254,11 @@
 		</tr>
 	</table>
 
-	<table width="600" bgcolor="#c30c26" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="600" bgcolor="<?php echo $color ?>" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr style="line-height:0; font-size: 0;" valign="top">
-			<td rowspan="2" width="40"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="1" height="1" alt="" border="0" /></td>
+			<td rowspan="2" width="40"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="1" height="1" alt="" border="0" /></td>
 			<td rowspan="2" width="160"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/logo2.png" width="139" height="79" alt="" border="0" /></td>
-			<td colspan="2" width="400"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="1" height="12" alt="" border="0" /></td>
+			<td colspan="2" width="400"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="1" height="12" alt="" border="0" /></td>
 		</tr>
 		<tr valign="top">
 			<td width="245">
@@ -240,7 +271,7 @@
 			</td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;" valign="top">
-			<td colspan="4"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/dpiPlugin/images/campaign02Wizzard/sep_r.gif" width="1" height="11" alt="" border="0" /></td>
+			<td colspan="4"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?><?php echo $sep_gif ?>" width="1" height="11" alt="" border="0" /></td>
 		</tr>
 	</table>
 

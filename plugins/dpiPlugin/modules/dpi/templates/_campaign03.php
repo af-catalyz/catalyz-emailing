@@ -56,7 +56,7 @@
 			<td colspan="5"><img src="/dpiPlugin/images/campaign03/footer_1.jpg" width="662" height="32" alt="" border="0" /></td>
 		</tr>
 		<tr valign="top">
-			<td style="line-height:0; font-size: 0;" width="15"><img src="/dpiPlugin/images/campaign03/sep_b.gif" width="44" height="1" alt="" style="display:block;" border="0" /></td>
+			<td style="line-height:0; font-size: 0;" width="15"><img src="/dpiPlugin/images/campaign03/sep_b.gif" width="15" height="1" alt="" style="display:block;" border="0" /></td>
 			<td align="center" width="242">
 				<font face="Arial" style="font-size: 11px; line-height: 15px;" size="2" color="#ffffff">DOUMERC PNEUS INTERNATIONAL - D P I<br/>43 Impasse DOUMERC - 82700 Montbartier</font>
 			</td>
@@ -69,7 +69,7 @@
 					<img src="/dpiPlugin/images/campaign03/facebook.gif" width="140" height="38" alt="" border="0" />
 				</a>
 			</td>
-			<td style="line-height:0; font-size: 0;" width="15"><img src="/dpiPlugin/images/campaign03/sep_b.gif" width="44" height="1" alt="" style="display:block;" border="0" /></td>
+			<td style="line-height:0; font-size: 0;" width="15"><img src="/dpiPlugin/images/campaign03/sep_b.gif" width="15" height="1" alt="" style="display:block;" border="0" /></td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;" valign="top">
 			<td colspan="5"><img src="/dpiPlugin/images/campaign03/footer_2.jpg" width="662" height="44" alt="" border="0" /></td>

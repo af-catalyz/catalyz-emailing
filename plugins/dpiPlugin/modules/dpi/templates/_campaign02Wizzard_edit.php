@@ -2,19 +2,22 @@
 
 $formatter = new CatalyzFormFormatter3($form);
 
-$formatter->startTabs('Haut de page', 'Contenu','Encart rouge','Options de l\'offre','Bas de page');
+$formatter->startTabs('Haut de page', 'Contenu','Encart rouge','Options de l\'offre', 'Illustration','Bas de page');
 
-$formatter->renderField('operation_type');
-$formatter->renderField('operation_caption');
+$formatter->renderGroup('Style de l\'emailing', array('style'));
+$formatter->renderGroup('Bandeau titre', array('header_picture1','header_picture2'));
+$formatter->renderGroup('Opération', array('operation_type','operation_caption','operation_picture'));
 
 $formatter->nextTab();
 $formatter->renderGroup('Dates', array('event_start','event_end'));
 $formatter->renderField('main_content');
 
+
 $formatter->nextTab();
 $formatter->renderField('red_content');
 $formatter->nextTab();
 $formatter->renderField('options');
+$formatter->nextTab();
 $formatter->renderField('picture');
 $formatter->nextTab();
 $formatter->renderGroup('Coordonnées', array('phone','fax'));
