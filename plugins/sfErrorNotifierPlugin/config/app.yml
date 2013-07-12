@@ -1,0 +1,19 @@
+af:
+  sfErrorNotifier:
+    enabled:    true  # Global enable or disable per env
+    emailTo:      af@catalyz.fr  # EDIT THIS
+    reportPHPErrors: true        # This will let you be notified not only of
+    reportPHPWarnings: false     # This will let you be notified not only of
+    report404:    true   # Also report 404 errors
+
+
+all:
+  sfErrorNotifier:
+    enabled:    true  # Global enable or disable per env
+    emailTo:      support@catalyz.fr  # EDIT THIS
+    emailFrom:      support@catalyz.fr
+    emailFormat: html   # 'html' or 'txt', html by default
+    reportPHPErrors: true        # This will let you be notified not only of
+    reportPHPWarnings: true     # This will let you be notified not only of
+    report404:    true   # Also report 404 errors
+    mailerMethod:                # Optional, for advanced users. Specify an alternative mail method
