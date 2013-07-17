@@ -5,7 +5,7 @@
 	require_once("../classes/ManagerEngine.php");
 
 	// Set the error reporting to minimal
-	@error_reporting(E_ERROR | E_WARNING | E_PARSE);
+//	@error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 	$theme = getRequestParam("theme", "", true);
 	$package = getRequestParam("package", "", true);

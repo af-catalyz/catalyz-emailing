@@ -663,6 +663,34 @@ EOF;
         		$template->save();
         		break;
 
+        	case 'lcf':
+        		$template = new CampaignTemplate();
+        		$template->setName('La Clôture Française');
+        		$template->setClassName('lcfCampaign01CampaignTemplateHandler');
+        		$template->setPreviewFilename('/lcfPlugin/images/campaign01.jpg');
+        		$template->setInitializer('lcfCampaign01CampaignTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+        		break;
+
+        	case 'fleurons':
+        		$template = new CampaignTemplate();
+        		$template->setName('Invitation');
+        		$template->setClassName('fleuronsInvitationCampaignTemplateHandler');
+        		$template->setPreviewFilename('/fleuronsPlugin/images/invitation.jpg');
+        		$template->setInitializer('fleuronsInvitationCampaignTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Anniversaire');
+        		$template->setClassName('fleuronsCampaignAnniversaireWizzardCampaignTemplateHandler');
+        		$template->setPreviewFilename('/fleuronsPlugin/images/anniversaire.jpg');
+        		$template->setInitializer('fleuronsCampaignAnniversaireWizzardCampaignTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+        		break;
+
         } // switch
     }
 

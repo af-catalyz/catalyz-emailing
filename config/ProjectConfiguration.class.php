@@ -39,7 +39,8 @@ class ProjectConfiguration extends sfProjectConfiguration {
         $this->enablePlugins('vigourouxPlugin');
         $this->enablePlugins('be3cPlugin');
         $this->enablePlugins('nutritisPlugin');
-    }
+      $this->enablePlugins('sfErrorNotifierPlugin');
+  }
 }
 
 

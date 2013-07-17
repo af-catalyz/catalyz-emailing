@@ -1,10 +1,10 @@
 <?php
-	@error_reporting(E_ALL ^ E_NOTICE);
+//	@error_reporting(E_ALL ^ E_NOTICE);
 
 	require_once('../classes/Utils/JSCompressor.php');
 
 	// Set the error reporting to minimal.
-	@error_reporting(E_ERROR | E_WARNING | E_PARSE);
+//	@error_reporting(E_ERROR | E_WARNING | E_PARSE);
 
 	$classes = getParam("classes");
 
