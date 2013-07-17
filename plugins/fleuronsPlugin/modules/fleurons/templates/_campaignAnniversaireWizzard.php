@@ -4,7 +4,7 @@
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
-<body alink="#669933" vlink="#669933" link="#669933">
+<body alink="#FFFFFF" vlink="#FFFFFF" link="#FFFFFF">
 	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr valign="top">
 			<td align="center">
@@ -29,7 +29,7 @@
 			<td height="48" style="line-height:0; font-size: 0;" width="7"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_brown.gif" width="7" height="1" alt="" border="0" /></td>
 			<td height="48" style="line-height:0; font-size: 0;" width="18"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_brown.gif" width="18" height="1" alt="" border="0" /></td>
 			<td align="center" valign="middle" height="48" style="line-height:0; font-size: 0;" width="385">
-				<font face="Times" style="font-size: 24px;line-height: 24px;" size="2" color="#FFFFFF"><?php if(isset($parameters["title"])){ ?><?php echo $parameters["title"]; ?><?php } ?></font>
+				<font face="Times" style="font-size: 24px;line-height: 24px;" size="2" color="#FFFFFF"><?php if(isset($parameters["title"])){ ?><?php echo htmlentities($parameters["title"], ENT_COMPAT, 'utf-8'); ?><?php } ?></font>
 			</td>
 			<td height="48" style="line-height:0; font-size: 0;" width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_brown.gif" width="14" height="48" alt="" border="0" /></td>
 		</tr>
@@ -41,7 +41,7 @@
 				<table width="385" cellspacing="0" cellpadding="0" border="0">
 					<tr>
 						<td width="360" align="right">
-							<font face="Times" style="font-size: 12px;line-height: 16px;" size="2" color="#FFFFFF"><?php echo $parameters["date"]; ?></font>
+							<font face="Times" style="font-size: 12px;line-height: 16px;" size="2" color="#FFFFFF"><?php echo htmlentities($parameters["date"], ENT_COMPAT, 'utf-8'); ?></font>
 						</td>
 						<td style="line-height:0; font-size: 0;" width="25"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_green.gif" width="25" height="40" alt="" border="0" /></td>
 					</tr>
@@ -68,7 +68,7 @@
 		<tr>
 			<td style="line-height:0; font-size: 0;" width="28"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_wh.gif" width="28" height="1" alt="" border="0" /></td>
 			<td width="402">
-				<font face="Times" style="font-size: 28px;line-height: 30px;" size="2" color="#e00a8c"><?php if(!empty($parameters["promo_title"])){ ?><?php echo $parameters["promo_title"]; ?><?php } ?></font>
+				<font face="Times" style="font-size: 28px;line-height: 30px;" size="2" color="#e00a8c"><?php if(!empty($parameters["promo_title"])){ ?><?php echo htmlentities($parameters["promo_title"], ENT_COMPAT, 'utf-8'); ?><?php } ?></font>
 			</td>
 			<td width="130">
 				<?php if (!empty($parameters["amount"])): ?>
@@ -81,7 +81,7 @@
 						<td style="line-height:0; font-size: 0;" bgcolor="#000000" width="2"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_bl.gif" width="2" height="2" alt="" border="0" /></td>
 						<td style="line-height:0; font-size: 0;" width="2"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_wh.gif" width="2" height="2" alt="" border="0" /></td>
 						<td width="122" align="center">
-							<font face="Times" style="font-size: 36px;line-height: 38px;" size="2" color="#e00a8c"><?php echo $parameters["amount"]; ?></font>
+							<font face="Times" style="font-size: 36px;line-height: 38px;" size="2" color="#e00a8c"><?php echo htmlentities($parameters["amount"], ENT_COMPAT, 'utf-8'); ?></font>
 						</td>
 						<td style="line-height:0; font-size: 0;" width="2"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_wh.gif" width="2" height="2" alt="" border="0" /></td>
 						<td style="line-height:0; font-size: 0;" bgcolor="#000000" width="2"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_bl.gif" width="2" height="2" alt="" border="0" /></td>
@@ -163,7 +163,7 @@
 				<?php
 
 						if (!empty($parameters["website_link"])) {
-							printf('<a style="color:#ffffff;text-decoration: none;" href="%s" target="_blank">%s</a>', czWidgetFormLink::displayLink($parameters["website_link"]), !empty($parameters["website_caption"])?$parameters["website_caption"]:'LIEN');
+							printf('<a style="color:#ffffff;text-decoration: none;" href="%s" target="_blank">%s</a>', czWidgetFormLink::displayLink($parameters["website_link"]), !empty($parameters["website_caption"])?htmlentities($parameters["website_caption"], ENT_COMPAT, 'utf-8'):'LIEN');
 						}else{
 							echo '&nbsp;';
 						}
@@ -193,7 +193,7 @@
 						$secondLine[]= sprintf('Tel : %s', htmlentities($parameters["phone"], ENT_COMPAT, 'utf-8'));
 					}
 					if (!empty($parameters["contact_link"])) {
-						$secondLine[]= sprintf('mail : <a style="text-decoration: none;color:#FFFFFF;" href="mailto:%s" target="_blank">%s</a>', czWidgetFormLink::displayLink($parameters["contact_link"]), !empty($parameters["contact_caption"])?$parameters["contact_caption"]:'LIEN');
+						$secondLine[]= sprintf('mail : <a style="text-decoration: none;color:#FFFFFF;" href="mailto:%s" target="_blank">%s</a>', czWidgetFormLink::displayLink($parameters["contact_link"]), !empty($parameters["contact_caption"])?htmlentities($parameters["contact_caption"], ENT_COMPAT, 'utf-8'):'LIEN');
 					}
 
 					if (!empty($secondLine)) {
