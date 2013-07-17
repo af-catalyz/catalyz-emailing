@@ -525,7 +525,16 @@ function displaySortIcon($sens,$colonne,$parameter_sort,$parameter_column){
 	}
 }
 
+function getThumbnailSize($src, $width, $height){
+	if (!is_file(sfConfig::get('sf_web_dir').$src)) {
+		return FALSE;
+	}
 
+	$path_infos =   getimagesize(sfConfig::get('sf_web_dir').thumbnail_path($src, $width, $height));
+
+
+	return $path_infos[3];
+}
 
 function unEscape($element){
 	if ($element instanceof sfOutputEscaperArrayDecorator) {

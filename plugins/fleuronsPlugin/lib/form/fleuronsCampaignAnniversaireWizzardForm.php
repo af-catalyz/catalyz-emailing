@@ -31,7 +31,7 @@ class fleuronsCampaignAnniversaireWizzardForm extends czForm {
 
 
 		//title - CampaignTemplateImporter_TypeMapper_Text
-		$this->addTextField("title", "title", array());
+		$this->addTextField("title", "Intitulé", array());
 		//date - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("date", "Date", array());
 		//right_content - CampaignTemplateImporter_TypeMapper_Wysiwyg
@@ -40,10 +40,9 @@ class fleuronsCampaignAnniversaireWizzardForm extends czForm {
 		$this->widgetSchema["right_content"] = $this->createWidget(array('label' => 'Contenu'));
 		$this->validatorSchema["right_content"] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp("right_content", '');
-		$this->getWidgetSchema()->setLabel("right_content", "Contenu");
 
 		//promo_title - CampaignTemplateImporter_TypeMapper_Text
-		$this->addTextField("promo_title", "Titre", array());
+		$this->addTextField("promo_title", "Intitulé", array());
 		//amount - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("amount", "Montant", array());
 		//promo_content - CampaignTemplateImporter_TypeMapper_Wysiwyg
@@ -53,16 +52,15 @@ class fleuronsCampaignAnniversaireWizzardForm extends czForm {
 		$this->widgetSchema["promo_content"] = $this->createWidget(array('label' => 'Contenu'));
 		$this->validatorSchema["promo_content"] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp("promo_content", '');
-		$this->getWidgetSchema()->setLabel("promo_content", "Contenu");
 
 		//promo_code - CampaignTemplateImporter_TypeMapper_Picture
-		$this->addPictureField("promo_code", "Promo_code", 108, 46);
+		$this->addPictureField("promo_code", "Code promo", 108, 46);
 		//promo_legals - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("promo_legals", "Mentions légales", array());
 		//facebook_link - CampaignTemplateImporter_TypeMapper_Url
 		$this->addUrlField("facebook_link", "Lien vers facebook", array());
 		//website_caption - CampaignTemplateImporter_TypeMapper_Text
-		$this->addTextField("website_caption", "intitulé", array());
+		$this->addTextField("website_caption", "Intitulé", array());
 		//website_link - CampaignTemplateImporter_TypeMapper_Url
 		$this->addUrlField("website_link", "Lien du site", array());
 		//adresse - CampaignTemplateImporter_TypeMapper_Textarea
@@ -70,16 +68,14 @@ class fleuronsCampaignAnniversaireWizzardForm extends czForm {
 		//phone - CampaignTemplateImporter_TypeMapper_Text
 		$this->addTextField("phone", "Téléphone", array());
 		//contact_caption - CampaignTemplateImporter_TypeMapper_Text
-		$this->addTextField("contact_caption", "intitulé", array());
+		$this->addTextField("contact_caption", "Intitulé", array());
 		//contact_link - CampaignTemplateImporter_TypeMapper_Url
-		$this->addUrlField("contact_link", "Lien du site", array());
+		$this->addUrlField("contact_link", "Email du contact", array());
 		//footer_content - CampaignTemplateImporter_TypeMapper_Wysiwyg
 		//$this->addWysiwygField("footer_content", "Contenu", array("height" => 300), array());
 
 		$this->widgetSchema["footer_content"] = $this->createWidget(array('label' => 'Contenu'));
 		$this->validatorSchema["footer_content"] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp("footer_content", '');
-		$this->getWidgetSchema()->setLabel("footer_content", "Contenu");
-
 	}
 }

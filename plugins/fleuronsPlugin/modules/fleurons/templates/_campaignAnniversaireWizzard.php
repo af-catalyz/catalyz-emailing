@@ -110,8 +110,7 @@
 			<td style="line-height:0; font-size: 0;" width="22"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/sep_wh.gif" width="22" height="1" alt="" border="0" /></td>
 			<td style="line-height:0; font-size: 0;" width="108">
 			<?php if(!empty($parameters["promo_code"]) && is_file(sfConfig::get('sf_web_dir').$parameters["promo_code"])){
-				$path_infos =   getimagesize(sfConfig::get('sf_web_dir').thumbnail_path($parameters["promo_code"], 108, false));
-				printf('<img src="%s%s" alt="" %s border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["promo_code"], 108, false), $path_infos[3]);
+				printf('<img src="%s%s" alt="" %s border="0" />', CatalyzEmailing::getApplicationUrl(), thumbnail_path($parameters["promo_code"], 108, false), 	getThumbnailSize($parameters["promo_code"], 108, false));
 			}else{
 				echo '&nbsp;';
 			}
@@ -134,7 +133,7 @@
 		</tr>
 		<tr valign="bottom">
 			<td style="line-height:0; font-size: 0;" width="130"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/pre_footer_l.jpg" width="130" height="32" alt="" border="0" /></td>
-			<td width="340"><a href="javascript://" target="_blank"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/link.jpg" width="340" height="32" alt="" border="0" /></a></td>
+			<td width="340"><!--a href="javascript://" target="_blank"--><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/link.jpg" width="340" height="32" alt="" border="0" /><!--/a--></td>
 			<td style="line-height:0; font-size: 0;" width="130"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignAnniversaireWizzard/pre_footer_r1.jpg" width="130" height="32" alt="" border="0" /></td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;" valign="top">
