@@ -689,6 +689,22 @@ EOF;
         		$template->setInitializer('fleuronsCampaignAnniversaireWizzardCampaignTemplateInitializer');
         		$template->setTemplate(false);
         		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('Promo');
+        		$template->setClassName('fleuronsCampaignPromoWizzardCampaignTemplateHandler');
+        		$template->setPreviewFilename('/fleuronsPlugin/images/promo.jpg');
+        		$template->setInitializer('fleuronsCampaignPromoWizzardCampaignTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
+
+        		$template = new CampaignTemplate();
+        		$template->setName('OpeSpécial');
+        		$template->setClassName('fleuronsCampaignOpeSpecialWizzardCampaignTemplateHandler');
+        		$template->setPreviewFilename('/fleuronsPlugin/images/opespecial.jpg');
+        		$template->setInitializer('fleuronsCampaignOpeSpecialWizzardCampaignTemplateInitializer');
+        		$template->setTemplate(false);
+        		$template->save();
         		break;
 
         } // switch
