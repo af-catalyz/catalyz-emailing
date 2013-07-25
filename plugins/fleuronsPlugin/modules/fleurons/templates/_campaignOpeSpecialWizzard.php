@@ -4,7 +4,7 @@
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
-<body bgcolor="#FFFFFF" alink="#392b2e" vlink="#392b2e" link="#392b2e">
+<body alink="#392b2e" vlink="#392b2e" link="#392b2e">
 	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr valign="top">
 			<td align="center">
@@ -13,22 +13,26 @@
 		</tr>
 	</table>
 
-	<table width="296" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr style="line-height:0; font-size: 0;" valign="top">
+			<td bgcolor="#FFFFFF" width="152"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/sep_wh.gif" width="16" height="1" alt="" border="0" /></td>
 			<td width="88"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/header01.jpg" width="88" height="82" alt="" border="0" /></td>
 			<td width="128">
 				<a href="javascript://" target="_blank"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/logo.jpg" width="128" height="82" alt="" border="0" /></a></td>
 			<td width="80"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/header02.jpg" width="80" height="82" alt="" border="0" /></td>
+			<td bgcolor="#FFFFFF" width="152"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/sep_wh.gif" width="16" height="1" alt="" border="0" /></td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;" valign="top">
+			<td bgcolor="#FFFFFF" width="152"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/sep_wh.gif" width="16" height="1" alt="" border="0" /></td>
 			<td colspan="3"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/header03.jpg" width="296" height="31" alt="" border="0" /></td>
+			<td bgcolor="#FFFFFF" width="152"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/sep_wh.gif" width="16" height="1" alt="" border="0" /></td>
 		</tr>
 	</table>
 
 	<?php if (!empty($parameters["title"])): ?>
-	<table width="543" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
+	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr style="line-height:0; font-size: 0;" valign="top">
-			<td><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/title_t.jpg" width="543" height="42" alt="" border="0" /></td>
+			<td align="center"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/title_t.jpg" width="543" height="42" alt="" border="0" /></td>
 		</tr>
 		<tr valign="top">
 			<td align="center">
@@ -38,7 +42,7 @@
 			</td>
 		</tr>
 		<tr style="line-height:0; font-size: 0;" valign="top">
-			<td><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/title_b.jpg" width="543" height="34" alt="" border="0" /></td>
+			<td align="center"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/title_b.jpg" width="543" height="34" alt="" border="0" /></td>
 		</tr>
 	</table>
 	<?php endif ?>
