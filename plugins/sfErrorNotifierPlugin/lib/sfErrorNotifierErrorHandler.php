@@ -105,7 +105,7 @@ class sfErrorNotifierErrorHandler
                 $errors = array_merge($errors, array( E_CORE_WARNING, E_COMPILE_WARNING, E_STRICT));
              }
 
-            if (in_array($lastError['type'], $errors)) {
+            if (in_array($lastError['type'], $errors) && class_exists('sfErrorNotifier')) {
                sfErrorNotifier::notifyException(new ErrorException(
                  @$lastError['message'], @$lastError['type'], @$lastError['type'],
                  @$lastError['file'], @$lastError['line']));
