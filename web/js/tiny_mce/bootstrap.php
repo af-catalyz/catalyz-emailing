@@ -6,5 +6,6 @@ include SF_ROOT_DIR . '/config/ProjectConfiguration.class.php';
 $configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'prod', false);
 sfContext::createInstance($configuration);
 sfConfig::set('sf_web_debug', false);
+sfConfig::set('app_sfErrorNotifier_enabled', false);
 
 ?>
