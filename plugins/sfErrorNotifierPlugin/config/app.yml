@@ -6,6 +6,10 @@ af:
     reportPHPWarnings: false     # This will let you be notified not only of
     report404:    true   # Also report 404 errors
 
+tinymce:
+  sfErrorNotifier:
+    enabled:    false  # Global enable or disable per env
+
 
 prod:
   sfErrorNotifier:
