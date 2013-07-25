@@ -75,7 +75,7 @@
 			<td style="line-height:0; font-size: 0;" width="20"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/sep_wh.gif" width="1" height="1" alt="" border="0" /></td>
 			<td width="562" align="center">
 				<font face="Times" style="line-height: 30px; font-size: 24px;font-style: italic;" size="2" color="#392b2e">
-				<?php echo nl2br(htmlentities(utf8_decode($parameters["middle_content"]))); ?>
+				<?php if(isset($parameters["middle_content"])){echo nl2br(htmlentities(utf8_decode($parameters["middle_content"])));} ?>
 				</font>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="18"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignOpeSpecialWizzard/sep_wh.gif" width="1" height="1" alt="" border="0" /></td>

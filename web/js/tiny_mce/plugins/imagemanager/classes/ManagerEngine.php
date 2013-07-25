@@ -659,7 +659,7 @@ class Moxiecode_ManagerEngine {
 					break;
 
 				case "onUpload":
-					$result =& $plugin->onUpload($this, $args[0], $args[1]);
+					$result = $plugin->onUpload($this, $args[0], $args[1]);
 
 					if (!is_null($result))
 						return $result;

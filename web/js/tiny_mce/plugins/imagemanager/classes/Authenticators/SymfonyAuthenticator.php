@@ -10,7 +10,7 @@
  */
 
 // symfony spoils $cmd, important variable for ImageManager action
-$_iMHidden = @$cmd;
+$_iMHidden = isset($cmd)?$cmd:null;
 //include SF_ROOT_DIR.'/web/index.php';
 if (!defined('SF_ROOT_DIR')) {
 	// assuming standard location for plugin

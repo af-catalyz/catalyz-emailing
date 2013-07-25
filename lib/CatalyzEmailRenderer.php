@@ -121,7 +121,7 @@ class CatalyzEmailRenderer {
     static function changeUlTag($content, $color)
     {
         $doc = new DOMDocument('1.0', 'UTF-8');
-    		if (function_exists(mb_convert_encoding)) {
+    		if (function_exists('mb_convert_encoding')) {
     			$content = mb_convert_encoding($content, 'HTML-ENTITIES', "UTF-8");
     		}
         @$doc->loadHTML($content);
