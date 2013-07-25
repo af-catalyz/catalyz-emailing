@@ -41,14 +41,14 @@
 		<tr valign="top">
 			<td style="line-height:0; font-size: 0;" width="15"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_brown.gif" width="3" height="1" alt="" border="0" /></td>
 			<td width="570" align="center" valign="top">
-				<font face="Times" style="font-size: 12px;line-height: 21px;" size="2" color="#FFFFFF">
+				<font face="Times New Roman, Georgia" style="font-size: 14px;line-height: 21px;" size="2" color="#FFFFFF">
 				<?php
 		$total = count($parameters["header_links"]);
 		foreach($parameters["header_links"] as $header_links): ?>
 
 				<?php
 					if(!empty($header_links["header_links_link"])){
-						printf('<a style="color:#999999;text-decoration: none;" href="%s" target="_blank">%s</a>', czWidgetFormLink::displayLink($header_links["header_links_link"]), !empty($header_links["header_links_caption"])?htmlentities($header_links["header_links_caption"], ENT_COMPAT, 'utf-8'):'LIEN');
+						printf('<a style="color:#FFFFFF;text-decoration: none;" href="%s" target="_blank">%s</a>', czWidgetFormLink::displayLink($header_links["header_links_link"]), !empty($header_links["header_links_caption"])?htmlentities($header_links["header_links_caption"], ENT_COMPAT, 'utf-8'):'LIEN');
 					}
 					$total--;
 					if ($total > 0) {
@@ -75,7 +75,7 @@
 		<tr valign="top">
 			<td style="line-height:0; font-size: 0;" width="18"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_wh.gif" width="18" height="1" alt="" border="0" /></td>
 			<td width="568" align="center">
-				<font face="Times" style="font-size: 30px;line-height: 34px;" size="2" color="#c2bf4b">
+				<font face="Times New Roman, Georgia" style="font-size: 30px;line-height: 34px;" size="2" color="#c2bf4b">
  			  <?php echo htmlentities($parameters["title"], ENT_COMPAT, 'utf-8'); ?>
 				</font>
 			</td>
@@ -96,7 +96,7 @@
 			<td style="line-height:0; font-size: 0;" width="18"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_wh.gif" width="18" height="1" alt="" border="0" /></td>
 			<td style="line-height:0; font-size: 0;" width="12"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_wh.gif" width="12" height="1" alt="" border="0" /></td>
 			<td width="543">
-				<?php  $renderer = new CatalyzEmailRenderer("Times", "#343434", "font-size: 18px;line-height: 22px;"); echo $renderer->renderWysiwyg($parameters["main_content"], "#343434");  ?>
+				<?php  $renderer = new CatalyzEmailRenderer("Times New Roman, Georgia", "#343434", "font-size: 18px;line-height: 22px;"); echo $renderer->renderWysiwyg($parameters["main_content"], "#343434");  ?>
 			</td>
 			<td style="line-height:0; font-size: 0;" width="13"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_wh.gif" width="13" height="1" alt="" border="0" /></td>
 			<td style="line-height:0; font-size: 0;" width="14"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_wh.gif" width="14" height="1" alt="" border="0" /></td>
@@ -161,8 +161,8 @@ if (!empty($main_products["main_products_link"])) {
 				<?php if (!empty($main_products["main_products_price"]) ) : ?>
 				<table width="286" cellspacing="0" cellpadding="0" border="0">
 					<tr valign="top">
-						<td bgcolor="#c2bf4b" rowspan="2" width="89" valign="bottom" align="center">
-							<font face="Trebuchet MS" style="font-size: 28px;line-height: 30px;" size="2" color="#FFFFFF"><?php if(!empty($main_products["main_products_price"])){ ?><?php echo htmlentities($main_products["main_products_price"], ENT_COMPAT,'utf-8'); ?><?php } ?></font>
+						<td bgcolor="#c2bf4b" rowspan="2" width="89" valign="middle" align="center">
+							<font face="Trebuchet MS" style="font-size: 32px;line-height: 34px;" size="2" color="#FFFFFF"><?php if(!empty($main_products["main_products_price"])){ ?><?php echo htmlentities($main_products["main_products_price"], ENT_COMPAT,'utf-8'); ?><?php } ?></font>
 						</td>
 
 						<td style="line-height:0; font-size: 0;" bgcolor="#c2bf4b" width="62" align="right"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/price_l.gif" width="34" height="18" alt="" border="0" /></td>
@@ -172,9 +172,9 @@ if (!empty($main_products["main_products_link"])) {
 						</td>
 					</tr>
 					<tr valign="top">
-						<td bgcolor="#c2bf4b" width="62" align="center" valign="bottom">
+						<td bgcolor="#c2bf4b" width="62" align="center" valign="middle">
 							<del>
-								<font face="Trebuchet MS" style="font-size: 18px;line-height: 19px;font-style: italic;" size="2" color="#3f3033"><?php if(!empty($main_products["main_products_strike_price"])){ ?><?php echo htmlentities($main_products["main_products_strike_price"], ENT_COMPAT,'utf-8') ; ?><?php } ?></font>
+								<font face="Trebuchet MS" style="font-size: 20px;line-height: 21px;font-style: italic;" size="2" color="#3f3033"><?php if(!empty($main_products["main_products_strike_price"])){ ?><?php echo htmlentities($main_products["main_products_strike_price"], ENT_COMPAT,'utf-8') ; ?><?php } ?></font>
 							</del>
 						</td>
 						<td bgcolor="#c2bf4b" style="line-height:0; font-size: 0;" valign="top" align="left" width="9"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/price_r2.gif" width="9" height="25" alt="" border="0" /></td>
@@ -291,8 +291,8 @@ if (!empty($main_products["main_products_link"])) {
 ) : ?>
 				<tr valign="top">
 					<td style="line-height:0; font-size: 0;" width="5" rowspan="2"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_brown.gif" width="5" height="1" alt="" border="0" /></td>
-					<td bgcolor="#c2bf4b" rowspan="2" width="89" valign="bottom" align="center">
-						<font face="Trebuchet MS" style="font-size: 28px;line-height: 30px;" size="2" color="#FFFFFF">
+					<td bgcolor="#c2bf4b" rowspan="2" width="89" valign="middle" align="center">
+						<font face="Trebuchet MS" style="font-size: 32px;line-height: 34px;" size="2" color="#FFFFFF">
 						<?php if(!empty($secondary_products["secondary_products_left_price"])){ ?><?php echo htmlentities($secondary_products["secondary_products_left_price"], ENT_COMPAT,'utf-8'); ?><?php } ?>
 						</font>
 					</td>
@@ -304,9 +304,9 @@ if (!empty($main_products["main_products_link"])) {
 					<td style="line-height:0; font-size: 0;" width="5" rowspan="2"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_brown.gif" width="5" height="1" alt="" border="0" /></td>
 				</tr>
 				<tr valign="top">
-					<td bgcolor="#c2bf4b" width="62" align="center" valign="bottom">
+					<td bgcolor="#c2bf4b" width="62" align="center" valign="middle">
 						<del>
-							<font face="Trebuchet MS" style="font-size: 18px;line-height: 19px;font-style: italic;" size="2" color="#3f3033"><?php if(!empty($secondary_products["secondary_products_left_strike_price"])){ ?><?php echo htmlentities($secondary_products["secondary_products_left_strike_price"], ENT_COMPAT,'utf-8'); ?><?php } ?></font>
+							<font face="Trebuchet MS" style="font-size: 20px;line-height: 21px;font-style: italic;" size="2" color="#3f3033"><?php if(!empty($secondary_products["secondary_products_left_strike_price"])){ ?><?php echo htmlentities($secondary_products["secondary_products_left_strike_price"], ENT_COMPAT,'utf-8'); ?><?php } ?></font>
 						</del>
 					</td>
 					<td bgcolor="#c2bf4b" style="line-height:0; font-size: 0;" valign="top" align="left" width="9"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/price_r2.gif" width="9" height="25" alt="" border="0" /></td>
@@ -401,8 +401,8 @@ if (!empty($secondary_products["secondary_products_right_link"])) {
 ) : ?>
 				<tr valign="top">
 					<td style="line-height:0; font-size: 0;" width="5" rowspan="2"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_brown.gif" width="5" height="1" alt="" border="0" /></td>
-					<td bgcolor="#c2bf4b" rowspan="2" width="89" valign="bottom" align="center">
-						<font face="Trebuchet MS" style="font-size: 28px;line-height: 30px;" size="2" color="#FFFFFF">
+					<td bgcolor="#c2bf4b" rowspan="2" width="89" valign="middle" align="center">
+						<font face="Trebuchet MS" style="font-size: 32px;line-height: 34px;" size="2" color="#FFFFFF">
 						<?php if(!empty($secondary_products["secondary_products_right_price"])){ ?><?php echo htmlentities($secondary_products["secondary_products_right_price"], ENT_COMPAT,'utf-8'); ?><?php } ?>
 						</font>
 					</td>
@@ -414,9 +414,9 @@ if (!empty($secondary_products["secondary_products_right_link"])) {
 					<td style="line-height:0; font-size: 0;" width="5" rowspan="2"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_brown.gif" width="5" height="1" alt="" border="0" /></td>
 				</tr>
 				<tr valign="top">
-					<td bgcolor="#c2bf4b" width="62" align="center" valign="bottom">
+					<td bgcolor="#c2bf4b" width="62" align="center" valign="middle">
 						<del>
-							<font face="Trebuchet MS" style="font-size: 18px;line-height: 19px;font-style: italic;" size="2" color="#3f3033"><?php if(!empty($secondary_products["secondary_products_right_strike_price"])){ ?><?php echo htmlentities($secondary_products["secondary_products_right_strike_price"], ENT_COMPAT,'utf-8'); ?><?php } ?></font>
+							<font face="Trebuchet MS" style="font-size: 20px;line-height: 21px;font-style: italic;" size="2" color="#3f3033"><?php if(!empty($secondary_products["secondary_products_right_strike_price"])){ ?><?php echo htmlentities($secondary_products["secondary_products_right_strike_price"], ENT_COMPAT,'utf-8'); ?><?php } ?></font>
 						</del>
 					</td>
 					<td bgcolor="#c2bf4b" style="line-height:0; font-size: 0;" valign="top" align="left" width="9"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/price_r2.gif" width="9" height="25" alt="" border="0" /></td>

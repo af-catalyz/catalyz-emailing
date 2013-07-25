@@ -2,7 +2,7 @@
 
 $formatter = new CatalyzFormFormatter3($form);
 
-$formatter->startTabs('Haut de page', 'Illustration', 'Contenu','Mentions légales','Bas de page');
+$formatter->startTabs('Haut de page', 'Illustration', 'Contenu','Conditions du jeu','Bas de page');
 $formatter->renderField('title');
 $formatter->renderField('top_content');
 

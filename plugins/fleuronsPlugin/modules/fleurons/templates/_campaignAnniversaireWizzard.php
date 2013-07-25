@@ -4,6 +4,9 @@
 	<title>#SUBJECT#</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 </head>
+
+<?php use_helper('fleurons') ?>
+
 <body alink="#FFFFFF" vlink="#FFFFFF" link="#FFFFFF">
 	<table width="600" bgcolor="#ffffff" align="center" cellspacing="0" cellpadding="0" border="0">
 		<tr valign="top">
@@ -52,7 +55,11 @@
 				<table width="385" cellspacing="0" cellpadding="0" border="0">
 					<tr>
 						<td width="385">
-							<?php if (!empty($parameters["right_content"])) { $renderer = new CatalyzEmailRenderer("Times", "#000000", "font-size: 12px;line-height: 20px;"); echo $renderer->renderWysiwyg($parameters["right_content"], "#000000"); } ?>
+							<?php if (!empty($parameters["right_content"])) {
+
+								echo renderFleuronsAnniversaireWysiwyg($parameters["right_content"], 'font-size: 12px;line-height: 20px;', '#000000');
+
+							} ?>
 						</td>
 					</tr>
 				</table>

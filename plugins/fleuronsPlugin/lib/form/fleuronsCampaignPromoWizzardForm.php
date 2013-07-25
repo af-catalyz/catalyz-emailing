@@ -39,11 +39,11 @@ class fleuronsCampaignPromoWizzardForm extends czForm {
 		$this->addSubformField("secondary_products", "Produits secondaires", "fleuronsCampaignPromoWizzardForm_secondary_products", "title", array());
 		//green_content - CampaignTemplateImporter_TypeMapper_Wysiwyg
 		//$this->addWysiwygField("green_content", "Contenu", array("height" => 300), array());
-		$this->widgetSchema["green_content"] = $this->createWidget(array('label' => 'Contenu'));
+		$this->widgetSchema["green_content"] = $this->createWidget(array('label' => 'Annonce promotionnelle'));
 		$this->validatorSchema["green_content"] = new sfValidatorString(array('required' => false));
 		$this->getWidgetSchema()->setHelp("green_content", '');
 		//mentions_content - CampaignTemplateImporter_TypeMapper_Textarea
-		$this->addTextareaField("mentions_content", "Contenu", array('style' => 'width: 700px'));
+		$this->addTextareaField("mentions_content", "Précisions sur opération promotionnelle", array('style' => 'width: 700px'));
 		//livraison_link - CampaignTemplateImporter_TypeMapper_Url
 		$this->addUrlField("livraison_link", "Lien du bouton", array());
 		//paiement_link - CampaignTemplateImporter_TypeMapper_Url

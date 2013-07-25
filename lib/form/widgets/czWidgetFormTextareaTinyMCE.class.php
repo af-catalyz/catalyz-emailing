@@ -15,7 +15,8 @@ class czWidgetFormTextareaTinyMCE extends sfWidgetFormTextarea
 
 
 		$config = 'language: "' . sfConfig::get('app_catalyz_language','fr') . '",';
-		$config .= 'relative_urls: false,';
+		$config .= 'document_base_url: "' . CatalyzEmailing::getApplicationUrl() . '",';
+		$config .= 'relative_urls: false,convert_fonts_to_spans : false, remove_script_host : false,';
 		$config .= 'paste_auto_cleanup_on_paste : true,';
 
 		$config .= sfConfig::get('app_tiny_mce_options',
