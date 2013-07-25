@@ -1,6 +1,7 @@
 <?php
 
-define('SF_ROOT_DIR', realpath(dirname(__file__) . '/../../..'));
+define('SF_ROOT_DIR', realpath(__DIR__ . '/../../..'));
+require_once(__DIR__.'/../../../plugins/sfErrorNotifierPlugin/lib/sfErrorNotifier.php');
 include SF_ROOT_DIR . '/config/ProjectConfiguration.class.php';
 $configuration = ProjectConfiguration::getApplicationConfiguration('frontend', 'prod', false);
 sfContext::createInstance($configuration);
