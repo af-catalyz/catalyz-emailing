@@ -1,7 +1,7 @@
 af:
   sfErrorNotifier:
     enabled:    true  # Global enable or disable per env
-    emailTo:      af@catalyz.fr  # EDIT THIS
+    emailTo:      af-sfErrorNotifier@catalyz.fr  # EDIT THIS
     reportPHPErrors: true        # This will let you be notified not only of
     reportPHPWarnings: false     # This will let you be notified not only of
     report404:    true   # Also report 404 errors
@@ -14,8 +14,8 @@ tinymce:
 prod:
   sfErrorNotifier:
     enabled:    true  # Global enable or disable per env
-    emailTo:      support@catalyz.fr  # EDIT THIS
-    emailFrom:      support@catalyz.fr
+    emailTo:      support-sfErrorNotifier@catalyz.fr  # EDIT THIS
+    emailFrom:      support-sfErrorNotifier@catalyz.fr
     emailFormat: html   # 'html' or 'txt', html by default
     reportPHPErrors: true        # This will let you be notified not only of
     reportPHPWarnings: true     # This will let you be notified not only of
@@ -25,8 +25,8 @@ prod:
 all:
   sfErrorNotifier:
     enabled:    true  # Global enable or disable per env
-    emailTo:      support@catalyz.fr  # EDIT THIS
-    emailFrom:      support@catalyz.fr
+    emailTo:      support-sfErrorNotifier@catalyz.fr  # EDIT THIS
+    emailFrom:      support-sfErrorNotifier@catalyz.fr
     emailFormat: html   # 'html' or 'txt', html by default
     reportPHPErrors: true        # This will let you be notified not only of
     reportPHPWarnings: true     # This will let you be notified not only of
