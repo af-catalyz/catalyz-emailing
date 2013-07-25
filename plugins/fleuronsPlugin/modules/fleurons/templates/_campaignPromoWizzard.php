@@ -368,7 +368,7 @@ if (!empty($main_products["main_products_link"])) {
 			<?php endif ?>
 			</td>
 			<td style="line-height:0; font-size: 0;" bgcolor="#bbafb1" width="1"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/border.gif" width="1" height="1" alt="" border="0" /></td>
-			<td style="line-height: 0; font-size: 0; background-image: url(repeat_sep.gif); background-repeat: repeat-y;" width="16" bgcolor="#FFFFFF"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_wh.gif" width="16" height="1" alt="" border="0" /></td>
+			<td style="line-height: 0; font-size: 0; background-image: url(<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/repeat_sep.gif); background-repeat: repeat-y;" width="16" bgcolor="#FFFFFF"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/sep_wh.gif" width="16" height="1" alt="" border="0" /></td>
 			<td style="line-height:0; font-size: 0;" bgcolor="#bbafb1" width="1"><img src="<?php echo CatalyzEmailing::getApplicationUrl() ?>/fleuronsPlugin/images/campaignPromoWizzard/border.gif" width="1" height="1" alt="" border="0" /></td>
 			<td width="274">
 
