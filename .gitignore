@@ -1,3 +1,17 @@
 cache/*
 log/*
 web/uploads/*
+web/asfoPlugin/*
+web/be3cPlugin/*
+web/cimlecPlugin/*
+web/dpiPlugin/*
+web/elaulPlugin/*
+web/fleuronsPlugin/*
+web/KogysPlugin/*
+web/lcfPlugin/*
+web/nutritisPlugin/*
+web/OfficeTourismeMontaubanPlugin/*
+web/SemAutomationPlugin/*
+web/sfFormExtraPlugin/*
+web/sfPropelPlugin/*
+web/vigourouxPlugin/*

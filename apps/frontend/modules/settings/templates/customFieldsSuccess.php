@@ -16,6 +16,31 @@
 
 </form>
 
+<?php
+
+function getSelectTypeOptions($default = null){
+	$copy = $choices = CustomFields::instance()->getCustomFieldsType();
+
+	if ($default == null) {
+		array_flip($copy);
+		$default = array_shift($copy);
+	}
+
+
+	$options = '';
+	foreach ($choices as $key => $caption){
+		if ($default == $key) {
+			$options	.= sprintf('<option selected="selected" value="%s">%s</option>', $key, $caption);
+		}else{
+			$options	.= sprintf('<option value="%s">%s</option>', $key, $caption);
+		}
+	}
+
+	return $options;
+}
+
+?>
+
 <script type="text/javascript">
 /* <![CDATA[ */
 
@@ -51,17 +76,34 @@ function addFieldset(value){
 
 	$('#holder').append('<div class="well span6" id="fieldset_'+ nb +'"><h3>Champ personnalisé n°<span class="nb_fieldset">'+ fieldsetCount
 	+'</span> <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'fieldset_'+ nb +'\');}">&times;</a></h3><hr/>'
-	+'<div class="control-group">'
-	+'Intitulé du champ'
-	+'<div class="controls"><input type="text" class="span6 listen" value="'+ value +'" name="custom_contact[element'+ nb +']"/></div></div>'
-	+'</div>');
+	+'<div class="control-group">Intitulé du champ<div class="controls"><input type="text" class="span6 listen" value="'+ value +'" name="custom_contact[element'+ nb +'][caption]"/></div></div>'
+	+'<div class="control-group">Code du champ<div class="controls"><input type="text" class="span6 listen" value="" name="custom_contact[element'+ nb +'][code]"/></div></div>'
+	+'<div class="control-group">Code du champ<div class="controls"><select name="custom_contact[element'+ nb +'][type]"><?php echo getSelectTypeOptions() ?></select></div></div>'
+	);
 
 	checkAddLink();
 	return true;
 }
 
 function displayDefaults(){
-	$('#holder').append('<?php $cpt = 1; foreach ($customFields as $value){	$random = rand(0,100); echo escape_javascript(sprintf('<div class="well span6" id="fieldset_%s"><h3>Champ personnalisé n°<span class="nb_fieldset">%s</span> <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){deleteFieldset(\'fieldset_%s\');}">&times;</a></h3><hr/><div class="control-group">Intitulé du champ<div class="controls"><input type="text" class="span6 listen" value="%s" name="custom_contact[element%s]"/></div></div></div>',$random, $cpt,$random,$value,$random)); $cpt++;}	?>');
+	$('#holder').append('<?php $cpt = 1;
+foreach ($customFields as $value){	$random = rand(0,100);
+
+	echo escape_javascript(sprintf('<div class="well span6" id="fieldset_%1$s">
+<h3>Champ personnalisé n°<span class="nb_fieldset">%2$s</span>
+ <a class="close delete_link" href="javascript://" title="Supprimer cette liste" onclick="if (confirm(\'Etes vous sur de vouloir supprimer ce champ? Cette opération ne peut pas être annulée.\')){
+ deleteFieldset(\'fieldset_%1$s\');}">&times;</a></h3><hr/><div class="control-group">Intitulé du champ<div class="controls"><input type="text" class="span6 listen"
+ value="%3$s"
+ name="custom_contact[element%1$s][caption]"/></div></div>
+ <div class="control-group">Code du champ<div class="controls"><input type="text" class="span6 listen"
+ value="%4$s"
+ name="custom_contact[element%1$s][code]"/></div></div>
+ <div class="control-group">Code du champ<div class="controls"><select name="custom_contact[element%1$s][type]">%5$s</select></div></div>
+
+
+
+ </div>',$random, $cpt,$value['caption'],$value['code'], getSelectTypeOptions($value['type'])));
+	$cpt++;}	?>');
 }
 
 $(document).ready(function() {

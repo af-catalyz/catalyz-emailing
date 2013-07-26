@@ -10,13 +10,13 @@
 			include_partial('global/flashMessage');
 
 
-			$customFields = CatalyzEmailing::getCustomFields();
+		$customFields = CatalyzEmailing::getCustomFields();
 		$range = '4 colonnes';
 if (!empty($customFields)) {
 	$range = sprintf('entre 4 et %s colonnes', 4+count($customFields));
 }
-printf('<p>Votre fichier excel doit comporter %s comme dans l\'exemple ci dessous:</p>', $range);
-?>
+		printf('<p>Votre fichier excel doit comporter %s comme dans l\'exemple ci dessous:</p>', $range);
+		?>
 
 <table class="table table-striped table-condensed">
 <tr>
@@ -26,9 +26,9 @@ printf('<p>Votre fichier excel doit comporter %s comme dans l\'exemple ci dessou
 	<th>Email</th>
 	<?php
 		foreach ($customFields as $key => $value){
-			printf('<th>%s (optionnel)</th>', $value);
+			printf('<th>%s (optionnel)</th>', ContactPeer::getfieldLabel($key));
 		}
-	?>
+		?>
 </tr>
 <tr>
 	<td>Jean</td>
@@ -59,9 +59,9 @@ printf('<p>Votre fichier excel doit comporter %s comme dans l\'exemple ci dessou
 
 <hr/>
 
-<?php
-$errors = $form->getErrorSchema();
- ?>
+	<?php
+	$errors = $form->getErrorSchema();
+		?>
 
 
 
@@ -70,19 +70,19 @@ $errors = $form->getErrorSchema();
 
 				<?php
 
-				$class = '';
+			$class = '';
 if (!empty($errors['scheduled_at'])) {
 	$class = ' error';
 }
 
 		printf('<div class="control-group%s">', $class);
-				 ?>
+		?>
 					<label class="control-label"><?php echo $form['file']->renderLabel() ?></label>
 					<div class="controls">
 						<?php
-							echo $form['file'];
-							echo $form['file']->renderError();
-						?>
+						echo $form['file'];
+		echo $form['file']->renderError();
+		?>
 					</div>
 				</div>
 				<?php if (sfConfig::get('app_options_contact_group', false)):?>
@@ -90,9 +90,9 @@ if (!empty($errors['scheduled_at'])) {
 					<label class="control-label"><?php echo $form['operation']->renderLabel() ?></label>
 					<div class="controls">
 						<?php
-							echo $form['operation'];
-							echo $form['operation']->renderError();
-						?>
+						echo $form['operation'];
+					echo $form['operation']->renderError();
+					?>
 					</div>
 				</div>
 				<?php endif ?>
@@ -113,18 +113,18 @@ if (!empty($errors['scheduled_at'])) {
 <script type="text/javascript">
 /* <![CDATA[ */
 
-	$(document).ready(function() {
-		$("#contact_import_new_group").live("focus", function(){
-			$('#contact_import_operation_2').attr('checked','checked')
-		});
-		$("#contact_import_is_test_group").live("change", function(){
-			$('#contact_import_operation_2').attr('checked','checked')
-		});
-
-		$('.listenGroups input:checkbox').live("change", function(){
-			$('#contact_import_operation_3').attr('checked','checked')
-		});
+$(document).ready(function() {
+	$("#contact_import_new_group").live("focus", function(){
+		$('#contact_import_operation_2').attr('checked','checked')
 	});
+	$("#contact_import_is_test_group").live("change", function(){
+		$('#contact_import_operation_2').attr('checked','checked')
+	});
+
+	$('.listenGroups input:checkbox').live("change", function(){
+		$('#contact_import_operation_3').attr('checked','checked')
+	});
+});
 
 
 //	#contact_import_new_group -> #contact_import_operation_2

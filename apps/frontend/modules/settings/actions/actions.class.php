@@ -16,17 +16,17 @@ class settingsActions extends sfActions
 		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url' );
 	}
 
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
-  public function executeIndex(sfWebRequest $request)
-  {
-  	$this->userList = sfGuardUserProfilePeer::doSelectJoinsfGuardUser(new Criteria());
+	/**
+	 * Executes index action
+	 *
+	 * @param sfRequest $request A request object
+	 */
+	public function executeIndex(sfWebRequest $request)
+	{
+		$this->userList = sfGuardUserProfilePeer::doSelectJoinsfGuardUser(new Criteria());
 
-    return sfView::SUCCESS;
-  }
+		return sfView::SUCCESS;
+	}
 
 	public function executeAdd($request)
 	{
@@ -91,42 +91,42 @@ class settingsActions extends sfActions
 
 	public function executeContactList(sfWebRequest $request)
 	{
-			$sf_user = $this->getUser();
-			$default = CatalyzEmailing::getContactListDefaultColumns();
+		$sf_user = $this->getUser();
+		$default = CatalyzEmailing::getContactListDefaultColumns();
 
-			$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
-			$users = $czSettings->get(CatalyzSettings::COLUMN_CONFIGURATION_KEY);
+		$czSettings =/*(CatalyzSettings)*/ CatalyzSettings::instance();
+		$users = $czSettings->get(CatalyzSettings::COLUMN_CONFIGURATION_KEY);
 
-			$user = empty($users[$sf_user->getProfile()->getId()])?$default:$users[$sf_user->getProfile()->getId()];
+		$user = empty($users[$sf_user->getProfile()->getId()])?$default:$users[$sf_user->getProfile()->getId()];
 
-			$return = array();
-			foreach ($user as $fieldName => $bool) {
-				if (isset($default[$fieldName])) {
-					$return[$fieldName] = $bool;
-				}
-				unset($default[$fieldName]);
-			}
-
-			foreach ($default as $fieldName => $bool) {
+		$return = array();
+		foreach ($user as $fieldName => $bool) {
+			if (isset($default[$fieldName])) {
 				$return[$fieldName] = $bool;
 			}
+			unset($default[$fieldName]);
+		}
 
-			$this->fieldList = $return;
+		foreach ($default as $fieldName => $bool) {
+			$return[$fieldName] = $bool;
+		}
 
-			if ($request->isMethod('post')) {
-					$result = unserialize($request->getParameter('hidden'));
-					$users[$sf_user->getProfile()->getId()] = $result;
-					$czSettings->set(CatalyzSettings::COLUMN_CONFIGURATION_KEY, $users);
+		$this->fieldList = $return;
 
-					$message = sprintf('<h4 class="alert-heading">Configuration modifée</h4><p>Les modifications ont été enregistrée.</p>');
-					$this->getUser()->setFlash('notice_success', $message);
+		if ($request->isMethod('post')) {
+			$result = unserialize($request->getParameter('hidden'));
+			$users[$sf_user->getProfile()->getId()] = $result;
+			$czSettings->set(CatalyzSettings::COLUMN_CONFIGURATION_KEY, $users);
 
-					$this->redirect('@settings_contact_list');
-			}
+			$message = sprintf('<h4 class="alert-heading">Configuration modifée</h4><p>Les modifications ont été enregistrée.</p>');
+			$this->getUser()->setFlash('notice_success', $message);
 
-			$title = sprintf('Modification des paramétres utilisateur %s', sfConfig::get('app_settings_default_suffix'));
-			$this->getResponse()->setTitle($title);
-			return sfView::SUCCESS;
+			$this->redirect('@settings_contact_list');
+		}
+
+		$title = sprintf('Modification des paramétres utilisateur %s', sfConfig::get('app_settings_default_suffix'));
+		$this->getResponse()->setTitle($title);
+		return sfView::SUCCESS;
 
 	}
 
@@ -136,18 +136,20 @@ class settingsActions extends sfActions
 
 		if ($request->isMethod('post')) {
 			$values = $request->getPostParameter('custom_contact', array());
+
 			$cpt = 1;
 			$return = array();
-			foreach ($values as $label) {
-				$return['custom' . $cpt++] = $label;
+			foreach ($values as $details) {
+				if (!empty($details['caption'])) {
+					$return['custom' . $cpt] = array('caption' => $details['caption'], 'code' => !empty($details['code'])?$details['code']:'custom'.$cpt, 'type' => $details['type']);
+					$cpt++;
+				}
 			}
 
 			$czSettings->set(CatalyzSettings::CUSTOM_FIELDS, $return);
 
-
 			$message = sprintf('<h4 class="alert-heading">Configuration modifée</h4><p>Les modifications ont été enregistrée.</p>');
 			$this->getUser()->setFlash('notice_success', $message, FALSE);
-
 		}
 
 		$this->customFields = $czSettings->get(CatalyzSettings::CUSTOM_FIELDS, array());

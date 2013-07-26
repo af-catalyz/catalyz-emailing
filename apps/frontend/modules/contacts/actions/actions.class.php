@@ -16,17 +16,17 @@ class contactsActions extends sfActions
 		sfContext::getInstance()->getConfiguration()->loadHelpers( 'Url' );
 	}
 
- /**
-  * Executes index action
-  *
-  * @param sfRequest $request A request object
-  */
+	/**
+	 * Executes index action
+	 *
+	 * @param sfRequest $request A request object
+	 */
 	public function executeIndex(sfWebRequest $request)
 	{
 		$this->ContactsGroupListOverview = ContactPeer::getContactsGroupList();
 
 		$User = $this->getUser();
-//		$User->getAttributeHolder()->remove('criteria');
+		//		$User->getAttributeHolder()->remove('criteria');
 		$usersViews = CatalyzSettings::instance()->get(CatalyzSettings::COLUMN_CONFIGURATION_KEY);
 		$this->menu = empty($usersViews[$User->getProfile()->getid()])?CatalyzEmailing::getContactListDefaultColumns():$usersViews[$User->getProfile()->getid()];
 
@@ -219,28 +219,28 @@ class contactsActions extends sfActions
 	}
 
 	public function executeUnsubscribe($request)
-  {
-				$contact = ContactPeer::retrieveByPK($request->getParameter('id'));
-				$this->forward404Unless($contact);
+	{
+		$contact = ContactPeer::retrieveByPK($request->getParameter('id'));
+		$this->forward404Unless($contact);
 
-        $criteria = new Criteria();
-        $criteria->add(CampaignContactPeer::CONTACT_ID, $request->getParameter('id'));
-        $criteria->add(CampaignContactPeer::CAMPAIGN_ID, $request->getParameter('campaignId'));
-        $CampaignContact =/*(CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
+		$criteria = new Criteria();
+		$criteria->add(CampaignContactPeer::CONTACT_ID, $request->getParameter('id'));
+		$criteria->add(CampaignContactPeer::CAMPAIGN_ID, $request->getParameter('campaignId'));
+		$CampaignContact =/*(CampaignContact)*/ CampaignContactPeer::doSelectOne($criteria);
 
-				$this->forward404Unless($CampaignContact);
+		$this->forward404Unless($CampaignContact);
 
-        $CampaignContact->setUnsubscribedAt(time());
-        $CampaignContact->save();
+		$CampaignContact->setUnsubscribedAt(time());
+		$CampaignContact->save();
 
-        $contact->setStatus(Contact::STATUS_UNSUBSCRIBED);
-        $contact->save();
+		$contact->setStatus(Contact::STATUS_UNSUBSCRIBED);
+		$contact->save();
 
-				$message = sprintf('<h4 class="alert-heading">Contact désinscrit</h4><p>Le contact "%s" a été désinscrit.</p>',$contact->getFullName());
-				$this->getUser()->setFlash('notice_success', $message);
+		$message = sprintf('<h4 class="alert-heading">Contact désinscrit</h4><p>Le contact "%s" a été désinscrit.</p>',$contact->getFullName());
+		$this->getUser()->setFlash('notice_success', $message);
 
-        $this->redirect('@contact_show?slug=' . $contact->getSlug());
-    }
+		$this->redirect('@contact_show?slug=' . $contact->getSlug());
+	}
 
 	public function executeExport($request)
 	{
@@ -317,7 +317,7 @@ class contactsActions extends sfActions
 		}
 
 		foreach ($customFields as $fieldName => $caption){
-			$this->activeSheet->setCellValueExplicit($letter.'1', $caption.' (optionnel)');
+			$this->activeSheet->setCellValueExplicit($letter.'1', ContactPeer::getfieldLabel($fieldName).' (optionnel)');
 			$letter =  chr(ord($letter)+1);
 		}
 

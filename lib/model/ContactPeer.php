@@ -46,7 +46,14 @@ class ContactPeer extends BaseContactPeer {
 					$tokens[1] = (int)$tokens[1];
 					if ($tokens[1] > 0 && $tokens[1] <= sfConfig::get('app_fields_count')) {
 						if (!empty($customFields['custom' . $tokens[1]])) {
-							return $customFields['custom' . $tokens[1]];
+
+							if (!empty($customFields['custom' . $tokens[1]]['caption']) && trim($customFields['custom' . $tokens[1]]['caption']) != '') {
+								return $customFields['custom' . $tokens[1]]['caption'];
+							}else{
+								return $customFields['custom' . $tokens[1]]['code'];
+							}
+
+
 						} else {
 							return sfConfig::get('app_fields_custom' . $tokens[1], 'Champ personnalisé n°' . $tokens[1]);
 						}
@@ -140,7 +147,7 @@ class ContactPeer extends BaseContactPeer {
 		$criteria = new Criteria();
 		$criteria->addDescendingOrderByColumn(CampaignPeer::UPDATED_AT);
 		$criteria->add(CampaignTemplatePeer::IS_ARCHIVED, FALSE);
-//		$criteria->add(CampaignPeer::IS_ARCHIVED, 0);
+		//		$criteria->add(CampaignPeer::IS_ARCHIVED, 0);
 		$criteria->add(CampaignPeer::STATUS, Campaign::STATUS_SENDING, Criteria::GREATER_EQUAL);
 		$a_campaigns = CampaignPeer::doSelect($criteria);
 
